@@ -1,4 +1,4 @@
-Package: yahoofin
+Package: yahooquey
 Type: Package
 Title: Obtain Historical and Real Time Data from Yahoo Finance
 Version: 0.1.0
