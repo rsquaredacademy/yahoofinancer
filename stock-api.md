@@ -1,5 +1,9 @@
 ### APIs
 
+- Validate
+
+https://query2.finance.yahoo.com/v6/finance/quote/validate?symbols=aapl
+
 - Chart
 
 https://query1.finance.yahoo.com/v8/finance/chart/INFY.NS?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance
@@ -49,3 +53,11 @@ https://query1.finance.yahoo.com/v10/finance/quoteSummary/INFY.NS?formatted=true
 - Options
 
 https://query2.finance.yahoo.com/v7/finance/options/INFY.NS?formatted=true&crumb=iMbBwBZJq43&lang=en-US&region=US&corsDomain=finance.yahoo.com
+
+- Recommended
+
+https://query2.finance.yahoo.com/v6/finance/recommendationsbysymbol/infy.ns
+
+- Technical Indicators
+
+https://query2.finance.yahoo.com/ws/insights/v2/finance/insights?symbol=aapl
