@@ -145,3 +145,125 @@ yfr_fund_profile <- function(symbol) {
     use_series(fundProfile)
 }
 
+yfr_grading_history <- function(symbol) {
+  module <- 'upgradeDowngradeHistory'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(upgradeDowngradeHistory)
+}
+
+yfr_index_trend <- function(symbol) {
+  module <- 'indexTrend'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(indexTrend)
+}
+
+
+yfr_insider_holders <- function(symbol) {
+  module <- 'insiderHolders'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(insiderHolders)
+}
+
+yfr_insider_transactions <- function(symbol) {
+  module <- 'insiderTransactions'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(insiderTransactions)
+}
+
+yfr_institution_ownership <- function(symbol) {
+  module <- 'institutionOwnership'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(institutionOwnership)
+}
+
+yfr_key_stats <- function(symbol) {
+  module <- 'defaultKeyStatistics'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(defaultKeyStatistics)
+}
+
+yfr_major_holders <- function(symbol) {
+  module <- 'majorHoldersBreakdown'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(majorHoldersBreakdown)
+}
+
+yfr_page_views <- function(symbol) {
+  module <- 'pageViews'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(pageViews)
+}
+
+yfr_price <- function(symbol) {
+  module <- 'price'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(price)
+}
+
+yfr_quote_type <- function(symbol) {
+  module <- 'quoteType'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(quoteType)
+}
+
+yfr_recommendation_trend <- function(symbol) {
+  module <- 'recommendationTrend'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(recommendationTrend)
+}
+
+yfr_security_filings <- function(symbol) {
+  module <- 'secFilings'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(secFilings)
+}
+
+yfr_share_purchase_activity <- function(symbol) {
+  module <- 'netSharePurchaseActivity'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(netSharePurchaseActivity)
+}
+
+yfr_summary_detail <- function(symbol) {
+  module <- 'summaryDetail'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(summaryDetail)
+}
+
+yfr_summary_profile <- function(symbol) {
+  module <- 'summaryProfile'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(summaryProfile)
+}
+
+
