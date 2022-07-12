@@ -4,9 +4,10 @@ library(magrittr)
 
 build_url <- function(symbol, module) {
   base_url <- 'https://query1.finance.yahoo.com/v10/finance/quoteSummary/'
-  lang_region <- '.NS?lang=en-US&region=US&modules='
+  lang_region <- '?lang=en-US&region=US&modules='
   cors_domain <- '&corsDomain=finance.yahoo.com'
   paste0(base_url, symbol, lang_region, module, cors_domain)
+
 }
 
 extract_data <- function(url) {
@@ -61,3 +62,86 @@ yfr_earnings <- function(symbol) {
     extract_data() %>%
     use_series(earnings)
 }
+
+yfr_earnings_trend <- function(symbol) {
+  module <- 'earningsTrend'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(earningsTrend) %>%
+    use_series(trend)
+}
+
+yfr_esg_scores <- function(symbol) {
+  module <- 'esgScores'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(esgScores)
+}
+
+yfr_financial_data <- function(symbol) {
+  module <- 'financialData'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(financialData)
+}
+
+yfr_fund_top_holdings <- function(symbol) {
+  module <- 'topHoldings'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(topHoldings)
+}
+
+yfr_fund_bond_holdings <- function(symbol) {
+  yfr_fund_top_holdings(symbol) %>%
+    use_series(bondHoldings)
+}
+
+yfr_fund_bond_ratings <- function(symbol) {
+  yfr_fund_top_holdings(symbol) %>%
+    use_series(bondRatings)
+}
+
+yfr_fund_equity_holdings <- function(symbol) {
+  yfr_fund_top_holdings(symbol) %>%
+    use_series(equityHoldings)
+}
+
+yfr_fund_holding_info <- function(symbol) {
+  yfr_fund_top_holdings(symbol) %>%
+    use_series(holdings)
+}
+
+yfr_fund_sector_weightings <- function(symbol) {
+  yfr_fund_top_holdings(symbol) %>%
+    use_series(sectorWeightings)
+}
+
+yfr_fund_ownership <- function(symbol) {
+  module <- 'fundOwnership'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(fundOwnership)
+}
+
+yfr_fund_performance <- function(symbol) {
+  module <- 'fundPerformance'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(fundPerformance)
+}
+
+yfr_fund_profile <- function(symbol) {
+  module <- 'fundProfile'
+  url <- build_url(symbol, module)
+  url %>%
+    extract_data() %>%
+    use_series(fundProfile)
+}
+
