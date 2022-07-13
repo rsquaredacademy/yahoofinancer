@@ -34,6 +34,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_asset_profile()
 
 ## ------------------------------------------------
+## Method `Ticker$get_calendar_events`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_calendar_events()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -53,6 +60,7 @@ aapl$get_summary_profile()
 \item \href{#method-new}{\code{Ticker$new()}}
 \item \href{#method-set_symbol}{\code{Ticker$set_symbol()}}
 \item \href{#method-get_asset_profile}{\code{Ticker$get_asset_profile()}}
+\item \href{#method-get_calendar_events}{\code{Ticker$get_calendar_events()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -124,6 +132,25 @@ Information related to the company's location, operations, and officers.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_asset_profile()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_calendar_events"></a>}}
+\if{latex}{\out{\hypertarget{method-get_calendar_events}{}}}
+\subsection{Method \code{get_calendar_events()}}{
+Earnings and Revenue expectations for upcoming earnings date.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_calendar_events()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_calendar_events()
 }
 \if{html}{\out{</div>}}
 

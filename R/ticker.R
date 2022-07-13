@@ -5,7 +5,7 @@
 #'
 #' @param symbol Symbol for which data has to be retrieved
 #'
-#' @import R6 httr jsonlite magrittr
+#' @import R6 httr jsonlite magrittr purrr
 #' @docType class
 #' @format An R6 class object
 #' @name Ticker-class
@@ -50,6 +50,20 @@ Ticker <- R6::R6Class(
       req    <- private$resp_data(self$symbol, module)
       private$display_data(req) %>%
         use_series(assetProfile)
+    },
+
+    #' @description
+    #' Earnings and Revenue expectations for upcoming earnings date.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_calendar_events()
+    get_calendar_events = function() {
+      module <- 'calendarEvents'
+      req    <- private$resp_data(self$symbol, module)
+      private$display_data(req) %>%
+        use_series(calendarEvents) %>%
+        use_series(earnings) %>%
+        map(., 'raw')
     },
 
     #' @description

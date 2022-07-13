@@ -13,5 +13,6 @@ Imports:
     httr,
     jsonlite,
     magrittr,
+    purrr,
     R6
 RoxygenNote: 7.1.1
