@@ -35,7 +35,7 @@ Ticker <- R6::R6Class(
     #' @param symbol New symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
-    #' appl.set_symbol('msft')
+    #' appl$set_symbol('msft')
     set_symbol = function(symbol) {
       self$symbol <- symbol
     },
@@ -43,26 +43,13 @@ Ticker <- R6::R6Class(
     #' @description
     #' Return business summary of given symbol
     #' @examples
-    #' aapl = Ticker$new('aapl')
-    #' aapl.get_summary_profile()
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_summary_profile()
     get_summary_profile = function() {
 
-      end_point <- paste0(private$path, self$symbol)
-      url <- modify_url(url = private$base_url, path = end_point)
-      qlist <- list(modules = 'summaryProfile', corsDomain = private$cors_domain)
-
-      resp <- GET(url, query = qlist)
-      parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
-
-      if (http_error(resp)) {
-        stop(private$display_error(resp, parsed), call. = FALSE)
-      } else {
-        parsed %>%
-          use_series(quoteSummary) %>%
-          use_series(result) %>%
-          extract2(1) %>%
-          use_series(summaryProfile)
-      }
+      module <- 'summaryProfile'
+      req    <- private$resp_data(self$symbol, module)
+      private$display_data(req, module)
     }
   ),
 
@@ -70,6 +57,22 @@ Ticker <- R6::R6Class(
     base_url = 'https://query1.finance.yahoo.com',
     path = 'v10/finance/quoteSummary/',
     cors_domain = 'finance.yahoo.com',
+
+    resp_data = function(symbol, module) {
+      end_point <- paste0(path, symbol)
+      url       <- modify_url(url = base_url, path = end_point)
+      qlist     <- list(modules = module, corsDomain = cors_domain)
+      resp      <- GET(url, query = qlist)
+      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      list(resp = resp, parsed = parsed)
+    },
+
+    parse_data = function(parsed) {
+      parsed %>%
+          use_series(quoteSummary) %>%
+          use_series(result) %>%
+          extract2(1)
+    },
 
     display_error = function(resp, parsed) {
       cat(
@@ -80,6 +83,15 @@ Ticker <- R6::R6Class(
         paste('Description:', parsed$quoteSummary$error$description, '\n'),
         sep = ''
       )
+    },
+
+    display_data = function(req, module) {
+      if (http_error(req$resp)) {
+        stop(display_error(req$resp, req$parsed), call. = FALSE)
+      } else {
+        parse_data(req$parsed) %>%
+          use_series(module)
+      }
     }
   )
 )

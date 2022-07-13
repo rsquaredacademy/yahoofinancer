@@ -24,14 +24,14 @@ aapl <- Ticker$new('aapl')
 ## ------------------------------------------------
 
 aapl <- Ticker$new('aapl')
-appl.set_symbol('msft')
+appl$set_symbol('msft')
 
 ## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
-aapl = Ticker$new('aapl')
-aapl.get_summary_profile()
+aapl <- Ticker$new('aapl')
+aapl$get_summary_profile()
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -96,7 +96,7 @@ Set a new symbol.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
-appl.set_symbol('msft')
+appl$set_symbol('msft')
 }
 \if{html}{\out{</div>}}
 
@@ -114,8 +114,8 @@ Return business summary of given symbol
 
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{aapl = Ticker$new('aapl')
-aapl.get_summary_profile()
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_summary_profile()
 }
 \if{html}{\out{</div>}}
 
