@@ -5,7 +5,7 @@
 #'
 #' @param symbol Symbol for which data has to be retrieved
 #'
-#' @import R6 httr jsonlite
+#' @import R6 httr jsonlite magrittr
 #' @docType class
 #' @format An R6 class object
 #' @name Ticker-class
@@ -41,6 +41,18 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Information related to the company's location, operations, and officers.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_asset_profile()
+    get_asset_profile = function() {
+      module <- 'assetProfile'
+      req    <- private$resp_data(self$symbol, module)
+      private$display_data(req) %>%
+        use_series(assetProfile)
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
@@ -49,7 +61,8 @@ Ticker <- R6::R6Class(
 
       module <- 'summaryProfile'
       req    <- private$resp_data(self$symbol, module)
-      private$display_data(req, module)
+      private$display_data(req) %>%
+        use_series(summaryProfile)
     }
   ),
 
@@ -59,9 +72,9 @@ Ticker <- R6::R6Class(
     cors_domain = 'finance.yahoo.com',
 
     resp_data = function(symbol, module) {
-      end_point <- paste0(path, symbol)
-      url       <- modify_url(url = base_url, path = end_point)
-      qlist     <- list(modules = module, corsDomain = cors_domain)
+      end_point <- paste0(private$path, symbol)
+      url       <- modify_url(url = private$base_url, path = end_point)
+      qlist     <- list(modules = module, corsDomain = private$cors_domain)
       resp      <- GET(url, query = qlist)
       parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
       list(resp = resp, parsed = parsed)
@@ -85,12 +98,11 @@ Ticker <- R6::R6Class(
       )
     },
 
-    display_data = function(req, module) {
+    display_data = function(req) {
       if (http_error(req$resp)) {
-        stop(display_error(req$resp, req$parsed), call. = FALSE)
+        stop(private$display_error(req$resp, req$parsed), call. = FALSE)
       } else {
-        parse_data(req$parsed) %>%
-          use_series(module)
+        private$parse_data(req$parsed) 
       }
     }
   )

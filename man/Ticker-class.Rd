@@ -27,6 +27,13 @@ aapl <- Ticker$new('aapl')
 appl$set_symbol('msft')
 
 ## ------------------------------------------------
+## Method `Ticker$get_asset_profile`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_asset_profile()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -45,6 +52,7 @@ aapl$get_summary_profile()
 \itemize{
 \item \href{#method-new}{\code{Ticker$new()}}
 \item \href{#method-set_symbol}{\code{Ticker$set_symbol()}}
+\item \href{#method-get_asset_profile}{\code{Ticker$get_asset_profile()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -97,6 +105,25 @@ Set a new symbol.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 appl$set_symbol('msft')
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_asset_profile"></a>}}
+\if{latex}{\out{\hypertarget{method-get_asset_profile}{}}}
+\subsection{Method \code{get_asset_profile()}}{
+Information related to the company's location, operations, and officers.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_asset_profile()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_asset_profile()
 }
 \if{html}{\out{</div>}}
 
