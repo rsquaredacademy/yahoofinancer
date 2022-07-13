@@ -1,0 +1,85 @@
+#' R6 Class Representing a Ticker
+#'
+#' @description
+#' Base class for getting all data related to ticker from Yahoo Finance API
+#'
+#' @param symbol Symbol for which data has to be retrieved
+#'
+#' @import R6 httr jsonlite
+#' @docType class
+#' @format An R6 class object
+#' @name Ticker-class
+#'
+#' @export
+Ticker <- R6::R6Class(
+
+  "Ticker",
+
+  public = list(
+
+    #' @field symbol Symbol for which data is retrieved
+    symbol = NULL,
+
+    #' @description
+    #' Create a new Ticker object
+    #' @param symbol Symbol
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' @return A new `Ticker` object
+    initialize = function(symbol = NA) {
+      self$symbol <- symbol
+    },
+
+    #' @description
+    #' Set a new symbol.
+    #' @param symbol New symbol
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' appl.set_symbol('msft')
+    set_symbol = function(symbol) {
+      self$symbol <- symbol
+    },
+
+    #' @description
+    #' Return business summary of given symbol
+    #' @examples
+    #' aapl = Ticker$new('aapl')
+    #' aapl.get_summary_profile()
+    get_summary_profile = function() {
+
+      end_point <- paste0(private$path, self$symbol)
+      url <- modify_url(url = private$base_url, path = end_point)
+      qlist <- list(modules = 'summaryProfile', corsDomain = private$cors_domain)
+
+      resp <- GET(url, query = qlist)
+      parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+
+      if (http_error(resp)) {
+        stop(private$display_error(resp, parsed), call. = FALSE)
+      } else {
+        parsed %>%
+          use_series(quoteSummary) %>%
+          use_series(result) %>%
+          extract2(1) %>%
+          use_series(summaryProfile)
+      }
+    }
+  ),
+
+  private = list(
+    base_url = 'https://query1.finance.yahoo.com',
+    path = 'v10/finance/quoteSummary/',
+    cors_domain = 'finance.yahoo.com',
+
+    display_error = function(resp, parsed) {
+      cat(
+        "Yahoo Finance API request failed", '\n',
+        paste('Status:', status_code(resp)), '\n',
+        paste('Type:', http_status(resp)$category), '\n',
+        paste('Mesage:', parsed$quoteSummary$error$code), '\n',
+        paste('Description:', parsed$quoteSummary$error$description, '\n'),
+        sep = ''
+      )
+    }
+  )
+)
