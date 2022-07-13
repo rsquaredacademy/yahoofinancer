@@ -48,6 +48,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_company_officers()
 
 ## ------------------------------------------------
+## Method `Ticker$get_earnings_history`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_earnings_history()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -69,6 +76,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_asset_profile}{\code{Ticker$get_asset_profile()}}
 \item \href{#method-get_calendar_events}{\code{Ticker$get_calendar_events()}}
 \item \href{#method-get_company_officers}{\code{Ticker$get_company_officers()}}
+\item \href{#method-get_earnings_history}{\code{Ticker$get_earnings_history()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -178,6 +186,25 @@ Retrieves top executives for given symbol and their total pay package.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_company_officers()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_earnings_history"></a>}}
+\if{latex}{\out{\hypertarget{method-get_earnings_history}{}}}
+\subsection{Method \code{get_earnings_history()}}{
+Data related to historical earnings (actual vs. estimate)
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_earnings_history()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_earnings_history()
 }
 \if{html}{\out{</div>}}
 

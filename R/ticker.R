@@ -72,7 +72,7 @@ Ticker <- R6::R6Class(
     #' aapl <- Ticker$new('aapl')
     #' aapl$get_company_officers()
     get_company_officers = function() {
-      data <- 
+      data <-
         self$get_asset_profile() %>%
         use_series(companyOfficers)
 
@@ -85,6 +85,31 @@ Ticker <- R6::R6Class(
         total_pay = map_dbl(map(data, 'totalPay'), 'raw', .default = NA),
         exercised_value = map_dbl(map(data, 'exercisedValue'), 'raw', .default = NA),
         unexercised_value = map_dbl(map(data, 'unexercisedValue'), 'raw', .default = NA)
+      )
+    },
+
+    #' @description
+    #' Data related to historical earnings (actual vs. estimate)
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_earnings_history()
+    get_earnings_history = function() {
+
+      module <- 'earningsHistory'
+      req    <- private$resp_data(self$symbol, module)
+
+      data <-
+        private$display_data(req) %>%
+        use_series(earningsHistory) %>%
+        use_series(history)
+
+      data.frame(
+        quarter = map_chr(map(data, 'quarter'), 'fmt', .default = NA),
+        period = map_chr(data, 'period', .default = NA),
+        eps_actual = map_dbl(map(data, 'epsActual'), 'raw', .default = NA),
+        eps_estimate = map_dbl(map(data, 'epsEstimate'), 'raw', .default = NA),
+        eps_difference = map_dbl(map(data, 'epsDifference'), 'raw', .default = NA),
+        surprise_percent = map_dbl(map(data, 'surprisePercent'), 'raw', .default = NA)
       )
     },
 
@@ -138,7 +163,7 @@ Ticker <- R6::R6Class(
       if (http_error(req$resp)) {
         stop(private$display_error(req$resp, req$parsed), call. = FALSE)
       } else {
-        private$parse_data(req$parsed) 
+        private$parse_data(req$parsed)
       }
     }
   )
