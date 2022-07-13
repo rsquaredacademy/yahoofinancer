@@ -4,9 +4,9 @@
 
 https://query1.finance.yahoo.com/v8/finance/chart/BSE-100.BO?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance
 
-- Index Basic Info
+- Valid intervals: [1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo]
 
-https://query1.finance.yahoo.com/v1/finance/quoteType/?symbol=BSE-100.BO&lang=en-US&region=US&corsDomain=finance.yahoo.com
+- Vaide Range: ["1d","5d","1mo","3mo","6mo","1y","2y","5y","10y","ytd","max"]
 
 - Chart
 
@@ -15,9 +15,3 @@ https://query1.finance.yahoo.com/v8/finance/chart/BSE-100.BO?symbol=BSE-100.BO&p
 - 52 Week High / Low
 
 https://query2.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=iMbBwBZJq43&lang=en-US&region=US&symbols=BSE-100.BO&fields=messageBoardId,longName,shortName,marketCap,underlyingSymbol,underlyingExchangeSymbol,headSymbolAsString,regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketVolume,uuid,regularMarketOpen,fiftyTwoWeekLow,fiftyTwoWeekHigh,toCurrency,fromCurrency,toExchange,fromExchange&corsDomain=finance.yahoo.com
-
-- Others
-
-  - https://query2.finance.yahoo.com/v7/finance/quote?symbols=BSE-100.BO&fields=exchangeTimezoneName,exchangeTimezoneShortName,regularMarketTime,gmtOffSetMilliseconds&region=US&lang=en-US
-
-  - https://query2.finance.yahoo.com/v7/finance/quote?symbols=BSE-100.BO&fields=exchangeTimezoneName,exchangeTimezoneShortName,regularMarketTime,gmtOffSetMilliseconds&region=US&lang=en-US
