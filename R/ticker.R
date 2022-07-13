@@ -67,6 +67,28 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Retrieves top executives for given symbol and their total pay package.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_company_officers()
+    get_company_officers = function() {
+      data <- 
+        self$get_asset_profile() %>%
+        use_series(companyOfficers)
+
+      data.frame(
+        name = map_chr(data, 'name'),
+        age = map_int(data, 'age', .default = NA),
+        title = map_chr(data, 'title', .default = NA),
+        year_born = map_int(data, 'yearBorn', .default = NA),
+        fiscal_year = map_int(data, 'fiscalYear', .default = NA),
+        total_pay = map_dbl(map(data, 'totalPay'), 'raw', .default = NA),
+        exercised_value = map_dbl(map(data, 'exercisedValue'), 'raw', .default = NA),
+        unexercised_value = map_dbl(map(data, 'unexercisedValue'), 'raw', .default = NA)
+      )
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')

@@ -41,6 +41,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_calendar_events()
 
 ## ------------------------------------------------
+## Method `Ticker$get_company_officers`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_company_officers()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -61,6 +68,7 @@ aapl$get_summary_profile()
 \item \href{#method-set_symbol}{\code{Ticker$set_symbol()}}
 \item \href{#method-get_asset_profile}{\code{Ticker$get_asset_profile()}}
 \item \href{#method-get_calendar_events}{\code{Ticker$get_calendar_events()}}
+\item \href{#method-get_company_officers}{\code{Ticker$get_company_officers()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -151,6 +159,25 @@ Earnings and Revenue expectations for upcoming earnings date.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_calendar_events()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_company_officers"></a>}}
+\if{latex}{\out{\hypertarget{method-get_company_officers}{}}}
+\subsection{Method \code{get_company_officers()}}{
+Retrieves top executives for given symbol and their total pay package.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_company_officers()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_company_officers()
 }
 \if{html}{\out{</div>}}
 
