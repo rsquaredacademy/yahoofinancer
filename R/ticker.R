@@ -314,6 +314,44 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Trend data related to given symbol's index, specificially PE and PEG ratios
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_index_trend()
+    get_index_trend = function() {
+
+      module <- 'indexTrend'
+      req    <- private$resp_data(self$symbol, module)
+      
+      resp <- 
+        req %>%
+        private$display_data() %>%
+        use_series(indexTrend)
+
+      symbol <- resp$symbol
+      pe_ratio <- resp$peRatio$raw
+      peg_ratio <- resp$pegRatio$raw
+
+      estimates <-
+        resp %>%
+        use_series(estimates) 
+
+      estimates_data <- 
+        data.frame(
+          period = map_chr(estimates, 'period', .default = NA),
+          growth = map_dbl(map(estimates, 'growth'), 'raw', .default = NA)
+        )
+
+      list(
+        symbol = symbol,
+        pe_ratio = pe_ratio,
+        peg_ratio = peg_ratio,
+        estimates = estimates_data
+      )
+      
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')

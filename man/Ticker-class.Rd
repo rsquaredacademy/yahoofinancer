@@ -90,6 +90,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_grading_history()
 
 ## ------------------------------------------------
+## Method `Ticker$get_index_trend`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_index_trend()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -117,6 +124,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_esg_scores}{\code{Ticker$get_esg_scores()}}
 \item \href{#method-get_financial_data}{\code{Ticker$get_financial_data()}}
 \item \href{#method-get_grading_history}{\code{Ticker$get_grading_history()}}
+\item \href{#method-get_index_trend}{\code{Ticker$get_index_trend()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -340,6 +348,25 @@ Data related to upgrades / downgrades by companies
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_grading_history()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_index_trend"></a>}}
+\if{latex}{\out{\hypertarget{method-get_index_trend}{}}}
+\subsection{Method \code{get_index_trend()}}{
+Trend data related to given symbol's index, specificially PE and PEG ratios
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_index_trend()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_index_trend()
 }
 \if{html}{\out{</div>}}
 
