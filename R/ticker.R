@@ -254,6 +254,41 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Data related to environmental, social, and governance metrics
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_esg_scores()
+    get_esg_scores = function() {
+
+      module <- 'esgScores'
+      req    <- private$resp_data(self$symbol, module)
+      req %>%  
+        private$display_data() %>%
+        use_series(esgScores)
+    },
+
+    #' @description
+    #' Financial key performance indicators
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_financial_data()
+    get_financial_data = function() {
+
+      module <- 'financialData'
+      req    <- private$resp_data(self$symbol, module)
+      
+      data <- 
+        req %>%
+        private$display_data() %>%
+        use_series(financialData) 
+
+      fd <- map(data, 'raw')      
+      fd$recommendationKey <- data$recommendationKey
+      fd$financialCurrency <- data$financialCurrency
+      fd
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')

@@ -69,6 +69,20 @@ aapl <- Ticker$new('aapl')
 aapl$get_earnings_trend()
 
 ## ------------------------------------------------
+## Method `Ticker$get_esg_scores`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_esg_scores()
+
+## ------------------------------------------------
+## Method `Ticker$get_financial_data`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_financial_data()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -93,6 +107,8 @@ aapl$get_summary_profile()
 \item \href{#method-get_earnings_history}{\code{Ticker$get_earnings_history()}}
 \item \href{#method-get_earnings}{\code{Ticker$get_earnings()}}
 \item \href{#method-get_earnings_trend}{\code{Ticker$get_earnings_trend()}}
+\item \href{#method-get_esg_scores}{\code{Ticker$get_esg_scores()}}
+\item \href{#method-get_financial_data}{\code{Ticker$get_financial_data()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -259,6 +275,44 @@ Historical trend data for earnings and revenue estimations
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_earnings_trend()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_esg_scores"></a>}}
+\if{latex}{\out{\hypertarget{method-get_esg_scores}{}}}
+\subsection{Method \code{get_esg_scores()}}{
+Data related to environmental, social, and governance metrics
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_esg_scores()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_esg_scores()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_financial_data"></a>}}
+\if{latex}{\out{\hypertarget{method-get_financial_data}{}}}
+\subsection{Method \code{get_financial_data()}}{
+Financial key performance indicators
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_financial_data()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_financial_data()
 }
 \if{html}{\out{</div>}}
 
