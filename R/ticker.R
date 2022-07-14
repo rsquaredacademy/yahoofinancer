@@ -380,6 +380,37 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Transactions by insiders for a given symbol(s)
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_insider_transactions()
+    get_insider_transactions = function() {
+
+      module <- 'insiderTransactions'
+      req    <- private$resp_data(self$symbol, module)
+
+      resp <- 
+        req %>%
+        private$display_data() %>%
+        use_series(insiderTransactions) %>%
+        use_series(transactions)
+
+      data.frame(
+        start_date = map_chr(map(resp, 'startDate'), 'fmt', .default = NA),                        
+        filer_name = map_chr(resp, 'filerName', .default = NA),
+        filer_relation = map_chr(resp, 'filerRelation', .default = NA),
+        transaction_text = map_chr(resp, 'transactionText', .default = NA),
+        ownership = map_chr(resp, 'ownership', .default = NA),
+        shares = map_chr(map(resp, 'shares'), 'raw', .default = NA),
+        value = map_chr(map(resp, 'value'), 'raw', .default = NA),
+        filer_url = map_chr(resp, 'filerUrl', .default = NA),
+        money_text = map_chr(resp, 'moneyText', .default = NA)
+        
+      )
+      
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
