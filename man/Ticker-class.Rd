@@ -132,13 +132,6 @@ aapl <- Ticker$new('aapl')
 aapl$get_page_views()
 
 ## ------------------------------------------------
-## Method `Ticker$get_quote_type`
-## ------------------------------------------------
-
-aapl <- Ticker$new('aapl')
-aapl$get_quote_type()
-
-## ------------------------------------------------
 ## Method `Ticker$get_price`
 ## ------------------------------------------------
 
@@ -146,11 +139,25 @@ aapl <- Ticker$new('aapl')
 aapl$get_price()
 
 ## ------------------------------------------------
+## Method `Ticker$get_quote_type`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_quote_type()
+
+## ------------------------------------------------
 ## Method `Ticker$get_recommendation_trend`
 ## ------------------------------------------------
 
 aapl <- Ticker$new('aapl')
 aapl$get_recommendation_trend()
+
+## ------------------------------------------------
+## Method `Ticker$get_security_filings`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_security_filings()
 
 ## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
@@ -186,9 +193,10 @@ aapl$get_summary_profile()
 \item \href{#method-get_institution_ownership}{\code{Ticker$get_institution_ownership()}}
 \item \href{#method-get_major_holders}{\code{Ticker$get_major_holders()}}
 \item \href{#method-get_page_views}{\code{Ticker$get_page_views()}}
-\item \href{#method-get_quote_type}{\code{Ticker$get_quote_type()}}
 \item \href{#method-get_price}{\code{Ticker$get_price()}}
+\item \href{#method-get_quote_type}{\code{Ticker$get_quote_type()}}
 \item \href{#method-get_recommendation_trend}{\code{Ticker$get_recommendation_trend()}}
+\item \href{#method-get_security_filings}{\code{Ticker$get_security_filings()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -533,25 +541,6 @@ aapl$get_page_views()
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_quote_type"></a>}}
-\if{latex}{\out{\hypertarget{method-get_quote_type}{}}}
-\subsection{Method \code{get_quote_type()}}{
-Stock exchange specific data for given symbol
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_quote_type()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{aapl <- Ticker$new('aapl')
-aapl$get_quote_type()
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_price"></a>}}
 \if{latex}{\out{\hypertarget{method-get_price}{}}}
 \subsection{Method \code{get_price()}}{
@@ -571,6 +560,25 @@ aapl$get_price()
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_quote_type"></a>}}
+\if{latex}{\out{\hypertarget{method-get_quote_type}{}}}
+\subsection{Method \code{get_quote_type()}}{
+Stock exchange specific data for given symbol
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_quote_type()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_quote_type()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_recommendation_trend"></a>}}
 \if{latex}{\out{\hypertarget{method-get_recommendation_trend}{}}}
 \subsection{Method \code{get_recommendation_trend()}}{
@@ -583,6 +591,25 @@ Data related to historical recommendations (buy, hold, sell) for a given symbol
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_recommendation_trend()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_security_filings"></a>}}
+\if{latex}{\out{\hypertarget{method-get_security_filings}{}}}
+\subsection{Method \code{get_security_filings()}}{
+Historical SEC filings
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_security_filings()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_security_filings()
 }
 \if{html}{\out{</div>}}
 

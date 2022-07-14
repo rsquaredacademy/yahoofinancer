@@ -469,21 +469,6 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
-    #' Stock exchange specific data for given symbol
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_quote_type()
-    get_quote_type = function() {
-
-      module <- 'quoteType'
-      req    <- private$resp_data(self$symbol, module)
-
-      req %>%
-        private$display_data() %>%
-        use_series(quoteType)
-    },
-
-    #' @description
     #' Detailed pricing data for given symbol, exchange, quote type, currency, market cap, pre / post market data, etc.
     #' @examples
     #' aapl <- Ticker$new('aapl')
@@ -497,6 +482,21 @@ Ticker <- R6::R6Class(
         private$display_data() %>%
         use_series(price) %>%
         map_at(c(2, 3, 5, 9, 10, 12:16, 19, 21, 42), 'raw')
+    },
+
+    #' @description
+    #' Stock exchange specific data for given symbol
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_quote_type()
+    get_quote_type = function() {
+
+      module <- 'quoteType'
+      req    <- private$resp_data(self$symbol, module)
+
+      req %>%
+        private$display_data() %>%
+        use_series(quoteType)
     },
 
     #' @description
@@ -522,6 +522,31 @@ Ticker <- R6::R6Class(
         hold = map_int(resp, 'hold', .default = NA),                   
         sell = map_int(resp, 'sell', .default = NA),                   
         strong_sell = map_int(resp, 'strongSell', .default = NA)                 
+      )
+      
+    },
+
+    #' @description
+    #' Historical SEC filings 
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_security_filings()
+    get_security_filings = function() {
+
+      module <- 'secFilings'
+      req    <- private$resp_data(self$symbol, module)
+
+      resp <- 
+        req %>%
+        private$display_data() %>%
+        use_series(secFilings) %>%
+        use_series(filings)
+
+      data.frame(
+        date = map_chr(resp, 'date', .default = NA),
+        type = map_chr(resp, 'type', .default = NA),
+        title = map_chr(resp, 'title', .default = NA),
+        edgar_url = map_chr(resp, 'edgarUrl', .default = NA)               
       )
       
     },
