@@ -552,6 +552,39 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' High-level buy / sell data
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_share_purchase_activity()
+    get_share_purchase_activity = function() {
+
+      module <- 'netSharePurchaseActivity'
+      req    <- private$resp_data(self$symbol, module)
+
+      req %>%
+        private$display_data() %>%
+        use_series(netSharePurchaseActivity) %>%
+        map_at(c(-1, -2), 'raw')
+    },
+
+    #' @description
+    #' Contains information available via the Summary tab in Yahoo Finance
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_summary_detail()
+    get_summary_detail = function() {
+
+      module <- 'summaryDetail'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%
+        private$display_data() %>%
+        use_series(summaryDetail) %>%
+        compact() %>%
+        map_if(function(x) 'raw' %in% names(x), 'raw')
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')

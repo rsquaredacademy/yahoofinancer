@@ -160,6 +160,20 @@ aapl <- Ticker$new('aapl')
 aapl$get_security_filings()
 
 ## ------------------------------------------------
+## Method `Ticker$get_share_purchase_activity`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_share_purchase_activity()
+
+## ------------------------------------------------
+## Method `Ticker$get_summary_detail`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_summary_detail()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -197,6 +211,8 @@ aapl$get_summary_profile()
 \item \href{#method-get_quote_type}{\code{Ticker$get_quote_type()}}
 \item \href{#method-get_recommendation_trend}{\code{Ticker$get_recommendation_trend()}}
 \item \href{#method-get_security_filings}{\code{Ticker$get_security_filings()}}
+\item \href{#method-get_share_purchase_activity}{\code{Ticker$get_share_purchase_activity()}}
+\item \href{#method-get_summary_detail}{\code{Ticker$get_summary_detail()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -610,6 +626,44 @@ Historical SEC filings
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_security_filings()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_share_purchase_activity"></a>}}
+\if{latex}{\out{\hypertarget{method-get_share_purchase_activity}{}}}
+\subsection{Method \code{get_share_purchase_activity()}}{
+High-level buy / sell data
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_share_purchase_activity()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_share_purchase_activity()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_summary_detail"></a>}}
+\if{latex}{\out{\hypertarget{method-get_summary_detail}{}}}
+\subsection{Method \code{get_summary_detail()}}{
+Contains information available via the Summary tab in Yahoo Finance
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_summary_detail()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_summary_detail()
 }
 \if{html}{\out{</div>}}
 
