@@ -114,6 +114,71 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Historical earnings data.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_earnings()
+    get_earnings = function() {
+
+      module <- 'earnings'
+      req    <- private$resp_data(self$symbol, module)
+      
+      earnings <- 
+        req %>%
+        private$display_data() %>%
+        use_series(earnings) 
+        
+      estimate <- 
+        earnings %>%
+        use_series(earningsChart) %>%
+        use_series(quarterly)
+
+      earnings_estimate <-
+        data.frame(
+          date = map_chr(estimate, 'date'),
+          actual = map_dbl(map(estimate, 'actual'), 'raw', .default = NA),
+          estimate = map_dbl(map(estimate, 'estimate'), 'raw', .default = NA)
+        )
+
+      current_quarter <- list(
+        estimate = earnings$earningsChart$currentQuarterEstimate$raw,
+        estimate_date = earnings$earningsChart$currentQuarterEstimateDate,
+        estimate_year = earnings$earningsChart$currentQuarterEstimateYear
+      )
+
+      yearly <-
+        earnings %>%
+        use_series(financialsChart) %>%
+        use_series(yearly)
+
+      yearly_estimate <-
+        data.frame(
+          date = map_chr(yearly, 'date'),
+          earnings = map_dbl(map(yearly, 'earnings'), 'raw', .default = NA),
+          revenue = map_dbl(map(yearly, 'revenue'), 'raw', .default = NA)
+        )
+
+      quarterly <-
+        earnings %>%
+        use_series(financialsChart) %>%
+        use_series(quarterly)
+
+      quarterly_estimate <-
+        data.frame(
+          date = map_chr(quarterly, 'date'),
+          earnings = map_dbl(map(quarterly, 'earnings'), 'raw', .default = NA),
+          revenue = map_dbl(map(quarterly, 'revenue'), 'raw', .default = NA)
+        )
+
+      list(
+        earnings_estimate = earnings_estimate,
+        current_quarter = current_quarter,
+        yearly_earnings_revenue = yearly_estimate,
+        quarterly_earnings_revenue = quarterly_estimate
+      )
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')

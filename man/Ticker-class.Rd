@@ -55,6 +55,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_earnings_history()
 
 ## ------------------------------------------------
+## Method `Ticker$get_earnings`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_earnings()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -77,6 +84,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_calendar_events}{\code{Ticker$get_calendar_events()}}
 \item \href{#method-get_company_officers}{\code{Ticker$get_company_officers()}}
 \item \href{#method-get_earnings_history}{\code{Ticker$get_earnings_history()}}
+\item \href{#method-get_earnings}{\code{Ticker$get_earnings()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -205,6 +213,25 @@ Data related to historical earnings (actual vs. estimate)
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_earnings_history()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_earnings"></a>}}
+\if{latex}{\out{\hypertarget{method-get_earnings}{}}}
+\subsection{Method \code{get_earnings()}}{
+Historical earnings data.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_earnings()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_earnings()
 }
 \if{html}{\out{</div>}}
 
