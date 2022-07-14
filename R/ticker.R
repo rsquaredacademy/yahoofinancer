@@ -454,6 +454,21 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Short, Mid, and Long-term trend data regarding a symbol's page views
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_page_views()
+    get_page_views = function() {
+
+      module <- 'pageViews'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%   
+        private$display_data() %>%
+        use_series(pageViews) 
+    },
+
+    #' @description
     #' Stock exchange specific data for given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')

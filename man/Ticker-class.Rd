@@ -125,6 +125,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_major_holders()
 
 ## ------------------------------------------------
+## Method `Ticker$get_page_views`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_page_views()
+
+## ------------------------------------------------
 ## Method `Ticker$get_quote_type`
 ## ------------------------------------------------
 
@@ -171,6 +178,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_insider_transactions}{\code{Ticker$get_insider_transactions()}}
 \item \href{#method-get_institution_ownership}{\code{Ticker$get_institution_ownership()}}
 \item \href{#method-get_major_holders}{\code{Ticker$get_major_holders()}}
+\item \href{#method-get_page_views}{\code{Ticker$get_page_views()}}
 \item \href{#method-get_quote_type}{\code{Ticker$get_quote_type()}}
 \item \href{#method-get_recommendation_trend}{\code{Ticker$get_recommendation_trend()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
@@ -491,6 +499,25 @@ Data showing breakdown of owners of given symbol(s), insiders, institutions, etc
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_major_holders()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_page_views"></a>}}
+\if{latex}{\out{\hypertarget{method-get_page_views}{}}}
+\subsection{Method \code{get_page_views()}}{
+Short, Mid, and Long-term trend data regarding a symbol's page views
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_page_views()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_page_views()
 }
 \if{html}{\out{</div>}}
 
