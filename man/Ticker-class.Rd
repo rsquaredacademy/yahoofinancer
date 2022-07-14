@@ -97,6 +97,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_index_trend()
 
 ## ------------------------------------------------
+## Method `Ticker$get_inside_holders`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_inside_holders()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -125,6 +132,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_financial_data}{\code{Ticker$get_financial_data()}}
 \item \href{#method-get_grading_history}{\code{Ticker$get_grading_history()}}
 \item \href{#method-get_index_trend}{\code{Ticker$get_index_trend()}}
+\item \href{#method-get_inside_holders}{\code{Ticker$get_inside_holders()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -367,6 +375,25 @@ Trend data related to given symbol's index, specificially PE and PEG ratios
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_index_trend()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_inside_holders"></a>}}
+\if{latex}{\out{\hypertarget{method-get_inside_holders}{}}}
+\subsection{Method \code{get_inside_holders()}}{
+Data related to stock holdings of a given symbol(s) insiders
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_inside_holders()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_inside_holders()
 }
 \if{html}{\out{</div>}}
 

@@ -352,6 +352,34 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Data related to stock holdings of a given symbol(s) insiders
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_inside_holders()
+    get_inside_holders = function() {
+
+      module <- 'insiderHolders'
+      req    <- private$resp_data(self$symbol, module)
+
+      resp <- 
+        req %>%
+        private$display_data() %>%
+        use_series(insiderHolders) %>%
+        use_series(holders)
+
+      data.frame(
+        name = map_chr(resp, 'name', .default = NA),
+        relation = map_chr(resp, 'relation', .default = NA),
+        url = map_chr(resp, 'url', .default = NA),
+        description = map_chr(resp, 'transactionDescription', .default = NA),
+        latest_transaction_date = map_chr(map(resp, 'latestTransDate'), 'fmt', .default = NA),
+        position_direct = map_dbl(map(resp, 'positionDirect'), 'raw', .default = NA),
+        position_direct_date = map_chr(map(resp, 'positionDirectDate'), 'fmt', .default = NA)                        
+      )
+      
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
