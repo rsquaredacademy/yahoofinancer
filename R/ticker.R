@@ -106,8 +106,8 @@ Ticker <- R6::R6Class(
       data.frame(
         quarter = map_chr(map(data, 'quarter'), 'fmt', .default = NA),
         period = map_chr(data, 'period', .default = NA),
-        eps_actual = map_dbl(map(data, 'epsActual'), 'raw', .default = NA),
         eps_estimate = map_dbl(map(data, 'epsEstimate'), 'raw', .default = NA),
+        eps_actual = map_dbl(map(data, 'epsActual'), 'raw', .default = NA),
         eps_difference = map_dbl(map(data, 'epsDifference'), 'raw', .default = NA),
         surprise_percent = map_dbl(map(data, 'surprisePercent'), 'raw', .default = NA)
       )
@@ -201,8 +201,55 @@ Ticker <- R6::R6Class(
           growth = map_dbl(map(trend, 'growth'), 'raw', .default = NA)
         )
 
+      earnings_data <-
+        data.frame(
+          date = map_chr(trend, 'endDate', .default = NA),
+          period = map_chr(trend, 'period', .default = NA),
+          analyst = map_int(map(map(trend, 'earningsEstimate'), 'numberOfAnalysts'), 'raw', .default = NA),
+          avg_estimate = map_dbl(map(map(trend, 'earningsEstimate'), 'avg'), 'raw', .default = NA),
+          low_estimate = map_dbl(map(map(trend, 'earningsEstimate'), 'low'), 'raw', .default = NA),
+          hig_estimate = map_dbl(map(map(trend, 'earningsEstimate'), 'high'), 'raw', .default = NA),
+          year_ago_eps = map_dbl(map(map(trend, 'earningsEstimate'), 'yearAgoEps'), 'raw', .default = NA)
+        )
+
+        revenue_data <-
+        data.frame(
+          date = map_chr(trend, 'endDate', .default = NA),
+          period = map_chr(trend, 'period', .default = NA),
+          analyst = map_int(map(map(trend, 'revenueEstimate'), 'numberOfAnalysts'), 'raw', .default = NA),
+          avg_estimate = map_dbl(map(map(trend, 'revenueEstimate'), 'avg'), 'raw', .default = NA),
+          low_estimate = map_dbl(map(map(trend, 'revenueEstimate'), 'low'), 'raw', .default = NA),
+          hig_estimate = map_dbl(map(map(trend, 'revenueEstimate'), 'high'), 'raw', .default = NA),
+          year_ago_revenue = map_dbl(map(map(trend, 'revenueEstimate'), 'yearAgoRevenue'), 'raw', .default = NA)
+        )
+
+        eps_trend <-
+        data.frame(
+          date = map_chr(trend, 'endDate', .default = NA),
+          period = map_chr(trend, 'period', .default = NA),
+          current = map_dbl(map(map(trend, 'epsTrend'), 'current'), 'raw', .default = NA),
+          seven_days_ago = map_dbl(map(map(trend, 'epsTrend'), '7daysAgo'), 'raw', .default = NA),
+          thirty_days_ago = map_dbl(map(map(trend, 'epsTrend'), '30daysAgo'), 'raw', .default = NA),
+          sixty_days_ago = map_dbl(map(map(trend, 'epsTrend'), '60daysAgo'), 'raw', .default = NA),
+          ninety_days_ago = map_dbl(map(map(trend, 'epsTrend'), '90daysAgo'), 'raw', .default = NA)
+        )
+
+        eps_revision <-
+        data.frame(
+          date = map_chr(trend, 'endDate', .default = NA),
+          period = map_chr(trend, 'period', .default = NA),
+          up_last_7_days = map_dbl(map(map(trend, 'epsRevisions'), 'upLast7days'), 'raw', .default = NA),
+          up_last_30_days = map_dbl(map(map(trend, 'epsRevisions'), 'upLast30days'), 'raw', .default = NA),
+          down_last_30_days = map_dbl(map(map(trend, 'epsRevisions'), 'downLast30days'), 'raw', .default = NA),
+          down_last_90_days = map_dbl(map(map(trend, 'epsRevisions'), 'downLast90days'), 'raw', .default = NA)
+        )        
+
       list(
-        growth = growth_data
+        growth = growth_data,
+        earnings_estimate = earnings_data,
+        revenue_estimate = revenue_data,
+        eps_trend = eps_trend,
+        eps_revision = eps_revision
       )
     },
 
