@@ -454,6 +454,48 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Stock exchange specific data for given symbol
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_quote_type()
+    get_quote_type = function() {
+
+      module <- 'quoteType'
+      req    <- private$resp_data(self$symbol, module)
+
+      req %>%
+        private$display_data() %>%
+        use_series(quoteType)
+    },
+
+    #' @description
+    #' Data related to historical recommendations (buy, hold, sell) for a given symbol
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_recommendation_trend()
+    get_recommendation_trend = function() {
+
+      module <- 'recommendationTrend'
+      req    <- private$resp_data(self$symbol, module)
+
+      resp <- 
+        req %>%
+        private$display_data() %>%
+        use_series(recommendationTrend) %>%
+        use_series(trend)
+
+      data.frame(
+        period = map_chr(resp, 'period', .default = NA),
+        strong_buy = map_int(resp, 'strongBuy', .default = NA),                   
+        buy = map_int(resp, 'buy', .default = NA),                   
+        hold = map_int(resp, 'hold', .default = NA),                   
+        sell = map_int(resp, 'sell', .default = NA),                   
+        strong_sell = map_int(resp, 'strongSell', .default = NA)                 
+      )
+      
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')

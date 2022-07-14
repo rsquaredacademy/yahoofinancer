@@ -125,6 +125,20 @@ aapl <- Ticker$new('aapl')
 aapl$get_major_holders()
 
 ## ------------------------------------------------
+## Method `Ticker$get_quote_type`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_quote_type()
+
+## ------------------------------------------------
+## Method `Ticker$get_recommendation_trend`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_recommendation_trend()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -157,6 +171,8 @@ aapl$get_summary_profile()
 \item \href{#method-get_insider_transactions}{\code{Ticker$get_insider_transactions()}}
 \item \href{#method-get_institution_ownership}{\code{Ticker$get_institution_ownership()}}
 \item \href{#method-get_major_holders}{\code{Ticker$get_major_holders()}}
+\item \href{#method-get_quote_type}{\code{Ticker$get_quote_type()}}
+\item \href{#method-get_recommendation_trend}{\code{Ticker$get_recommendation_trend()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -475,6 +491,44 @@ Data showing breakdown of owners of given symbol(s), insiders, institutions, etc
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_major_holders()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_quote_type"></a>}}
+\if{latex}{\out{\hypertarget{method-get_quote_type}{}}}
+\subsection{Method \code{get_quote_type()}}{
+Stock exchange specific data for given symbol
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_quote_type()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_quote_type()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_recommendation_trend"></a>}}
+\if{latex}{\out{\hypertarget{method-get_recommendation_trend}{}}}
+\subsection{Method \code{get_recommendation_trend()}}{
+Data related to historical recommendations (buy, hold, sell) for a given symbol
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_recommendation_trend()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_recommendation_trend()
 }
 \if{html}{\out{</div>}}
 
