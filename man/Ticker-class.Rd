@@ -118,6 +118,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_institution_ownership()
 
 ## ------------------------------------------------
+## Method `Ticker$get_major_holders`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_major_holders()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -149,6 +156,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_inside_holders}{\code{Ticker$get_inside_holders()}}
 \item \href{#method-get_insider_transactions}{\code{Ticker$get_insider_transactions()}}
 \item \href{#method-get_institution_ownership}{\code{Ticker$get_institution_ownership()}}
+\item \href{#method-get_major_holders}{\code{Ticker$get_major_holders()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -448,6 +456,25 @@ Top 10 owners of a given symbol
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_institution_ownership()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_major_holders"></a>}}
+\if{latex}{\out{\hypertarget{method-get_major_holders}{}}}
+\subsection{Method \code{get_major_holders()}}{
+Data showing breakdown of owners of given symbol(s), insiders, institutions, etc.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_major_holders()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_major_holders()
 }
 \if{html}{\out{</div>}}
 

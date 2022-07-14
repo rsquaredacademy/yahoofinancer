@@ -438,6 +438,22 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Data showing breakdown of owners of given symbol(s), insiders, institutions, etc.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_major_holders()
+    get_major_holders = function() {
+
+      module <- 'majorHoldersBreakdown'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%   
+        private$display_data() %>%
+        use_series(majorHoldersBreakdown) %>%
+        map_at(-1, 'raw')
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
