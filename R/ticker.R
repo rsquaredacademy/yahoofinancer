@@ -411,6 +411,33 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Top 10 owners of a given symbol
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_institution_ownership()
+    get_institution_ownership = function() {
+
+      module <- 'institutionOwnership'
+      req    <- private$resp_data(self$symbol, module)
+
+      resp <- 
+        req %>%
+        private$display_data() %>%
+        use_series(institutionOwnership) %>%
+        use_series(ownershipList)
+
+      data.frame(
+        date = map_chr(map(resp, 'reportDate'), 'fmt', .default = NA),     
+        organization = map_chr(resp, 'organization', .default = NA),                   
+        percent_held = map_dbl(map(resp, 'percentHeld'), 'raw', .default = NA),
+        position = map_dbl(map(resp, 'position'), 'raw', .default = NA),
+        value = map_dbl(map(resp, 'value'), 'raw', .default = NA),
+        percent_change = map_dbl(map(resp, 'pctChange'), 'raw', .default = NA)
+      )
+      
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')

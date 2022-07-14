@@ -111,6 +111,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_insider_transactions()
 
 ## ------------------------------------------------
+## Method `Ticker$get_institution_ownership`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_institution_ownership()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -141,6 +148,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_index_trend}{\code{Ticker$get_index_trend()}}
 \item \href{#method-get_inside_holders}{\code{Ticker$get_inside_holders()}}
 \item \href{#method-get_insider_transactions}{\code{Ticker$get_insider_transactions()}}
+\item \href{#method-get_institution_ownership}{\code{Ticker$get_institution_ownership()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -421,6 +429,25 @@ Transactions by insiders for a given symbol(s)
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_insider_transactions()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_institution_ownership"></a>}}
+\if{latex}{\out{\hypertarget{method-get_institution_ownership}{}}}
+\subsection{Method \code{get_institution_ownership()}}{
+Top 10 owners of a given symbol
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_institution_ownership()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_institution_ownership()
 }
 \if{html}{\out{</div>}}
 
