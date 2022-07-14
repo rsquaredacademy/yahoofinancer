@@ -139,6 +139,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_quote_type()
 
 ## ------------------------------------------------
+## Method `Ticker$get_price`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_price()
+
+## ------------------------------------------------
 ## Method `Ticker$get_recommendation_trend`
 ## ------------------------------------------------
 
@@ -180,6 +187,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_major_holders}{\code{Ticker$get_major_holders()}}
 \item \href{#method-get_page_views}{\code{Ticker$get_page_views()}}
 \item \href{#method-get_quote_type}{\code{Ticker$get_quote_type()}}
+\item \href{#method-get_price}{\code{Ticker$get_price()}}
 \item \href{#method-get_recommendation_trend}{\code{Ticker$get_recommendation_trend()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
@@ -537,6 +545,25 @@ Stock exchange specific data for given symbol
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_quote_type()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_price"></a>}}
+\if{latex}{\out{\hypertarget{method-get_price}{}}}
+\subsection{Method \code{get_price()}}{
+Detailed pricing data for given symbol, exchange, quote type, currency, market cap, pre / post market data, etc.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_price()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_price()
 }
 \if{html}{\out{</div>}}
 

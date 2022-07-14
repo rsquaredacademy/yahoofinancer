@@ -484,6 +484,22 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Detailed pricing data for given symbol, exchange, quote type, currency, market cap, pre / post market data, etc.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_price()
+    get_price = function() {
+
+      module <- 'price'
+      req    <- private$resp_data(self$symbol, module)
+
+      req %>%
+        private$display_data() %>%
+        use_series(price) %>%
+        map_at(c(2, 3, 5, 9, 10, 12:16, 19, 21, 42), 'raw')
+    },
+
+    #' @description
     #' Data related to historical recommendations (buy, hold, sell) for a given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
