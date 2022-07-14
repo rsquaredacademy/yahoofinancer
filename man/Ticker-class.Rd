@@ -62,6 +62,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_earnings()
 
 ## ------------------------------------------------
+## Method `Ticker$get_earnings_trend`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_earnings_trend()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -85,6 +92,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_company_officers}{\code{Ticker$get_company_officers()}}
 \item \href{#method-get_earnings_history}{\code{Ticker$get_earnings_history()}}
 \item \href{#method-get_earnings}{\code{Ticker$get_earnings()}}
+\item \href{#method-get_earnings_trend}{\code{Ticker$get_earnings_trend()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -232,6 +240,25 @@ Historical earnings data.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_earnings()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_earnings_trend"></a>}}
+\if{latex}{\out{\hypertarget{method-get_earnings_trend}{}}}
+\subsection{Method \code{get_earnings_trend()}}{
+Historical trend data for earnings and revenue estimations
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_earnings_trend()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_earnings_trend()
 }
 \if{html}{\out{</div>}}
 

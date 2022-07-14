@@ -179,6 +179,34 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Historical trend data for earnings and revenue estimations
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_earnings_trend()
+    get_earnings_trend = function() {
+
+      module <- 'earningsTrend'
+      req    <- private$resp_data(self$symbol, module)
+      
+      trend <- 
+        req %>%
+        private$display_data() %>%
+        use_series(earningsTrend) %>%
+        use_series(trend)
+
+      growth_data <-
+        data.frame(
+          date = map_chr(trend, 'endDate', .default = NA),
+          period = map_chr(trend, 'period', .default = NA),
+          growth = map_dbl(map(trend, 'growth'), 'raw', .default = NA)
+        )
+
+      list(
+        growth = growth_data
+      )
+    },
+
+    #' @description
     #' Return business summary of given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
