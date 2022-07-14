@@ -83,6 +83,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_financial_data()
 
 ## ------------------------------------------------
+## Method `Ticker$get_grading_history`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_grading_history()
+
+## ------------------------------------------------
 ## Method `Ticker$get_summary_profile`
 ## ------------------------------------------------
 
@@ -109,6 +116,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_earnings_trend}{\code{Ticker$get_earnings_trend()}}
 \item \href{#method-get_esg_scores}{\code{Ticker$get_esg_scores()}}
 \item \href{#method-get_financial_data}{\code{Ticker$get_financial_data()}}
+\item \href{#method-get_grading_history}{\code{Ticker$get_grading_history()}}
 \item \href{#method-get_summary_profile}{\code{Ticker$get_summary_profile()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
@@ -313,6 +321,25 @@ Financial key performance indicators
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_financial_data()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_grading_history"></a>}}
+\if{latex}{\out{\hypertarget{method-get_grading_history}{}}}
+\subsection{Method \code{get_grading_history()}}{
+Data related to upgrades / downgrades by companies
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_grading_history()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_grading_history()
 }
 \if{html}{\out{</div>}}
 

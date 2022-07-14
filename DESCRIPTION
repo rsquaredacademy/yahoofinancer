@@ -12,6 +12,7 @@ LazyData: true
 Imports: 
     httr,
     jsonlite,
+    lubridate,
     magrittr,
     purrr,
     R6

@@ -5,7 +5,7 @@
 #'
 #' @param symbol Symbol for which data has to be retrieved
 #'
-#' @import R6 httr jsonlite magrittr purrr
+#' @import R6 httr jsonlite magrittr purrr lubridate
 #' @docType class
 #' @format An R6 class object
 #' @name Ticker-class
@@ -286,6 +286,31 @@ Ticker <- R6::R6Class(
       fd$recommendationKey <- data$recommendationKey
       fd$financialCurrency <- data$financialCurrency
       fd
+    },
+
+    #' @description
+    #' Data related to upgrades / downgrades by companies
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_grading_history()
+    get_grading_history = function() {
+
+      module <- 'upgradeDowngradeHistory'
+      req    <- private$resp_data(self$symbol, module)
+      
+      data <- 
+        req %>%
+        private$display_data() %>%
+        use_series(upgradeDowngradeHistory) %>%
+        use_series(history)
+
+      data.frame(
+        date = date(as_datetime(map_int(data, 'epochGradeDate', .default = NA))),
+        firm = map_chr(data, 'firm', .default = NA),
+        to_grade = map_chr(data, 'toGrade', .default = NA),
+        from_grade = map_chr(data, 'fromGrade', .default = NA),
+        action = map_chr(data, 'action', .default = NA)
+      )
     },
 
     #' @description
