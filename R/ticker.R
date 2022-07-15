@@ -347,6 +347,31 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Top 10 owners of a given symbol
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_fund_ownership()
+    get_fund_ownership = function() {
+
+      module <- 'fundOwnership'
+      req    <- private$resp_data(self$symbol, module)
+
+      data <-
+        private$display_data(req) %>%
+        use_series(fundOwnership) %>%
+        use_series(ownershipList)
+
+      data.frame(
+        report_date = map_chr(map(data, 'reportDate'), 'fmt', .default = NA),
+        organization = map_chr(data, 'organization', .default = NA),
+        percent_held = map_dbl(map(data, 'pctHeld'), 'raw', .default = NA),
+        position = map_dbl(map(data, 'position'), 'raw', .default = NA),
+        value = map_dbl(map(data, 'value'), 'raw', .default = NA),
+        percent_change = map_dbl(map(data, 'pctChange'), 'raw', .default = NA)
+      )
+    },
+
+    #' @description
     #' Data related to upgrades / downgrades by companies
     #' @examples
     #' aapl <- Ticker$new('aapl')
