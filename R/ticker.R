@@ -289,6 +289,25 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Retrieves aggregated maturity and duration information for a given symbol
+    #' @examples
+    #' fund <- Ticker$new('vbmfx')
+    #' fund$get_fund_bond_holdings()
+    get_fund_bond_holdings = function() {
+
+      module <- 'topHoldings'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%
+        private$display_data() %>%
+        use_series(topHoldings) %>%
+        use_series(bondHoldings) %>%
+        compact() %>%
+        map_if(function(x) 'raw' %in% names(x), 'raw')
+
+    },
+
+    #' @description
     #' Data related to upgrades / downgrades by companies
     #' @examples
     #' aapl <- Ticker$new('aapl')
