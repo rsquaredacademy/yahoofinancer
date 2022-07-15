@@ -328,6 +328,25 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Fund equity holdings
+    #' @examples
+    #' fund <- Ticker$new('vbmfx')
+    #' fund$get_fund_equity_holdings()
+    get_fund_equity_holdings = function() {
+
+      module <- 'topHoldings'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%
+        private$display_data() %>%
+        use_series(topHoldings) %>%
+        use_series(equityHoldings) %>%
+        compact() %>%
+        map_if(function(x) 'raw' %in% names(x), 'raw')
+
+    },
+
+    #' @description
     #' Data related to upgrades / downgrades by companies
     #' @examples
     #' aapl <- Ticker$new('aapl')
