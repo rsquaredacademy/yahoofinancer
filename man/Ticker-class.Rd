@@ -90,6 +90,13 @@ fund <- Ticker$new('vbmfx')
 fund$get_fund_bond_holdings()
 
 ## ------------------------------------------------
+## Method `Ticker$get_fund_bond_ratings`
+## ------------------------------------------------
+
+fund <- Ticker$new('vbmfx')
+fund$get_fund_bond_ratings()
+
+## ------------------------------------------------
 ## Method `Ticker$get_grading_history`
 ## ------------------------------------------------
 
@@ -208,6 +215,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_esg_scores}{\code{Ticker$get_esg_scores()}}
 \item \href{#method-get_financial_data}{\code{Ticker$get_financial_data()}}
 \item \href{#method-get_fund_bond_holdings}{\code{Ticker$get_fund_bond_holdings()}}
+\item \href{#method-get_fund_bond_ratings}{\code{Ticker$get_fund_bond_ratings()}}
 \item \href{#method-get_grading_history}{\code{Ticker$get_grading_history()}}
 \item \href{#method-get_index_trend}{\code{Ticker$get_index_trend()}}
 \item \href{#method-get_inside_holders}{\code{Ticker$get_inside_holders()}}
@@ -444,6 +452,25 @@ Retrieves aggregated maturity and duration information for a given symbol
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{fund <- Ticker$new('vbmfx')
 fund$get_fund_bond_holdings()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_fund_bond_ratings"></a>}}
+\if{latex}{\out{\hypertarget{method-get_fund_bond_ratings}{}}}
+\subsection{Method \code{get_fund_bond_ratings()}}{
+Retrieves aggregated maturity and duration information
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_fund_bond_ratings()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{fund <- Ticker$new('vbmfx')
+fund$get_fund_bond_ratings()
 }
 \if{html}{\out{</div>}}
 
