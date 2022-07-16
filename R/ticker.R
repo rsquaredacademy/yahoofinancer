@@ -60,10 +60,39 @@ Ticker <- R6::R6Class(
     get_calendar_events = function() {
       module <- 'calendarEvents'
       req    <- private$resp_data(self$symbol, module)
-      private$display_data(req) %>%
-        use_series(calendarEvents) %>%
+      
+      data <-
+        req %>%
+        private$display_data() %>%
+          use_series(calendarEvents) 
+
+      earnings <-
+        data %>%
         use_series(earnings) %>%
-        map(., 'raw')
+        map('raw')
+
+      earnings_date <- 
+        data %>%
+        use_series(earnings) %>%
+        use_series(earningsDate) %>%
+        map_chr('fmt')
+
+      ex_dividend_date <- 
+        data %>%
+        use_series(exDividendDate) %>%
+        use_series('fmt')
+
+      dividend_date <- 
+        data %>%
+        use_series(dividendDate) %>%
+        use_series('fmt')
+        
+      earnings$earningsDate <- earnings_date
+      earnings$exDividendDate <- ex_dividend_date
+      earnings$dividendDate <- dividend_date
+
+      earnings
+
     },
 
     #' @description
