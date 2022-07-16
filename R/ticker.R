@@ -347,6 +347,22 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Contains information for a funds top holdings, bond ratings, bond holdings, equity holdings, sector weightings, and category breakdown
+    #' @examples
+    #' fund <- Ticker$new('vbmfx')
+    #' fund$get_fund_holding_info()
+    get_fund_holding_info = function() {
+
+      module <- 'topHoldings'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%
+        private$display_data() %>%
+        use_series(topHoldings) 
+
+    },
+
+    #' @description
     #' Top 10 owners of a given symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
@@ -386,6 +402,22 @@ Ticker <- R6::R6Class(
         use_series(fundPerformance) %>%
         compact() %>%
         map_if(function(x) 'raw' %in% names(x), 'raw')
+
+    },
+
+    #' @description
+    #' Summary level information for a given symbol
+    #' @examples
+    #' fund <- Ticker$new('hasgx')
+    #' fund$get_fund_profile()
+    get_fund_profile = function() {
+
+      module <- 'fundProfile'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%
+        private$display_data() %>%
+        use_series(fundProfile) 
 
     },
 

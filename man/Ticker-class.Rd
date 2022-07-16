@@ -104,6 +104,13 @@ fund <- Ticker$new('vbmfx')
 fund$get_fund_equity_holdings()
 
 ## ------------------------------------------------
+## Method `Ticker$get_fund_holding_info`
+## ------------------------------------------------
+
+fund <- Ticker$new('vbmfx')
+fund$get_fund_holding_info()
+
+## ------------------------------------------------
 ## Method `Ticker$get_fund_ownership`
 ## ------------------------------------------------
 
@@ -116,6 +123,13 @@ aapl$get_fund_ownership()
 
 fund <- Ticker$new('hasgx')
 fund$get_fund_performance()
+
+## ------------------------------------------------
+## Method `Ticker$get_fund_profile`
+## ------------------------------------------------
+
+fund <- Ticker$new('hasgx')
+fund$get_fund_profile()
 
 ## ------------------------------------------------
 ## Method `Ticker$get_fund_section_weightings`
@@ -252,8 +266,10 @@ aapl$get_summary_profile()
 \item \href{#method-get_fund_bond_holdings}{\code{Ticker$get_fund_bond_holdings()}}
 \item \href{#method-get_fund_bond_ratings}{\code{Ticker$get_fund_bond_ratings()}}
 \item \href{#method-get_fund_equity_holdings}{\code{Ticker$get_fund_equity_holdings()}}
+\item \href{#method-get_fund_holding_info}{\code{Ticker$get_fund_holding_info()}}
 \item \href{#method-get_fund_ownership}{\code{Ticker$get_fund_ownership()}}
 \item \href{#method-get_fund_performance}{\code{Ticker$get_fund_performance()}}
+\item \href{#method-get_fund_profile}{\code{Ticker$get_fund_profile()}}
 \item \href{#method-get_fund_section_weightings}{\code{Ticker$get_fund_section_weightings()}}
 \item \href{#method-get_fund_top_holdings}{\code{Ticker$get_fund_top_holdings()}}
 \item \href{#method-get_grading_history}{\code{Ticker$get_grading_history()}}
@@ -537,6 +553,25 @@ fund$get_fund_equity_holdings()
 
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_fund_holding_info"></a>}}
+\if{latex}{\out{\hypertarget{method-get_fund_holding_info}{}}}
+\subsection{Method \code{get_fund_holding_info()}}{
+Contains information for a funds top holdings, bond ratings, bond holdings, equity holdings, sector weightings, and category breakdown
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_fund_holding_info()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{fund <- Ticker$new('vbmfx')
+fund$get_fund_holding_info()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_fund_ownership"></a>}}
 \if{latex}{\out{\hypertarget{method-get_fund_ownership}{}}}
 \subsection{Method \code{get_fund_ownership()}}{
@@ -568,6 +603,25 @@ Historical return data for a given symbol and its specific category
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{fund <- Ticker$new('hasgx')
 fund$get_fund_performance()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_fund_profile"></a>}}
+\if{latex}{\out{\hypertarget{method-get_fund_profile}{}}}
+\subsection{Method \code{get_fund_profile()}}{
+Summary level information for a given symbol
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_fund_profile()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{fund <- Ticker$new('hasgx')
+fund$get_fund_profile()
 }
 \if{html}{\out{</div>}}
 
