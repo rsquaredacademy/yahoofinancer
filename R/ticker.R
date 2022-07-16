@@ -660,6 +660,22 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' KPIs for given symbol
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_key_stats()
+    get_key_stats = function() {
+
+      module <- 'defaultKeyStatistics'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%   
+        private$display_data() %>%
+        use_series(defaultKeyStatistics) %>%
+        compact()
+    },
+
+    #' @description
     #' Data showing breakdown of owners of given symbol(s), insiders, institutions, etc.
     #' @examples
     #' aapl <- Ticker$new('aapl')

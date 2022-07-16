@@ -188,6 +188,13 @@ aapl <- Ticker$new('aapl')
 aapl$get_institution_ownership()
 
 ## ------------------------------------------------
+## Method `Ticker$get_key_stats`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_key_stats()
+
+## ------------------------------------------------
 ## Method `Ticker$get_major_holders`
 ## ------------------------------------------------
 
@@ -285,6 +292,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_inside_holders}{\code{Ticker$get_inside_holders()}}
 \item \href{#method-get_insider_transactions}{\code{Ticker$get_insider_transactions()}}
 \item \href{#method-get_institution_ownership}{\code{Ticker$get_institution_ownership()}}
+\item \href{#method-get_key_stats}{\code{Ticker$get_key_stats()}}
 \item \href{#method-get_major_holders}{\code{Ticker$get_major_holders()}}
 \item \href{#method-get_page_views}{\code{Ticker$get_page_views()}}
 \item \href{#method-get_price}{\code{Ticker$get_price()}}
@@ -782,6 +790,25 @@ Top 10 owners of a given symbol
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_institution_ownership()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_key_stats"></a>}}
+\if{latex}{\out{\hypertarget{method-get_key_stats}{}}}
+\subsection{Method \code{get_key_stats()}}{
+KPIs for given symbol
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_key_stats()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_key_stats()
 }
 \if{html}{\out{</div>}}
 
