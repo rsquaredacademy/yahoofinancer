@@ -409,6 +409,29 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Retrieves Top 10 holdings for a given symbol
+    #' @examples
+    #' fund <- Ticker$new('hasgx')
+    #' fund$get_fund_top_holdings()
+    get_fund_top_holdings = function() {
+
+      module <- 'topHoldings'
+      req    <- private$resp_data(self$symbol, module)
+      
+      data <- 
+        req %>%
+        private$display_data() %>%
+        use_series(topHoldings) %>%
+        use_series(holdings) 
+
+      data.frame(
+        symbol = map_chr(data, 'symbol', .default = NA),
+        holding_name = map_chr(data, 'holdingName', .default = NA),
+        holding_percent = map_dbl(map(data, 'holdingPercent'), 'raw', .default = NA)
+      )
+    },
+
+    #' @description
     #' Data related to upgrades / downgrades by companies
     #' @examples
     #' aapl <- Ticker$new('aapl')
