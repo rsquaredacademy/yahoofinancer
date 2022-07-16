@@ -372,6 +372,43 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Historical return data for a given symbol and its specific category
+    #' @examples
+    #' fund <- Ticker$new('hasgx')
+    #' fund$get_fund_performance()
+    get_fund_performance = function() {
+
+      module <- 'fundPerformance'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%
+        private$display_data() %>%
+        use_series(fundPerformance) %>%
+        compact() %>%
+        map_if(function(x) 'raw' %in% names(x), 'raw')
+
+    },
+
+    #' @description
+    #' Retrieves aggregated sector weightings for a given symbol
+    #' @examples
+    #' fund <- Ticker$new('hasgx')
+    #' fund$get_fund_section_weightings()
+    get_fund_section_weightings = function() {
+
+      module <- 'topHoldings'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%
+        private$display_data() %>%
+        use_series(topHoldings) %>%
+        use_series(sectorWeightings) %>%
+        map_depth(2, 'raw') %>%
+        unlist() %>%
+        as.list()
+    },
+
+    #' @description
     #' Data related to upgrades / downgrades by companies
     #' @examples
     #' aapl <- Ticker$new('aapl')

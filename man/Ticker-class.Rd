@@ -111,6 +111,20 @@ aapl <- Ticker$new('aapl')
 aapl$get_fund_ownership()
 
 ## ------------------------------------------------
+## Method `Ticker$get_fund_performance`
+## ------------------------------------------------
+
+fund <- Ticker$new('hasgx')
+fund$get_fund_performance()
+
+## ------------------------------------------------
+## Method `Ticker$get_fund_section_weightings`
+## ------------------------------------------------
+
+fund <- Ticker$new('hasgx')
+fund$get_fund_section_weightings()
+
+## ------------------------------------------------
 ## Method `Ticker$get_grading_history`
 ## ------------------------------------------------
 
@@ -232,6 +246,8 @@ aapl$get_summary_profile()
 \item \href{#method-get_fund_bond_ratings}{\code{Ticker$get_fund_bond_ratings()}}
 \item \href{#method-get_fund_equity_holdings}{\code{Ticker$get_fund_equity_holdings()}}
 \item \href{#method-get_fund_ownership}{\code{Ticker$get_fund_ownership()}}
+\item \href{#method-get_fund_performance}{\code{Ticker$get_fund_performance()}}
+\item \href{#method-get_fund_section_weightings}{\code{Ticker$get_fund_section_weightings()}}
 \item \href{#method-get_grading_history}{\code{Ticker$get_grading_history()}}
 \item \href{#method-get_index_trend}{\code{Ticker$get_index_trend()}}
 \item \href{#method-get_inside_holders}{\code{Ticker$get_inside_holders()}}
@@ -525,6 +541,44 @@ Top 10 owners of a given symbol
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_fund_ownership()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_fund_performance"></a>}}
+\if{latex}{\out{\hypertarget{method-get_fund_performance}{}}}
+\subsection{Method \code{get_fund_performance()}}{
+Historical return data for a given symbol and its specific category
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_fund_performance()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{fund <- Ticker$new('hasgx')
+fund$get_fund_performance()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_fund_section_weightings"></a>}}
+\if{latex}{\out{\hypertarget{method-get_fund_section_weightings}{}}}
+\subsection{Method \code{get_fund_section_weightings()}}{
+Retrieves aggregated sector weightings for a given symbol
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_fund_section_weightings()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{fund <- Ticker$new('hasgx')
+fund$get_fund_section_weightings()
 }
 \if{html}{\out{</div>}}
 
