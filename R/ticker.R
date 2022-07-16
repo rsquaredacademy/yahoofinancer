@@ -38,26 +38,21 @@ Ticker <- R6::R6Class(
     #' appl$set_symbol('msft')
     set_symbol = function(symbol) {
       self$symbol <- symbol
-    },
+    }
+  ),
 
-    #' @description
-    #' Information related to the company's location, operations, and officers.
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_asset_profile()
-    get_asset_profile = function() {
+  active = list(
+
+    #' @field asset_profile Information related to the company's location, operations, and officers.
+    asset_profile = function() {
       module <- 'assetProfile'
       req    <- private$resp_data(self$symbol, module)
       private$display_data(req) %>%
         use_series(assetProfile)
     },
 
-    #' @description
-    #' Earnings and Revenue expectations for upcoming earnings date.
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_calendar_events()
-    get_calendar_events = function() {
+    #' @field calendar_events Earnings and Revenue expectations for upcoming earnings date.
+    calendar_events = function() {
       module <- 'calendarEvents'
       req    <- private$resp_data(self$symbol, module)
       
@@ -95,12 +90,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @description
-    #' Retrieves top executives for given symbol and their total pay package.
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_company_officers()
-    get_company_officers = function() {
+    #' @field company_officers Retrieves top executives for given symbol and their total pay package.
+    company_officers = function() {
       data <-
         self$get_asset_profile() %>%
         use_series(companyOfficers)
@@ -117,12 +108,8 @@ Ticker <- R6::R6Class(
       )
     },
 
-    #' @description
-    #' Data related to historical earnings (actual vs. estimate)
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_earnings_history()
-    get_earnings_history = function() {
+    #' @field earnings_history Data related to historical earnings (actual vs. estimate)
+    earnings_history = function() {
 
       module <- 'earningsHistory'
       req    <- private$resp_data(self$symbol, module)
@@ -142,12 +129,8 @@ Ticker <- R6::R6Class(
       )
     },
 
-    #' @description
-    #' Historical earnings data.
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_earnings()
-    get_earnings = function() {
+    #' @field earnings Historical earnings data.
+    earnings = function() {
 
       module <- 'earnings'
       req    <- private$resp_data(self$symbol, module)
@@ -207,12 +190,8 @@ Ticker <- R6::R6Class(
       )
     },
 
-    #' @description
-    #' Historical trend data for earnings and revenue estimations
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_earnings_trend()
-    get_earnings_trend = function() {
+    #' @field earnings_trend Historical trend data for earnings and revenue estimations
+    earnings_trend = function() {
 
       module <- 'earningsTrend'
       req    <- private$resp_data(self$symbol, module)
@@ -282,12 +261,8 @@ Ticker <- R6::R6Class(
       )
     },
 
-    #' @description
-    #' Data related to environmental, social, and governance metrics
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_esg_scores()
-    get_esg_scores = function() {
+    #' @field esg_scores Data related to environmental, social, and governance metrics
+    esg_scores = function() {
 
       module <- 'esgScores'
       req    <- private$resp_data(self$symbol, module)
@@ -296,12 +271,8 @@ Ticker <- R6::R6Class(
         use_series(esgScores)
     },
 
-    #' @description
-    #' Financial key performance indicators
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_financial_data()
-    get_financial_data = function() {
+    #' @field financial_data  Financial key performance indicators
+    financial_data = function() {
 
       module <- 'financialData'
       req    <- private$resp_data(self$symbol, module)
@@ -317,12 +288,8 @@ Ticker <- R6::R6Class(
       fd
     },
 
-    #' @description
-    #' Retrieves aggregated maturity and duration information for a given symbol
-    #' @examples
-    #' fund <- Ticker$new('vbmfx')
-    #' fund$get_fund_bond_holdings()
-    get_fund_bond_holdings = function() {
+    #' @field fund_bond_holdings Retrieves aggregated maturity and duration information for a given symbol
+    fund_bond_holdings = function() {
 
       module <- 'topHoldings'
       req    <- private$resp_data(self$symbol, module)
@@ -336,12 +303,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @description
-    #' Retrieves aggregated maturity and duration information
-    #' @examples
-    #' fund <- Ticker$new('vbmfx')
-    #' fund$get_fund_bond_ratings()
-    get_fund_bond_ratings = function() {
+    #' @field fund_bond_ratings Retrieves aggregated maturity and duration information
+    fund_bond_ratings = function() {
 
       module <- 'topHoldings'
       req    <- private$resp_data(self$symbol, module)
@@ -356,12 +319,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @description
-    #' Fund equity holdings
-    #' @examples
-    #' fund <- Ticker$new('vbmfx')
-    #' fund$get_fund_equity_holdings()
-    get_fund_equity_holdings = function() {
+    #' @field fund_equity_holdings Fund equity holdings
+    fund_equity_holdings = function() {
 
       module <- 'topHoldings'
       req    <- private$resp_data(self$symbol, module)
@@ -375,12 +334,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @description
-    #' Contains information for a funds top holdings, bond ratings, bond holdings, equity holdings, sector weightings, and category breakdown
-    #' @examples
-    #' fund <- Ticker$new('vbmfx')
-    #' fund$get_fund_holding_info()
-    get_fund_holding_info = function() {
+    #' @field fund_holding_info Contains information for a funds top holdings, bond ratings, bond holdings, equity holdings, sector weightings, and category breakdown
+    fund_holding_info = function() {
 
       module <- 'topHoldings'
       req    <- private$resp_data(self$symbol, module)
@@ -391,12 +346,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @description
-    #' Top 10 owners of a given symbol
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_fund_ownership()
-    get_fund_ownership = function() {
+    #' @field fund_ownership Top 10 owners of a given symbol
+    fund_ownership = function() {
 
       module <- 'fundOwnership'
       req    <- private$resp_data(self$symbol, module)
@@ -416,12 +367,8 @@ Ticker <- R6::R6Class(
       )
     },
 
-    #' @description
-    #' Historical return data for a given symbol and its specific category
-    #' @examples
-    #' fund <- Ticker$new('hasgx')
-    #' fund$get_fund_performance()
-    get_fund_performance = function() {
+    #' @field fund_performance Historical return data for a given symbol and its specific category
+    fund_performance = function() {
 
       module <- 'fundPerformance'
       req    <- private$resp_data(self$symbol, module)
@@ -434,12 +381,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @description
-    #' Summary level information for a given symbol
-    #' @examples
-    #' fund <- Ticker$new('hasgx')
-    #' fund$get_fund_profile()
-    get_fund_profile = function() {
+    #' @field fund_profile Summary level information for a given symbol
+    fund_profile = function() {
 
       module <- 'fundProfile'
       req    <- private$resp_data(self$symbol, module)
@@ -450,12 +393,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @description
-    #' Retrieves aggregated sector weightings for a given symbol
-    #' @examples
-    #' fund <- Ticker$new('hasgx')
-    #' fund$get_fund_section_weightings()
-    get_fund_section_weightings = function() {
+    #' @field fund_section_weightings Retrieves aggregated sector weightings for a given symbol
+    fund_section_weightings = function() {
 
       module <- 'topHoldings'
       req    <- private$resp_data(self$symbol, module)
@@ -469,12 +408,8 @@ Ticker <- R6::R6Class(
         as.list()
     },
 
-    #' @description
-    #' Retrieves Top 10 holdings for a given symbol
-    #' @examples
-    #' fund <- Ticker$new('hasgx')
-    #' fund$get_fund_top_holdings()
-    get_fund_top_holdings = function() {
+    #' @field fund_top_holdings Retrieves Top 10 holdings for a given symbol
+    fund_top_holdings = function() {
 
       module <- 'topHoldings'
       req    <- private$resp_data(self$symbol, module)
@@ -492,12 +427,8 @@ Ticker <- R6::R6Class(
       )
     },
 
-    #' @description
-    #' Holding info for the given fund
-    #' @examples
-    #' fund <- Ticker$new('hasgx')
-    #' fund$get_fund_holdings()
-    get_fund_holdings = function() {
+    #' @field fund_holdings Holding info for the given fund
+    fund_holdings = function() {
 
       module <- 'topHoldings'
       req    <- private$resp_data(self$symbol, module)
@@ -510,12 +441,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @description
-    #' Data related to upgrades / downgrades by companies
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_grading_history()
-    get_grading_history = function() {
+    #' @field grading_history Data related to upgrades / downgrades by companies
+    grading_history = function() {
 
       module <- 'upgradeDowngradeHistory'
       req    <- private$resp_data(self$symbol, module)
@@ -535,12 +462,8 @@ Ticker <- R6::R6Class(
       )
     },
 
-    #' @description
-    #' Trend data related to given symbol's index, specificially PE and PEG ratios
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_index_trend()
-    get_index_trend = function() {
+    #' @field index_trend Trend data related to given symbol's index, specificially PE and PEG ratios
+    index_trend = function() {
 
       module <- 'indexTrend'
       req    <- private$resp_data(self$symbol, module)
@@ -573,12 +496,8 @@ Ticker <- R6::R6Class(
       
     },
 
-    #' @description
-    #' Data related to stock holdings of a given symbol(s) insiders
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_inside_holders()
-    get_inside_holders = function() {
+    #' @field inside_holders Data related to stock holdings of a given symbol(s) insiders
+    inside_holders = function() {
 
       module <- 'insiderHolders'
       req    <- private$resp_data(self$symbol, module)
@@ -601,12 +520,8 @@ Ticker <- R6::R6Class(
       
     },
 
-    #' @description
-    #' Transactions by insiders for a given symbol(s)
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_insider_transactions()
-    get_insider_transactions = function() {
+    #' @field insider_transactions Transactions by insiders for a given symbol(s)
+    insider_transactions = function() {
 
       module <- 'insiderTransactions'
       req    <- private$resp_data(self$symbol, module)
@@ -632,12 +547,8 @@ Ticker <- R6::R6Class(
       
     },
 
-    #' @description
-    #' Top 10 owners of a given symbol
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_institution_ownership()
-    get_institution_ownership = function() {
+    #' @field institution_ownership Top 10 owners of a given symbol
+    institution_ownership = function() {
 
       module <- 'institutionOwnership'
       req    <- private$resp_data(self$symbol, module)
@@ -659,12 +570,8 @@ Ticker <- R6::R6Class(
       
     },
 
-    #' @description
-    #' KPIs for given symbol
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_key_stats()
-    get_key_stats = function() {
+    #' @field key_stats KPIs for given symbol
+    key_stats = function() {
 
       module <- 'defaultKeyStatistics'
       req    <- private$resp_data(self$symbol, module)
@@ -675,12 +582,8 @@ Ticker <- R6::R6Class(
         compact()
     },
 
-    #' @description
-    #' Data showing breakdown of owners of given symbol(s), insiders, institutions, etc.
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_major_holders()
-    get_major_holders = function() {
+    #' @field major_holders Data showing breakdown of owners of given symbol(s), insiders, institutions, etc.
+    major_holders = function() {
 
       module <- 'majorHoldersBreakdown'
       req    <- private$resp_data(self$symbol, module)
@@ -691,12 +594,8 @@ Ticker <- R6::R6Class(
         map_at(-1, 'raw')
     },
 
-    #' @description
-    #' Short, Mid, and Long-term trend data regarding a symbol's page views
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_page_views()
-    get_page_views = function() {
+    #' @field page_views Short, Mid, and Long-term trend data regarding a symbol's page views
+    page_views = function() {
 
       module <- 'pageViews'
       req    <- private$resp_data(self$symbol, module)
@@ -706,12 +605,8 @@ Ticker <- R6::R6Class(
         use_series(pageViews) 
     },
 
-    #' @description
-    #' Detailed pricing data for given symbol, exchange, quote type, currency, market cap, pre / post market data, etc.
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_price()
-    get_price = function() {
+    #' @field price Detailed pricing data for given symbol, exchange, quote type, currency, market cap, pre / post market data, etc.
+    price = function() {
 
       module <- 'price'
       req    <- private$resp_data(self$symbol, module)
@@ -722,12 +617,8 @@ Ticker <- R6::R6Class(
         map_at(c(2, 3, 5, 9, 10, 12:16, 19, 21, 42), 'raw')
     },
 
-    #' @description
-    #' Stock exchange specific data for given symbol
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_quote_type()
-    get_quote_type = function() {
+    #' @field quote_type Stock exchange specific data for given symbol
+    quote_type = function() {
 
       module <- 'quoteType'
       req    <- private$resp_data(self$symbol, module)
@@ -737,12 +628,8 @@ Ticker <- R6::R6Class(
         use_series(quoteType)
     },
 
-    #' @description
-    #' Data related to historical recommendations (buy, hold, sell) for a given symbol
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_recommendation_trend()
-    get_recommendation_trend = function() {
+    #' @field recommendation_trend Data related to historical recommendations (buy, hold, sell) for a given symbol
+    recommendation_trend = function() {
 
       module <- 'recommendationTrend'
       req    <- private$resp_data(self$symbol, module)
@@ -764,12 +651,8 @@ Ticker <- R6::R6Class(
       
     },
 
-    #' @description
-    #' Historical SEC filings 
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_security_filings()
-    get_security_filings = function() {
+    #' @field security_filings Historical SEC filings 
+    security_filings = function() {
 
       module <- 'secFilings'
       req    <- private$resp_data(self$symbol, module)
@@ -789,12 +672,8 @@ Ticker <- R6::R6Class(
       
     },
 
-    #' @description
-    #' High-level buy / sell data
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_share_purchase_activity()
-    get_share_purchase_activity = function() {
+    #' @field share_purchase_activity High-level buy / sell data
+    share_purchase_activity = function() {
 
       module <- 'netSharePurchaseActivity'
       req    <- private$resp_data(self$symbol, module)
@@ -805,12 +684,8 @@ Ticker <- R6::R6Class(
         map_at(c(-1, -2), 'raw')
     },
 
-    #' @description
-    #' Contains information available via the Summary tab in Yahoo Finance
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_summary_detail()
-    get_summary_detail = function() {
+    #' @field summary_detail Contains information available via the Summary tab in Yahoo Finance
+    summary_detail = function() {
 
       module <- 'summaryDetail'
       req    <- private$resp_data(self$symbol, module)
@@ -822,12 +697,8 @@ Ticker <- R6::R6Class(
         map_if(function(x) 'raw' %in% names(x), 'raw')
     },
 
-    #' @description
-    #' Return business summary of given symbol
-    #' @examples
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_summary_profile()
-    get_summary_profile = function() {
+    #' @field summary_profile Return business summary of given symbol
+    summary_profile = function() {
 
       module <- 'summaryProfile'
       req    <- private$resp_data(self$symbol, module)
