@@ -493,6 +493,24 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
+    #' Holding info for the given fund
+    #' @examples
+    #' fund <- Ticker$new('hasgx')
+    #' fund$get_fund_holdings()
+    get_fund_holdings = function() {
+
+      module <- 'topHoldings'
+      req    <- private$resp_data(self$symbol, module)
+      
+      req %>%
+        private$display_data() %>%
+        use_series(topHoldings) %>%
+        map_depth(1, 'raw') %>% 
+        compact()
+
+    },
+
+    #' @description
     #' Data related to upgrades / downgrades by companies
     #' @examples
     #' aapl <- Ticker$new('aapl')

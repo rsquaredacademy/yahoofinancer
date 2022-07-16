@@ -146,6 +146,13 @@ fund <- Ticker$new('hasgx')
 fund$get_fund_top_holdings()
 
 ## ------------------------------------------------
+## Method `Ticker$get_fund_holdings`
+## ------------------------------------------------
+
+fund <- Ticker$new('hasgx')
+fund$get_fund_holdings()
+
+## ------------------------------------------------
 ## Method `Ticker$get_grading_history`
 ## ------------------------------------------------
 
@@ -272,6 +279,7 @@ aapl$get_summary_profile()
 \item \href{#method-get_fund_profile}{\code{Ticker$get_fund_profile()}}
 \item \href{#method-get_fund_section_weightings}{\code{Ticker$get_fund_section_weightings()}}
 \item \href{#method-get_fund_top_holdings}{\code{Ticker$get_fund_top_holdings()}}
+\item \href{#method-get_fund_holdings}{\code{Ticker$get_fund_holdings()}}
 \item \href{#method-get_grading_history}{\code{Ticker$get_grading_history()}}
 \item \href{#method-get_index_trend}{\code{Ticker$get_index_trend()}}
 \item \href{#method-get_inside_holders}{\code{Ticker$get_inside_holders()}}
@@ -660,6 +668,25 @@ Retrieves Top 10 holdings for a given symbol
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{fund <- Ticker$new('hasgx')
 fund$get_fund_top_holdings()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_fund_holdings"></a>}}
+\if{latex}{\out{\hypertarget{method-get_fund_holdings}{}}}
+\subsection{Method \code{get_fund_holdings()}}{
+Holding info for the given fund
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_fund_holdings()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{fund <- Ticker$new('hasgx')
+fund$get_fund_holdings()
 }
 \if{html}{\out{</div>}}
 
