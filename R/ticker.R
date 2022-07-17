@@ -849,6 +849,34 @@ Ticker <- R6::R6Class(
       req %>%
         private$display_data() %>%
         use_series(summaryProfile)
+    },
+
+    #' @field valuation_measures Retrieves valuation measures for most recent four quarters
+    valuation_measures = function() {
+
+      url <- 'https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/aapl?symbol=aapl&padTimeSeries=true&type=quarterlyMarketCap,trailingMarketCap,quarterlyEnterpriseValue,trailingEnterpriseValue,quarterlyPeRatio,trailingPeRatio,quarterlyForwardPeRatio,trailingForwardPeRatio,quarterlyPegRatio,trailingPegRatio,quarterlyPsRatio,trailingPsRatio,quarterlyPbRatio,trailingPbRatio,quarterlyEnterprisesValueRevenueRatio,trailingEnterprisesValueRevenueRatio,quarterlyEnterprisesValueEBITDARatio,trailingEnterprisesValueEBITDARatio&period1=493590046&period2=1658016000&corsDomain=finance.yahoo.com'
+
+      resp   <- GET(url)
+      parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+
+      data <- 
+        parsed %>% 
+        use_series(timeseries) %>% 
+        use_series(result)
+
+      data.frame(
+        date = date(as_datetime(unlist(data[[1]]$timestamp))),
+        enterprise_value = private$extract_valuation(data, 'quarterlyEnterpriseValue'),
+        enterprise_value_ebitda_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueEBITDARatio'),
+        enterprise_value_revenue_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueRevenueRatio'),
+        forward_pe_ratio = private$extract_valuation(data, 'quarterlyForwardPeRatio'),
+        market_cap = private$extract_valuation(data, 'quarterlyMarketCap'),
+        pb_ratio = private$extract_valuation(data, 'quarterlyPbRatio'),
+        pe_ratio = private$extract_valuation(data, 'quarterlyPeRatio'),
+        peg_ratio = private$extract_valuation(data, 'quarterlyPegRatio'),
+        ps_ratio = private$extract_valuation(data, 'quarterlyPsRatio')
+      )
+
     }
   ),
 
@@ -894,6 +922,14 @@ Ticker <- R6::R6Class(
 
     snake_case = function(x) {
       paste0('_', tolower(x))
+    },
+
+    extract_valuation = function(data, measure) {
+      data %>% 
+        map_if(function(x) 'quarterlyEnterpriseValue' %in% names(x), 'quarterlyEnterpriseValue') %>% 
+        map_depth(2, 'reportedValue') %>% 
+        map_depth(2, 'raw') %>% 
+        unlist()
     }
   )
 )

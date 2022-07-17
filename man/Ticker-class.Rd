@@ -125,6 +125,8 @@ aapl$get_income_statement('quarter')
 \item{\code{summary_detail}}{Contains information available via the Summary tab in Yahoo Finance}
 
 \item{\code{summary_profile}}{Return business summary of given symbol}
+
+\item{\code{valuation_measures}}{Retrieves valuation measures for most recent four quarters}
 }
 \if{html}{\out{</div>}}
 }
