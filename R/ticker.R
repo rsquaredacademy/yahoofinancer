@@ -85,6 +85,53 @@ Ticker <- R6::R6Class(
       }
       
       balance_sheet
+    },
+
+    #' @description
+    #' Retrieves cash flow data for most recent four quarters or most recent four years
+    #' @param frequency Annual or quarter.
+    #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_cash_flow('annual')
+    #' aapl$get_cash_flow('quarter')
+    get_cash_flow = function(frequency = c('annual', 'quarter'), clean_names = TRUE) {
+
+      freq <- match.arg(frequency)
+
+      if (freq == 'annual') {
+        module <- 'cashflowStatementHistory'
+      } else {
+        module <- 'cashflowStatementHistoryQuarterly'
+      }
+
+      req  <- private$resp_data(self$symbol, module)
+
+      if (freq == 'annual') {
+        data <- 
+          req %>% 
+          private$display_data() %>%
+          use_series(cashflowStatementHistory)
+      } else {
+        data <- 
+          req %>% 
+          private$display_data() %>%
+          use_series(cashflowStatementHistoryQuarterly)
+      }
+
+      cash_flow <- 
+        data %>% 
+        use_series(cashflowStatements) %>%
+        map_depth(2, 'raw') %>% 
+        map_dfr(extract) 
+
+      cash_flow$endDate <- date(as_datetime(cash_flow$endDate))
+
+      if (clean_names) {
+        names(cash_flow) <- str_replace_all(names(cash_flow), '[A-Z]', private$snake_case)
+      }
+      
+      cash_flow
     }
   ),
 
