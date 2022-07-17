@@ -5,7 +5,7 @@
 #'
 #' @param symbol Symbol for which data has to be retrieved
 #'
-#' @import R6 httr jsonlite magrittr purrr lubridate
+#' @import R6 httr jsonlite magrittr purrr lubridate stringr
 #' @docType class
 #' @format An R6 class object
 #' @name Ticker-class
@@ -38,6 +38,53 @@ Ticker <- R6::R6Class(
     #' appl$set_symbol('msft')
     set_symbol = function(symbol) {
       self$symbol <- symbol
+    },
+
+    #' @description
+    #' Retrieves balance sheet data for most recent four quarters or most recent four years
+    #' @param frequency Annual or quarter.
+    #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_balance_sheet('annual')
+    #' aapl$get_balance_sheet('quarter')
+    get_balance_sheet = function(frequency = c('annual', 'quarter'), clean_names = TRUE) {
+
+      freq <- match.arg(frequency)
+
+      if (freq == 'annual') {
+        module <- 'balanceSheetHistory'
+      } else {
+        module <- 'balanceSheetHistoryQuarterly'
+      }
+
+      req  <- private$resp_data(self$symbol, module)
+
+      if (freq == 'annual') {
+        data <- 
+          req %>% 
+          private$display_data() %>%
+          use_series(balanceSheetHistory)
+      } else {
+        data <- 
+          req %>% 
+          private$display_data() %>%
+          use_series(balanceSheetHistoryQuarterly)
+      }
+
+      balance_sheet <- 
+        data %>% 
+        use_series(balanceSheetStatements) %>%
+        map_depth(2, 'raw') %>% 
+        map_dfr(extract) 
+
+      balance_sheet$endDate <- date(as_datetime(balance_sheet$endDate))
+
+      if (clean_names) {
+        names(balance_sheet) <- str_replace_all(names(balance_sheet), '[A-Z]', private$snake_case)
+      }
+      
+      balance_sheet
     }
   ),
 
@@ -47,7 +94,9 @@ Ticker <- R6::R6Class(
     asset_profile = function() {
       module <- 'assetProfile'
       req    <- private$resp_data(self$symbol, module)
-      private$display_data(req) %>%
+
+      req %>% 
+      private$display_data() %>%
         use_series(assetProfile)
     },
 
@@ -702,7 +751,9 @@ Ticker <- R6::R6Class(
 
       module <- 'summaryProfile'
       req    <- private$resp_data(self$symbol, module)
-      private$display_data(req) %>%
+
+      req %>%
+        private$display_data() %>%
         use_series(summaryProfile)
     }
   ),
@@ -745,6 +796,10 @@ Ticker <- R6::R6Class(
       } else {
         private$parse_data(req$parsed)
       }
+    },
+
+    snake_case = function(x) {
+      paste0('_', tolower(x))
     }
   )
 )

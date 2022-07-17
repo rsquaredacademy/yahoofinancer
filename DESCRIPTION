@@ -15,5 +15,6 @@ Imports:
     lubridate,
     magrittr,
     purrr,
-    R6
+    R6,
+    stringr
 RoxygenNote: 7.1.1
