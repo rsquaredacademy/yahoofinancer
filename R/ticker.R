@@ -132,6 +132,53 @@ Ticker <- R6::R6Class(
       }
       
       cash_flow
+    },
+
+    #' @description
+    #' Retrieves income statement data for most recent four quarters or most recent four years
+    #' @param frequency Annual or quarter.
+    #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
+    #' @examples
+    #' aapl <- Ticker$new('aapl')
+    #' aapl$get_income_statement('annual')
+    #' aapl$get_income_statement('quarter')
+    get_income_statement = function(frequency = c('annual', 'quarter'), clean_names = TRUE) {
+
+      freq <- match.arg(frequency)
+
+      if (freq == 'annual') {
+        module <- 'incomeStatementHistory'
+      } else {
+        module <- 'incomeStatementHistoryQuarterly'
+      }
+
+      req  <- private$resp_data(self$symbol, module)
+
+      if (freq == 'annual') {
+        data <- 
+          req %>% 
+          private$display_data() %>%
+          use_series(incomeStatementHistory)
+      } else {
+        data <- 
+          req %>% 
+          private$display_data() %>%
+          use_series(incomeStatementHistoryQuarterly)
+      }
+
+      income_statement <- 
+        data %>% 
+        use_series(incomeStatementHistory) %>%
+        map_depth(2, 'raw') %>% 
+        map_dfr(extract) 
+
+      income_statement$endDate <- date(as_datetime(income_statement$endDate))
+
+      if (clean_names) {
+        names(income_statement) <- str_replace_all(names(income_statement), '[A-Z]', private$snake_case)
+      }
+      
+      income_statement
     }
   ),
 

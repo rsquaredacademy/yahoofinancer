@@ -41,6 +41,14 @@ aapl$get_balance_sheet('quarter')
 aapl <- Ticker$new('aapl')
 aapl$get_cash_flow('annual')
 aapl$get_cash_flow('quarter')
+
+## ------------------------------------------------
+## Method `Ticker$get_income_statement`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_income_statement('annual')
+aapl$get_income_statement('quarter')
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -127,6 +135,7 @@ aapl$get_cash_flow('quarter')
 \item \href{#method-set_symbol}{\code{Ticker$set_symbol()}}
 \item \href{#method-get_balance_sheet}{\code{Ticker$get_balance_sheet()}}
 \item \href{#method-get_cash_flow}{\code{Ticker$get_cash_flow()}}
+\item \href{#method-get_income_statement}{\code{Ticker$get_income_statement()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
 }
@@ -239,6 +248,38 @@ Retrieves cash flow data for most recent four quarters or most recent four years
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_cash_flow('annual')
 aapl$get_cash_flow('quarter')
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_income_statement"></a>}}
+\if{latex}{\out{\hypertarget{method-get_income_statement}{}}}
+\subsection{Method \code{get_income_statement()}}{
+Retrieves income statement data for most recent four quarters or most recent four years
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_income_statement(
+  frequency = c("annual", "quarter"),
+  clean_names = TRUE
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{frequency}}{Annual or quarter.}
+
+\item{\code{clean_names}}{Logical; if \code{TRUE}, converts column names to snake case.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_income_statement('annual')
+aapl$get_income_statement('quarter')
 }
 \if{html}{\out{</div>}}
 
