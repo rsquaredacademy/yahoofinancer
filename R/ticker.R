@@ -854,9 +854,20 @@ Ticker <- R6::R6Class(
     #' @field valuation_measures Retrieves valuation measures for most recent four quarters
     valuation_measures = function() {
 
-      url <- 'https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/aapl?symbol=aapl&padTimeSeries=true&type=quarterlyMarketCap,trailingMarketCap,quarterlyEnterpriseValue,trailingEnterpriseValue,quarterlyPeRatio,trailingPeRatio,quarterlyForwardPeRatio,trailingForwardPeRatio,quarterlyPegRatio,trailingPegRatio,quarterlyPsRatio,trailingPsRatio,quarterlyPbRatio,trailingPbRatio,quarterlyEnterprisesValueRevenueRatio,trailingEnterprisesValueRevenueRatio,quarterlyEnterprisesValueEBITDARatio,trailingEnterprisesValueEBITDARatio&period1=493590046&period2=1658016000&corsDomain=finance.yahoo.com'
+      path      <- 'ws/fundamentals-timeseries/v1/finance/timeseries/'
+      end_point <- paste0(path, self$symbol)
+      url       <- modify_url(url = private$base_url, path = end_point)
+      
+      measure   <- paste0('quarterly', c('MarketCap', 'EnterpriseValue', 'PeRatio', 'ForwardPeRatio',
+                     'PegRatio', 'PsRatio', 'PbRatio', 'EnterprisesValueRevenueRatio',
+                     'EnterprisesValueEBITDARatio'), collapse = ',')
 
-      resp   <- GET(url)
+      qlist <- list(type = measure, 
+                    period1 = 493590046, 
+                    period2 = round(as.numeric(now())),
+                    corsDomain = private$cors_domain)
+
+      resp   <- GET(url, query = qlist)
       parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
 
       data <- 
