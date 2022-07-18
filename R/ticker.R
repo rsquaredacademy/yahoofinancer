@@ -877,6 +877,48 @@ Ticker <- R6::R6Class(
         ps_ratio = private$extract_valuation(data, 'quarterlyPsRatio')
       )
 
+    },
+
+    #' @field option_chain Option chain data for all expiration dates for a given symbol
+    option_chain = function() {
+
+      path      <- 'v7/finance/options/'
+      end_point <- paste0(path, self$symbol)
+      url       <- modify_url(url = private$base_url, path = end_point)
+      qlist     <- list(getAllData = 'True', corsDomain = private$cors_domain)
+      resp      <- GET(url, query = qlist)
+      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      
+      data <- 
+        parsed %>%
+        use_series(optionChain) %>%
+        use_series(result) %>%
+        extract2(1) %>% 
+        use_series(options) 
+
+      calls <-
+        data %>%  
+        map_dfr('calls')
+
+      calls$option_type <- 'call'
+
+      puts <- 
+        data %>% 
+        map_dfr('puts')
+
+      puts$option_type <- 'put'
+
+      result <- rbind(calls, puts)
+      names(result) <- str_replace_all(names(result), '[A-Z]', private$snake_case)
+
+      result$expiration <- as_datetime(result$expiration)
+      result$last_trade_date <- as_datetime(result$last_trade_date)
+
+      col_order <- c('expiration', 'option_type', 'contract_symbol', 'strike', 'currency', 'last_price', 'change', 'percent_change', 'open_interest', 'bid', 'ask', 'contract_size', 'last_trade_date', 'implied_volatility', 'in_the_money', 'volume')
+      
+      option_chain <- result[, col_order]
+      option_chain
+
     }
   ),
 
