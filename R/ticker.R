@@ -940,6 +940,25 @@ Ticker <- R6::R6Class(
         as_datetime() %>% 
         date()
 
+    },
+
+    #' @field option_expiration_dates Option strikes
+    option_strikes = function() {
+
+      path      <- 'v7/finance/options/'
+      end_point <- paste0(path, self$symbol)
+      url       <- modify_url(url = private$base_url, path = end_point)
+      qlist     <- list(getAllData = 'True', corsDomain = private$cors_domain)
+      resp      <- GET(url, query = qlist)
+      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      
+      parsed %>%
+        use_series(optionChain) %>%
+        use_series(result) %>%
+        extract2(1) %>% 
+        use_series(strikes) %>% 
+        map_dbl(extract)
+
     }
   ),
 

@@ -131,6 +131,8 @@ aapl$get_income_statement('quarter')
 \item{\code{option_chain}}{Option chain data for all expiration dates for a given symbol}
 
 \item{\code{option_expiration_dates}}{Option expiration dates}
+
+\item{\code{option_expiration_dates}}{Option strikes}
 }
 \if{html}{\out{</div>}}
 }
