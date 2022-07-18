@@ -1065,6 +1065,30 @@ Ticker <- R6::R6Class(
         extract2(1) %>% 
         use_series(quote) 
 
+    },
+
+    #' @field recommendations Recommended symbols
+    recommendations = function() {
+
+      path      <- 'v6/finance/recommendationsbysymbol/'
+      end_point <- paste0(path, self$symbol)
+      url       <- modify_url(url = private$base_url, path = end_point)
+      qlist     <- list(corsDomain = private$cors_domain)
+      resp      <- GET(url, query = qlist)
+      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      
+      data <-
+        parsed %>%
+        use_series(finance) %>%
+        use_series(result) %>%
+        extract2(1) %>% 
+        use_series(recommendedSymbols) 
+
+      data.frame(
+        symbol = map_chr(data, 'symbol'),
+        score = map_dbl(data, 'score')
+      )
+
     }
   ),
 

@@ -145,6 +145,8 @@ aapl$get_history(period = '1mo', interval = '1d')
 \item{\code{option_strikes}}{Option strikes}
 
 \item{\code{quote}}{Get real-time quote information for given symbol}
+
+\item{\code{recommendations}}{Recommended symbols}
 }
 \if{html}{\out{</div>}}
 }
