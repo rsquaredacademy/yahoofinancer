@@ -919,6 +919,27 @@ Ticker <- R6::R6Class(
       option_chain <- result[, col_order]
       option_chain
 
+    },
+
+    #' @field option_expiration_dates Option expiration dates
+    option_expiration_dates = function() {
+
+      path      <- 'v7/finance/options/'
+      end_point <- paste0(path, self$symbol)
+      url       <- modify_url(url = private$base_url, path = end_point)
+      qlist     <- list(getAllData = 'True', corsDomain = private$cors_domain)
+      resp      <- GET(url, query = qlist)
+      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      
+      parsed %>%
+        use_series(optionChain) %>%
+        use_series(result) %>%
+        extract2(1) %>% 
+        use_series(expirationDates) %>% 
+        map_dbl(extract) %>% 
+        as_datetime() %>% 
+        date()
+
     }
   ),
 

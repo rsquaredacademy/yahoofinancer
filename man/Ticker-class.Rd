@@ -129,6 +129,8 @@ aapl$get_income_statement('quarter')
 \item{\code{valuation_measures}}{Retrieves valuation measures for most recent four quarters}
 
 \item{\code{option_chain}}{Option chain data for all expiration dates for a given symbol}
+
+\item{\code{option_expiration_dates}}{Option expiration dates}
 }
 \if{html}{\out{</div>}}
 }
