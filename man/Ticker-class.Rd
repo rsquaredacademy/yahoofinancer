@@ -132,7 +132,9 @@ aapl$get_income_statement('quarter')
 
 \item{\code{option_expiration_dates}}{Option expiration dates}
 
-\item{\code{option_expiration_dates}}{Option strikes}
+\item{\code{option_strikes}}{Option strikes}
+
+\item{\code{option_quote}}{Option quote}
 }
 \if{html}{\out{</div>}}
 }
