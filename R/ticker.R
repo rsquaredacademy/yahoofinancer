@@ -1049,8 +1049,8 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @field option_quote Option quote
-    option_quote = function() {
+    #' @field quote Get real-time quote information for given symbol
+    quote = function() {
 
       path      <- 'v7/finance/options/'
       end_point <- paste0(path, self$symbol)
