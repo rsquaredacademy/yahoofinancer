@@ -49,6 +49,16 @@ aapl$get_cash_flow('quarter')
 aapl <- Ticker$new('aapl')
 aapl$get_income_statement('annual')
 aapl$get_income_statement('quarter')
+
+## ------------------------------------------------
+## Method `Ticker$get_history`
+## ------------------------------------------------
+
+aapl <- Ticker$new('aapl')
+aapl$get_history()
+aapl$get_history(start = '2022-07-01', interval = '1d')
+aapl$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
+aapl$get_history(period = '1mo', interval = '1d')
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -146,6 +156,7 @@ aapl$get_income_statement('quarter')
 \item \href{#method-get_balance_sheet}{\code{Ticker$get_balance_sheet()}}
 \item \href{#method-get_cash_flow}{\code{Ticker$get_cash_flow()}}
 \item \href{#method-get_income_statement}{\code{Ticker$get_income_statement()}}
+\item \href{#method-get_history}{\code{Ticker$get_history()}}
 \item \href{#method-clone}{\code{Ticker$clone()}}
 }
 }
@@ -290,6 +301,41 @@ Retrieves income statement data for most recent four quarters or most recent fou
 \preformatted{aapl <- Ticker$new('aapl')
 aapl$get_income_statement('annual')
 aapl$get_income_statement('quarter')
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_history"></a>}}
+\if{latex}{\out{\hypertarget{method-get_history}{}}}
+\subsection{Method \code{get_history()}}{
+Retrieves historical pricing data
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_history(period = "ytd", interval = "1d", start = NULL, end = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{period}}{Length of time}
+
+\item{\code{interval}}{Time between data points}
+
+\item{\code{start}}{Specific starting date}
+
+\item{\code{end}}{Specific ending date}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{aapl <- Ticker$new('aapl')
+aapl$get_history()
+aapl$get_history(start = '2022-07-01', interval = '1d')
+aapl$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
+aapl$get_history(period = '1mo', interval = '1d')
 }
 \if{html}{\out{</div>}}
 
