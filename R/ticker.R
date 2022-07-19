@@ -1089,6 +1089,21 @@ Ticker <- R6::R6Class(
         score = map_dbl(data, 'score')
       )
 
+    },
+
+    #' @field technical_insights Technical indicators for given symbol
+    technical_insights = function() {
+
+      path      <- 'ws/insights/v2/finance/insights'
+      url       <- modify_url(url = private$base_url, path = path)
+      qlist     <- list(symbol = self$symbol, corsDomain = private$cors_domain)
+      resp      <- GET(url, query = qlist)
+      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      
+      parsed %>%
+        use_series(finance) %>%
+        use_series(result) 
+
     }
   ),
 

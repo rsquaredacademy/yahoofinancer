@@ -147,6 +147,8 @@ aapl$get_history(period = '1mo', interval = '1d')
 \item{\code{quote}}{Get real-time quote information for given symbol}
 
 \item{\code{recommendations}}{Recommended symbols}
+
+\item{\code{technical_insights}}{Technical indicators for given symbol}
 }
 \if{html}{\out{</div>}}
 }

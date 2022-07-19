@@ -2,6 +2,7 @@
 
 export(Ticker)
 export(get_currencies)
+export(get_market_summary)
 import(R6)
 import(httr)
 import(jsonlite)

@@ -1,6 +1,6 @@
-- Currency Converter 
+- Currency Converter
 
-https://query1.finance.yahoo.com/v8/finance/chart/GBPUSD=X?region=US&lang=en-US&includePrePost=false&interval=2m&useYfid=true&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance
+https://query1.finance.yahoo.com/v8/finance/chart/GBPUSD=X?interval=2m&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance
 
 - 52 Week High / Low
 

@@ -36,7 +36,7 @@ https://query1.finance.yahoo.com/v7/finance/quote?formatted=true&crumb=iMbBwBZJq
 
     - https://query1.finance.yahoo.com/v10/finance/quoteSummary/INFY.NS?formatted=true&crumb=iMbBwBZJq43&lang=en-US&region=US&modules=assetProfile,secFilings,calendarEvents&corsDomain=finance.yahoo.com
 
-- Statistics
+- Valuation Measures
 
 https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/INFY.NS?lang=en-US&region=US&symbol=INFY.NS&padTimeSeries=true&type=quarterlyMarketCap,trailingMarketCap,quarterlyEnterpriseValue,trailingEnterpriseValue,quarterlyPeRatio,trailingPeRatio,quarterlyForwardPeRatio,trailingForwardPeRatio,quarterlyPegRatio,trailingPegRatio,quarterlyPsRatio,trailingPsRatio,quarterlyPbRatio,trailingPbRatio,quarterlyEnterprisesValueRevenueRatio,trailingEnterprisesValueRevenueRatio,quarterlyEnterprisesValueEBITDARatio,trailingEnterprisesValueEBITDARatio&merge=false&period1=493590046&period2=1657175486&corsDomain=finance.yahoo.com
 
