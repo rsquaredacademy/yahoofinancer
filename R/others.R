@@ -52,3 +52,40 @@ get_market_summary <- function(country = 'US') {
     use_series(result)
 }
 
+#' Trending securities
+#' 
+#' List of trending securities for specific country
+#' 
+#' @param country Name of country
+#' @param count Number of securities
+#' 
+#' @examples 
+#' get_trending()
+#' 
+#' @export 
+#' 
+get_trending <- function(country = 'US', count = 10) {
+  base_url  <- 'https://query1.finance.yahoo.com'
+  path      <- 'v1/finance/trending/'
+  end_point <- paste0(path, country)
+  url       <- modify_url(url = base_url, path = end_point)
+  qlist     <- list(count = count)
+  resp      <- GET(url, query = qlist)
+  parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+
+  data <-
+    parsed %>%
+    use_series(finance) %>%
+    use_series(result) 
+
+  if (length(data) > 0) {
+    data %>%
+      extract2(1) %>% 
+      use_series(quote) %>% 
+      map_chr('symbol')
+  } else {
+    message('No trending securities.')
+  }
+  
+}
+
