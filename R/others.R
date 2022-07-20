@@ -177,7 +177,7 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
 
 #' Currency summary
 #'
-#' Summary info
+#' Contains information available via the Summary tab in Yahoo Finance
 #'
 #' @param from Currency to convert from
 #' @param to Currency to convert to

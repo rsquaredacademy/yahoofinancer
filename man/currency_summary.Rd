@@ -12,7 +12,7 @@ currency_summary(from = "USD", to = "INR")
 \item{to}{Currency to convert to}
 }
 \description{
-Summary info
+Contains information available via the Summary tab in Yahoo Finance
 }
 \examples{
 currency_summary('GBP', 'USD')
