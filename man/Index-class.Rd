@@ -25,6 +25,16 @@ nifty_50 <- Index$new('^NSEI')
 
 indice <- Index$new('^NSEI')
 indice$set_index('^NDX')
+
+## ------------------------------------------------
+## Method `Index$get_history`
+## ------------------------------------------------
+
+nifty <- Index$new('^NSEI')
+nifty$get_history()
+nifty$get_history(start = '2022-07-01', interval = '1d')
+nifty$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
+nifty$get_history(period = '1mo', interval = '1d')
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -45,6 +55,7 @@ indice$set_index('^NDX')
 \itemize{
 \item \href{#method-new}{\code{Index$new()}}
 \item \href{#method-set_index}{\code{Index$set_index()}}
+\item \href{#method-get_history}{\code{Index$get_history()}}
 \item \href{#method-clone}{\code{Index$clone()}}
 }
 }
@@ -96,6 +107,41 @@ Set a new index.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{indice <- Index$new('^NSEI')
 indice$set_index('^NDX')
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-get_history"></a>}}
+\if{latex}{\out{\hypertarget{method-get_history}{}}}
+\subsection{Method \code{get_history()}}{
+Retrieves historical data
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Index$get_history(period = "ytd", interval = "1d", start = NULL, end = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{period}}{Length of time}
+
+\item{\code{interval}}{Time between data points}
+
+\item{\code{start}}{Specific starting date}
+
+\item{\code{end}}{Specific ending date}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{nifty <- Index$new('^NSEI')
+nifty$get_history()
+nifty$get_history(start = '2022-07-01', interval = '1d')
+nifty$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
+nifty$get_history(period = '1mo', interval = '1d')
 }
 \if{html}{\out{</div>}}
 
