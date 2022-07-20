@@ -175,6 +175,34 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
 
 }
 
+#' Currency summary
+#'
+#' Summary info
+#'
+#' @param from Currency to convert from
+#' @param to Currency to convert to
+#'    
+#' @examples
+#' currency_summary('GBP', 'USD')
+#'
+#' @export
+#'
+currency_summary <- function(from = 'USD', to = 'INR') {
+
+  base_url    <- 'https://query2.finance.yahoo.com'
+  path        <- 'v7/finance/quote'
+  cors_domain <- 'finance.yahoo.com'
+  url         <- modify_url(url = base_url, path = path)
+  qlist       <- list(symbols = paste0(from, to, '=X'), corsDomain = cors_domain)
+  resp        <- GET(url, query = qlist)
+  parsed      <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+
+  parsed %>%
+    use_series(quoteResponse) %>%
+    use_series(result) %>%
+    extract2(1)
+}
+
 flatten_list <- function(x) {
   unlist(lapply(x, function(m) ifelse(is.null(m), NA, m)))
 }
