@@ -231,12 +231,12 @@ Ticker <- R6::R6Class(
         extract2(1)
 
       result <- data.frame(
-        date = as_datetime(unlist(data$timestamp)),
+        date   = as_datetime(unlist(data$timestamp)),
         volume = unlist(indicators$volume),
-        high = unlist(indicators$high),
-        low = unlist(indicators$low),
-        open = unlist(indicators$open),
-        close = unlist(indicators$close)
+        high   = unlist(indicators$high),
+        low    = unlist(indicators$low),
+        open   = unlist(indicators$open),
+        close  = unlist(indicators$close)
       )
 
       intervals <- c('1d', '5d', '1wk', '1mo', '3mo')
