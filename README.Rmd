@@ -1,0 +1,86 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# yahoofinancer
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of yahoofinancer is to obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.
+
+<table border=1 cellpadding=10><tr><td>
+
+#### \*\*\* IMPORTANT LEGAL DISCLAIMER \*\*\*
+
+---
+
+**Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of
+Yahoo, Inc.**
+
+yahoofinancer is **not** affiliated, endorsed, or vetted by Yahoo, Inc. It's
+an open-source tool that uses Yahoo's publicly available APIs, and is
+intended for research and educational purposes.
+
+**You should refer to Yahoo!'s terms of use**
+([here](https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm),
+[here](https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html), and
+[here](https://policies.yahoo.com/us/en/yahoo/terms/index.htm)) **for
+details on your rights to use the actual data downloaded. Remember - the
+Yahoo! finance API is intended for personal use only.**
+
+</td></tr></table>
+
+## Installation
+
+You can install the development version of yahoofinancer from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("aravindhebbali/yahoofin")
+```
+
+## Quick Start
+
+```{r load_yfr, echo=FALSE, message=FALSE, warning=FALSE}
+library(yahoofinancer)
+```
+
+
+### Ticker
+
+To retrieve data from Yahoo Finance for a single stock, create an instance of the Ticker class by passing the company's ticker symbol as an argument:
+
+```{r}
+aapl <- Ticker$new('aapl')
+
+# get historical market data
+head(aapl$get_history())
+
+# information available in summary tab in Yahoo Finance
+aapl$summary_detail
+
+# detailed pricing data
+aapl$price
+```
+
+## Legal Stuff
+
+yahoofinancer is **not** affiliated, endorsed, or vetted by Yahoo, Inc. It's
+an open-source tool that uses Yahoo's publicly available APIs, and is
+intended for research and educational purposes. You should refer to Yahoo!'s terms of use
+([here](https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm),
+[here](https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html), and
+[here](https://policies.yahoo.com/us/en/yahoo/terms/index.htm)) for
+detailes on your rights to use the actual data downloaded.
