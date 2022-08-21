@@ -7,8 +7,6 @@ Description: Obtain historical and near real time data related to stocks, index
     and currencies from the Yahoo Finance API. This package is community maintained 
     and is not officially supported by 'Yahoo'. The accuracy of data is only as 
     correct as provided on <https://finance.yahoo.com/>.
-License: MIT + file LICENSE
-Encoding: UTF-8
 Depends: 
     R(>= 3.4)
 Imports: 
@@ -19,4 +17,8 @@ Imports:
     purrr,
     R6,
     stringr
+License: MIT + file LICENSE
+Encoding: UTF-8
+URL: https://yahoofinancer.rsquaredacademy.com/, https://github.com/rsquaredacademy/yahoofinancer
+BugReports: https://github.com/rsquaredacademy/yahoofinancer/issues
 RoxygenNote: 7.1.1
