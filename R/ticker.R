@@ -5,7 +5,7 @@
 #'
 #' @param symbol Symbol for which data has to be retrieved
 #'
-#' @importFrom magrittr %>% use_series extract2
+#' @importFrom magrittr %>% use_series extract2 extract
 #' @importFrom jsonlite fromJSON
 #' @import R6 httr purrr lubridate stringr
 #' @docType class
