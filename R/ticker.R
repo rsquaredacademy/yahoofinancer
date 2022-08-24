@@ -5,7 +5,9 @@
 #'
 #' @param symbol Symbol for which data has to be retrieved
 #'
-#' @import R6 httr jsonlite magrittr purrr lubridate stringr
+#' @importFrom magrittr %>% use_series extract2
+#' @importFrom jsonlite fromJSON
+#' @import R6 httr purrr lubridate stringr
 #' @docType class
 #' @format An R6 class object
 #' @name Ticker-class
@@ -216,7 +218,7 @@ Ticker <- R6::R6Class(
       }
 
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       
       data <- 
         parsed %>%
@@ -279,7 +281,7 @@ Ticker <- R6::R6Class(
       data <-
         req %>%
         private$display_data() %>%
-          use_series(calendarEvents) 
+        use_series(calendarEvents) 
 
       earnings <-
         data %>%
@@ -945,7 +947,7 @@ Ticker <- R6::R6Class(
                     corsDomain = private$cors_domain)
 
       resp   <- GET(url, query = qlist)
-      parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
       data <- 
         parsed %>% 
@@ -975,7 +977,7 @@ Ticker <- R6::R6Class(
       url       <- modify_url(url = private$base_url, path = end_point)
       qlist     <- list(getAllData = 'True', corsDomain = private$cors_domain)
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       
       data <- 
         parsed %>%
@@ -1017,7 +1019,7 @@ Ticker <- R6::R6Class(
       url       <- modify_url(url = private$base_url, path = end_point)
       qlist     <- list(getAllData = 'True', corsDomain = private$cors_domain)
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       
       parsed %>%
         use_series(optionChain) %>%
@@ -1038,7 +1040,7 @@ Ticker <- R6::R6Class(
       url       <- modify_url(url = private$base_url, path = end_point)
       qlist     <- list(getAllData = 'True', corsDomain = private$cors_domain)
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       
       parsed %>%
         use_series(optionChain) %>%
@@ -1057,7 +1059,7 @@ Ticker <- R6::R6Class(
       url       <- modify_url(url = private$base_url, path = end_point)
       qlist     <- list(getAllData = 'True', corsDomain = private$cors_domain)
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       
       parsed %>%
         use_series(optionChain) %>%
@@ -1075,7 +1077,7 @@ Ticker <- R6::R6Class(
       url       <- modify_url(url = private$base_url, path = end_point)
       qlist     <- list(corsDomain = private$cors_domain)
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       
       data <-
         parsed %>%
@@ -1098,7 +1100,7 @@ Ticker <- R6::R6Class(
       url       <- modify_url(url = private$base_url, path = path)
       qlist     <- list(symbol = self$symbol, corsDomain = private$cors_domain)
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       
       parsed %>%
         use_series(finance) %>%
@@ -1117,7 +1119,7 @@ Ticker <- R6::R6Class(
       url       <- modify_url(url = private$base_url, path = end_point)
       qlist     <- list(modules = module, corsDomain = private$cors_domain)
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       list(resp = resp, parsed = parsed)
     },
 

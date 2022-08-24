@@ -74,7 +74,7 @@ Index <- R6::R6Class(
       }
 
       resp      <- GET(url, query = qlist)
-      parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
       
       data <- 
         parsed %>%
@@ -126,7 +126,7 @@ Index <- R6::R6Class(
       url    <- modify_url(url = private$base_url, path = path)
       qlist  <- list(symbols = self$index)
       resp   <- GET(url, query = qlist)
-      parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+      parsed <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
       parsed %>%
         use_series(quoteResponse) %>%

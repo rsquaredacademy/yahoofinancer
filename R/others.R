@@ -12,7 +12,7 @@ get_currencies <- function() {
   path     <- 'v1/finance/currencies'
   url      <- modify_url(url = base_url, path = path)
   resp     <- GET(url)
-  parsed   <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+  parsed   <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
   data <-
     parsed %>%
@@ -45,7 +45,7 @@ get_market_summary <- function(country = 'US') {
   url      <- modify_url(url = base_url, path = path)
   qlist    <- list(region = country)
   resp     <- GET(url, query = qlist)
-  parsed   <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+  parsed   <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
   parsed %>%
     use_series(marketSummaryResponse) %>%
@@ -71,7 +71,7 @@ get_trending <- function(country = 'US', count = 10) {
   url       <- modify_url(url = base_url, path = end_point)
   qlist     <- list(count = count)
   resp      <- GET(url, query = qlist)
-  parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+  parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
   data <-
     parsed %>%
@@ -131,7 +131,7 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
   }
 
   resp      <- GET(url, query = qlist)
-  parsed    <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+  parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
   parsed
 
@@ -195,7 +195,7 @@ currency_summary <- function(from = 'USD', to = 'INR') {
   url         <- modify_url(url = base_url, path = path)
   qlist       <- list(symbols = paste0(from, to, '=X'), corsDomain = cors_domain)
   resp        <- GET(url, query = qlist)
-  parsed      <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+  parsed      <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
   parsed %>%
     use_series(quoteResponse) %>%
