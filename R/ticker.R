@@ -35,7 +35,7 @@ Ticker <- R6::R6Class(
     #' @param symbol New symbol
     #' @examples
     #' aapl <- Ticker$new('aapl')
-    #' appl$set_symbol('msft')
+    #' aapl$set_symbol('msft')
     set_symbol = function(symbol) {
       self$symbol <- symbol
     },

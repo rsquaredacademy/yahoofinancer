@@ -24,7 +24,7 @@ aapl <- Ticker$new('aapl')
 ## ------------------------------------------------
 
 aapl <- Ticker$new('aapl')
-appl$set_symbol('msft')
+aapl$set_symbol('msft')
 
 ## ------------------------------------------------
 ## Method `Ticker$get_balance_sheet`
@@ -211,7 +211,7 @@ Set a new symbol.
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{aapl <- Ticker$new('aapl')
-appl$set_symbol('msft')
+aapl$set_symbol('msft')
 }
 \if{html}{\out{</div>}}
 
