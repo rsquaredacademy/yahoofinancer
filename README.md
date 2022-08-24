@@ -4,6 +4,10 @@
 # yahoofinancer
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 The goal of yahoofinancer is to obtain historical and near real time
@@ -49,34 +53,34 @@ aapl$summary_detail
 #> [1] 2
 #> 
 #> $previousClose
-#> [1] 174.15
+#> [1] 167.57
 #> 
 #> $open
-#> [1] 173.03
+#> [1] 167.08
 #> 
 #> $dayLow
-#> [1] 171.3101
+#> [1] 166.65
 #> 
 #> $dayHigh
-#> [1] 173.74
+#> [1] 168.7011
 #> 
 #> $regularMarketPreviousClose
-#> [1] 174.15
+#> [1] 167.57
 #> 
 #> $regularMarketOpen
-#> [1] 173.03
+#> [1] 167.08
 #> 
 #> $regularMarketDayLow
-#> [1] 171.3101
+#> [1] 166.65
 #> 
 #> $regularMarketDayHigh
-#> [1] 173.74
+#> [1] 168.7011
 #> 
 #> $dividendRate
 #> [1] 0.92
 #> 
 #> $dividendYield
-#> [1] 0.0054
+#> [1] 0.0055
 #> 
 #> $exDividendDate
 #> [1] 1659657600
@@ -91,40 +95,40 @@ aapl$summary_detail
 #> [1] 1.230174
 #> 
 #> $trailingPE
-#> [1] 28.35041
+#> [1] 27.64132
 #> 
 #> $forwardPE
-#> [1] 26.63354
+#> [1] 25.96739
 #> 
 #> $volume
-#> [1] 70346295
+#> [1] 54147079
 #> 
 #> $regularMarketVolume
-#> [1] 70346295
+#> [1] 54147079
 #> 
 #> $averageVolume
-#> [1] 76763275
+#> [1] 75170682
 #> 
 #> $averageVolume10days
-#> [1] 64119090
+#> [1] 64089670
 #> 
 #> $averageDailyVolume10Day
-#> [1] 64119090
+#> [1] 64089670
 #> 
 #> $bid
-#> [1] 170.71
+#> [1] 167.35
 #> 
 #> $ask
-#> [1] 170.75
+#> [1] 0
 #> 
 #> $bidSize
-#> [1] 900
+#> [1] 1200
 #> 
 #> $askSize
-#> [1] 900
+#> [1] 1100
 #> 
 #> $marketCap
-#> [1] 2.756464e+12
+#> [1] 2.68752e+12
 #> 
 #> $fiftyTwoWeekLow
 #> [1] 129.04
@@ -133,19 +137,19 @@ aapl$summary_detail
 #> [1] 182.94
 #> 
 #> $priceToSalesTrailing12Months
-#> [1] 7.112684
+#> [1] 6.934784
 #> 
 #> $fiftyDayAverage
-#> [1] 151.3188
+#> [1] 152.4194
 #> 
 #> $twoHundredDayAverage
-#> [1] 160.461
+#> [1] 160.6228
 #> 
 #> $trailingAnnualDividendRate
 #> [1] 0.89
 #> 
 #> $trailingAnnualDividendYield
-#> [1] 0.005110537
+#> [1] 0.005311213
 #> 
 #> $currency
 #> [1] "USD"
@@ -154,15 +158,7 @@ aapl$summary_detail
 #> [1] FALSE
 ```
 
-## Legal Stuff
-
-<table border="1" cellpadding="10">
-<tr>
-<td>
-
-#### \*\*\* IMPORTANT LEGAL DISCLAIMER \*\*\*
-
-------------------------------------------------------------------------
+## IMPORTANT LEGAL DISCLAIMER
 
 **Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of
 Yahoo, Inc.**
@@ -177,7 +173,3 @@ and is intended for research and educational purposes.
 [here](https://policies.yahoo.com/us/en/yahoo/terms/index.htm)) **for
 details on your rights to use the actual data downloaded. Remember - the
 Yahoo! finance API is intended for personal use only.**
-
-</td>
-</tr>
-</table>

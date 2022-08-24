@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # yahoofinancer
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 The goal of yahoofinancer is to obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.
@@ -50,13 +52,7 @@ head(aapl$get_history())
 aapl$summary_detail
 ```
 
-## Legal Stuff
-
-<table border=1 cellpadding=10><tr><td>
-
-#### \*\*\* IMPORTANT LEGAL DISCLAIMER \*\*\*
-
----
+## IMPORTANT LEGAL DISCLAIMER 
 
 **Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of
 Yahoo, Inc.**
@@ -72,4 +68,3 @@ intended for research and educational purposes.
 details on your rights to use the actual data downloaded. Remember - the
 Yahoo! finance API is intended for personal use only.**
 
-</td></tr></table>
