@@ -1,0 +1,63 @@
+url: https://yahoofinancer.rsquaredacademy.com
+template:
+  bootstrap: 5
+
+authors:
+  Aravind Hebbali:
+    href: https://www.aravindhebbali.com
+
+templates:
+  params:
+    bootswatch: cerulean
+    ganalytics: UA-57270671-33
+
+navbar:
+  title: 'yahoofinancer'
+  type: inverse
+  left:
+    - text: 'Home'
+      href: index.html
+    - text: 'Reference'
+      menu:
+        - text: 'Functions'
+          href: reference/index.html
+        - text: 'News'
+          href: news/index.html
+  right:
+    - icon: fa-github
+      href: https://github.com/rsquaredacademy/yahoofinancer
+
+home:
+  links:
+    - text: Our R packages
+      href: https://pkgs.rsquaredacademy.com
+    - text: Read our blog
+      href: https://blog.rsquaredacademy.com
+    - text: Our ebooks
+      href: https://ebooks.rsquaredacademy.com
+    - text: Online courses
+      href: https://www.rsquaredacademy.com
+
+reference:
+  - title: Tickers
+
+    contents:
+      - Ticker-class
+
+  - title: Indices
+
+    contents:
+      - Index-class
+
+  - title: Currencies
+
+    contents:
+      - get_currencies
+      - currency_converter
+      - currency_summary
+
+  - title: Others
+
+    contents:
+      - get_market_summary
+      - get_trending
