@@ -17,6 +17,11 @@ Imports:
     purrr,
     R6,
     stringr
+Suggests: 
+    covr,
+    httptest,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
 License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://yahoofinancer.rsquaredacademy.com/, https://github.com/rsquaredacademy/yahoofinancer

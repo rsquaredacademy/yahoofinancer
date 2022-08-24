@@ -1,0 +1,29 @@
+{
+    "finance": {
+        "result": [
+            {
+                "count": 5,
+                "quotes": [
+                    {
+                        "symbol": "BBBY"
+                    },
+                    {
+                        "symbol": "PTON"
+                    },
+                    {
+                        "symbol": "SOFI"
+                    },
+                    {
+                        "symbol": "JWN"
+                    },
+                    {
+                        "symbol": "STBX"
+                    }
+                ],
+                "jobTimestamp": 1661351005739,
+                "startInterval": 202208241300
+            }
+        ],
+        "error": null
+    }
+}
