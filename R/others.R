@@ -102,7 +102,7 @@ get_trending <- function(country = 'US', count = 10) {
 #'    
 #' @examples
 #' currency_converter()
-#' currency_converter(from = 'GBP', to = 'USD', start = '2022-07-01', end = '2022-07-10', interval = '1h')
+#' currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10', '1h')
 #'
 #' @export
 #'
