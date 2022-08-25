@@ -1,0 +1,103 @@
+{
+    "chart": {
+        "result": [
+            {
+                "meta": {
+                    "currency": "USD",
+                    "symbol": "GBPUSD=X",
+                    "exchangeName": "CCY",
+                    "instrumentType": "CURRENCY",
+                    "firstTradeDate": 1070236800,
+                    "regularMarketTime": 1661431014,
+                    "gmtoffset": 3600,
+                    "timezone": "BST",
+                    "exchangeTimezoneName": "Europe/London",
+                    "regularMarketPrice": 1.1816,
+                    "chartPreviousClose": 1.2161,
+                    "priceHint": 4,
+                    "currentTradingPeriod": {
+                        "pre": {
+                            "timezone": "BST",
+                            "end": 1661382000,
+                            "start": 1661382000,
+                            "gmtoffset": 3600
+                        },
+                        "regular": {
+                            "timezone": "BST",
+                            "end": 1661468340,
+                            "start": 1661382000,
+                            "gmtoffset": 3600
+                        },
+                        "post": {
+                            "timezone": "BST",
+                            "end": 1661468340,
+                            "start": 1661468340,
+                            "gmtoffset": 3600
+                        }
+                    },
+                    "dataGranularity": "1d",
+                    "range": "",
+                    "validRanges": [
+                        "1d",
+                        "5d",
+                        "1mo",
+                        "3mo",
+                        "6mo",
+                        "1y",
+                        "2y",
+                        "5y",
+                        "10y",
+                        "ytd",
+                        "max"
+                    ]
+                },
+                "timestamp": [
+                    1656630000,
+                    1656889200,
+                    1656975600
+                ],
+                "indicators": {
+                    "quote": [
+                        {
+                            "open": [
+                                1.2159976959228516,
+                                1.2105804681777954,
+                                1.2114017009735107
+                            ],
+                            "close": [
+                                1.2160863876342773,
+                                1.2102727890014648,
+                                1.211445689201355
+                            ],
+                            "low": [
+                                1.198063850402832,
+                                1.2086344957351685,
+                                1.1900511980056763
+                            ],
+                            "high": [
+                                1.2162047624588013,
+                                1.2165154218673706,
+                                1.2126061916351318
+                            ],
+                            "volume": [
+                                0,
+                                0,
+                                0
+                            ]
+                        }
+                    ],
+                    "adjclose": [
+                        {
+                            "adjclose": [
+                                1.2160863876342773,
+                                1.2102727890014648,
+                                1.211445689201355
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "error": null
+    }
+}
