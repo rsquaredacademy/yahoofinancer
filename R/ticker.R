@@ -315,7 +315,7 @@ Ticker <- R6::R6Class(
     #' @field company_officers Retrieves top executives for given symbol and their total pay package.
     company_officers = function() {
       data <-
-        self$get_asset_profile() %>%
+        self$asset_profile %>%
         use_series(companyOfficers)
 
       data.frame(

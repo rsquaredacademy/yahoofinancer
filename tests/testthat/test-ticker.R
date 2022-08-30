@@ -108,3 +108,21 @@ httptest::with_mock_api({
     expect_equal(trend$dividendDate, "2022-08-11")
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from ticker company officers is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$company_officers
+
+    expect_equal(nrow(trend), 10)
+    expect_equal(ncol(trend), 8)
+    expect_equal(trend$name, c("Mr. Timothy D. Cook", "Mr. Luca  Maestri",
+                               "Mr. Jeffrey E. Williams",
+                               "Ms. Katherine L. Adams",
+                               "Ms. Deirdre  O'Brien", "Mr. Chris  Kondo",
+                               "Mr. James  Wilson", "Ms. Mary  Demby",
+                               "Ms. Nancy  Paxton", "Mr. Greg  Joswiak"))
+    expect_equal(trend$age, c(60, 57, 57, 57, 54, NA, NA, NA, NA, NA))
+  })
+})
