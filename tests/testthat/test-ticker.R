@@ -75,3 +75,21 @@ httptest::with_mock_api({
                  as.Date(c("2022-06-25", "2022-03-26", "2021-12-25", "2021-09-25")))
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from ticker asset profile is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$asset_profile
+
+    expect_equal(trend$sector, "Technology")
+    expect_equal(trend$industry, "Consumer Electronics")
+    expect_equal(trend$country, "United States")
+    expect_equal(trend$fullTimeEmployees, 154000)
+    expect_equal(trend$auditRisk, 2)
+    expect_equal(trend$boardRisk, 1)
+    expect_equal(trend$compensationRisk, 9)
+    expect_equal(trend$shareHolderRightsRisk, 1)
+    expect_equal(trend$overallRisk, 1)
+  })
+})
