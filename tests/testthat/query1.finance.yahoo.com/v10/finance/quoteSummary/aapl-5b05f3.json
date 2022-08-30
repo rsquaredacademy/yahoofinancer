@@ -1,0 +1,59 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "calendarEvents": {
+                    "maxAge": 1,
+                    "earnings": {
+                        "earningsDate": [
+                            {
+                                "raw": 1666814400,
+                                "fmt": "2022-10-26"
+                            },
+                            {
+                                "raw": 1667246400,
+                                "fmt": "2022-10-31"
+                            }
+                        ],
+                        "earningsAverage": {
+                            "raw": 1.26,
+                            "fmt": "1.26"
+                        },
+                        "earningsLow": {
+                            "raw": 1.13,
+                            "fmt": "1.13"
+                        },
+                        "earningsHigh": {
+                            "raw": 1.35,
+                            "fmt": "1.35"
+                        },
+                        "revenueAverage": {
+                            "raw": 88714800000,
+                            "fmt": "88.71B",
+                            "longFmt": "88,714,800,000"
+                        },
+                        "revenueLow": {
+                            "raw": 85144300000,
+                            "fmt": "85.14B",
+                            "longFmt": "85,144,300,000"
+                        },
+                        "revenueHigh": {
+                            "raw": 92794900000,
+                            "fmt": "92.79B",
+                            "longFmt": "92,794,900,000"
+                        }
+                    },
+                    "exDividendDate": {
+                        "raw": 1659657600,
+                        "fmt": "2022-08-05"
+                    },
+                    "dividendDate": {
+                        "raw": 1660176000,
+                        "fmt": "2022-08-11"
+                    }
+                }
+            }
+        ],
+        "error": null
+    }
+}

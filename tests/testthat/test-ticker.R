@@ -93,3 +93,18 @@ httptest::with_mock_api({
     expect_equal(trend$overallRisk, 1)
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from ticker calendar events is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$calendar_events
+
+    expect_equal(trend$earningsDate, c("2022-10-26", "2022-10-31"))
+    expect_equal(trend$earningsAverage, 1.26)
+    expect_equal(trend$earningsLow, 1.13)
+    expect_equal(trend$earningsHigh, 1.35)
+    expect_equal(trend$exDividendDate, "2022-08-05")
+    expect_equal(trend$dividendDate, "2022-08-11")
+  })
+})
