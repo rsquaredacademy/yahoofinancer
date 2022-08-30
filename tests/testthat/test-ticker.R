@@ -126,3 +126,20 @@ httptest::with_mock_api({
     expect_equal(trend$age, c(60, 57, 57, 57, 54, NA, NA, NA, NA, NA))
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from ticker earnings history is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$earnings_history
+
+    expect_equal(nrow(trend), 4)
+    expect_equal(ncol(trend), 6)
+    expect_equal(trend$quarter,
+                 c('2021-09-30', '2021-12-31', '2022-03-31', '2022-06-30'))
+    expect_equal(trend$eps_estimate, c(1.24, 1.89, 1.43, 1.16))
+    expect_equal(trend$eps_actual, c(1.24, 2.10, 1.52, 1.20))
+    expect_equal(trend$eps_difference, c(0.00, 0.21, 0.09, 0.04))
+    expect_equal(trend$surprise_percent, c(0.000, 0.111, 0.063, 0.034))
+  })
+})
