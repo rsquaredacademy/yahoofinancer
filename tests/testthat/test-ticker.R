@@ -272,3 +272,16 @@ httptest::with_mock_api({
     expect_equal(round(trend$healthcare, 4), 0.2995)
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from fund top holdings is as expected", {
+    testthat::skip_on_cran()
+    fund <- Ticker$new('hasgx')
+    trend <- fund$fund_top_holdings
+
+    expect_equal(nrow(trend), 10)
+    expect_equal(ncol(trend), 3)
+    expect_equal(colnames(trend),
+                 c("symbol", "holding_name", "holding_percent"))
+  })
+})
