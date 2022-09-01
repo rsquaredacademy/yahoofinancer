@@ -298,6 +298,7 @@ httptest::with_mock_api({
                  c("date", "firm", "to_grade", "from_grade", "action"))
   })
 })
+
 httptest::with_mock_api({
   test_that("output from index trend is as expected", {
     testthat::skip_on_cran()
@@ -312,5 +313,20 @@ httptest::with_mock_api({
     expect_equal(ncol(trend$estimates), 2)
     expect_equal(colnames(trend$estimates),
                  c("period", "growth"))
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from inside holders is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$inside_holders
+
+    expect_equal(nrow(trend), 10)
+    expect_equal(ncol(trend), 7)
+    expect_equal(colnames(trend),
+                 c('name', 'relation', 'url', 'description',
+                   'latest_transaction_date', 'position_direct',
+                   'position_direct_date'))
   })
 })
