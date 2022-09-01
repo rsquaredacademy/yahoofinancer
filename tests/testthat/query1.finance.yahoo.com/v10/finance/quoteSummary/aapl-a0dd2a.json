@@ -1,0 +1,64 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "indexTrend": {
+                    "maxAge": 1,
+                    "symbol": "SP5",
+                    "peRatio": {
+                        "raw": 17.8242,
+                        "fmt": "17.82"
+                    },
+                    "pegRatio": {
+                        "raw": 1.94431,
+                        "fmt": "1.94"
+                    },
+                    "estimates": [
+                        {
+                            "period": "0q",
+                            "growth": {
+                                "raw": 0.11,
+                                "fmt": "0.11"
+                            }
+                        },
+                        {
+                            "period": "+1q",
+                            "growth": {
+                                "raw": 0.137,
+                                "fmt": "0.14"
+                            }
+                        },
+                        {
+                            "period": "0y",
+                            "growth": {
+                                "raw": 0.098000005,
+                                "fmt": "0.10"
+                            }
+                        },
+                        {
+                            "period": "+1y",
+                            "growth": {
+                                "raw": 0.098000005,
+                                "fmt": "0.10"
+                            }
+                        },
+                        {
+                            "period": "+5y",
+                            "growth": {
+                                "raw": 0.0928498,
+                                "fmt": "0.09"
+                            }
+                        },
+                        {
+                            "period": "-5y",
+                            "growth": {
+
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "error": null
+    }
+}

@@ -298,3 +298,19 @@ httptest::with_mock_api({
                  c("date", "firm", "to_grade", "from_grade", "action"))
   })
 })
+httptest::with_mock_api({
+  test_that("output from index trend is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$index_trend
+
+    expect_equal(trend$symbol, "SP5")
+    expect_equal(trend$pe_ratio, 17.8242)
+    expect_equal(trend$peg_ratio, 1.94431)
+
+    expect_equal(nrow(trend$estimates), 6)
+    expect_equal(ncol(trend$estimates), 2)
+    expect_equal(colnames(trend$estimates),
+                 c("period", "growth"))
+  })
+})
