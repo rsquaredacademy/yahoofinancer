@@ -202,3 +202,14 @@ httptest::with_mock_api({
     expect_equal(trend$revenueGrowth, 0.019)
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from fund bond holdings is as expected", {
+    testthat::skip_on_cran()
+    fund <- Ticker$new('vbmfx')
+    trend <- fund$fund_bond_holdings
+
+    expect_equal(trend$maturityCat, 7.4)
+    expect_equal(trend$durationCat, 5.75)
+  })
+})

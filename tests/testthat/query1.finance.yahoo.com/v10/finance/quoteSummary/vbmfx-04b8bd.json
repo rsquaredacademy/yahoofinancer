@@ -1,0 +1,258 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "topHoldings": {
+                    "maxAge": 1,
+                    "cashPosition": {
+                        "raw": 0.0047,
+                        "fmt": "0.47%"
+                    },
+                    "stockPosition": {
+                        "raw": 0.0,
+                        "fmt": "0.00%"
+                    },
+                    "bondPosition": {
+                        "raw": 0.0704,
+                        "fmt": "7.04%"
+                    },
+                    "otherPosition": {
+                        "raw": 0.0,
+                        "fmt": "0.00%"
+                    },
+                    "preferredPosition": {
+                        "raw": 0.0,
+                        "fmt": "0.00%"
+                    },
+                    "convertiblePosition": {
+                        "raw": 0.0089,
+                        "fmt": "0.89%"
+                    },
+                    "holdings": [
+                        {
+                            "symbol": "",
+                            "holdingName": "Federal National Mortgage Association 2.5%",
+                            "holdingPercent": {
+                                "raw": 0.0047,
+                                "fmt": "0.47%"
+                            }
+                        },
+                        {
+                            "symbol": "",
+                            "holdingName": "United States Treasury Notes",
+                            "holdingPercent": {
+                                "raw": 0.0043,
+                                "fmt": "0.43%"
+                            }
+                        },
+                        {
+                            "symbol": "",
+                            "holdingName": "United States Treasury Bonds",
+                            "holdingPercent": {
+                                "raw": 0.0041,
+                                "fmt": "0.41%"
+                            }
+                        }
+                    ],
+                    "equityHoldings": {
+                        "priceToEarnings": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "priceToBook": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "priceToSales": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "priceToCashflow": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "medianMarketCap": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "threeYearEarningsGrowth": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "priceToEarningsCat": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "priceToBookCat": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "priceToSalesCat": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "priceToCashflowCat": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "medianMarketCapCat": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        },
+                        "threeYearEarningsGrowthCat": {
+                            "raw": 0.0,
+                            "fmt": "0"
+                        }
+                    },
+                    "bondHoldings": {
+                        "maturity": {
+
+                        },
+                        "duration": {
+
+                        },
+                        "creditQuality": {
+
+                        },
+                        "maturityCat": {
+                            "raw": 7.4,
+                            "fmt": "7.4"
+                        },
+                        "durationCat": {
+                            "raw": 5.75,
+                            "fmt": "5.75"
+                        },
+                        "creditQualityCat": {
+
+                        }
+                    },
+                    "bondRatings": [
+                        {
+                            "bb": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "aa": {
+                                "raw": 0.0326,
+                                "fmt": "3.26%"
+                            }
+                        },
+                        {
+                            "aaa": {
+                                "raw": 0.6892,
+                                "fmt": "68.92%"
+                            }
+                        },
+                        {
+                            "a": {
+                                "raw": 0.120799996,
+                                "fmt": "12.08%"
+                            }
+                        },
+                        {
+                            "other": {
+                                "raw": -8.0E-4,
+                                "fmt": "-0.08%"
+                            }
+                        },
+                        {
+                            "b": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "bbb": {
+                                "raw": 0.15810001,
+                                "fmt": "15.81%"
+                            }
+                        },
+                        {
+                            "below_b": {
+                                "raw": 1.0E-4,
+                                "fmt": "0.01%"
+                            }
+                        },
+                        {
+                            "us_government": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        }
+                    ],
+                    "sectorWeightings": [
+                        {
+                            "realestate": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "consumer_cyclical": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "basic_materials": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "consumer_defensive": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "technology": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "communication_services": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "financial_services": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "utilities": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "industrials": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "energy": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "healthcare": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "error": null
+    }
+}
