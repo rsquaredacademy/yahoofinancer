@@ -391,3 +391,17 @@ httptest::with_mock_api({
 
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from page views is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$page_views
+
+    expect_equal(trend$shortTermTrend, "UP")
+    expect_equal(trend$midTermTrend, "UP")
+    expect_equal(trend$longTermTrend, "UP")
+
+
+  })
+})
