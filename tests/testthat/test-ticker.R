@@ -285,3 +285,16 @@ httptest::with_mock_api({
                  c("symbol", "holding_name", "holding_percent"))
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from grading history is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$grading_history
+
+    expect_equal(nrow(trend), 855)
+    expect_equal(ncol(trend), 5)
+    expect_equal(colnames(trend),
+                 c("date", "firm", "to_grade", "from_grade", "action"))
+  })
+})
