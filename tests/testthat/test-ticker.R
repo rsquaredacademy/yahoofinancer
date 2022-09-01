@@ -424,3 +424,18 @@ httptest::with_mock_api({
 
   })
 })
+
+
+httptest::with_mock_api({
+  test_that("output from quote type is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$quote_type
+
+    expect_equal(trend$exchange, "NMS")
+    expect_equal(trend$quoteType, "EQUITY")
+    expect_equal(trend$symbol, "AAPL")
+    expect_equal(trend$shortName, "Apple Inc.")
+
+  })
+})
