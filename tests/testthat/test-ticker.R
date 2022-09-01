@@ -359,3 +359,19 @@ httptest::with_mock_api({
                    'value', 'percent_change'))
   })
 })
+
+
+httptest::with_mock_api({
+  test_that("output from key stats is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$key_stats
+
+    expect_equal(trend$enterpriseValue$fmt, "2.63T")
+    expect_equal(trend$forwardPE$fmt, "24.38")
+    expect_equal(trend$profitMargins$fmt, "25.71%")
+    expect_equal(trend$floatShares$fmt, "16.05B")
+    expect_equal(trend$bookValue$fmt, "3.61")
+    expect_equal(trend$priceToBook$fmt, "43.55")
+  })
+})
