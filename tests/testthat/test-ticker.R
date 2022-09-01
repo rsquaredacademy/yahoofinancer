@@ -439,3 +439,22 @@ httptest::with_mock_api({
 
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from recommendation trend is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$recommendation_trend
+
+    expect_equal(nrow(trend), 4)
+    expect_equal(ncol(trend), 6)
+    expect_equal(colnames(trend),
+                 c("period", "strong_buy", "buy",
+                   "hold", "sell", "strong_sell"))
+    expect_equal(trend$period, c("0m", "-1m", "-2m", "-3m"))
+    expect_equal(trend$strong_buy, c(11, 14, 14, 13))
+    expect_equal(trend$buy, c(21, 24, 24, 20))
+    expect_equal(trend$hold, c(6, 8, 8, 8))
+
+  })
+})
