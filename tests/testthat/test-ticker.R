@@ -186,3 +186,19 @@ httptest::with_mock_api({
     expect_false(trend$militaryContract)
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from financial data is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$financial_data
+
+    expect_equal(trend$currentPrice, 157.22)
+    expect_equal(trend$recommendationMean, 1.9)
+    expect_equal(trend$recommendationKey, "buy")
+    expect_equal(trend$totalCashPerShare, 3.001)
+    expect_equal(trend$currentRatio, 0.865)
+    expect_equal(trend$revenuePerShare, 23.732)
+    expect_equal(trend$revenueGrowth, 0.019)
+  })
+})
