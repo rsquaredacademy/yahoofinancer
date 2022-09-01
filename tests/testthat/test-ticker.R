@@ -330,3 +330,18 @@ httptest::with_mock_api({
                    'position_direct_date'))
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from insider transactions is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$insider_transactions
+
+    expect_equal(nrow(trend), 150)
+    expect_equal(ncol(trend), 9)
+    expect_equal(colnames(trend),
+                 c('start_date', 'filer_name', 'filer_relation',
+                 'transaction_text', 'ownership', 'shares', 'value',
+                 'filer_url', 'money_text'))
+  })
+})
