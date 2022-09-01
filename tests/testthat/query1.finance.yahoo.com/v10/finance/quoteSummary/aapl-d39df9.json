@@ -1,0 +1,187 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "earnings": {
+                    "maxAge": 86400,
+                    "earningsChart": {
+                        "quarterly": [
+                            {
+                                "date": "3Q2021",
+                                "actual": {
+                                    "raw": 1.24,
+                                    "fmt": "1.24"
+                                },
+                                "estimate": {
+                                    "raw": 1.24,
+                                    "fmt": "1.24"
+                                }
+                            },
+                            {
+                                "date": "4Q2021",
+                                "actual": {
+                                    "raw": 2.1,
+                                    "fmt": "2.10"
+                                },
+                                "estimate": {
+                                    "raw": 1.89,
+                                    "fmt": "1.89"
+                                }
+                            },
+                            {
+                                "date": "1Q2022",
+                                "actual": {
+                                    "raw": 1.52,
+                                    "fmt": "1.52"
+                                },
+                                "estimate": {
+                                    "raw": 1.43,
+                                    "fmt": "1.43"
+                                }
+                            },
+                            {
+                                "date": "2Q2022",
+                                "actual": {
+                                    "raw": 1.2,
+                                    "fmt": "1.20"
+                                },
+                                "estimate": {
+                                    "raw": 1.16,
+                                    "fmt": "1.16"
+                                }
+                            }
+                        ],
+                        "currentQuarterEstimate": {
+                            "raw": 1.26,
+                            "fmt": "1.26"
+                        },
+                        "currentQuarterEstimateDate": "3Q",
+                        "currentQuarterEstimateYear": 2022,
+                        "earningsDate": [
+                            {
+                                "raw": 1666814400,
+                                "fmt": "2022-10-26"
+                            },
+                            {
+                                "raw": 1667246400,
+                                "fmt": "2022-10-31"
+                            }
+                        ]
+                    },
+                    "financialsChart": {
+                        "yearly": [
+                            {
+                                "date": 2018,
+                                "revenue": {
+                                    "raw": 265595000000,
+                                    "fmt": "265.6B",
+                                    "longFmt": "265,595,000,000"
+                                },
+                                "earnings": {
+                                    "raw": 59531000000,
+                                    "fmt": "59.53B",
+                                    "longFmt": "59,531,000,000"
+                                }
+                            },
+                            {
+                                "date": 2019,
+                                "revenue": {
+                                    "raw": 260174000000,
+                                    "fmt": "260.17B",
+                                    "longFmt": "260,174,000,000"
+                                },
+                                "earnings": {
+                                    "raw": 55256000000,
+                                    "fmt": "55.26B",
+                                    "longFmt": "55,256,000,000"
+                                }
+                            },
+                            {
+                                "date": 2020,
+                                "revenue": {
+                                    "raw": 274515000000,
+                                    "fmt": "274.51B",
+                                    "longFmt": "274,515,000,000"
+                                },
+                                "earnings": {
+                                    "raw": 57411000000,
+                                    "fmt": "57.41B",
+                                    "longFmt": "57,411,000,000"
+                                }
+                            },
+                            {
+                                "date": 2021,
+                                "revenue": {
+                                    "raw": 365817000000,
+                                    "fmt": "365.82B",
+                                    "longFmt": "365,817,000,000"
+                                },
+                                "earnings": {
+                                    "raw": 94680000000,
+                                    "fmt": "94.68B",
+                                    "longFmt": "94,680,000,000"
+                                }
+                            }
+                        ],
+                        "quarterly": [
+                            {
+                                "date": "3Q2021",
+                                "revenue": {
+                                    "raw": 83360000000,
+                                    "fmt": "83.36B",
+                                    "longFmt": "83,360,000,000"
+                                },
+                                "earnings": {
+                                    "raw": 20551000000,
+                                    "fmt": "20.55B",
+                                    "longFmt": "20,551,000,000"
+                                }
+                            },
+                            {
+                                "date": "4Q2021",
+                                "revenue": {
+                                    "raw": 123945000000,
+                                    "fmt": "123.94B",
+                                    "longFmt": "123,945,000,000"
+                                },
+                                "earnings": {
+                                    "raw": 34630000000,
+                                    "fmt": "34.63B",
+                                    "longFmt": "34,630,000,000"
+                                }
+                            },
+                            {
+                                "date": "1Q2022",
+                                "revenue": {
+                                    "raw": 97278000000,
+                                    "fmt": "97.28B",
+                                    "longFmt": "97,278,000,000"
+                                },
+                                "earnings": {
+                                    "raw": 25010000000,
+                                    "fmt": "25.01B",
+                                    "longFmt": "25,010,000,000"
+                                }
+                            },
+                            {
+                                "date": "2Q2022",
+                                "revenue": {
+                                    "raw": 82959000000,
+                                    "fmt": "82.96B",
+                                    "longFmt": "82,959,000,000"
+                                },
+                                "earnings": {
+                                    "raw": 19442000000,
+                                    "fmt": "19.44B",
+                                    "longFmt": "19,442,000,000"
+                                }
+                            }
+                        ]
+                    },
+                    "financialCurrency": "USD"
+                }
+            }
+        ],
+        "error": null
+    }
+}

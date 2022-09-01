@@ -143,3 +143,30 @@ httptest::with_mock_api({
     expect_equal(trend$surprise_percent, c(0.000, 0.111, 0.063, 0.034))
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from ticker earnings is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$earnings
+
+    expect_equal(nrow(trend$earnings_estimate), 4)
+    expect_equal(ncol(trend$earnings_estimate), 3)
+    expect_equal(trend$earnings_estimate$actual, c(1.24, 2.10, 1.52, 1.20))
+    expect_equal(trend$earnings_estimate$estimate, c(1.24, 1.89, 1.43, 1.16))
+
+    expect_equal(trend$current_quarter$estimate, 1.26)
+    expect_equal(trend$current_quarter$estimate_year, 2022)
+
+    expect_equal(nrow(trend$yearly_earnings_revenue), 4)
+    expect_equal(ncol(trend$yearly_earnings_revenue), 3)
+    expect_equal(trend$yearly_earnings_revenue$date,
+                 c("2018", "2019", "2020", "2021"))
+
+    expect_equal(nrow(trend$quarterly_earnings_revenue), 4)
+    expect_equal(ncol(trend$quarterly_earnings_revenue), 3)
+    expect_equal(trend$quarterly_earnings_revenue$date,
+                 c("3Q2021", "4Q2021", "1Q2022", "2Q2022"))
+
+  })
+})
