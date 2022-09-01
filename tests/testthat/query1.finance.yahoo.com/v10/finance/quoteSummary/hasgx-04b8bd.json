@@ -1,0 +1,312 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "topHoldings": {
+                    "maxAge": 1,
+                    "cashPosition": {
+                        "raw": 0.038399998,
+                        "fmt": "3.84%"
+                    },
+                    "stockPosition": {
+                        "raw": 0.9579,
+                        "fmt": "95.79%"
+                    },
+                    "bondPosition": {
+                        "raw": 0.0,
+                        "fmt": "0.00%"
+                    },
+                    "otherPosition": {
+                        "raw": 0.0038,
+                        "fmt": "0.38%"
+                    },
+                    "preferredPosition": {
+                        "raw": 0.0,
+                        "fmt": "0.00%"
+                    },
+                    "convertiblePosition": {
+                        "raw": 0.0,
+                        "fmt": "0.00%"
+                    },
+                    "holdings": [
+                        {
+                            "symbol": "SAIA",
+                            "holdingName": "Saia Inc",
+                            "holdingPercent": {
+                                "raw": 0.0276,
+                                "fmt": "2.76%"
+                            }
+                        },
+                        {
+                            "symbol": "ATKR",
+                            "holdingName": "Atkore Inc",
+                            "holdingPercent": {
+                                "raw": 0.026400002,
+                                "fmt": "2.64%"
+                            }
+                        },
+                        {
+                            "symbol": "EYE",
+                            "holdingName": "National Vision Holdings Inc",
+                            "holdingPercent": {
+                                "raw": 0.0257,
+                                "fmt": "2.57%"
+                            }
+                        },
+                        {
+                            "symbol": "OPCH",
+                            "holdingName": "Option Care Health Inc",
+                            "holdingPercent": {
+                                "raw": 0.024600001,
+                                "fmt": "2.46%"
+                            }
+                        },
+                        {
+                            "symbol": "INVA",
+                            "holdingName": "Innoviva Inc",
+                            "holdingPercent": {
+                                "raw": 0.0242,
+                                "fmt": "2.42%"
+                            }
+                        },
+                        {
+                            "symbol": "",
+                            "holdingName": "Acceleron Pharma Inc",
+                            "holdingPercent": {
+                                "raw": 0.0241,
+                                "fmt": "2.41%"
+                            }
+                        },
+                        {
+                            "symbol": "HAE",
+                            "holdingName": "Haemonetics Corp",
+                            "holdingPercent": {
+                                "raw": 0.024,
+                                "fmt": "2.40%"
+                            }
+                        },
+                        {
+                            "symbol": "BPMC",
+                            "holdingName": "Blueprint Medicines Corp",
+                            "holdingPercent": {
+                                "raw": 0.0234,
+                                "fmt": "2.34%"
+                            }
+                        },
+                        {
+                            "symbol": "WMS",
+                            "holdingName": "Advanced Drainage Systems Inc",
+                            "holdingPercent": {
+                                "raw": 0.0216,
+                                "fmt": "2.16%"
+                            }
+                        },
+                        {
+                            "symbol": "BLD",
+                            "holdingName": "TopBuild Corp",
+                            "holdingPercent": {
+                                "raw": 0.0207,
+                                "fmt": "2.07%"
+                            }
+                        }
+                    ],
+                    "equityHoldings": {
+                        "priceToEarnings": {
+                            "raw": 18.95,
+                            "fmt": "18.95"
+                        },
+                        "priceToBook": {
+                            "raw": 4.6,
+                            "fmt": "4.6"
+                        },
+                        "priceToSales": {
+                            "raw": 3.29,
+                            "fmt": "3.29"
+                        },
+                        "priceToCashflow": {
+                            "raw": 17.95,
+                            "fmt": "17.95"
+                        },
+                        "medianMarketCap": {
+                            "raw": 5381.27,
+                            "fmt": "5,381.27"
+                        },
+                        "threeYearEarningsGrowth": {
+                            "raw": 14.66,
+                            "fmt": "14.66"
+                        },
+                        "priceToEarningsCat": {
+                            "raw": 34.63,
+                            "fmt": "34.63"
+                        },
+                        "priceToBookCat": {
+                            "raw": 5.39,
+                            "fmt": "5.39"
+                        },
+                        "priceToSalesCat": {
+                            "raw": 3.86,
+                            "fmt": "3.86"
+                        },
+                        "priceToCashflowCat": {
+                            "raw": 22.99,
+                            "fmt": "22.99"
+                        },
+                        "medianMarketCapCat": {
+                            "raw": 5964.6,
+                            "fmt": "5,964.6"
+                        },
+                        "threeYearEarningsGrowthCat": {
+                            "raw": 15.48,
+                            "fmt": "15.48"
+                        }
+                    },
+                    "bondHoldings": {
+                        "maturity": {
+
+                        },
+                        "duration": {
+
+                        },
+                        "creditQuality": {
+
+                        },
+                        "maturityCat": {
+
+                        },
+                        "durationCat": {
+
+                        },
+                        "creditQualityCat": {
+
+                        }
+                    },
+                    "bondRatings": [
+                        {
+                            "bb": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "aa": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "aaa": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "a": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "other": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "b": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "bbb": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "below_b": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "us_government": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        }
+                    ],
+                    "sectorWeightings": [
+                        {
+                            "realestate": {
+                                "raw": 0.056799997,
+                                "fmt": "5.68%"
+                            }
+                        },
+                        {
+                            "consumer_cyclical": {
+                                "raw": 0.1313,
+                                "fmt": "13.13%"
+                            }
+                        },
+                        {
+                            "basic_materials": {
+                                "raw": 0.028499998,
+                                "fmt": "2.85%"
+                            }
+                        },
+                        {
+                            "consumer_defensive": {
+                                "raw": 0.0023999999,
+                                "fmt": "0.24%"
+                            }
+                        },
+                        {
+                            "technology": {
+                                "raw": 0.1869,
+                                "fmt": "18.69%"
+                            }
+                        },
+                        {
+                            "communication_services": {
+                                "raw": 0.013200001,
+                                "fmt": "1.32%"
+                            }
+                        },
+                        {
+                            "financial_services": {
+                                "raw": 0.061,
+                                "fmt": "6.10%"
+                            }
+                        },
+                        {
+                            "utilities": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "industrials": {
+                                "raw": 0.2028,
+                                "fmt": "20.28%"
+                            }
+                        },
+                        {
+                            "energy": {
+                                "raw": 0.0176,
+                                "fmt": "1.76%"
+                            }
+                        },
+                        {
+                            "healthcare": {
+                                "raw": 0.29950002,
+                                "fmt": "29.95%"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "error": null
+    }
+}

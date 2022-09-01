@@ -228,3 +228,19 @@ httptest::with_mock_api({
     expect_equal(round(trend$bbb, 4), 0.1581)
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from fund equity holdings is as expected", {
+    testthat::skip_on_cran()
+    fund <- Ticker$new('hasgx')
+    trend <- fund$fund_equity_holdings
+
+    expect_equal(trend$priceToEarnings, 18.95)
+    expect_equal(trend$priceToBook, 4.6)
+    expect_equal(trend$priceToSales, 3.29)
+    expect_equal(trend$priceToCashflow, 17.95)
+    expect_equal(trend$medianMarketCap, 5381.27)
+    expect_equal(trend$priceToEarningsCat, 34.63)
+    expect_equal(trend$priceToBookCat, 5.39)
+  })
+})
