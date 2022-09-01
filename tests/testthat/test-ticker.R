@@ -481,6 +481,37 @@ httptest::with_mock_api({
     expect_equal(trend$period, "6m")
     expect_equal(trend$buyInfoCount, 276)
     expect_equal(trend$sellInfoCount, 199)
-    expect_equal(trend$netInfoCount,475 )
+    expect_equal(trend$netInfoCount, 475)
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from summary details is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$summary_detail
+
+    expect_equal(trend$previousClose, 158.91)
+    expect_equal(trend$open, 160.305)
+    expect_equal(trend$dayLow, 157.14)
+    expect_equal(trend$dayHigh, 160.58)
+    expect_equal(trend$dividendRate, 0.92)
+    expect_equal(trend$dividendYield, 0.0058)
+    expect_equal(trend$payoutRatio, 0.1471)
+    expect_equal(trend$beta, 1.230174)
+
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from summary profile is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$summary_profile
+
+    expect_equal(trend$sector, "Technology")
+    expect_equal(trend$industry, "Consumer Electronics")
+    expect_equal(trend$country, "United States")
+    expect_equal(trend$fullTimeEmployees, 154000)
   })
 })
