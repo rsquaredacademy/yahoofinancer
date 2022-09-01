@@ -244,3 +244,31 @@ httptest::with_mock_api({
     expect_equal(trend$priceToBookCat, 5.39)
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from fund ownership is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$fund_ownership
+
+    expect_equal(nrow(trend), 18)
+    expect_equal(ncol(trend), 6)
+    expect_equal(colnames(trend),
+                 c("report_date", "organization", "percent_held",
+                   "position", "value", "percent_change"))
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from fund sector weightings is as expected", {
+    testthat::skip_on_cran()
+    fund <- Ticker$new('hasgx')
+    trend <- fund$fund_section_weightings
+
+    expect_equal(round(trend$realestate, 4), 0.0568)
+    expect_equal(round(trend$basic_materials, 4), 0.0285)
+    expect_equal(round(trend$technology, 4), 0.1869)
+    expect_equal(round(trend$financial_services, 4), 0.061)
+    expect_equal(round(trend$healthcare, 4), 0.2995)
+  })
+})

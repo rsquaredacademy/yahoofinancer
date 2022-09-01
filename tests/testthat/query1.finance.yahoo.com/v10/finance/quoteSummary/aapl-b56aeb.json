@@ -1,0 +1,482 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "fundOwnership": {
+                    "maxAge": 1,
+                    "ownershipList": [
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1648684800,
+                                "fmt": "2022-03-31"
+                            },
+                            "organization": "Vanguard Total Stock Market Index Fund",
+                            "pctHeld": {
+                                "raw": 0.0278,
+                                "fmt": "2.78%"
+                            },
+                            "position": {
+                                "raw": 447540759,
+                                "fmt": "447.54M",
+                                "longFmt": "447,540,759"
+                            },
+                            "value": {
+                                "raw": 70362358676,
+                                "fmt": "70.36B",
+                                "longFmt": "70,362,358,676"
+                            },
+                            "pctChange": {
+                                "raw": 0.0104,
+                                "fmt": "1.04%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1648684800,
+                                "fmt": "2022-03-31"
+                            },
+                            "organization": "Vanguard 500 Index Fund",
+                            "pctHeld": {
+                                "raw": 0.0211,
+                                "fmt": "2.11%"
+                            },
+                            "position": {
+                                "raw": 339280736,
+                                "fmt": "339.28M",
+                                "longFmt": "339,280,736"
+                            },
+                            "value": {
+                                "raw": 53341717728,
+                                "fmt": "53.34B",
+                                "longFmt": "53,341,717,728"
+                            },
+                            "pctChange": {
+                                "raw": 0.0279,
+                                "fmt": "2.79%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "SPDR S&P 500 ETF Trust",
+                            "pctHeld": {
+                                "raw": 0.0104,
+                                "fmt": "1.04%"
+                            },
+                            "position": {
+                                "raw": 166764140,
+                                "fmt": "166.76M",
+                                "longFmt": "166,764,140"
+                            },
+                            "value": {
+                                "raw": 26218658294,
+                                "fmt": "26.22B",
+                                "longFmt": "26,218,658,294"
+                            },
+                            "pctChange": {
+                                "raw": -0.0069999998,
+                                "fmt": "-0.70%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Fidelity 500 Index Fund",
+                            "pctHeld": {
+                                "raw": 0.010199999,
+                                "fmt": "1.02%"
+                            },
+                            "position": {
+                                "raw": 163222945,
+                                "fmt": "163.22M",
+                                "longFmt": "163,222,945"
+                            },
+                            "value": {
+                                "raw": 25661911612,
+                                "fmt": "25.66B",
+                                "longFmt": "25,661,911,612"
+                            },
+                            "pctChange": {
+                                "raw": -0.0014,
+                                "fmt": "-0.14%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1648684800,
+                                "fmt": "2022-03-31"
+                            },
+                            "organization": "Invesco ETF Tr-Invesco NASDAQ 100 ETF",
+                            "pctHeld": {
+                                "raw": 0.0088,
+                                "fmt": "0.88%"
+                            },
+                            "position": {
+                                "raw": 142428438,
+                                "fmt": "142.43M",
+                                "longFmt": "142,428,438"
+                            },
+                            "value": {
+                                "raw": 22392599196,
+                                "fmt": "22.39B",
+                                "longFmt": "22,392,599,196"
+                            },
+                            "pctChange": {
+                                "raw": 50.195,
+                                "fmt": "5,019.50%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Invesco ETF Tr-Invesco QQQ Tr, Series 1 ETF",
+                            "pctHeld": {
+                                "raw": 0.0088,
+                                "fmt": "0.88%"
+                            },
+                            "position": {
+                                "raw": 140914809,
+                                "fmt": "140.91M",
+                                "longFmt": "140,914,809"
+                            },
+                            "value": {
+                                "raw": 22154626442,
+                                "fmt": "22.15B",
+                                "longFmt": "22,154,626,442"
+                            },
+                            "pctChange": {
+                                "raw": 0.0074,
+                                "fmt": "0.74%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "iShares Core S&P 500 ETF",
+                            "pctHeld": {
+                                "raw": 0.0083,
+                                "fmt": "0.83%"
+                            },
+                            "position": {
+                                "raw": 133704020,
+                                "fmt": "133.7M",
+                                "longFmt": "133,704,020"
+                            },
+                            "value": {
+                                "raw": 21020946187,
+                                "fmt": "21.02B",
+                                "longFmt": "21,020,946,187"
+                            },
+                            "pctChange": {
+                                "raw": 0.0027,
+                                "fmt": "0.27%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1648684800,
+                                "fmt": "2022-03-31"
+                            },
+                            "organization": "Vanguard Growth Index Fund",
+                            "pctHeld": {
+                                "raw": 0.0077,
+                                "fmt": "0.77%"
+                            },
+                            "position": {
+                                "raw": 123656979,
+                                "fmt": "123.66M",
+                                "longFmt": "123,656,979"
+                            },
+                            "value": {
+                                "raw": 19441350389,
+                                "fmt": "19.44B",
+                                "longFmt": "19,441,350,389"
+                            },
+                            "pctChange": {
+                                "raw": -5.0E-4,
+                                "fmt": "-0.05%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Vanguard Institutional Index Fund-Institutional Index Fund",
+                            "pctHeld": {
+                                "raw": 0.0070999996,
+                                "fmt": "0.71%"
+                            },
+                            "position": {
+                                "raw": 113915609,
+                                "fmt": "113.92M",
+                                "longFmt": "113,915,609"
+                            },
+                            "value": {
+                                "raw": 17909812186,
+                                "fmt": "17.91B",
+                                "longFmt": "17,909,812,186"
+                            },
+                            "pctChange": {
+                                "raw": -0.0197,
+                                "fmt": "-1.97%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1653955200,
+                                "fmt": "2022-05-31"
+                            },
+                            "organization": "Vanguard Information Technology Index Fund",
+                            "pctHeld": {
+                                "raw": 0.0046,
+                                "fmt": "0.46%"
+                            },
+                            "position": {
+                                "raw": 73781711,
+                                "fmt": "73.78M",
+                                "longFmt": "73,781,711"
+                            },
+                            "value": {
+                                "raw": 11599960693,
+                                "fmt": "11.6B",
+                                "longFmt": "11,599,960,693"
+                            },
+                            "pctChange": {
+                                "raw": -0.0369,
+                                "fmt": "-3.69%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Select Sector SPDR Fund-Technology",
+                            "pctHeld": {
+                                "raw": 0.0039,
+                                "fmt": "0.39%"
+                            },
+                            "position": {
+                                "raw": 63367340,
+                                "fmt": "63.37M",
+                                "longFmt": "63,367,340"
+                            },
+                            "value": {
+                                "raw": 9962613272,
+                                "fmt": "9.96B",
+                                "longFmt": "9,962,613,272"
+                            },
+                            "pctChange": {
+                                "raw": 0.022,
+                                "fmt": "2.20%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Price (T.Rowe) Blue Chip Growth Fund Inc.",
+                            "pctHeld": {
+                                "raw": 0.0026,
+                                "fmt": "0.26%"
+                            },
+                            "position": {
+                                "raw": 42032830,
+                                "fmt": "42.03M",
+                                "longFmt": "42,032,830"
+                            },
+                            "value": {
+                                "raw": 6608401583,
+                                "fmt": "6.61B",
+                                "longFmt": "6,608,401,583"
+                            },
+                            "pctChange": {
+                                "raw": -0.0248,
+                                "fmt": "-2.48%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Fidelity Growth Company Fund",
+                            "pctHeld": {
+                                "raw": 0.0021,
+                                "fmt": "0.21%"
+                            },
+                            "position": {
+                                "raw": 33420848,
+                                "fmt": "33.42M",
+                                "longFmt": "33,420,848"
+                            },
+                            "value": {
+                                "raw": 5254425763,
+                                "fmt": "5.25B",
+                                "longFmt": "5,254,425,763"
+                            },
+                            "pctChange": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Fidelity Blue Chip Growth Fund",
+                            "pctHeld": {
+                                "raw": 0.002,
+                                "fmt": "0.20%"
+                            },
+                            "position": {
+                                "raw": 32219275,
+                                "fmt": "32.22M",
+                                "longFmt": "32,219,275"
+                            },
+                            "value": {
+                                "raw": 5065514454,
+                                "fmt": "5.07B",
+                                "longFmt": "5,065,514,454"
+                            },
+                            "pctChange": {
+                                "raw": 0.0,
+                                "fmt": "0.00%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Fidelity Contrafund Inc",
+                            "pctHeld": {
+                                "raw": 0.0019,
+                                "fmt": "0.19%"
+                            },
+                            "position": {
+                                "raw": 30032660,
+                                "fmt": "30.03M",
+                                "longFmt": "30,032,660"
+                            },
+                            "value": {
+                                "raw": 4721734841,
+                                "fmt": "4.72B",
+                                "longFmt": "4,721,734,841"
+                            },
+                            "pctChange": {
+                                "raw": -7.0E-4,
+                                "fmt": "-0.07%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1651276800,
+                                "fmt": "2022-04-30"
+                            },
+                            "organization": "Schwab Capital Trust-Schwab S&P 500 Index Fund",
+                            "pctHeld": {
+                                "raw": 0.0017,
+                                "fmt": "0.17%"
+                            },
+                            "position": {
+                                "raw": 28086621,
+                                "fmt": "28.09M",
+                                "longFmt": "28,086,621"
+                            },
+                            "value": {
+                                "raw": 4415778587,
+                                "fmt": "4.42B",
+                                "longFmt": "4,415,778,587"
+                            },
+                            "pctChange": {
+                                "raw": 0.0165,
+                                "fmt": "1.65%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1648684800,
+                                "fmt": "2022-03-31"
+                            },
+                            "organization": "College Retirement Equities Fund-Stock Account",
+                            "pctHeld": {
+                                "raw": 0.0016,
+                                "fmt": "0.16%"
+                            },
+                            "position": {
+                                "raw": 25384349,
+                                "fmt": "25.38M",
+                                "longFmt": "25,384,349"
+                            },
+                            "value": {
+                                "raw": 3990927380,
+                                "fmt": "3.99B",
+                                "longFmt": "3,990,927,380"
+                            },
+                            "pctChange": {
+                                "raw": 0.0117,
+                                "fmt": "1.17%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1648684800,
+                                "fmt": "2022-03-31"
+                            },
+                            "organization": "Price (T.Rowe) Growth Stock Fund Inc.",
+                            "pctHeld": {
+                                "raw": 0.0016,
+                                "fmt": "0.16%"
+                            },
+                            "position": {
+                                "raw": 25973957,
+                                "fmt": "25.97M",
+                                "longFmt": "25,973,957"
+                            },
+                            "value": {
+                                "raw": 4083625551,
+                                "fmt": "4.08B",
+                                "longFmt": "4,083,625,551"
+                            },
+                            "pctChange": {
+                                "raw": 0.0863,
+                                "fmt": "8.63%"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "error": null
+    }
+}
