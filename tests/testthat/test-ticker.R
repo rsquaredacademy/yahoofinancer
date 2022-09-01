@@ -170,3 +170,19 @@ httptest::with_mock_api({
 
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from esg score is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$esg_scores
+
+    expect_equal(trend$totalEsg$raw, 16.68)
+    expect_equal(trend$environmentScore$raw, 0.65)
+    expect_equal(trend$socialScore$raw, 6.86)
+    expect_equal(trend$governanceScore$raw, 9.18)
+    expect_equal(trend$esgPerformance, "UNDER_PERF")
+    expect_false(trend$nuclear)
+    expect_false(trend$militaryContract)
+  })
+})

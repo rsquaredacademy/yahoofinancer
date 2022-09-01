@@ -1,0 +1,86 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "esgScores": {
+                    "maxAge": 86400,
+                    "totalEsg": {
+                        "raw": 16.68,
+                        "fmt": "16.7"
+                    },
+                    "environmentScore": {
+                        "raw": 0.65,
+                        "fmt": "0.6"
+                    },
+                    "socialScore": {
+                        "raw": 6.86,
+                        "fmt": "6.9"
+                    },
+                    "governanceScore": {
+                        "raw": 9.18,
+                        "fmt": "9.2"
+                    },
+                    "ratingYear": 2022,
+                    "ratingMonth": 8,
+                    "highestControversy": 3.0,
+                    "peerCount": 55,
+                    "esgPerformance": "UNDER_PERF",
+                    "peerGroup": "Technology Hardware",
+                    "relatedControversy": [
+                        "Social Supply Chain Incidents",
+                        "Customer Incidents",
+                        "Business Ethics Incidents"
+                    ],
+                    "peerEsgScorePerformance": {
+                        "min": 5.97,
+                        "avg": 16.164727272727273,
+                        "max": 25.7
+                    },
+                    "peerGovernancePerformance": {
+                        "min": 3.45,
+                        "avg": 7.1781481481481455,
+                        "max": 11.5
+                    },
+                    "peerSocialPerformance": {
+                        "min": 2.24,
+                        "avg": 6.082037037037039,
+                        "max": 12.55
+                    },
+                    "peerEnvironmentPerformance": {
+                        "min": 0.03,
+                        "avg": 3.093703703703704,
+                        "max": 8.67
+                    },
+                    "peerHighestControversyPerformance": {
+                        "min": 0.0,
+                        "avg": 1.5454545454545454,
+                        "max": 4.0
+                    },
+                    "percentile": {
+                        "raw": 14.68,
+                        "fmt": "15"
+                    },
+                    "environmentPercentile": null,
+                    "socialPercentile": null,
+                    "governancePercentile": null,
+                    "adult": false,
+                    "alcoholic": false,
+                    "animalTesting": false,
+                    "catholic": false,
+                    "controversialWeapons": false,
+                    "smallArms": false,
+                    "furLeather": false,
+                    "gambling": false,
+                    "gmo": false,
+                    "militaryContract": false,
+                    "nuclear": false,
+                    "pesticides": false,
+                    "palmOil": false,
+                    "coal": false,
+                    "tobacco": false
+                }
+            }
+        ],
+        "error": null
+    }
+}
