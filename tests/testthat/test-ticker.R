@@ -458,3 +458,29 @@ httptest::with_mock_api({
 
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from security filings is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$security_filings
+
+    expect_equal(nrow(trend), 40)
+    expect_equal(ncol(trend), 4)
+    expect_equal(colnames(trend),
+                 c('date', 'type', 'title', 'edgar_url'))
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from share purchase activity is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$share_purchase_activity
+
+    expect_equal(trend$period, "6m")
+    expect_equal(trend$buyInfoCount, 276)
+    expect_equal(trend$sellInfoCount, 199)
+    expect_equal(trend$netInfoCount,475 )
+  })
+})
