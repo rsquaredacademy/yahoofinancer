@@ -1,0 +1,300 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "institutionOwnership": {
+                    "maxAge": 1,
+                    "ownershipList": [
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Vanguard Group, Inc. (The)",
+                            "pctHeld": {
+                                "raw": 0.0795,
+                                "fmt": "7.95%"
+                            },
+                            "position": {
+                                "raw": 1277319054,
+                                "fmt": "1.28B",
+                                "longFmt": "1,277,319,054"
+                            },
+                            "value": {
+                                "raw": 200820103229,
+                                "fmt": "200.82B",
+                                "longFmt": "200,820,103,229"
+                            },
+                            "pctChange": {
+                                "raw": 0.0058,
+                                "fmt": "0.58%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Blackrock Inc.",
+                            "pctHeld": {
+                                "raw": 0.064,
+                                "fmt": "6.40%"
+                            },
+                            "position": {
+                                "raw": 1028688317,
+                                "fmt": "1.03B",
+                                "longFmt": "1,028,688,317"
+                            },
+                            "value": {
+                                "raw": 161730378454,
+                                "fmt": "161.73B",
+                                "longFmt": "161,730,378,454"
+                            },
+                            "pctChange": {
+                                "raw": 0.001,
+                                "fmt": "0.10%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Berkshire Hathaway, Inc",
+                            "pctHeld": {
+                                "raw": 0.0557,
+                                "fmt": "5.57%"
+                            },
+                            "position": {
+                                "raw": 894802319,
+                                "fmt": "894.8M",
+                                "longFmt": "894,802,319"
+                            },
+                            "value": {
+                                "raw": 140680821685,
+                                "fmt": "140.68B",
+                                "longFmt": "140,680,821,685"
+                            },
+                            "pctChange": {
+                                "raw": 0.0044,
+                                "fmt": "0.44%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "State Street Corporation",
+                            "pctHeld": {
+                                "raw": 0.0372,
+                                "fmt": "3.72%"
+                            },
+                            "position": {
+                                "raw": 598178524,
+                                "fmt": "598.18M",
+                                "longFmt": "598,178,524"
+                            },
+                            "value": {
+                                "raw": 94045628273,
+                                "fmt": "94.05B",
+                                "longFmt": "94,045,628,273"
+                            },
+                            "pctChange": {
+                                "raw": -0.0255,
+                                "fmt": "-2.55%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "FMR, LLC",
+                            "pctHeld": {
+                                "raw": 0.0214,
+                                "fmt": "2.14%"
+                            },
+                            "position": {
+                                "raw": 344317974,
+                                "fmt": "344.32M",
+                                "longFmt": "344,317,974"
+                            },
+                            "value": {
+                                "raw": 54133672292,
+                                "fmt": "54.13B",
+                                "longFmt": "54,133,672,292"
+                            },
+                            "pctChange": {
+                                "raw": -0.0207,
+                                "fmt": "-2.07%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Geode Capital Management, LLC",
+                            "pctHeld": {
+                                "raw": 0.0173,
+                                "fmt": "1.73%"
+                            },
+                            "position": {
+                                "raw": 278256192,
+                                "fmt": "278.26M",
+                                "longFmt": "278,256,192"
+                            },
+                            "value": {
+                                "raw": 43747438845,
+                                "fmt": "43.75B",
+                                "longFmt": "43,747,438,845"
+                            },
+                            "pctChange": {
+                                "raw": 0.0227,
+                                "fmt": "2.27%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Price (T.Rowe) Associates Inc",
+                            "pctHeld": {
+                                "raw": 0.0148,
+                                "fmt": "1.48%"
+                            },
+                            "position": {
+                                "raw": 237910783,
+                                "fmt": "237.91M",
+                                "longFmt": "237,910,783"
+                            },
+                            "value": {
+                                "raw": 37404333593,
+                                "fmt": "37.4B",
+                                "longFmt": "37,404,333,593"
+                            },
+                            "pctChange": {
+                                "raw": 0.0207,
+                                "fmt": "2.07%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Morgan Stanley",
+                            "pctHeld": {
+                                "raw": 0.0114,
+                                "fmt": "1.14%"
+                            },
+                            "position": {
+                                "raw": 182450565,
+                                "fmt": "182.45M",
+                                "longFmt": "182,450,565"
+                            },
+                            "value": {
+                                "raw": 28684878052,
+                                "fmt": "28.68B",
+                                "longFmt": "28,684,878,052"
+                            },
+                            "pctChange": {
+                                "raw": 0.4585,
+                                "fmt": "45.85%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Northern Trust Corporation",
+                            "pctHeld": {
+                                "raw": 0.0112,
+                                "fmt": "1.12%"
+                            },
+                            "position": {
+                                "raw": 179828922,
+                                "fmt": "179.83M",
+                                "longFmt": "179,828,922"
+                            },
+                            "value": {
+                                "raw": 28272703336,
+                                "fmt": "28.27B",
+                                "longFmt": "28,272,703,336"
+                            },
+                            "pctChange": {
+                                "raw": -0.033299997,
+                                "fmt": "-3.33%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1656547200,
+                                "fmt": "2022-06-30"
+                            },
+                            "organization": "Bank of America Corporation",
+                            "pctHeld": {
+                                "raw": 0.0093,
+                                "fmt": "0.93%"
+                            },
+                            "position": {
+                                "raw": 149133915,
+                                "fmt": "149.13M",
+                                "longFmt": "149,133,915"
+                            },
+                            "value": {
+                                "raw": 23446834298,
+                                "fmt": "23.45B",
+                                "longFmt": "23,446,834,298"
+                            },
+                            "pctChange": {
+                                "raw": 0.0328,
+                                "fmt": "3.28%"
+                            }
+                        },
+                        {
+                            "maxAge": 1,
+                            "reportDate": {
+                                "raw": 1640908800,
+                                "fmt": "2021-12-31"
+                            },
+                            "organization": "Norges Bank Investment Management",
+                            "pctHeld": {
+                                "raw": 0.0088,
+                                "fmt": "0.88%"
+                            },
+                            "position": {
+                                "raw": 142076403,
+                                "fmt": "142.08M",
+                                "longFmt": "142,076,403"
+                            },
+                            "value": {
+                                "raw": 22337252253,
+                                "fmt": "22.34B",
+                                "longFmt": "22,337,252,253"
+                            },
+                            "pctChange": {
+                                "raw": 1.0,
+                                "fmt": "100.00%"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "error": null
+    }
+}

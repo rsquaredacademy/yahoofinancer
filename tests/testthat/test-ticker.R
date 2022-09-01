@@ -345,3 +345,17 @@ httptest::with_mock_api({
                  'filer_url', 'money_text'))
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from institution ownership is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$institution_ownership
+
+    expect_equal(nrow(trend), 11)
+    expect_equal(ncol(trend), 6)
+    expect_equal(colnames(trend),
+                 c('date', 'organization', 'percent_held', 'position',
+                   'value', 'percent_change'))
+  })
+})
