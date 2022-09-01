@@ -375,3 +375,19 @@ httptest::with_mock_api({
     expect_equal(trend$priceToBook$fmt, "43.55")
   })
 })
+
+
+httptest::with_mock_api({
+  test_that("output from major holders is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$major_holders
+
+    expect_equal(round(trend$insidersPercentHeld, 5), 0.00069)
+    expect_equal(round(trend$institutionsPercentHeld, 5), 0.59785)
+    expect_equal(round(trend$institutionsFloatPercentHeld, 5), 0.59826)
+    expect_equal(trend$institutionsCount, 5492)
+
+
+  })
+})
