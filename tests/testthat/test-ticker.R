@@ -405,3 +405,22 @@ httptest::with_mock_api({
 
   })
 })
+
+
+httptest::with_mock_api({
+  test_that("output from price is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$price
+
+    expect_equal(trend$preMarketPrice, 156.11)
+    expect_equal(trend$regularMarketPrice, 157.22)
+    expect_equal(trend$regularMarketDayHigh$fmt, "160.58")
+    expect_equal(trend$regularMarketDayLow$fmt, "157.14")
+    expect_equal(trend$regularMarketPreviousClose$fmt, "158.91")
+    expect_equal(trend$regularMarketOpen$fmt, "160.30")
+    expect_equal(trend$marketCap$fmt, "2.53T")
+
+
+  })
+})

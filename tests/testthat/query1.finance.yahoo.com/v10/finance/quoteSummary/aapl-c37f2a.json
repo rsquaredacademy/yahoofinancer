@@ -1,0 +1,121 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "price": {
+                    "maxAge": 1,
+                    "preMarketChangePercent": {
+                        "raw": -0.0070601744,
+                        "fmt": "-0.71%"
+                    },
+                    "preMarketChange": {
+                        "raw": -1.1100006,
+                        "fmt": "-1.11"
+                    },
+                    "preMarketTime": 1662021102,
+                    "preMarketPrice": {
+                        "raw": 156.11,
+                        "fmt": "156.11"
+                    },
+                    "preMarketSource": "FREE_REALTIME",
+                    "postMarketChangePercent": {
+                        "raw": -0.00756903,
+                        "fmt": "-0.76%"
+                    },
+                    "postMarketChange": {
+                        "raw": -1.19,
+                        "fmt": "-1.19"
+                    },
+                    "postMarketTime": 1661990399,
+                    "postMarketPrice": {
+                        "raw": 156.03,
+                        "fmt": "156.03"
+                    },
+                    "postMarketSource": "FREE_REALTIME",
+                    "regularMarketChangePercent": {
+                        "raw": -0.010634964,
+                        "fmt": "-1.06%"
+                    },
+                    "regularMarketChange": {
+                        "raw": -1.6900024,
+                        "fmt": "-1.69"
+                    },
+                    "regularMarketTime": 1661976004,
+                    "priceHint": {
+                        "raw": 2,
+                        "fmt": "2",
+                        "longFmt": "2"
+                    },
+                    "regularMarketPrice": {
+                        "raw": 157.22,
+                        "fmt": "157.22"
+                    },
+                    "regularMarketDayHigh": {
+                        "raw": 160.58,
+                        "fmt": "160.58"
+                    },
+                    "regularMarketDayLow": {
+                        "raw": 157.14,
+                        "fmt": "157.14"
+                    },
+                    "regularMarketVolume": {
+                        "raw": 85291695,
+                        "fmt": "85.29M",
+                        "longFmt": "85,291,695.00"
+                    },
+                    "averageDailyVolume10Day": {
+
+                    },
+                    "averageDailyVolume3Month": {
+
+                    },
+                    "regularMarketPreviousClose": {
+                        "raw": 158.91,
+                        "fmt": "158.91"
+                    },
+                    "regularMarketSource": "FREE_REALTIME",
+                    "regularMarketOpen": {
+                        "raw": 160.305,
+                        "fmt": "160.30"
+                    },
+                    "strikePrice": {
+
+                    },
+                    "openInterest": {
+
+                    },
+                    "exchange": "NMS",
+                    "exchangeName": "NasdaqGS",
+                    "exchangeDataDelayedBy": 0,
+                    "marketState": "PRE",
+                    "quoteType": "EQUITY",
+                    "symbol": "AAPL",
+                    "underlyingSymbol": null,
+                    "shortName": "Apple Inc.",
+                    "longName": "Apple Inc.",
+                    "currency": "USD",
+                    "quoteSourceName": "Nasdaq Real Time Price",
+                    "currencySymbol": "$",
+                    "fromCurrency": null,
+                    "toCurrency": null,
+                    "lastMarket": null,
+                    "volume24Hr": {
+
+                    },
+                    "volumeAllCurrencies": {
+
+                    },
+                    "circulatingSupply": {
+
+                    },
+                    "marketCap": {
+                        "raw": 2526651351040,
+                        "fmt": "2.53T",
+                        "longFmt": "2,526,651,351,040.00"
+                    }
+                }
+            }
+        ],
+        "error": null
+    }
+}
