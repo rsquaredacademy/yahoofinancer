@@ -515,3 +515,38 @@ httptest::with_mock_api({
     expect_equal(trend$fullTimeEmployees, 154000)
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from get history is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$get_history(start = '2022-09-01',
+                              end = '2022-09-05',
+                              interval = '1d')
+
+    expect_equal(nrow(trend), 2)
+    expect_equal(as.Date(trend$date), as.Date(c("2022-09-01", "2022-09-02")))
+    expect_equal(round(trend$high, 2), c(158.42, 160.36))
+    expect_equal(round(trend$low, 2), c(154.67, 154.97))
+    expect_equal(round(trend$open, 2), c(156.64, 159.75))
+    expect_equal(round(trend$close, 2), c(157.96, 155.81))
+
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from get history is as expected when using range", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$get_history(period = '5d', interval = '1d')
+
+    expect_equal(nrow(trend), 5)
+    expect_equal(as.Date(trend$date), as.Date(c("2022-08-29", "2022-08-30", "2022-08-31", "2022-09-01", "2022-09-02")))
+    expect_equal(round(trend$high, 2), c(162.90, 162.56, 160.58, 158.42, 160.36))
+    expect_equal(round(trend$low, 2), c(159.82, 157.72, 157.14, 154.67, 154.97))
+    expect_equal(round(trend$open, 2), c(161.15, 162.13, 160.31, 156.64, 159.75))
+    expect_equal(round(trend$close, 2), c(161.38, 158.91, 157.22, 157.96, 155.81))
+  })
+})
+
+
