@@ -6,3 +6,8 @@ httptest::with_mock_api({
     expect_equal(trend, c("BBBY", "PTON", "SOFI", "JWN", "STBX"))
   })
 })
+
+test_that("output is as expected in case of no trending securities", {
+  testthat::skip_on_cran()
+  expect_message(get_trending("IN"), "No trending securities.")
+})
