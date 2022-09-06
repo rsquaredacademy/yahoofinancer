@@ -438,7 +438,7 @@ Ticker <- R6::R6Class(
           analyst = map_int(map(map(trend, 'earningsEstimate'), 'numberOfAnalysts'), 'raw', .default = NA),
           avg_estimate = map_dbl(map(map(trend, 'earningsEstimate'), 'avg'), 'raw', .default = NA),
           low_estimate = map_dbl(map(map(trend, 'earningsEstimate'), 'low'), 'raw', .default = NA),
-          hig_estimate = map_dbl(map(map(trend, 'earningsEstimate'), 'high'), 'raw', .default = NA),
+          high_estimate = map_dbl(map(map(trend, 'earningsEstimate'), 'high'), 'raw', .default = NA),
           year_ago_eps = map_dbl(map(map(trend, 'earningsEstimate'), 'yearAgoEps'), 'raw', .default = NA)
         )
 
@@ -449,7 +449,7 @@ Ticker <- R6::R6Class(
           analyst = map_int(map(map(trend, 'revenueEstimate'), 'numberOfAnalysts'), 'raw', .default = NA),
           avg_estimate = map_dbl(map(map(trend, 'revenueEstimate'), 'avg'), 'raw', .default = NA),
           low_estimate = map_dbl(map(map(trend, 'revenueEstimate'), 'low'), 'raw', .default = NA),
-          hig_estimate = map_dbl(map(map(trend, 'revenueEstimate'), 'high'), 'raw', .default = NA),
+          high_estimate = map_dbl(map(map(trend, 'revenueEstimate'), 'high'), 'raw', .default = NA),
           year_ago_revenue = map_dbl(map(map(trend, 'revenueEstimate'), 'yearAgoRevenue'), 'raw', .default = NA)
         )
 

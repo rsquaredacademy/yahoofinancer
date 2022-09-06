@@ -549,4 +549,42 @@ httptest::with_mock_api({
   })
 })
 
+httptest::with_mock_api({
+  test_that("output from earnings trend is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$earnings_trend
+
+    expect_equal(nrow(trend$growth), 6)
+    expect_equal(trend$growth$period, c("0q", "+1q", "0y", "+1y", "+5y", "-5y"))
+    expect_equal(round(trend$growth$growth, 3),
+                 c(0.016, 0.010, 0.087, 0.057, 0.095, 0.235))
+
+    expect_equal(nrow(trend$earnings_estimate), 6)
+    expect_equal(trend$earnings_estimate$analyst, c(27, 23, 38, 38, NA, NA))
+    expect_equal(trend$earnings_estimate$avg_estimate,
+                 c(1.26, 2.12, 6.10, 6.45, NA, NA))
+    expect_equal(trend$earnings_estimate$low_estimate,
+                 c(1.13, 2.01, 5.96, 5.79, NA, NA))
+    expect_equal(trend$earnings_estimate$year_ago_eps,
+                 c(1.24, 2.10, 5.61, 6.10, NA, NA))
+
+    expect_equal(nrow(trend$revenue_estimate), 6)
+    expect_equal(trend$revenue_estimate$analyst, c(24, 20, 37, 37, NA, NA))
+
+    expect_equal(nrow(trend$eps_trend), 6)
+    expect_equal(trend$eps_trend$current,
+                 c(1.26, 2.12, 6.10, 6.45, NA, NA))
+    expect_equal(trend$eps_trend$seven_days_ago,
+                 c(1.26, 2.12, 6.10, 6.45, NA, NA))
+    expect_equal(trend$eps_trend$ninety_days_ago,
+                 c(1.33, 2.19, 6.14, 6.56, NA, NA))
+
+    expect_equal(nrow(trend$eps_revision), 6)
+    expect_equal(trend$eps_revision$up_last_7_days, c(2, 1, 2, 3, NA, NA))
+    expect_equal(trend$eps_revision$up_last_30_days, c(6, 5, 11, 11, NA, NA))
+    expect_equal(trend$eps_revision$down_last_30_days, c(0, 0, 2, 1, NA, NA))
+  })
+})
+
 
