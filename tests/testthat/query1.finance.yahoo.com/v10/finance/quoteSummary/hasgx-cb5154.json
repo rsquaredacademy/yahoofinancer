@@ -1,0 +1,1506 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "fundPerformance": {
+                    "maxAge": 1,
+                    "performanceOverview": {
+                        "asOfDate": {
+                            "raw": 1549238400,
+                            "fmt": "2019-02-04"
+                        },
+                        "morningStarReturnRating": {
+                            "raw": 3.0,
+                            "fmt": "3"
+                        },
+                        "ytdReturnPct": {
+                            "raw": 0.1441,
+                            "fmt": "14.41%"
+                        },
+                        "fiveYrAvgReturnPct": {
+                            "raw": 0.0855,
+                            "fmt": "8.55%"
+                        },
+                        "numYearsUp": {
+                            "raw": 15,
+                            "fmt": "15",
+                            "longFmt": "15"
+                        },
+                        "numYearsDown": {
+                            "raw": 5,
+                            "fmt": "5",
+                            "longFmt": "5"
+                        },
+                        "bestOneYrTotalReturn": {
+                            "raw": 0.44779998,
+                            "fmt": "44.78%"
+                        },
+                        "worstOneYrTotalReturn": {
+                            "raw": -0.4042,
+                            "fmt": "-40.42%"
+                        },
+                        "bestThreeYrTotalReturn": {
+                            "raw": 0.44779998,
+                            "fmt": "44.78%"
+                        },
+                        "worstThreeYrTotalReturn": {
+                            "raw": -0.0912,
+                            "fmt": "-9.12%"
+                        },
+                        "oneYearTotalReturn": {
+
+                        },
+                        "threeYearTotalReturn": {
+
+                        }
+                    },
+                    "performanceOverviewCat": {
+                        "asOfDate": {
+
+                        },
+                        "morningStarReturnRating": {
+
+                        },
+                        "ytdReturnPct": {
+                            "raw": 0.124,
+                            "fmt": "12.40%"
+                        },
+                        "fiveYrAvgReturnPct": {
+                            "raw": 0.20719999,
+                            "fmt": "20.72%"
+                        },
+                        "numYearsUp": {
+
+                        },
+                        "numYearsDown": {
+
+                        },
+                        "bestOneYrTotalReturn": {
+
+                        },
+                        "worstOneYrTotalReturn": {
+
+                        },
+                        "bestThreeYrTotalReturn": {
+
+                        },
+                        "worstThreeYrTotalReturn": {
+
+                        }
+                    },
+                    "loadAdjustedReturns": {
+                        "oneYear": {
+                            "raw": 0.1408291,
+                            "fmt": "14.08%"
+                        },
+                        "threeYear": {
+                            "raw": 0.2201,
+                            "fmt": "22.01%"
+                        },
+                        "fiveYear": {
+                            "raw": 0.1802245,
+                            "fmt": "18.02%"
+                        },
+                        "tenYear": {
+                            "raw": 0.1552773,
+                            "fmt": "15.53%"
+                        }
+                    },
+                    "trailingReturns": {
+                        "asOfDate": {
+                            "raw": 1648684800,
+                            "fmt": "2022-03-31"
+                        },
+                        "ytd": {
+                            "raw": -0.1213115,
+                            "fmt": "-12.13%"
+                        },
+                        "oneMonth": {
+                            "raw": 0.0105580995,
+                            "fmt": "1.06%"
+                        },
+                        "threeMonth": {
+                            "raw": -0.1213115,
+                            "fmt": "-12.13%"
+                        },
+                        "oneYear": {
+                            "raw": -0.0711431,
+                            "fmt": "-7.11%"
+                        },
+                        "threeYear": {
+                            "raw": 0.1603052,
+                            "fmt": "16.03%"
+                        },
+                        "fiveYear": {
+                            "raw": 0.1586215,
+                            "fmt": "15.86%"
+                        },
+                        "tenYear": {
+                            "raw": 0.1355668,
+                            "fmt": "13.56%"
+                        },
+                        "lastBullMkt": {
+                            "raw": 0.2784,
+                            "fmt": "27.84%"
+                        },
+                        "lastBearMkt": {
+                            "raw": -0.2858,
+                            "fmt": "-28.58%"
+                        }
+                    },
+                    "trailingReturnsNav": {
+                        "ytd": {
+                            "raw": 0.0,
+                            "fmt": "0.00%"
+                        },
+                        "oneMonth": {
+                            "raw": 0.0,
+                            "fmt": "0.00%"
+                        },
+                        "threeMonth": {
+                            "raw": 0.0,
+                            "fmt": "0.00%"
+                        },
+                        "oneYear": {
+                            "raw": 0.0,
+                            "fmt": "0.00%"
+                        },
+                        "threeYear": {
+                            "raw": 0.0,
+                            "fmt": "0.00%"
+                        },
+                        "fiveYear": {
+                            "raw": 0.0,
+                            "fmt": "0.00%"
+                        },
+                        "tenYear": {
+                            "raw": 0.0,
+                            "fmt": "0.00%"
+                        }
+                    },
+                    "trailingReturnsCat": {
+                        "ytd": {
+                            "raw": 0.124,
+                            "fmt": "12.40%"
+                        },
+                        "oneMonth": {
+                            "raw": 0.0337,
+                            "fmt": "3.37%"
+                        },
+                        "threeMonth": {
+                            "raw": 0.048800003,
+                            "fmt": "4.88%"
+                        },
+                        "oneYear": {
+                            "raw": 0.55689996,
+                            "fmt": "55.69%"
+                        },
+                        "threeYear": {
+                            "raw": 0.1934,
+                            "fmt": "19.34%"
+                        },
+                        "fiveYear": {
+                            "raw": 0.20719999,
+                            "fmt": "20.72%"
+                        },
+                        "tenYear": {
+                            "raw": 0.1398,
+                            "fmt": "13.98%"
+                        },
+                        "lastBullMkt": {
+                            "raw": 0.2785,
+                            "fmt": "27.85%"
+                        },
+                        "lastBearMkt": {
+                            "raw": -0.24059999,
+                            "fmt": "-24.06%"
+                        }
+                    },
+                    "annualTotalReturns": {
+                        "returns": [
+                            {
+                                "year": "2021",
+                                "annualValue": {
+
+                                }
+                            },
+                            {
+                                "year": "2020",
+                                "annualValue": {
+                                    "raw": 0.3839114,
+                                    "fmt": "38.39%"
+                                }
+                            },
+                            {
+                                "year": "2019",
+                                "annualValue": {
+                                    "raw": 0.4233321,
+                                    "fmt": "42.33%"
+                                }
+                            },
+                            {
+                                "year": "2018",
+                                "annualValue": {
+                                    "raw": -0.107390605,
+                                    "fmt": "-10.74%"
+                                }
+                            },
+                            {
+                                "year": "2017",
+                                "annualValue": {
+                                    "raw": 0.2460054,
+                                    "fmt": "24.60%"
+                                }
+                            },
+                            {
+                                "year": "2016",
+                                "annualValue": {
+                                    "raw": 0.062196396,
+                                    "fmt": "6.22%"
+                                }
+                            },
+                            {
+                                "year": "2015",
+                                "annualValue": {
+                                    "raw": -0.013101799,
+                                    "fmt": "-1.31%"
+                                }
+                            },
+                            {
+                                "year": "2014",
+                                "annualValue": {
+                                    "raw": 0.0828115,
+                                    "fmt": "8.28%"
+                                }
+                            },
+                            {
+                                "year": "2013",
+                                "annualValue": {
+                                    "raw": 0.4478411,
+                                    "fmt": "44.78%"
+                                }
+                            },
+                            {
+                                "year": "2012",
+                                "annualValue": {
+                                    "raw": 0.1447442,
+                                    "fmt": "14.47%"
+                                }
+                            },
+                            {
+                                "year": "2011",
+                                "annualValue": {
+                                    "raw": -0.0766004,
+                                    "fmt": "-7.66%"
+                                }
+                            },
+                            {
+                                "year": "2010",
+                                "annualValue": {
+                                    "raw": 0.3168667,
+                                    "fmt": "31.69%"
+                                }
+                            },
+                            {
+                                "year": "2009",
+                                "annualValue": {
+                                    "raw": 0.4008322,
+                                    "fmt": "40.08%"
+                                }
+                            },
+                            {
+                                "year": "2008",
+                                "annualValue": {
+                                    "raw": -0.4041542,
+                                    "fmt": "-40.42%"
+                                }
+                            },
+                            {
+                                "year": "2007",
+                                "annualValue": {
+                                    "raw": 0.1363713,
+                                    "fmt": "13.64%"
+                                }
+                            },
+                            {
+                                "year": "2006",
+                                "annualValue": {
+                                    "raw": 0.1087122,
+                                    "fmt": "10.87%"
+                                }
+                            },
+                            {
+                                "year": "2005",
+                                "annualValue": {
+                                    "raw": 0.0564466,
+                                    "fmt": "5.64%"
+                                }
+                            },
+                            {
+                                "year": "2004",
+                                "annualValue": {
+                                    "raw": 0.1115022,
+                                    "fmt": "11.15%"
+                                }
+                            },
+                            {
+                                "year": "2003",
+                                "annualValue": {
+                                    "raw": 0.4439252,
+                                    "fmt": "44.39%"
+                                }
+                            },
+                            {
+                                "year": "2002",
+                                "annualValue": {
+                                    "raw": -0.200747,
+                                    "fmt": "-20.07%"
+                                }
+                            },
+                            {
+                                "year": "2001",
+                                "annualValue": {
+                                    "raw": 0.0229226,
+                                    "fmt": "2.29%"
+                                }
+                            }
+                        ],
+                        "returnsCat": [
+                            {
+                                "year": "2020",
+                                "annualValue": {
+                                    "raw": 0.3862273,
+                                    "fmt": "38.62%"
+                                }
+                            },
+                            {
+                                "year": "2019",
+                                "annualValue": {
+                                    "raw": 0.27676532,
+                                    "fmt": "27.68%"
+                                }
+                            },
+                            {
+                                "year": "2018",
+                                "annualValue": {
+                                    "raw": -0.0576395,
+                                    "fmt": "-5.76%"
+                                }
+                            },
+                            {
+                                "year": "2017",
+                                "annualValue": {
+                                    "raw": 0.2150002,
+                                    "fmt": "21.50%"
+                                }
+                            },
+                            {
+                                "year": "2016",
+                                "annualValue": {
+                                    "raw": 0.111996695,
+                                    "fmt": "11.20%"
+                                }
+                            },
+                            {
+                                "year": "2015",
+                                "annualValue": {
+                                    "raw": -0.0241295,
+                                    "fmt": "-2.41%"
+                                }
+                            },
+                            {
+                                "year": "2014",
+                                "annualValue": {
+                                    "raw": 0.024365399,
+                                    "fmt": "2.44%"
+                                }
+                            },
+                            {
+                                "year": "2013",
+                                "annualValue": {
+                                    "raw": 0.40909082,
+                                    "fmt": "40.91%"
+                                }
+                            },
+                            {
+                                "year": "2012",
+                                "annualValue": {
+                                    "raw": 0.1314999,
+                                    "fmt": "13.15%"
+                                }
+                            },
+                            {
+                                "year": "2011",
+                                "annualValue": {
+                                    "raw": -0.0355412,
+                                    "fmt": "-3.55%"
+                                }
+                            },
+                            {
+                                "year": "2010",
+                                "annualValue": {
+                                    "raw": 0.2698293,
+                                    "fmt": "26.98%"
+                                }
+                            },
+                            {
+                                "year": "2009",
+                                "annualValue": {
+                                    "raw": 0.3545617,
+                                    "fmt": "35.46%"
+                                }
+                            },
+                            {
+                                "year": "2008",
+                                "annualValue": {
+                                    "raw": -0.41551048,
+                                    "fmt": "-41.55%"
+                                }
+                            },
+                            {
+                                "year": "2007",
+                                "annualValue": {
+                                    "raw": 0.075887196,
+                                    "fmt": "7.59%"
+                                }
+                            },
+                            {
+                                "year": "2006",
+                                "annualValue": {
+                                    "raw": 0.1081437,
+                                    "fmt": "10.81%"
+                                }
+                            },
+                            {
+                                "year": "2005",
+                                "annualValue": {
+                                    "raw": 0.060230598,
+                                    "fmt": "6.02%"
+                                }
+                            },
+                            {
+                                "year": "2004",
+                                "annualValue": {
+                                    "raw": 0.12409429,
+                                    "fmt": "12.41%"
+                                }
+                            },
+                            {
+                                "year": "2003",
+                                "annualValue": {
+                                    "raw": 0.45537603,
+                                    "fmt": "45.54%"
+                                }
+                            },
+                            {
+                                "year": "2002",
+                                "annualValue": {
+                                    "raw": -0.2787935,
+                                    "fmt": "-27.88%"
+                                }
+                            },
+                            {
+                                "year": "2001",
+                                "annualValue": {
+                                    "raw": -0.0891243,
+                                    "fmt": "-8.91%"
+                                }
+                            },
+                            {
+                                "year": "2000",
+                                "annualValue": {
+                                    "raw": -0.0384997,
+                                    "fmt": "-3.85%"
+                                }
+                            },
+                            {
+                                "year": "1999",
+                                "annualValue": {
+                                    "raw": 0.64770126,
+                                    "fmt": "64.77%"
+                                }
+                            },
+                            {
+                                "year": "1998",
+                                "annualValue": {
+                                    "raw": 0.0523461,
+                                    "fmt": "5.23%"
+                                }
+                            },
+                            {
+                                "year": "1997",
+                                "annualValue": {
+                                    "raw": 0.1741466,
+                                    "fmt": "17.41%"
+                                }
+                            },
+                            {
+                                "year": "1996",
+                                "annualValue": {
+                                    "raw": 0.18674481,
+                                    "fmt": "18.67%"
+                                }
+                            },
+                            {
+                                "year": "1995",
+                                "annualValue": {
+                                    "raw": 0.3614976,
+                                    "fmt": "36.15%"
+                                }
+                            },
+                            {
+                                "year": "1994",
+                                "annualValue": {
+                                    "raw": -0.0051973998,
+                                    "fmt": "-0.52%"
+                                }
+                            },
+                            {
+                                "year": "1993",
+                                "annualValue": {
+                                    "raw": 0.17361571,
+                                    "fmt": "17.36%"
+                                }
+                            },
+                            {
+                                "year": "1992",
+                                "annualValue": {
+                                    "raw": 0.1094542,
+                                    "fmt": "10.95%"
+                                }
+                            },
+                            {
+                                "year": "1991",
+                                "annualValue": {
+                                    "raw": 0.5725298,
+                                    "fmt": "57.25%"
+                                }
+                            },
+                            {
+                                "year": "1990",
+                                "annualValue": {
+                                    "raw": -0.0984044,
+                                    "fmt": "-9.84%"
+                                }
+                            },
+                            {
+                                "year": "1989",
+                                "annualValue": {
+                                    "raw": 0.2626742,
+                                    "fmt": "26.27%"
+                                }
+                            },
+                            {
+                                "year": "1988",
+                                "annualValue": {
+                                    "raw": 0.18222731,
+                                    "fmt": "18.22%"
+                                }
+                            },
+                            {
+                                "year": "1987",
+                                "annualValue": {
+                                    "raw": -0.0370497,
+                                    "fmt": "-3.70%"
+                                }
+                            },
+                            {
+                                "year": "1986",
+                                "annualValue": {
+                                    "raw": 0.099111795,
+                                    "fmt": "9.91%"
+                                }
+                            },
+                            {
+                                "year": "1985",
+                                "annualValue": {
+                                    "raw": 0.2643012,
+                                    "fmt": "26.43%"
+                                }
+                            },
+                            {
+                                "year": "1984",
+                                "annualValue": {
+                                    "raw": -0.104290105,
+                                    "fmt": "-10.43%"
+                                }
+                            },
+                            {
+                                "year": "1983",
+                                "annualValue": {
+                                    "raw": 0.2495246,
+                                    "fmt": "24.95%"
+                                }
+                            },
+                            {
+                                "year": "1982",
+                                "annualValue": {
+                                    "raw": 0.2308341,
+                                    "fmt": "23.08%"
+                                }
+                            },
+                            {
+                                "year": "1981",
+                                "annualValue": {
+                                    "raw": 0.0207251,
+                                    "fmt": "2.07%"
+                                }
+                            },
+                            {
+                                "year": "1980",
+                                "annualValue": {
+                                    "raw": 0.3761657,
+                                    "fmt": "37.62%"
+                                }
+                            },
+                            {
+                                "year": "1979",
+                                "annualValue": {
+                                    "raw": 0.3690657,
+                                    "fmt": "36.91%"
+                                }
+                            },
+                            {
+                                "year": "1978",
+                                "annualValue": {
+                                    "raw": 0.1781299,
+                                    "fmt": "17.81%"
+                                }
+                            },
+                            {
+                                "year": "1977",
+                                "annualValue": {
+                                    "raw": 0.1065682,
+                                    "fmt": "10.66%"
+                                }
+                            },
+                            {
+                                "year": "1976",
+                                "annualValue": {
+                                    "raw": 0.3378357,
+                                    "fmt": "33.78%"
+                                }
+                            },
+                            {
+                                "year": "1975",
+                                "annualValue": {
+                                    "raw": 0.3783118,
+                                    "fmt": "37.83%"
+                                }
+                            },
+                            {
+                                "year": "1974",
+                                "annualValue": {
+                                    "raw": -0.3575943,
+                                    "fmt": "-35.76%"
+                                }
+                            },
+                            {
+                                "year": "1973",
+                                "annualValue": {
+                                    "raw": -0.3001683,
+                                    "fmt": "-30.02%"
+                                }
+                            },
+                            {
+                                "year": "1972",
+                                "annualValue": {
+                                    "raw": 0.1025676,
+                                    "fmt": "10.26%"
+                                }
+                            },
+                            {
+                                "year": "1971",
+                                "annualValue": {
+                                    "raw": 0.19541731,
+                                    "fmt": "19.54%"
+                                }
+                            },
+                            {
+                                "year": "1970",
+                                "annualValue": {
+                                    "raw": -0.1831704,
+                                    "fmt": "-18.32%"
+                                }
+                            },
+                            {
+                                "year": "1969",
+                                "annualValue": {
+                                    "raw": -0.16133231,
+                                    "fmt": "-16.13%"
+                                }
+                            },
+                            {
+                                "year": "1968",
+                                "annualValue": {
+                                    "raw": 0.1150183,
+                                    "fmt": "11.50%"
+                                }
+                            },
+                            {
+                                "year": "1967",
+                                "annualValue": {
+                                    "raw": 0.5074166,
+                                    "fmt": "50.74%"
+                                }
+                            },
+                            {
+                                "year": "1966",
+                                "annualValue": {
+                                    "raw": -0.0137236,
+                                    "fmt": "-1.37%"
+                                }
+                            },
+                            {
+                                "year": "1965",
+                                "annualValue": {
+                                    "raw": 0.2515068,
+                                    "fmt": "25.15%"
+                                }
+                            },
+                            {
+                                "year": "1964",
+                                "annualValue": {
+                                    "raw": 0.100048,
+                                    "fmt": "10.00%"
+                                }
+                            },
+                            {
+                                "year": "1963",
+                                "annualValue": {
+                                    "raw": 0.1902171,
+                                    "fmt": "19.02%"
+                                }
+                            },
+                            {
+                                "year": "1962",
+                                "annualValue": {
+                                    "raw": -0.2464827,
+                                    "fmt": "-24.65%"
+                                }
+                            },
+                            {
+                                "year": "1961",
+                                "annualValue": {
+                                    "raw": 0.35685748,
+                                    "fmt": "35.69%"
+                                }
+                            },
+                            {
+                                "year": "1960",
+                                "annualValue": {
+                                    "raw": 0.0359799,
+                                    "fmt": "3.60%"
+                                }
+                            },
+                            {
+                                "year": "1959",
+                                "annualValue": {
+                                    "raw": 0.1342513,
+                                    "fmt": "13.43%"
+                                }
+                            },
+                            {
+                                "year": "1958",
+                                "annualValue": {
+                                    "raw": 0.47772512,
+                                    "fmt": "47.77%"
+                                }
+                            },
+                            {
+                                "year": "1957",
+                                "annualValue": {
+                                    "raw": -0.17027621,
+                                    "fmt": "-17.03%"
+                                }
+                            },
+                            {
+                                "year": "1956",
+                                "annualValue": {
+                                    "raw": 0.0318841,
+                                    "fmt": "3.19%"
+                                }
+                            },
+                            {
+                                "year": "1955",
+                                "annualValue": {
+                                    "raw": 0.1480865,
+                                    "fmt": "14.81%"
+                                }
+                            },
+                            {
+                                "year": "1954",
+                                "annualValue": {
+                                    "raw": 0.2599581,
+                                    "fmt": "26.00%"
+                                }
+                            },
+                            {
+                                "year": "1953",
+                                "annualValue": {
+                                    "raw": -0.0041754004,
+                                    "fmt": "-0.42%"
+                                }
+                            },
+                            {
+                                "year": "1952",
+                                "annualValue": {
+                                    "raw": 0.098623894,
+                                    "fmt": "9.86%"
+                                }
+                            },
+                            {
+                                "year": "1951",
+                                "annualValue": {
+                                    "raw": 0.0927318,
+                                    "fmt": "9.27%"
+                                }
+                            },
+                            {
+                                "year": "1950",
+                                "annualValue": {
+                                    "raw": 0.1735294,
+                                    "fmt": "17.35%"
+                                }
+                            },
+                            {
+                                "year": "1949",
+                                "annualValue": {
+                                    "raw": 0.09324761,
+                                    "fmt": "9.32%"
+                                }
+                            },
+                            {
+                                "year": "1948",
+                                "annualValue": {
+                                    "raw": -0.0220126,
+                                    "fmt": "-2.20%"
+                                }
+                            },
+                            {
+                                "year": "1947",
+                                "annualValue": {
+                                    "raw": -0.0154799,
+                                    "fmt": "-1.55%"
+                                }
+                            }
+                        ]
+                    },
+                    "pastQuarterlyReturns": {
+                        "returns": [
+                            {
+                                "year": "2021",
+                                "q1": {
+                                    "raw": 0.038376,
+                                    "fmt": "3.84%"
+                                },
+                                "q2": {
+                                    "raw": 0.0176754,
+                                    "fmt": "1.77%"
+                                },
+                                "q3": {
+                                    "raw": -0.0047367997,
+                                    "fmt": "-0.47%"
+                                },
+                                "q4": {
+
+                                }
+                            },
+                            {
+                                "year": "2020",
+                                "q1": {
+                                    "raw": -0.23689881,
+                                    "fmt": "-23.69%"
+                                },
+                                "q2": {
+                                    "raw": 0.3189087,
+                                    "fmt": "31.89%"
+                                },
+                                "q3": {
+                                    "raw": 0.109843105,
+                                    "fmt": "10.98%"
+                                },
+                                "q4": {
+                                    "raw": 0.23893869,
+                                    "fmt": "23.89%"
+                                }
+                            },
+                            {
+                                "year": "2019",
+                                "q1": {
+                                    "raw": 0.2161895,
+                                    "fmt": "21.62%"
+                                },
+                                "q2": {
+                                    "raw": 0.051136397,
+                                    "fmt": "5.11%"
+                                },
+                                "q3": {
+                                    "raw": -0.0162162,
+                                    "fmt": "-1.62%"
+                                },
+                                "q4": {
+                                    "raw": 0.13173899,
+                                    "fmt": "13.17%"
+                                }
+                            },
+                            {
+                                "year": "2018",
+                                "q1": {
+                                    "raw": 0.0388619,
+                                    "fmt": "3.89%"
+                                },
+                                "q2": {
+                                    "raw": 0.0394122,
+                                    "fmt": "3.94%"
+                                },
+                                "q3": {
+                                    "raw": 0.0745501,
+                                    "fmt": "7.46%"
+                                },
+                                "q4": {
+                                    "raw": -0.23071171,
+                                    "fmt": "-23.07%"
+                                }
+                            },
+                            {
+                                "year": "2017",
+                                "q1": {
+                                    "raw": 0.0800628,
+                                    "fmt": "8.01%"
+                                },
+                                "q2": {
+                                    "raw": 0.0363372,
+                                    "fmt": "3.63%"
+                                },
+                                "q3": {
+                                    "raw": 0.0406732,
+                                    "fmt": "4.07%"
+                                },
+                                "q4": {
+                                    "raw": 0.0696838,
+                                    "fmt": "6.97%"
+                                }
+                            },
+                            {
+                                "year": "2016",
+                                "q1": {
+                                    "raw": -0.0721992,
+                                    "fmt": "-7.22%"
+                                },
+                                "q2": {
+                                    "raw": 0.029517,
+                                    "fmt": "2.95%"
+                                },
+                                "q3": {
+                                    "raw": 0.0834057,
+                                    "fmt": "8.34%"
+                                },
+                                "q4": {
+                                    "raw": 0.026420701,
+                                    "fmt": "2.64%"
+                                }
+                            },
+                            {
+                                "year": "2015",
+                                "q1": {
+                                    "raw": 0.0832127,
+                                    "fmt": "8.32%"
+                                },
+                                "q2": {
+                                    "raw": 0.012692099,
+                                    "fmt": "1.27%"
+                                },
+                                "q3": {
+                                    "raw": -0.14182061,
+                                    "fmt": "-14.18%"
+                                },
+                                "q4": {
+                                    "raw": 0.0483423,
+                                    "fmt": "4.83%"
+                                }
+                            },
+                            {
+                                "year": "2014",
+                                "q1": {
+                                    "raw": 0.0207636,
+                                    "fmt": "2.08%"
+                                },
+                                "q2": {
+                                    "raw": -0.0013123,
+                                    "fmt": "-0.13%"
+                                },
+                                "q3": {
+                                    "raw": -0.022339001,
+                                    "fmt": "-2.23%"
+                                },
+                                "q4": {
+                                    "raw": 0.0864499,
+                                    "fmt": "8.64%"
+                                }
+                            },
+                            {
+                                "year": "2013",
+                                "q1": {
+                                    "raw": 0.1510549,
+                                    "fmt": "15.11%"
+                                },
+                                "q2": {
+                                    "raw": 0.043255102,
+                                    "fmt": "4.33%"
+                                },
+                                "q3": {
+                                    "raw": 0.0843289,
+                                    "fmt": "8.43%"
+                                },
+                                "q4": {
+                                    "raw": 0.1119194,
+                                    "fmt": "11.19%"
+                                }
+                            },
+                            {
+                                "year": "2012",
+                                "q1": {
+                                    "raw": 0.114889696,
+                                    "fmt": "11.49%"
+                                },
+                                "q2": {
+                                    "raw": -0.049464103,
+                                    "fmt": "-4.95%"
+                                },
+                                "q3": {
+                                    "raw": 0.0633131,
+                                    "fmt": "6.33%"
+                                },
+                                "q4": {
+                                    "raw": 0.015890501,
+                                    "fmt": "1.59%"
+                                }
+                            },
+                            {
+                                "year": "2011",
+                                "q1": {
+                                    "raw": 0.0738151,
+                                    "fmt": "7.38%"
+                                },
+                                "q2": {
+                                    "raw": 0.0028944002,
+                                    "fmt": "0.29%"
+                                },
+                                "q3": {
+                                    "raw": -0.2590188,
+                                    "fmt": "-25.90%"
+                                },
+                                "q4": {
+                                    "raw": 0.1571717,
+                                    "fmt": "15.72%"
+                                }
+                            },
+                            {
+                                "year": "2010",
+                                "q1": {
+                                    "raw": 0.0960396,
+                                    "fmt": "9.60%"
+                                },
+                                "q2": {
+                                    "raw": -0.089430906,
+                                    "fmt": "-8.94%"
+                                },
+                                "q3": {
+                                    "raw": 0.140873,
+                                    "fmt": "14.09%"
+                                },
+                                "q4": {
+                                    "raw": 0.1565525,
+                                    "fmt": "15.66%"
+                                }
+                            },
+                            {
+                                "year": "2009",
+                                "q1": {
+                                    "raw": -0.0790569,
+                                    "fmt": "-7.91%"
+                                },
+                                "q2": {
+                                    "raw": 0.1957831,
+                                    "fmt": "19.58%"
+                                },
+                                "q3": {
+                                    "raw": 0.1876574,
+                                    "fmt": "18.77%"
+                                },
+                                "q4": {
+                                    "raw": 0.0710498,
+                                    "fmt": "7.10%"
+                                }
+                            },
+                            {
+                                "year": "2008",
+                                "q1": {
+                                    "raw": -0.1254996,
+                                    "fmt": "-12.55%"
+                                },
+                                "q2": {
+                                    "raw": 0.0585009,
+                                    "fmt": "5.85%"
+                                },
+                                "q3": {
+                                    "raw": -0.1200345,
+                                    "fmt": "-12.00%"
+                                },
+                                "q4": {
+                                    "raw": -0.2684955,
+                                    "fmt": "-26.85%"
+                                }
+                            },
+                            {
+                                "year": "2007",
+                                "q1": {
+                                    "raw": 0.0392465,
+                                    "fmt": "3.92%"
+                                },
+                                "q2": {
+                                    "raw": 0.0422961,
+                                    "fmt": "4.23%"
+                                },
+                                "q3": {
+                                    "raw": 0.026087001,
+                                    "fmt": "2.61%"
+                                },
+                                "q4": {
+                                    "raw": 0.0224132,
+                                    "fmt": "2.24%"
+                                }
+                            },
+                            {
+                                "year": "2006",
+                                "q1": {
+                                    "raw": 0.15329629,
+                                    "fmt": "15.33%"
+                                },
+                                "q2": {
+                                    "raw": -0.0716253,
+                                    "fmt": "-7.16%"
+                                },
+                                "q3": {
+                                    "raw": -0.0333828,
+                                    "fmt": "-3.34%"
+                                },
+                                "q4": {
+                                    "raw": 0.071273,
+                                    "fmt": "7.13%"
+                                }
+                            },
+                            {
+                                "year": "2005",
+                                "q1": {
+                                    "raw": -0.0541796,
+                                    "fmt": "-5.42%"
+                                },
+                                "q2": {
+                                    "raw": 0.0515548,
+                                    "fmt": "5.16%"
+                                },
+                                "q3": {
+                                    "raw": 0.0529183,
+                                    "fmt": "5.29%"
+                                },
+                                "q4": {
+                                    "raw": 0.0088167,
+                                    "fmt": "0.88%"
+                                }
+                            },
+                            {
+                                "year": "2004",
+                                "q1": {
+                                    "raw": 0.0857605,
+                                    "fmt": "8.58%"
+                                },
+                                "q2": {
+                                    "raw": -0.009687,
+                                    "fmt": "-0.97%"
+                                },
+                                "q3": {
+                                    "raw": -0.0579383,
+                                    "fmt": "-5.79%"
+                                },
+                                "q4": {
+                                    "raw": 0.0972977,
+                                    "fmt": "9.73%"
+                                }
+                            },
+                            {
+                                "year": "2003",
+                                "q1": {
+                                    "raw": -0.029205598,
+                                    "fmt": "-2.92%"
+                                },
+                                "q2": {
+                                    "raw": 0.2154031,
+                                    "fmt": "21.54%"
+                                },
+                                "q3": {
+                                    "raw": 0.0910891,
+                                    "fmt": "9.11%"
+                                },
+                                "q4": {
+                                    "raw": 0.1215971,
+                                    "fmt": "12.16%"
+                                }
+                            },
+                            {
+                                "year": "2002",
+                                "q1": {
+                                    "raw": 0.0289449,
+                                    "fmt": "2.89%"
+                                },
+                                "q2": {
+                                    "raw": -0.0825771,
+                                    "fmt": "-8.26%"
+                                },
+                                "q3": {
+                                    "raw": -0.18397631,
+                                    "fmt": "-18.40%"
+                                },
+                                "q4": {
+                                    "raw": 0.0375758,
+                                    "fmt": "3.76%"
+                                }
+                            },
+                            {
+                                "year": "2001",
+                                "q1": {
+                                    "raw": -0.1203438,
+                                    "fmt": "-12.03%"
+                                },
+                                "q2": {
+                                    "raw": 0.1921824,
+                                    "fmt": "19.22%"
+                                },
+                                "q3": {
+                                    "raw": -0.1575592,
+                                    "fmt": "-15.76%"
+                                },
+                                "q4": {
+                                    "raw": 0.15783781,
+                                    "fmt": "15.78%"
+                                }
+                            }
+                        ]
+                    },
+                    "rankInCategory": {
+                        "ytd": {
+                            "raw": 71,
+                            "fmt": "71",
+                            "longFmt": "71"
+                        },
+                        "oneMonth": {
+                            "raw": 63,
+                            "fmt": "63",
+                            "longFmt": "63"
+                        },
+                        "threeMonth": {
+                            "raw": 70,
+                            "fmt": "70",
+                            "longFmt": "70"
+                        },
+                        "oneYear": {
+                            "raw": 71,
+                            "fmt": "71",
+                            "longFmt": "71"
+                        },
+                        "threeYear": {
+                            "raw": 38,
+                            "fmt": "38",
+                            "longFmt": "38"
+                        },
+                        "fiveYear": {
+                            "raw": 44,
+                            "fmt": "44",
+                            "longFmt": "44"
+                        }
+                    },
+                    "riskOverviewStatistics": {
+                        "riskRating": {
+                            "raw": 3,
+                            "fmt": "3",
+                            "longFmt": "3"
+                        },
+                        "riskStatistics": [
+                            {
+                                "year": "5y",
+                                "alpha": {
+
+                                },
+                                "beta": {
+
+                                },
+                                "meanAnnualReturn": {
+
+                                },
+                                "rSquared": {
+
+                                },
+                                "stdDev": {
+
+                                },
+                                "sharpeRatio": {
+
+                                },
+                                "treynorRatio": {
+
+                                }
+                            },
+                            {
+                                "year": "3y",
+                                "alpha": {
+
+                                },
+                                "beta": {
+
+                                },
+                                "meanAnnualReturn": {
+
+                                },
+                                "rSquared": {
+
+                                },
+                                "stdDev": {
+
+                                },
+                                "sharpeRatio": {
+
+                                },
+                                "treynorRatio": {
+
+                                }
+                            },
+                            {
+                                "year": "10y",
+                                "alpha": {
+
+                                },
+                                "beta": {
+
+                                },
+                                "meanAnnualReturn": {
+
+                                },
+                                "rSquared": {
+
+                                },
+                                "stdDev": {
+
+                                },
+                                "sharpeRatio": {
+
+                                },
+                                "treynorRatio": {
+
+                                }
+                            }
+                        ]
+                    },
+                    "riskOverviewStatisticsCat": {
+                        "riskStatisticsCat": [
+                            {
+                                "year": "5y",
+                                "alpha": {
+                                    "raw": 0.0063,
+                                    "fmt": "0.01"
+                                },
+                                "beta": {
+                                    "raw": 0.0117999995,
+                                    "fmt": "0.01"
+                                },
+                                "meanAnnualReturn": {
+                                    "raw": 0.0176,
+                                    "fmt": "0.02"
+                                },
+                                "rSquared": {
+                                    "raw": 0.7331,
+                                    "fmt": "0.73"
+                                },
+                                "stdDev": {
+                                    "raw": 0.2086,
+                                    "fmt": "0.21"
+                                },
+                                "sharpeRatio": {
+                                    "raw": 0.0095999995,
+                                    "fmt": "0.01"
+                                },
+                                "treynorRatio": {
+                                    "raw": 0.1666,
+                                    "fmt": "0.17"
+                                }
+                            },
+                            {
+                                "year": "3y",
+                                "alpha": {
+                                    "raw": -0.0171,
+                                    "fmt": "-0.02"
+                                },
+                                "beta": {
+                                    "raw": 0.0121,
+                                    "fmt": "0.01"
+                                },
+                                "meanAnnualReturn": {
+                                    "raw": 0.0175,
+                                    "fmt": "0.02"
+                                },
+                                "rSquared": {
+                                    "raw": 0.7765,
+                                    "fmt": "0.78"
+                                },
+                                "stdDev": {
+                                    "raw": 0.256,
+                                    "fmt": "0.26"
+                                },
+                                "sharpeRatio": {
+                                    "raw": 0.0077,
+                                    "fmt": "0.01"
+                                },
+                                "treynorRatio": {
+                                    "raw": 0.1506,
+                                    "fmt": "0.15"
+                                }
+                            },
+                            {
+                                "year": "10y",
+                                "alpha": {
+                                    "raw": -0.0247,
+                                    "fmt": "-0.02"
+                                },
+                                "beta": {
+                                    "raw": 0.0117999995,
+                                    "fmt": "0.01"
+                                },
+                                "meanAnnualReturn": {
+                                    "raw": 0.0124,
+                                    "fmt": "0.01"
+                                },
+                                "rSquared": {
+                                    "raw": 0.7285,
+                                    "fmt": "0.73"
+                                },
+                                "stdDev": {
+                                    "raw": 0.1889,
+                                    "fmt": "0.19"
+                                },
+                                "sharpeRatio": {
+                                    "raw": 0.0076,
+                                    "fmt": "0.01"
+                                },
+                                "treynorRatio": {
+                                    "raw": 0.1137,
+                                    "fmt": "0.11"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "error": null
+    }
+}

@@ -616,12 +616,73 @@ Ticker <- R6::R6Class(
       module <- 'fundPerformance'
       req    <- private$resp_data(self$symbol, module)
       
-      req %>%
+      data <-
+        req %>%
         private$display_data() %>%
-        use_series(fundPerformance) %>%
-        compact() %>%
-        map_if(function(x) 'raw' %in% names(x), 'raw')
+        use_series(fundPerformance) 
 
+      annual_total_returns <- data.frame(
+        year = map_chr(data$annualTotalReturns$returns, 'year', .default = NA),
+        returns = map_dbl(map(data$annualTotalReturns$returns, 'annualValue'), 'raw', .default = NA)
+      )
+
+      annual_total_returns_cat <- data.frame(
+        year = map_chr(data$annualTotalReturns$returnsCat, 'year', .default = NA),
+        returns = map_dbl(map(data$annualTotalReturns$returnsCat, 'annualValue'), 'raw', .default = NA)
+      )
+
+      quarterly_returns <- data$pastQuarterlyReturns$returns
+
+      past_quarterly_returns <- data.frame(
+        year = map_chr(quarterly_returns, 'year', .default = NA),
+        q1 = map_dbl(map(quarterly_returns, 'q1'), 'raw', .default = NA),
+        q2 = map_dbl(map(quarterly_returns, 'q2'), 'raw', .default = NA),
+        q3 = map_dbl(map(quarterly_returns, 'q3'), 'raw', .default = NA),
+        q4 = map_dbl(map(quarterly_returns, 'q4'), 'raw', .default = NA)
+      )
+
+      risk_stats <- data$riskOverviewStatistics$riskStatistics
+      risk_statistics <- data.frame(
+        year = map_chr(risk_stats, 'year', .default = NA),
+        alpha = map_dbl(map(risk_stats, 'alpha'), 'raw', .default = NA),
+        beta = map_dbl(map(risk_stats, 'beta'), 'raw', .default = NA),
+        mean_annual_return = map_dbl(map(risk_stats, 'meanAnnualReturn'), 'raw', .default = NA),
+        rsquared = map_dbl(map(risk_stats, 'rSquared'), 'raw', .default = NA),
+        std_dev = map_dbl(map(risk_stats, 'stdDev'), 'raw', .default = NA),
+        sharpe_ratio = map_dbl(map(risk_stats, 'sharpeRatio'), 'raw', .default = NA),
+        treynor_ratio = map_dbl(map(risk_stats, 'treynorRatio'), 'raw', .default = NA)
+      )
+
+      risk_stats_cat <- data$riskOverviewStatisticsCat$riskStatisticsCat
+      risk_statistics_cat <- data.frame(
+        year = map_chr(risk_stats_cat, 'year', .default = NA),
+        alpha = map_dbl(map(risk_stats_cat, 'alpha'), 'raw', .default = NA),
+        beta = map_dbl(map(risk_stats_cat, 'beta'), 'raw', .default = NA),
+        mean_annual_return = map_dbl(map(risk_stats_cat, 'meanAnnualReturn'), 'raw', .default = NA),
+        rsquared = map_dbl(map(risk_stats_cat, 'rSquared'), 'raw', .default = NA),
+        std_dev = map_dbl(map(risk_stats_cat, 'stdDev'), 'raw', .default = NA),
+        sharpe_ratio = map_dbl(map(risk_stats_cat, 'sharpeRatio'), 'raw', .default = NA),
+        treynor_ratio = map_dbl(map(risk_stats_cat, 'treynorRatio'), 'raw', .default = NA)
+      )
+
+
+
+      list(
+        data = data,
+        performance_overview = map(data$performanceOverview, 'raw'),
+        performance_overview_cat = map(data$performanceOverviewCat, 'raw'),
+        load_adjusted_returns = map(data$loadAdjustedReturns, 'raw'),
+        trailing_returns = map(data$trailingReturns, 'raw'),
+        trailing_returns_nav = map(data$trailingReturnsNav, 'raw'),
+        trailing_returns_cat = map(data$trailingReturnsCat, 'raw'),
+        annual_total_returns = annual_total_returns,
+        annual_total_returns_cat = annual_total_returns_cat,
+        past_quarterly_returns = past_quarterly_returns,
+        rank_in_category = map(data$rankInCategory, 'raw'),
+        risk_rating = data$riskOverviewStatistics$riskRating$raw,
+        risk_statistics = risk_statistics,
+        risk_statistics_cat = risk_statistics_cat
+      )
     },
 
     #' @field fund_profile Summary level information for a given symbol
@@ -630,9 +691,27 @@ Ticker <- R6::R6Class(
       module <- 'fundProfile'
       req    <- private$resp_data(self$symbol, module)
       
-      req %>%
+      data <- 
+        req %>%
         private$display_data() %>%
         use_series(fundProfile) 
+
+      list(
+        family = data$family,
+        category_name = data$categoryName,
+        legal_type = data$legalType,
+        management_info = list(
+          manager_name = data$managementInfo$managerName,
+          manager_bio = data$managementInfo$managerBio,
+          start_date = data$managementInfo$startdate$fmt
+        ),
+        fees_expenses_investment = compact(map(data$feesExpensesInvestment, 'raw')),
+        fees_expenses_investment_cat = compact(map(data$feesExpensesInvestmentCat, 'raw')),
+        init_investment = data$initInvestment$raw,
+        init_ira_investment = data$initIraInvestment$raw,
+        subsequent_investment = data$subseqInvestment$raw,
+        brokerages = map_chr(data$brokerages, 1)
+      )
 
     },
 

@@ -604,3 +604,28 @@ httptest::with_mock_api({
     expect_equal(round(trend$equity_holdings$priceToSales, 4), 3.29)
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from fund performance is as expected", {
+    testthat::skip_on_cran()
+    hasgx <- Ticker$new('hasgx')
+    trend <- hasgx$fund_performance
+
+    expect_equal(round(trend$performance_overview$ytdReturnPct, 4), 0.1441)
+    expect_equal(round(trend$performance_overview_cat$fiveYrAvgReturnPct, 4),
+                 0.2072)
+    expect_equal(round(trend$load_adjusted_returns$threeYear, 4), 0.2201)
+    expect_equal(round(trend$trailing_returns$lastBullMkt, 4), 0.2784)
+    expect_equal(round(trend$trailing_returns_cat$lastBullMkt, 4), 0.2785)
+    expect_equal(nrow(trend$annual_total_returns), 21)
+    expect_equal(nrow(trend$annual_total_returns_cat), 74)
+    expect_equal(nrow(trend$past_quarterly_returns), 21)
+    expect_equal(ncol(trend$past_quarterly_returns), 5)
+    expect_equal(trend$risk_rating, 3)
+    expect_equal(nrow(trend$risk_statistics_cat), 3)
+    expect_equal(ncol(trend$risk_statistics_cat), 8)
+    expect_equal(round(trend$risk_statistics_cat$treynor_ratio, 4),
+                 c(0.1666, 0.1506, 0.1137))
+  })
+})
+
