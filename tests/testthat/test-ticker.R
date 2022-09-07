@@ -587,4 +587,20 @@ httptest::with_mock_api({
   })
 })
 
+httptest::with_mock_api({
+  test_that("output from fund holding info is as expected", {
+    testthat::skip_on_cran()
+    hasgx <- Ticker$new('hasgx')
+    trend <- hasgx$fund_holding_info
 
+    expect_equal(round(trend$cash_position, 4), 0.0384)
+    expect_equal(round(trend$stock_position, 4), 0.9579)
+    expect_equal(round(trend$other_position, 4), 0.0038)
+    expect_equal(nrow(trend$holdings), 10)
+    expect_equal(round(trend$holdings$holding, 4),
+                 c(0.0276, 0.0264, 0.0257, 0.0246, 0.0242,
+                   0.0241, 0.024, 0.0234, 0.0216, 0.0207))
+    expect_equal(round(trend$equity_holdings$priceToEarnings, 4), 18.95)
+    expect_equal(round(trend$equity_holdings$priceToSales, 4), 3.29)
+  })
+})

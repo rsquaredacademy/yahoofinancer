@@ -562,10 +562,31 @@ Ticker <- R6::R6Class(
       module <- 'topHoldings'
       req    <- private$resp_data(self$symbol, module)
       
-      req %>%
+      data <-
+        req %>%
         private$display_data() %>%
         use_series(topHoldings) 
 
+      holdings <- 
+        data.frame(
+          symbol = map_chr(data$holdings, 'symbol'),
+          name = map_chr(data$holdings, 'holdingName'),
+          holding = map_dbl(map(data$holdings, 'holdingPercent'), 'raw')
+        )
+
+      list(
+        cash_position        = data$cashPosition$raw,
+        stock_position       = data$stockPosition$raw,
+        bond_position        = data$bondPosition$raw,
+        other_position       = data$otherPosition$raw,
+        preferred_position   = data$preferredPosition$raw,
+        convertible_position = data$convertiblePosition$raw,
+        holdings             = holdings,
+        equity_holdings      = map(data$equityHoldings, 'raw'),
+        bond_holdings        = map(data$bondHoldings, 'raw'),
+        bond_ratings         = map(flatten(data$bondRatings), 'raw'),
+        sector_weightings    = map(flatten(data$sectorWeightings), 'raw')
+      )
     },
 
     #' @field fund_ownership Top 10 owners of a given symbol
