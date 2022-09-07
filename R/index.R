@@ -26,7 +26,11 @@ Index <- R6::R6Class(
     #' nifty_50 <- Index$new('^NSEI')
     #' @return A new `Index` object
     initialize = function(index = NA) {
-      self$index <- index
+      if (validate(index)) {
+        self$index <- index
+      } else {
+        stop("Not a valid index.", call. = FALSE)
+      }
     },
 
     #' @description
@@ -36,7 +40,11 @@ Index <- R6::R6Class(
     #' indice <- Index$new('^NSEI')
     #' indice$set_index('^NDX')
     set_index = function(index) {
-      self$index <- index
+      if (validate(index)) {
+        self$index <- index
+      } else {
+        stop("Not a valid index.", call. = FALSE)
+      }
     },
 
     #' @description 

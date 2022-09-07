@@ -30,3 +30,11 @@ httptest::with_mock_api({
     expect_equal(trend$fullExchangeName, "NSE")
   })
 })
+
+
+test_that("index are properly validated", {
+  testthat::skip_on_cran()
+  nse <- Index$new("^NSEI")
+  expect_error(Index$new("^NSE"), "Not a valid index.")
+  expect_error(nse$set_index("^NSE"), "Not a valid index.")
+})

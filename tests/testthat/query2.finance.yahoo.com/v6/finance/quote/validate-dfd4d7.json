@@ -1,0 +1,10 @@
+{
+    "symbolsValidation": {
+        "result": [
+            {
+                "^NSEI": true
+            }
+        ],
+        "error": null
+    }
+}
