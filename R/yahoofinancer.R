@@ -6,6 +6,7 @@
 #' \href{https://github.com/rsquaredacademy/yahoofinancer}{GitHub}
 #' 
 #' @docType package
+#' @keywords internal
 #' @name yahoofinancer
 NULL
 

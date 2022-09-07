@@ -11,3 +11,4 @@ Fetch Data from Yahoo Finance API
 See the README on
 \href{https://github.com/rsquaredacademy/yahoofinancer}{GitHub}
 }
+\keyword{internal}
