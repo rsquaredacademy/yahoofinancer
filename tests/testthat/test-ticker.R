@@ -726,3 +726,22 @@ test_that("symbols are properly validates", {
   expect_error(Ticker$new("aapls"), "Not a valid symbol.")
   expect_error(aapl$set_symbol("aapls"), "Not a valid symbol.")
 })
+
+test_that("output from fund profile is as expected", {
+  testthat::skip_on_cran()
+  hasgx <- Ticker$new('hasgx')
+  trend <- hasgx$fund_profile
+  expect_equal(trend$family, "Harbor")
+})
+
+httptest::with_mock_api({
+  test_that("output from fund holding is as expected", {
+    testthat::skip_on_cran()
+    hasgx <- Ticker$new('hasgx')
+    trend <- hasgx$fund_holdings
+
+    expect_equal(round(trend$cashPosition, 4), 0.0384)
+    expect_equal(round(trend$stockPosition, 4), 0.9579)
+    expect_equal(round(trend$otherPosition, 4), 0.0038)
+  })
+})

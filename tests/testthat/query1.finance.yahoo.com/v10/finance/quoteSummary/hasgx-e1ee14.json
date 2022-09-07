@@ -1,0 +1,226 @@
+{
+    "quoteSummary": {
+        "result": [
+            {
+                "fundProfile": {
+                    "maxAge": 1,
+                    "styleBoxUrl": "https://s.yimg.com/lq/i/fi/3_0stylelargeeq9.gif",
+                    "family": "Harbor",
+                    "categoryName": "Small Growth",
+                    "legalType": null,
+                    "managementInfo": {
+                        "managerName": "Ethan J. Meyers",
+                        "managerBio": "Ethan is a Managing Partner and Director of Research at Westfield Capital. As a member of the Investment Committee, he contributes ideas to all of Westfieldâ<U+0080><U+0099>s products, with a specific concentration in Business, Financial, and Consumer Services.\n\nIn 1999, Ethan joined the Westfield team after working as a Research Analyst at Johnson Rice & Company LLC, in New Orleans, LA.\n\nA Chartered Financial Analyst, Ethan earned a Bachelor of Science degree from the A.B. Freeman School of Business at Tulane University in 1996. He is a member of the Boston Society of Security Analysts.\n\nIn addition to spending time with his family, Ethan enjoys guitar, basketball, golf and scuba diving.",
+                        "startdate": {
+                            "raw": 973036800,
+                            "fmt": "2000-11-01"
+                        }
+                    },
+                    "feesExpensesInvestment": {
+                        "annualReportExpenseRatio": {
+                            "raw": 0.0089,
+                            "fmt": "0.89%"
+                        },
+                        "frontEndSalesLoad": {
+
+                        },
+                        "deferredSalesLoad": {
+
+                        },
+                        "twelveBOne": {
+
+                        },
+                        "netExpRatio": {
+                            "raw": 0.0089,
+                            "fmt": "0.89%"
+                        },
+                        "grossExpRatio": {
+                            "raw": 0.0089,
+                            "fmt": "0.89%"
+                        },
+                        "annualHoldingsTurnover": {
+
+                        },
+                        "totalNetAssets": {
+
+                        },
+                        "projectionValues": {
+                            "5y": {
+                                "raw": 493.0,
+                                "fmt": "493"
+                            },
+                            "3y": {
+                                "raw": 284.0,
+                                "fmt": "284"
+                            },
+                            "10y": {
+                                "raw": 1096.0,
+                                "fmt": "1,096"
+                            }
+                        }
+                    },
+                    "feesExpensesInvestmentCat": {
+                        "annualReportExpenseRatio": {
+                            "raw": 0.0121,
+                            "fmt": "1.21%"
+                        },
+                        "frontEndSalesLoad": {
+                            "raw": 0.054,
+                            "fmt": "5.40%"
+                        },
+                        "deferredSalesLoad": {
+                            "raw": 0.0127,
+                            "fmt": "1.27%"
+                        },
+                        "twelveBOne": {
+
+                        },
+                        "annualHoldingsTurnover": {
+
+                        },
+                        "totalNetAssets": {
+
+                        },
+                        "projectionValuesCat": {
+                            "5y": {
+                                "raw": 819.78,
+                                "fmt": "819.78"
+                            },
+                            "3y": {
+                                "raw": 499.51,
+                                "fmt": "499.51"
+                            },
+                            "10y": {
+                                "raw": 1704.89,
+                                "fmt": "1,704.89"
+                            }
+                        }
+                    },
+                    "initInvestment": {
+                        "raw": 50000.0,
+                        "fmt": "50,000"
+                    },
+                    "initIraInvestment": {
+                        "raw": 500.0,
+                        "fmt": "500"
+                    },
+                    "initAipInvestment": {
+
+                    },
+                    "subseqInvestment": {
+                        "raw": 0.0,
+                        "fmt": "0"
+                    },
+                    "subseqIraInvestment": {
+
+                    },
+                    "subseqAipInvestment": {
+
+                    },
+                    "brokerages": [
+                        "TradeStation Securities",
+                        "Northwestern Mutual Inv Srvc, LLC",
+                        "Cetera Advisors LLC",
+                        "Cetera Advisor Networks LLC",
+                        "Pruco Securities, LLC",
+                        "Protected Investors of America",
+                        "Comerica Bank",
+                        "Mid Atlantic Capital Corp",
+                        "Morgan Stanley - Brokerage Accounts",
+                        "Pershing FundCenter",
+                        "Schwab Institutional",
+                        "Td Ameritrade, Inc.",
+                        "TD Ameritrade Institutional Services",
+                        "Scottrade Load",
+                        "Shareholders Services Group",
+                        "JPMorgan",
+                        "Merrill Lynch",
+                        "Vanguard",
+                        "TD Ameritrade Trust Company",
+                        "CommonWealth PPS",
+                        "LPL SAM Eligible - 10.25.2021",
+                        "Fidelity Retail FundsNetwork",
+                        "Fidelity Institutional FundsNetwork",
+                        "Schwab Retail",
+                        "DATALynx",
+                        "PruChoice Investments",
+                        "Ameriprise Brokerage",
+                        "Federated TrustConnect",
+                        "Cetera Advisors LLC- PAM, PRIME, Premier",
+                        "Cetera Advisor Networks LLC- PAM, PRIME, Premier",
+                        "Schwab RPS SDE",
+                        "Ameriprise SPS Advantage",
+                        "SunAmerica Securities Premier / Pinnacle",
+                        "ETrade No Load Fee",
+                        "SunGard Transaction Network",
+                        "Raymond James",
+                        "Raymond James WRAP Eligible",
+                        "Bear Stearns No-Load Transaction Fee",
+                        "Commonwealth Universe",
+                        "FTJ FundChoice",
+                        "Robert W. Baird & Co.",
+                        "TRUSTlynx",
+                        "JPMorgan INVEST",
+                        "WFA MF Advisory Updated 12.1.21",
+                        "RBC Wealth Management-Network Eligible",
+                        "DailyAccess Corporation RTC",
+                        "DailyAccess Corporation FRIAG",
+                        "WR Hambrecht Co LLC",
+                        "Sterne, Agee & Leach, Inc.,",
+                        "Schwab RPS All",
+                        "ING Financial Ptnrs PAM and PRIME Approv",
+                        "Firstrade",
+                        "Scottrade TF",
+                        "Scottrade NTF",
+                        "Standard Retirement Services, Inc.",
+                        "TIAA-CREF Brokerage Services",
+                        "Thrivent   Advisory Eligible",
+                        "Matrix Financial Solutions",
+                        "Trade PMR Transaction Fee",
+                        "Trade PMR NTF",
+                        "Morgan Stanley - Ntwk/Rdm Only-Brokerage",
+                        "TD Ameritrade Retail",
+                        "TD Ameritrade Institutional",
+                        "NYLIM 401(k) Complete",
+                        "Met Life Resources MFSP Alliance List",
+                        "ADP Access",
+                        "Mid Atlantic Capital Group",
+                        "HD Vest - Vest Advisor",
+                        "Securities America Advisors",
+                        "Bear Stearns",
+                        "Securities America Advisors Top Rated",
+                        "JP MORGAN NO-LOAD NTF",
+                        "JP MORGAN NO-LOAD TRANSACTION FEE",
+                        "TD Ameritrade Retail NTF",
+                        "TD Ameritrade Institutional NTF",
+                        "MSWM Brokerage",
+                        "WFA Fdntl Choice/PIM Updated 12.1.21",
+                        "ADP Access Open Fund Architecture",
+                        "DailyAccess Corporation Mid-Atlantic",
+                        "Waddell & Reed Choice MAP Flex",
+                        "ING Financial Partners Inc.",
+                        "Vanguard Load",
+                        "Jiangsu Akcome Science & Technology Co Ltd",
+                        "Vanguard TF",
+                        "DailyAccess Corporation Matrix",
+                        "DailyAccess Corporation Schwab",
+                        "DailyAccess Corporation MATC",
+                        "Cetera Financial Specialists LLC- Premier",
+                        "LPL SWM - 10.25.2021",
+                        "Schwab All (Retail, Instl, Retirement)",
+                        "Schwab Existing Shareholders Only",
+                        "Pershing Retirement Plan Network",
+                        "HD Vest",
+                        "Commonwealth (PPS Access Program)",
+                        "Commonwealth (NTF - PPS/Advisory)",
+                        "Commonwealth (PPS/Advisory)",
+                        "LPL Brokerage Availability - 10.29.2021",
+                        "Avantax",
+                        "Allowab (non-advisory)"
+                    ]
+                }
+            }
+        ],
+        "error": null
+    }
+}
