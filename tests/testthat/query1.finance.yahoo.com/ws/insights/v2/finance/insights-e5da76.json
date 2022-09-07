@@ -1,0 +1,212 @@
+{
+    "finance": {
+        "result": {
+            "symbol": "aapl",
+            "instrumentInfo": {
+                "technicalEvents": {
+                    "provider": "Trading Central",
+                    "sector": "Technology",
+                    "shortTermOutlook": {
+                        "stateDescription": "Recent bearish events outweigh bullish events.",
+                        "direction": "Bearish",
+                        "score": 3,
+                        "scoreDescription": "Strong Bearish Evidence",
+                        "sectorDirection": "Bearish",
+                        "sectorScore": 4,
+                        "sectorScoreDescription": "Very Strong Bearish Evidence",
+                        "indexDirection": "Bearish",
+                        "indexScore": 3,
+                        "indexScoreDescription": "Strong Bearish Evidence"
+                    },
+                    "intermediateTermOutlook": {
+                        "stateDescription": "Recent bullish events outweigh bearish events.",
+                        "direction": "Bullish",
+                        "score": 2,
+                        "scoreDescription": "Bullish Evidence",
+                        "sectorDirection": "Neutral",
+                        "sectorScore": 0,
+                        "sectorScoreDescription": "Neutral Evidence",
+                        "indexDirection": "Bullish",
+                        "indexScore": 1,
+                        "indexScoreDescription": "Weak Bullish Evidence"
+                    },
+                    "longTermOutlook": {
+                        "stateDescription": "All events are bearish.",
+                        "direction": "Bearish",
+                        "score": 2,
+                        "scoreDescription": "Bearish Evidence",
+                        "sectorDirection": "Bearish",
+                        "sectorScore": 2,
+                        "sectorScoreDescription": "Bearish Evidence",
+                        "indexDirection": "Bearish",
+                        "indexScore": 1,
+                        "indexScoreDescription": "Weak Bearish Evidence"
+                    }
+                },
+                "keyTechnicals": {
+                    "provider": "Trading Central",
+                    "support": 148.48,
+                    "resistance": 166.33,
+                    "stopLoss": 146.216384
+                },
+                "valuation": {
+                    "color": 0.0,
+                    "description": "Overvalued",
+                    "discount": "-11%",
+                    "relativeValue": "Premium",
+                    "provider": "Trading Central"
+                }
+            },
+            "companySnapshot": {
+                "sectorInfo": "Technology",
+                "company": {
+                    "innovativeness": 0.9982,
+                    "hiring": 0.9512999999999999,
+                    "sustainability": 0.5372,
+                    "insiderSentiments": 0.1495,
+                    "earningsReports": 0.8706999999999999,
+                    "dividends": 0.0728
+                },
+                "sector": {
+                    "innovativeness": 0.5,
+                    "hiring": 0.5,
+                    "sustainability": 0.5,
+                    "insiderSentiments": 0.5,
+                    "earningsReports": 0.5,
+                    "dividends": 0.5
+                }
+            },
+            "recommendation": {
+                "targetPrice": 200.0,
+                "provider": "Argus Research",
+                "rating": "BUY"
+            },
+            "sigDevs": [
+                {
+                    "headline": "U.S. DOJ In Early Stages Of Drafting Possible Antitrust Suit Against Apple - Politico",
+                    "date": "2022-08-26"
+                }
+            ],
+            "secReports": [
+                {
+                    "id": "0001193125-22-225365_320193",
+                    "type": "Corporate Changes & Voting Matters",
+                    "title": "8-K : Corporate Changes & Voting Matters",
+                    "description": "Current report filing",
+                    "filingDate": 1660867200000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000119312522225365/thumbnail.png",
+                    "formType": "8-K"
+                },
+                {
+                    "id": "0001193125-22-214914_320193",
+                    "type": "Corporate Changes & Voting Matters",
+                    "title": "8-K : Corporate Changes & Voting Matters",
+                    "description": "Current report filing",
+                    "filingDate": 1659916800000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000119312522214914/thumbnail.png",
+                    "formType": "8-K"
+                },
+                {
+                    "id": "0000320193-22-000070_320193",
+                    "type": "Periodic Financial Reports",
+                    "title": "10-Q : Periodic Financial Reports",
+                    "description": "Quarterly report pursuant to Section 13 or 15(d)",
+                    "filingDate": 1659052800000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000032019322000070/thumbnail.png",
+                    "formType": "10-Q"
+                },
+                {
+                    "id": "0000320193-22-000069_320193",
+                    "type": "Corporate Changes & Voting Matters",
+                    "title": "8-K : Corporate Changes & Voting Matters",
+                    "description": "Current report filing",
+                    "filingDate": 1658966400000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000032019322000069/thumbnail.png",
+                    "formType": "8-K"
+                },
+                {
+                    "id": "0001193125-22-128361_320193",
+                    "type": "Offering Registrations",
+                    "title": "S-8 POS : Offering Registrations",
+                    "description": "Post-effective amendment to a S-8 registration statement",
+                    "filingDate": 1651190400000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000119312522128361/thumbnail.png",
+                    "formType": "S-8 POS"
+                },
+                {
+                    "id": "0001193125-22-128368_320193",
+                    "type": "Offering Registrations",
+                    "title": "S-8 : Offering Registrations",
+                    "description": "Initial registration statement for securities to be offered to employees pursuant to employee benefit plans",
+                    "filingDate": 1651190400000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000119312522128368/thumbnail.png",
+                    "formType": "S-8"
+                },
+                {
+                    "id": "0000320193-22-000059_320193",
+                    "type": "Periodic Financial Reports",
+                    "title": "10-Q : Periodic Financial Reports",
+                    "description": "Quarterly report pursuant to Section 13 or 15(d)",
+                    "filingDate": 1651190400000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000032019322000059/thumbnail.png",
+                    "formType": "10-Q"
+                },
+                {
+                    "id": "0001193125-22-128354_320193",
+                    "type": "Offering Registrations",
+                    "title": "S-8 POS : Offering Registrations",
+                    "description": "Post-effective amendment to a S-8 registration statement",
+                    "filingDate": 1651190400000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000119312522128354/thumbnail.png",
+                    "formType": "S-8 POS"
+                },
+                {
+                    "id": "0000320193-22-000058_320193",
+                    "type": "Corporate Changes & Voting Matters",
+                    "title": "8-K : Corporate Changes & Voting Matters",
+                    "description": "Current report filing",
+                    "filingDate": 1651104000000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000032019322000058/thumbnail.png",
+                    "formType": "8-K"
+                },
+                {
+                    "id": "0001193125-22-066169_320193",
+                    "type": "Corporate Changes & Voting Matters",
+                    "title": "8-K : Corporate Changes & Voting Matters",
+                    "description": "Current report filing",
+                    "filingDate": 1646352000000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000119312522066169/thumbnail.png",
+                    "formType": "8-K"
+                },
+                {
+                    "id": "0001104659-22-016224_320193",
+                    "type": "Tender Offer/Acquisition Reports",
+                    "title": "SC 13G/A : Tender Offer/Acquisition Reports",
+                    "description": "Schedule filed to report acquisition of beneficial ownership of 5% or more of a class of equity securities by passive investors and certain institutions",
+                    "filingDate": 1644364800000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/0000320193/000110465922016224/thumbnail.png",
+                    "formType": "SC 13G/A"
+                },
+                {
+                    "id": "0000320193-22-000007_320193",
+                    "type": "Periodic Financial Reports",
+                    "title": "10-Q : Periodic Financial Reports",
+                    "description": "Quarterly report pursuant to Section 13 or 15(d)",
+                    "filingDate": 1643328000000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/320193/000032019322000007/thumbnail.png",
+                    "formType": "10-Q"
+                },
+                {
+                    "id": "0000320193-22-000006_320193",
+                    "type": "Corporate Changes & Voting Matters",
+                    "title": "8-K : Corporate Changes & Voting Matters",
+                    "description": "Current report filing",
+                    "filingDate": 1643241600000,
+                    "snapshotUrl": "https://cdn.yahoofinance.com/prod/sec-reports-thumbnails/320193/000032019322000006/thumbnail.png",
+                    "formType": "8-K"
+                }
+            ]
+        },
+        "error": null
+    }
+}

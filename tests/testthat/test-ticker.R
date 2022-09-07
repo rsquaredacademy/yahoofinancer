@@ -628,3 +628,93 @@ httptest::with_mock_api({
                  c(0.1666, 0.1506, 0.1137))
   })
 })
+
+httptest::with_mock_api({
+  test_that("output from option chain is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$option_chain
+
+    expect_equal(nrow(trend), 1711)
+    expect_equal(ncol(trend), 16)
+
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from option expiration dates is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$option_expiration_dates
+
+    expect_equal(length(trend), 18)
+    expect_equal(trend[1], as.Date("2022-09-09"))
+    expect_equal(trend[18], as.Date("2024-06-21"))
+
+  })
+})
+
+
+httptest::with_mock_api({
+  test_that("output from option strikes is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$option_strikes
+
+    expect_equal(length(trend), 143)
+    expect_equal(trend[1], 30.00)
+    expect_equal(trend[139], 720.00)
+
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from quote is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$quote
+
+    expect_equal(trend$regularMarketPrice, 154.53)
+    expect_equal(trend$exchange, "NMS")
+    expect_equal(trend$preMarketPrice, 155.34)
+
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from recommendations is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$recommendations
+
+    expect_equal(nrow(trend), 5)
+    expect_equal(ncol(trend), 2)
+    expect_equal(trend$symbol, c("AMZN", "TSLA", "META", "GOOG", "NFLX"))
+    expect_equal(round(trend$score, 3), c(0.320, 0.301, 0.288, 0.285, 0.218))
+
+  })
+})
+
+httptest::with_mock_api({
+  test_that("output from technical insights is as expected", {
+    testthat::skip_on_cran()
+    aapl <- Ticker$new('aapl')
+    trend <- aapl$technical_insights
+
+    expect_equal(trend$instrumentInfo$technicalEvents$sector, "Technology")
+    expect_equal(trend$instrumentInfo$technicalEvents$shortTermOutlook$direction,
+                 "Bearish")
+    expect_equal(trend$instrumentInfo$technicalEvents$intermediateTermOutlook$direction,
+                 "Bullish")
+    expect_equal(trend$instrumentInfo$technicalEvents$longTermOutlook$direction,
+                 "Bearish")
+    expect_equal(round(trend$instrumentInfo$keyTechnicals$support, 2), 148.48)
+    expect_equal(round(trend$instrumentInfo$keyTechnicals$resistance, 2), 166.33)
+    expect_equal(round(trend$instrumentInfo$keyTechnicals$stopLoss, 2), 146.22)
+    expect_equal(trend$instrumentInfo$valuation$relativeValue, "Premium")
+    expect_equal(trend$recommendation$rating, "BUY")
+    expect_equal(round(trend$recommendation$targetPrice, 2), 200)
+
+
+  })
+})
