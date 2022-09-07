@@ -61,3 +61,4 @@ reference:
     contents:
       - get_market_summary
       - get_trending
+      - validate

@@ -1,0 +1,10 @@
+{
+    "symbolsValidation": {
+        "result": [
+            {
+                "AAPL": true
+            }
+        ],
+        "error": null
+    }
+}
