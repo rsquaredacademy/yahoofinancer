@@ -2,7 +2,7 @@
 #'
 #' Validate symbols before retrieving data.
 #'
-#' @param symbol Ticker, index, fund or currency.
+#' @param symbol Ticker, index or fund name.
 #'
 #' @examples
 #' validate("aapl")

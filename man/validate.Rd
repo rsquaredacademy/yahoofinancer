@@ -7,7 +7,7 @@
 validate(symbol = NULL)
 }
 \arguments{
-\item{symbol}{Ticker, index, fund or currency.}
+\item{symbol}{Ticker, index or fund name.}
 }
 \description{
 Validate symbols before retrieving data.
