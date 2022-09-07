@@ -718,3 +718,11 @@ httptest::with_mock_api({
 
   })
 })
+
+
+test_that("symbols are properly validates", {
+  testthat::skip_on_cran()
+  aapl <- Ticker$new("aapl")
+  expect_error(Ticker$new("aapls"), "Not a valid symbol.")
+  expect_error(aapl$set_symbol("aapls"), "Not a valid symbol.")
+})

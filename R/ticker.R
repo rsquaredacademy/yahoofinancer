@@ -29,7 +29,12 @@ Ticker <- R6::R6Class(
     #' aapl <- Ticker$new('aapl')
     #' @return A new `Ticker` object
     initialize = function(symbol = NA) {
-      self$symbol <- symbol
+      if (validate(symbol)) {
+        self$symbol <- symbol
+      } else {
+        stop("Not a valid symbol.", call. = FALSE)
+      }
+      
     },
 
     #' @description
@@ -39,10 +44,14 @@ Ticker <- R6::R6Class(
     #' aapl <- Ticker$new('aapl')
     #' aapl$set_symbol('msft')
     set_symbol = function(symbol) {
-      self$symbol <- symbol
+      if (validate(symbol)) {
+        self$symbol <- symbol
+      } else {
+        stop("Not a valid symbol.", call. = FALSE)
+      }
     },
 
-    #' @description
+    #' @description 
     #' Retrieves balance sheet data for most recent four quarters or most recent four years
     #' @param frequency Annual or quarter.
     #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
