@@ -22,15 +22,16 @@ currency_converter(
 
 \item{end}{Specific ending date}
 
-\item{period}{Length of time}
+\item{period}{Length of time (1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max)}
 
-\item{interval}{Time between data points}
+\item{interval}{Time between data points (1h, 1d, 5d, 1wk, 1mo, 3mo)}
 }
 \description{
 Retrieve current conversion rate between two currencies as well as historical rates
 }
 \examples{
 currency_converter()
-currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10', '1h')
+currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
+currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
 
 }

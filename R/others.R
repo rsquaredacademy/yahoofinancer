@@ -20,9 +20,9 @@ get_currencies <- function() {
     use_series(result)
 
   data.frame(
-    short_name = map_chr(data, 'shortName'),
-    long_name = map_chr(data, 'longName'),
-    symbol = map_chr(data, 'symbol'),
+    short_name      = map_chr(data, 'shortName'),
+    long_name       = map_chr(data, 'longName'),
+    symbol          = map_chr(data, 'symbol'),
     local_long_name = map_chr(data, 'localLongName')
   )
 }
@@ -97,12 +97,13 @@ get_trending <- function(country = 'US', count = 10) {
 #' @param to Currency to convert to
 #' @param start Specific starting date
 #' @param end Specific ending date
-#' @param period Length of time
-#' @param interval Time between data points
+#' @param period Length of time (1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max)
+#' @param interval Time between data points (1h, 1d, 5d, 1wk, 1mo, 3mo)
 #'    
 #' @examples
 #' currency_converter()
-#' currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10', '1h')
+#' currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
+#' currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
 #'
 #' @export
 #'
