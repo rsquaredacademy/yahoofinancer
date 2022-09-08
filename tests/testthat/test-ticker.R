@@ -682,20 +682,6 @@ httptest::with_mock_api({
 })
 
 httptest::with_mock_api({
-  test_that("output from recommendations is as expected", {
-    testthat::skip_on_cran()
-    aapl <- Ticker$new('aapl')
-    trend <- aapl$recommendations
-
-    expect_equal(nrow(trend), 5)
-    expect_equal(ncol(trend), 2)
-    expect_equal(trend$symbol, c("AMZN", "TSLA", "META", "GOOG", "NFLX"))
-    expect_equal(round(trend$score, 3), c(0.320, 0.301, 0.288, 0.285, 0.218))
-
-  })
-})
-
-httptest::with_mock_api({
   test_that("output from technical insights is as expected", {
     testthat::skip_on_cran()
     aapl <- Ticker$new('aapl')
@@ -720,7 +706,7 @@ httptest::with_mock_api({
 })
 
 
-test_that("symbols are properly validates", {
+test_that("symbols are properly validated", {
   testthat::skip_on_cran()
   aapl <- Ticker$new("aapl")
   expect_error(Ticker$new("aapls"), "Not a valid symbol.")

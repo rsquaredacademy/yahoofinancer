@@ -12,5 +12,5 @@ NULL
 
 if (getRversion() >= "2.15.1") {
   utils::globalVariables(c(".", "adjclose", "chart", "currencies", "finance",
-   "marketSummaryResponse", "quoteResponse", "result", "volume"))
+   "marketSummaryResponse", "quoteResponse", "result", "volume", "symbolsValidation"))
 }
