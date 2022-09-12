@@ -9,7 +9,7 @@
 An R6 class object
 }
 \description{
-Base class for getting all data related to indices from Yahoo Finance API
+Base class for getting all data related to indices from Yahoo Finance API.
 }
 \examples{
 
@@ -125,13 +125,41 @@ Retrieves historical data
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{period}}{Length of time}
+\item{\code{period}}{Length of time. Defaults to \code{'ytd'}. Valid values are:
+\itemize{
+\item \code{'1d'}
+\item \code{'5d'}
+\item \code{'1mo'}
+\item \code{'3mo'}
+\item \code{'6mo'}
+\item \code{'1y'}
+\item \code{'2y'}
+\item \code{'5y'}
+\item \code{'10y'}
+\item \code{'ytd'}
+\item \code{'max'}
+}}
 
-\item{\code{interval}}{Time between data points}
+\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values are:
+\itemize{
+\item \code{'1m'}
+\item \code{'2m'}
+\item \code{'5m'}
+\item \code{'15m'}
+\item \code{'30m'}
+\item \code{'60m'}
+\item \code{'90m'}
+\item \code{'1h'}
+\item \code{'1d'}
+\item \code{'5d'}
+\item \code{'1wk'}
+\item \code{'1mo'}
+\item \code{'3mo'}
+}}
 
-\item{\code{start}}{Specific starting date}
+\item{\code{start}}{Specific starting date.}
 
-\item{\code{end}}{Specific ending date}
+\item{\code{end}}{Specific ending date.}
 }
 \if{html}{\out{</div>}}
 }
