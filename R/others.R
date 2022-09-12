@@ -107,8 +107,8 @@ get_trending <- function(country = 'US', count = 10) {
 #'
 #' @param from Currency to convert from.
 #' @param to Currency to convert to.
-#' @param start Specific starting date.
-#' @param end Specific ending date.
+#' @param start Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format. 
+#' @param end Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format. 
 #' @param period Length of time. Defaults to \code{'ytd'} Valid values are:
 #' \itemize{ 
 #' \item \code{'1d'} 

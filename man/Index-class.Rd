@@ -158,9 +158,9 @@ Retrieves historical data
 \item \code{'3mo'}
 }}
 
-\item{\code{start}}{Specific starting date.}
+\item{\code{start}}{Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
 
-\item{\code{end}}{Specific ending date.}
+\item{\code{end}}{Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
 }
 \if{html}{\out{</div>}}
 }

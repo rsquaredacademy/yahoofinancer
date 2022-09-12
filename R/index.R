@@ -79,8 +79,8 @@ Index <- R6::R6Class(
     #' \item \code{'1mo'}
     #' \item \code{'3mo'}
     #' }
-    #' @param start Specific starting date.
-    #' @param end Specific ending date.
+    #' @param start Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format. 
+    #' @param end Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format. 
     #' @return A \code{data.frame}.
     #' @examples
     #' \donttest{

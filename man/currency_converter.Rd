@@ -18,9 +18,9 @@ currency_converter(
 
 \item{to}{Currency to convert to.}
 
-\item{start}{Specific starting date.}
+\item{start}{Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
 
-\item{end}{Specific ending date.}
+\item{end}{Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
 
 \item{period}{Length of time. Defaults to \code{'ytd'} Valid values are:
 \itemize{ 
