@@ -30,134 +30,56 @@ devtools::install_github("rsquaredacademy/yahoofinancer")
 ### Ticker
 
 To retrieve data from Yahoo Finance for a single stock, create an
-instance of the Ticker class by passing the company’s ticker symbol as
+instance of the `Ticker` class by passing the company’s ticker symbol as
 an argument:
 
 ``` r
 aapl <- Ticker$new('aapl')
 
 # get historical market data
-head(aapl$get_history())
-#>                  date    volume   high    low   open  close adj_close
-#> 1 2022-01-03 14:30:00 104487900 182.88 177.71 177.83 182.01  181.2599
-#> 2 2022-01-04 14:30:00  99310400 182.94 179.12 182.63 179.70  178.9595
-#> 3 2022-01-05 14:30:00  94537600 180.17 174.64 179.61 174.92  174.1991
-#> 4 2022-01-06 14:30:00  96904000 175.30 171.64 172.70 172.00  171.2912
-#> 5 2022-01-07 14:30:00  86709100 174.14 171.03 172.89 172.17  171.4605
-#> 6 2022-01-10 14:30:00 106765600 172.50 168.17 169.08 172.19  171.4804
+aapl$get_history(start = '2022-09-01', interval = '1d')
+#>                  date   volume   high    low   open  close adj_close
+#> 1 2022-09-01 13:30:00 74229900 158.42 154.67 156.64 157.96    157.96
+#> 2 2022-09-02 13:30:00 76905200 160.36 154.97 159.75 155.81    155.81
+#> 3 2022-09-06 13:30:00 73714800 157.09 153.69 156.47 154.53    154.53
+#> 4 2022-09-07 13:30:00 87449600 156.67 153.61 154.82 155.96    155.96
+#> 5 2022-09-08 13:30:00 84923800 156.36 152.68 154.64 154.46    154.46
+#> 6 2022-09-09 13:30:00 68028800 157.82 154.75 155.47 157.37    157.37
+```
 
-# information available in summary tab in Yahoo Finance
-aapl$summary_detail
-#> $maxAge
-#> [1] 1
-#> 
-#> $priceHint
-#> [1] 2
-#> 
-#> $previousClose
-#> [1] 167.23
-#> 
-#> $open
-#> [1] 167.32
-#> 
-#> $dayLow
-#> [1] 166.245
-#> 
-#> $dayHigh
-#> [1] 167.59
-#> 
-#> $regularMarketPreviousClose
-#> [1] 167.23
-#> 
-#> $regularMarketOpen
-#> [1] 167.32
-#> 
-#> $regularMarketDayLow
-#> [1] 166.245
-#> 
-#> $regularMarketDayHigh
-#> [1] 167.59
-#> 
-#> $dividendRate
-#> [1] 0.92
-#> 
-#> $dividendYield
-#> [1] 0.0055
-#> 
-#> $exDividendDate
-#> [1] 1659657600
-#> 
-#> $payoutRatio
-#> [1] 0.1471
-#> 
-#> $fiveYearAvgDividendYield
-#> [1] 1.05
-#> 
-#> $beta
-#> [1] 1.230174
-#> 
-#> $trailingPE
-#> [1] 27.62481
-#> 
-#> $forwardPE
-#> [1] 25.95188
-#> 
-#> $volume
-#> [1] 21074199
-#> 
-#> $regularMarketVolume
-#> [1] 21074199
-#> 
-#> $averageVolume
-#> [1] 75170682
-#> 
-#> $averageVolume10days
-#> [1] 64089670
-#> 
-#> $averageDailyVolume10Day
-#> [1] 64089670
-#> 
-#> $bid
-#> [1] 166.59
-#> 
-#> $ask
-#> [1] 166.4
-#> 
-#> $bidSize
-#> [1] 1100
-#> 
-#> $askSize
-#> [1] 1100
-#> 
-#> $marketCap
-#> [1] 2.685914e+12
-#> 
-#> $fiftyTwoWeekLow
-#> [1] 129.04
-#> 
-#> $fiftyTwoWeekHigh
-#> [1] 182.94
-#> 
-#> $priceToSalesTrailing12Months
-#> [1] 6.930641
-#> 
-#> $fiftyDayAverage
-#> [1] 152.4194
-#> 
-#> $twoHundredDayAverage
-#> [1] 160.6228
-#> 
-#> $trailingAnnualDividendRate
-#> [1] 0.89
-#> 
-#> $trailingAnnualDividendYield
-#> [1] 0.005322012
-#> 
-#> $currency
-#> [1] "USD"
-#> 
-#> $tradeable
-#> [1] FALSE
+### Index
+
+To retrieve data from Yahoo Finance for an index, create an instance of
+the `Index` class by passing the index symbol as an argument:
+
+``` r
+nifty_50 <- Index$new('^NSEI')
+
+# get historical data
+nifty_50$get_history(start = '2022-09-01', interval = '1d')
+#>                  date volume     high      low     open    close adj_close
+#> 1 2022-09-01 03:45:00 308500 17695.60 17468.45 17485.70 17542.80  17542.80
+#> 2 2022-09-02 03:45:00 256300 17643.85 17476.45 17598.40 17539.45  17539.45
+#> 3 2022-09-05 03:45:00 230300 17683.15 17540.35 17546.45 17665.80  17665.80
+#> 4 2022-09-06 03:45:00 251200 17764.65 17587.65 17695.70 17655.60  17655.60
+#> 5 2022-09-07 03:45:00 354100 17650.75 17484.30 17519.40 17624.40  17624.40
+#> 6 2022-09-08 03:45:00 279800 17807.65 17691.95 17748.15 17798.75  17798.75
+#> 7 2022-09-09 03:45:00 270300 17925.95 17786.00 17923.35 17833.35  17833.35
+#> 8 2022-09-12 06:20:57      0 17970.60 17889.15 17890.85 17952.60  17952.60
+```
+
+### Currency
+
+``` r
+currency_converter('GBP', 'USD', '2022-09-01', '2022-09-10')
+#>                  date     high      low     open    close volume adj_close
+#> 1 2022-08-31 23:00:00 1.161710 1.150324 1.159689 1.159851      0  1.159851
+#> 2 2022-09-01 23:00:00 1.158856 1.153136 1.154734 1.154894      0  1.154894
+#> 3 2022-09-04 23:00:00 1.152074 1.144518 1.147855 1.147460      0  1.147460
+#> 4 2022-09-05 23:00:00 1.160766 1.149624 1.156885 1.156644      0  1.156644
+#> 5 2022-09-06 23:00:00 1.152366 1.140953 1.151278 1.151185      0  1.151185
+#> 6 2022-09-07 23:00:00 1.156016 1.146158 1.152246 1.151981      0  1.151981
+#> 7 2022-09-08 23:00:00 1.164863 1.151662 1.152047 1.152160      0  1.152160
 ```
 
 ## IMPORTANT LEGAL DISCLAIMER
@@ -175,3 +97,10 @@ and is intended for research and educational purposes.
 [here](https://policies.yahoo.com/us/en/yahoo/terms/index.htm)) **for
 details on your rights to use the actual data downloaded. Remember - the
 Yahoo! finance API is intended for personal use only.**
+
+## Code of Conduct
+
+Please note that the yahoofinancer project is released with a
+[Contributor Code of
+Conduct](https://yahoofinancer.rsquaredacademy.com/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.

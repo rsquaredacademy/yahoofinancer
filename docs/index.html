@@ -90,132 +90,52 @@
 <div class="section level3">
 <h3 id="ticker">Ticker<a class="anchor" aria-label="anchor" href="#ticker"></a>
 </h3>
-<p>To retrieve data from Yahoo Finance for a single stock, create an instance of the Ticker class by passing the company’s ticker symbol as an argument:</p>
+<p>To retrieve data from Yahoo Finance for a single stock, create an instance of the <code>Ticker</code> class by passing the company’s ticker symbol as an argument:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">aapl</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ticker-class.html">Ticker</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'aapl'</span><span class="op">)</span>
 
 <span class="co"># get historical market data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aapl</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;                  date    volume   high    low   open  close adj_close</span>
-<span class="co">#&gt; 1 2022-01-03 14:30:00 104487900 182.88 177.71 177.83 182.01  181.2599</span>
-<span class="co">#&gt; 2 2022-01-04 14:30:00  99310400 182.94 179.12 182.63 179.70  178.9594</span>
-<span class="co">#&gt; 3 2022-01-05 14:30:00  94537600 180.17 174.64 179.61 174.92  174.1992</span>
-<span class="co">#&gt; 4 2022-01-06 14:30:00  96904000 175.30 171.64 172.70 172.00  171.2912</span>
-<span class="co">#&gt; 5 2022-01-07 14:30:00  86709100 174.14 171.03 172.89 172.17  171.4605</span>
-<span class="co">#&gt; 6 2022-01-10 14:30:00 106765600 172.50 168.17 169.08 172.19  171.4804</span>
+<span class="va">aapl</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2022-09-01'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span>
+<span class="co">#&gt;                  date   volume   high    low   open  close adj_close</span>
+<span class="co">#&gt; 1 2022-09-01 13:30:00 74229900 158.42 154.67 156.64 157.96    157.96</span>
+<span class="co">#&gt; 2 2022-09-02 13:30:00 76905200 160.36 154.97 159.75 155.81    155.81</span>
+<span class="co">#&gt; 3 2022-09-06 13:30:00 73714800 157.09 153.69 156.47 154.53    154.53</span>
+<span class="co">#&gt; 4 2022-09-07 13:30:00 87449600 156.67 153.61 154.82 155.96    155.96</span>
+<span class="co">#&gt; 5 2022-09-08 13:30:00 84923800 156.36 152.68 154.64 154.46    154.46</span>
+<span class="co">#&gt; 6 2022-09-09 13:30:00 68028800 157.82 154.75 155.47 157.37    157.37</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="index">Index<a class="anchor" aria-label="anchor" href="#index"></a>
+</h3>
+<p>To retrieve data from Yahoo Finance for an index, create an instance of the <code>Index</code> class by passing the index symbol as an argument:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Index-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span>
 
-<span class="co"># information available in summary tab in Yahoo Finance</span>
-<span class="va">aapl</span><span class="op">$</span><span class="va">summary_detail</span>
-<span class="co">#&gt; $maxAge</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $priceHint</span>
-<span class="co">#&gt; [1] 2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $previousClose</span>
-<span class="co">#&gt; [1] 167.57</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $open</span>
-<span class="co">#&gt; [1] 167.08</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $dayLow</span>
-<span class="co">#&gt; [1] 166.65</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $dayHigh</span>
-<span class="co">#&gt; [1] 168.7011</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $regularMarketPreviousClose</span>
-<span class="co">#&gt; [1] 167.57</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $regularMarketOpen</span>
-<span class="co">#&gt; [1] 167.08</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $regularMarketDayLow</span>
-<span class="co">#&gt; [1] 166.65</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $regularMarketDayHigh</span>
-<span class="co">#&gt; [1] 168.7011</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $dividendRate</span>
-<span class="co">#&gt; [1] 0.92</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $dividendYield</span>
-<span class="co">#&gt; [1] 0.0055</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $exDividendDate</span>
-<span class="co">#&gt; [1] 1659657600</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $payoutRatio</span>
-<span class="co">#&gt; [1] 0.1471</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $fiveYearAvgDividendYield</span>
-<span class="co">#&gt; [1] 1.05</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $beta</span>
-<span class="co">#&gt; [1] 1.230174</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $trailingPE</span>
-<span class="co">#&gt; [1] 27.64132</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $forwardPE</span>
-<span class="co">#&gt; [1] 25.96739</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $volume</span>
-<span class="co">#&gt; [1] 54147079</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $regularMarketVolume</span>
-<span class="co">#&gt; [1] 54147079</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $averageVolume</span>
-<span class="co">#&gt; [1] 75170682</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $averageVolume10days</span>
-<span class="co">#&gt; [1] 64089670</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $averageDailyVolume10Day</span>
-<span class="co">#&gt; [1] 64089670</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $bid</span>
-<span class="co">#&gt; [1] 167.35</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $ask</span>
-<span class="co">#&gt; [1] 0</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $bidSize</span>
-<span class="co">#&gt; [1] 1200</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $askSize</span>
-<span class="co">#&gt; [1] 1100</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $marketCap</span>
-<span class="co">#&gt; [1] 2.68752e+12</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $fiftyTwoWeekLow</span>
-<span class="co">#&gt; [1] 129.04</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $fiftyTwoWeekHigh</span>
-<span class="co">#&gt; [1] 182.94</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $priceToSalesTrailing12Months</span>
-<span class="co">#&gt; [1] 6.934784</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $fiftyDayAverage</span>
-<span class="co">#&gt; [1] 152.4194</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $twoHundredDayAverage</span>
-<span class="co">#&gt; [1] 160.6228</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $trailingAnnualDividendRate</span>
-<span class="co">#&gt; [1] 0.89</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $trailingAnnualDividendYield</span>
-<span class="co">#&gt; [1] 0.005311213</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $currency</span>
-<span class="co">#&gt; [1] "USD"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $tradeable</span>
-<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<span class="co"># get historical data</span>
+<span class="va">nifty_50</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2022-09-01'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span>
+<span class="co">#&gt;                  date volume     high      low     open    close adj_close</span>
+<span class="co">#&gt; 1 2022-09-01 03:45:00 308500 17695.60 17468.45 17485.70 17542.80  17542.80</span>
+<span class="co">#&gt; 2 2022-09-02 03:45:00 256300 17643.85 17476.45 17598.40 17539.45  17539.45</span>
+<span class="co">#&gt; 3 2022-09-05 03:45:00 230300 17683.15 17540.35 17546.45 17665.80  17665.80</span>
+<span class="co">#&gt; 4 2022-09-06 03:45:00 251200 17764.65 17587.65 17695.70 17655.60  17655.60</span>
+<span class="co">#&gt; 5 2022-09-07 03:45:00 354100 17650.75 17484.30 17519.40 17624.40  17624.40</span>
+<span class="co">#&gt; 6 2022-09-08 03:45:00 279800 17807.65 17691.95 17748.15 17798.75  17798.75</span>
+<span class="co">#&gt; 7 2022-09-09 03:45:00 270300 17925.95 17786.00 17923.35 17833.35  17833.35</span>
+<span class="co">#&gt; 8 2022-09-12 06:20:57      0 17970.60 17889.15 17890.85 17952.60  17952.60</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="currency">Currency<a class="anchor" aria-label="anchor" href="#currency"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/currency_converter.html">currency_converter</a></span><span class="op">(</span><span class="st">'GBP'</span>, <span class="st">'USD'</span>, <span class="st">'2022-09-01'</span>, <span class="st">'2022-09-10'</span><span class="op">)</span>
+<span class="co">#&gt;                  date     high      low     open    close volume adj_close</span>
+<span class="co">#&gt; 1 2022-08-31 23:00:00 1.161710 1.150324 1.159689 1.159851      0  1.159851</span>
+<span class="co">#&gt; 2 2022-09-01 23:00:00 1.158856 1.153136 1.154734 1.154894      0  1.154894</span>
+<span class="co">#&gt; 3 2022-09-04 23:00:00 1.152074 1.144518 1.147855 1.147460      0  1.147460</span>
+<span class="co">#&gt; 4 2022-09-05 23:00:00 1.160766 1.149624 1.156885 1.156644      0  1.156644</span>
+<span class="co">#&gt; 5 2022-09-06 23:00:00 1.152366 1.140953 1.151278 1.151185      0  1.151185</span>
+<span class="co">#&gt; 6 2022-09-07 23:00:00 1.156016 1.146158 1.152246 1.151981      0  1.151981</span>
+<span class="co">#&gt; 7 2022-09-08 23:00:00 1.164863 1.151662 1.152047 1.152160      0  1.152160</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -224,6 +144,11 @@
 <p><strong>Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of Yahoo, Inc.</strong></p>
 <p>yahoofinancer is <strong>not</strong> affiliated, endorsed, or vetted by Yahoo, Inc. It’s an open-source tool that uses Yahoo’s publicly available APIs, and is intended for research and educational purposes.</p>
 <p><strong>You should refer to Yahoo!’s terms of use</strong> (<a href="https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm" class="external-link">here</a>, <a href="https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html" class="external-link">here</a>, and <a href="https://policies.yahoo.com/us/en/yahoo/terms/index.htm" class="external-link">here</a>) <strong>for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.</strong></p>
+</div>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the yahoofinancer project is released with a <a href="https://yahoofinancer.rsquaredacademy.com/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -246,6 +171,12 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -267,6 +198,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://app.codecov.io/gh/rsquaredacademy/yahoofinancer?branch=master" class="external-link"><img src="https://codecov.io/gh/rsquaredacademy/yahoofinancer/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 

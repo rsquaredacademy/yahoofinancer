@@ -41,16 +41,30 @@ library(yahoofinancer)
 
 ### Ticker
 
-To retrieve data from Yahoo Finance for a single stock, create an instance of the Ticker class by passing the company's ticker symbol as an argument:
+To retrieve data from Yahoo Finance for a single stock, create an instance of the `Ticker` class by passing the company's ticker symbol as an argument:
 
-```{r}
+```{r ticker}
 aapl <- Ticker$new('aapl')
 
 # get historical market data
-head(aapl$get_history())
+aapl$get_history(start = '2022-09-01', interval = '1d')
+```
 
-# information available in summary tab in Yahoo Finance
-aapl$summary_detail
+### Index 
+
+To retrieve data from Yahoo Finance for an index, create an instance of the `Index` class by passing the index symbol as an argument:
+
+```{r index}
+nifty_50 <- Index$new('^NSEI')
+
+# get historical data
+nifty_50$get_history(start = '2022-09-01', interval = '1d')
+```
+
+### Currency
+
+```{r currency}
+currency_converter('GBP', 'USD', '2022-09-01', '2022-09-10')
 ```
 
 ## IMPORTANT LEGAL DISCLAIMER 
@@ -69,3 +83,6 @@ intended for research and educational purposes.
 details on your rights to use the actual data downloaded. Remember - the
 Yahoo! finance API is intended for personal use only.**
 
+## Code of Conduct
+
+Please note that the yahoofinancer project is released with a [Contributor Code of Conduct](https://yahoofinancer.rsquaredacademy.com/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
