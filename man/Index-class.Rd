@@ -30,11 +30,12 @@ indice$set_index('^NDX')
 ## Method `Index$get_history`
 ## ------------------------------------------------
 
+\donttest{
 nifty <- Index$new('^NSEI')
-nifty$get_history()
 nifty$get_history(start = '2022-07-01', interval = '1d')
 nifty$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
 nifty$get_history(period = '1mo', interval = '1d')
+}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -163,13 +164,17 @@ Retrieves historical data
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+A \code{data.frame}.
+}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{nifty <- Index$new('^NSEI')
-nifty$get_history()
+\preformatted{\donttest{
+nifty <- Index$new('^NSEI')
 nifty$get_history(start = '2022-07-01', interval = '1d')
 nifty$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
 nifty$get_history(period = '1mo', interval = '1d')
+}
 }
 \if{html}{\out{</div>}}
 

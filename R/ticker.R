@@ -1,9 +1,9 @@
 #' R6 Class Representing a Ticker
 #'
 #' @description
-#' Base class for getting all data related to ticker from Yahoo Finance API
+#' Base class for getting all data related to ticker from Yahoo Finance API.
 #'
-#' @param symbol Symbol for which data has to be retrieved
+#' @param symbol Symbol for which data has to be retrieved.
 #'
 #' @importFrom magrittr %>% use_series extract2 extract
 #' @importFrom jsonlite fromJSON
@@ -19,12 +19,12 @@ Ticker <- R6::R6Class(
 
   public = list(
 
-    #' @field symbol Symbol for which data is retrieved
+    #' @field symbol Symbol for which data is retrieved.
     symbol = NULL,
 
     #' @description
-    #' Create a new Ticker object
-    #' @param symbol Symbol
+    #' Create a new Ticker object.
+    #' @param symbol Symbol.
     #' @examples
     #' aapl <- Ticker$new('aapl')
     #' @return A new `Ticker` object
@@ -52,13 +52,15 @@ Ticker <- R6::R6Class(
     },
 
     #' @description 
-    #' Retrieves balance sheet data for most recent four quarters or most recent four years
+    #' Retrieves balance sheet data for most recent four quarters or most recent four years.
     #' @param frequency Annual or quarter.
     #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
     #' @examples
+    #' \donttest{
     #' aapl <- Ticker$new('aapl')
     #' aapl$get_balance_sheet('annual')
     #' aapl$get_balance_sheet('quarter')
+    #' }
     get_balance_sheet = function(frequency = c('annual', 'quarter'), clean_names = TRUE) {
 
       freq <- match.arg(frequency)
@@ -99,13 +101,15 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
-    #' Retrieves cash flow data for most recent four quarters or most recent four years
+    #' Retrieves cash flow data for most recent four quarters or most recent four years.
     #' @param frequency Annual or quarter.
     #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
     #' @examples
+    #' \donttest{
     #' aapl <- Ticker$new('aapl')
     #' aapl$get_cash_flow('annual')
     #' aapl$get_cash_flow('quarter')
+    #' }
     get_cash_flow = function(frequency = c('annual', 'quarter'), clean_names = TRUE) {
 
       freq <- match.arg(frequency)
@@ -146,13 +150,15 @@ Ticker <- R6::R6Class(
     },
 
     #' @description
-    #' Retrieves income statement data for most recent four quarters or most recent four years
+    #' Retrieves income statement data for most recent four quarters or most recent four years.
     #' @param frequency Annual or quarter.
     #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
     #' @examples
+    #' \donttest{
     #' aapl <- Ticker$new('aapl')
     #' aapl$get_income_statement('annual')
     #' aapl$get_income_statement('quarter')
+    #' }
     get_income_statement = function(frequency = c('annual', 'quarter'), clean_names = TRUE) {
 
       freq <- match.arg(frequency)
@@ -193,17 +199,46 @@ Ticker <- R6::R6Class(
     },
 
     #' @description 
-    #' Retrieves historical pricing data
-    #' @param period Length of time
-    #' @param interval Time between data points
-    #' @param start Specific starting date
-    #' @param end Specific ending date
+    #' Retrieves historical pricing data.
+    #' @param period Length of time. Defaults to \code{'ytd'}. Valid values are:
+    #' \itemize{
+    #' \item \code{'1d'}
+    #' \item \code{'5d'}
+    #' \item \code{'1mo'}
+    #' \item \code{'3mo'}
+    #' \item \code{'6mo'}
+    #' \item \code{'1y'}
+    #' \item \code{'2y'}
+    #' \item \code{'5y'}
+    #' \item \code{'10y'}
+    #' \item \code{'ytd'}
+    #' \item \code{'max'}
+    #' }
+    #' @param interval Time between data points. Defaults to \code{'1d'}. Valid values are:
+    #' \itemize{
+    #' \item \code{'1m'}
+    #' \item \code{'2m'}
+    #' \item \code{'5m'}
+    #' \item \code{'15m'}
+    #' \item \code{'30m'}
+    #' \item \code{'60m'}
+    #' \item \code{'90m'}
+    #' \item \code{'1h'}
+    #' \item \code{'1d'}
+    #' \item \code{'5d'}
+    #' \item \code{'1wk'}
+    #' \item \code{'1mo'}
+    #' \item \code{'3mo'}
+    #' }
+    #' @param start Specific starting date.
+    #' @param end Specific ending date.
     #' @examples
+    #' \donttest{
     #' aapl <- Ticker$new('aapl')
-    #' aapl$get_history()
     #' aapl$get_history(start = '2022-07-01', interval = '1d')
     #' aapl$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
     #' aapl$get_history(period = '1mo', interval = '1d')
+    #' }
     get_history = function(period = 'ytd', interval = '1d', start = NULL, end = NULL) {
 
       if (!is.null(start)) {
@@ -677,7 +712,6 @@ Ticker <- R6::R6Class(
 
 
       list(
-        data = data,
         performance_overview = map(data$performanceOverview, 'raw'),
         performance_overview_cat = map(data$performanceOverviewCat, 'raw'),
         load_adjusted_returns = map(data$loadAdjustedReturns, 'raw'),

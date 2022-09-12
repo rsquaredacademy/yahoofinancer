@@ -9,7 +9,7 @@
 An R6 class object
 }
 \description{
-Base class for getting all data related to ticker from Yahoo Finance API
+Base class for getting all data related to ticker from Yahoo Finance API.
 }
 \examples{
 
@@ -30,40 +30,47 @@ aapl$set_symbol('msft')
 ## Method `Ticker$get_balance_sheet`
 ## ------------------------------------------------
 
+\donttest{
 aapl <- Ticker$new('aapl')
 aapl$get_balance_sheet('annual')
 aapl$get_balance_sheet('quarter')
+}
 
 ## ------------------------------------------------
 ## Method `Ticker$get_cash_flow`
 ## ------------------------------------------------
 
+\donttest{
 aapl <- Ticker$new('aapl')
 aapl$get_cash_flow('annual')
 aapl$get_cash_flow('quarter')
+}
 
 ## ------------------------------------------------
 ## Method `Ticker$get_income_statement`
 ## ------------------------------------------------
 
+\donttest{
 aapl <- Ticker$new('aapl')
 aapl$get_income_statement('annual')
 aapl$get_income_statement('quarter')
+}
 
 ## ------------------------------------------------
 ## Method `Ticker$get_history`
 ## ------------------------------------------------
 
+\donttest{
 aapl <- Ticker$new('aapl')
-aapl$get_history()
 aapl$get_history(start = '2022-07-01', interval = '1d')
 aapl$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
 aapl$get_history(period = '1mo', interval = '1d')
 }
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{symbol}}{Symbol for which data is retrieved}
+\item{\code{symbol}}{Symbol for which data is retrieved.}
 }
 \if{html}{\out{</div>}}
 }
@@ -168,7 +175,7 @@ aapl$get_history(period = '1mo', interval = '1d')
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new Ticker object
+Create a new Ticker object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ticker$new(symbol = NA)}\if{html}{\out{</div>}}
 }
@@ -176,7 +183,7 @@ Create a new Ticker object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{symbol}}{Symbol}
+\item{\code{symbol}}{Symbol.}
 }
 \if{html}{\out{</div>}}
 }
@@ -222,7 +229,7 @@ aapl$set_symbol('msft')
 \if{html}{\out{<a id="method-get_balance_sheet"></a>}}
 \if{latex}{\out{\hypertarget{method-get_balance_sheet}{}}}
 \subsection{Method \code{get_balance_sheet()}}{
-Retrieves balance sheet data for most recent four quarters or most recent four years
+Retrieves balance sheet data for most recent four quarters or most recent four years.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ticker$get_balance_sheet(
   frequency = c("annual", "quarter"),
@@ -241,9 +248,11 @@ Retrieves balance sheet data for most recent four quarters or most recent four y
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{aapl <- Ticker$new('aapl')
+\preformatted{\donttest{
+aapl <- Ticker$new('aapl')
 aapl$get_balance_sheet('annual')
 aapl$get_balance_sheet('quarter')
+}
 }
 \if{html}{\out{</div>}}
 
@@ -254,7 +263,7 @@ aapl$get_balance_sheet('quarter')
 \if{html}{\out{<a id="method-get_cash_flow"></a>}}
 \if{latex}{\out{\hypertarget{method-get_cash_flow}{}}}
 \subsection{Method \code{get_cash_flow()}}{
-Retrieves cash flow data for most recent four quarters or most recent four years
+Retrieves cash flow data for most recent four quarters or most recent four years.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ticker$get_cash_flow(frequency = c("annual", "quarter"), clean_names = TRUE)}\if{html}{\out{</div>}}
 }
@@ -270,9 +279,11 @@ Retrieves cash flow data for most recent four quarters or most recent four years
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{aapl <- Ticker$new('aapl')
+\preformatted{\donttest{
+aapl <- Ticker$new('aapl')
 aapl$get_cash_flow('annual')
 aapl$get_cash_flow('quarter')
+}
 }
 \if{html}{\out{</div>}}
 
@@ -283,7 +294,7 @@ aapl$get_cash_flow('quarter')
 \if{html}{\out{<a id="method-get_income_statement"></a>}}
 \if{latex}{\out{\hypertarget{method-get_income_statement}{}}}
 \subsection{Method \code{get_income_statement()}}{
-Retrieves income statement data for most recent four quarters or most recent four years
+Retrieves income statement data for most recent four quarters or most recent four years.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ticker$get_income_statement(
   frequency = c("annual", "quarter"),
@@ -302,9 +313,11 @@ Retrieves income statement data for most recent four quarters or most recent fou
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{aapl <- Ticker$new('aapl')
+\preformatted{\donttest{
+aapl <- Ticker$new('aapl')
 aapl$get_income_statement('annual')
 aapl$get_income_statement('quarter')
+}
 }
 \if{html}{\out{</div>}}
 
@@ -315,7 +328,7 @@ aapl$get_income_statement('quarter')
 \if{html}{\out{<a id="method-get_history"></a>}}
 \if{latex}{\out{\hypertarget{method-get_history}{}}}
 \subsection{Method \code{get_history()}}{
-Retrieves historical pricing data
+Retrieves historical pricing data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ticker$get_history(period = "ytd", interval = "1d", start = NULL, end = NULL)}\if{html}{\out{</div>}}
 }
@@ -323,23 +336,52 @@ Retrieves historical pricing data
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{period}}{Length of time}
+\item{\code{period}}{Length of time. Defaults to \code{'ytd'}. Valid values are:
+\itemize{
+\item \code{'1d'}
+\item \code{'5d'}
+\item \code{'1mo'}
+\item \code{'3mo'}
+\item \code{'6mo'}
+\item \code{'1y'}
+\item \code{'2y'}
+\item \code{'5y'}
+\item \code{'10y'}
+\item \code{'ytd'}
+\item \code{'max'}
+}}
 
-\item{\code{interval}}{Time between data points}
+\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values are:
+\itemize{
+\item \code{'1m'}
+\item \code{'2m'}
+\item \code{'5m'}
+\item \code{'15m'}
+\item \code{'30m'}
+\item \code{'60m'}
+\item \code{'90m'}
+\item \code{'1h'}
+\item \code{'1d'}
+\item \code{'5d'}
+\item \code{'1wk'}
+\item \code{'1mo'}
+\item \code{'3mo'}
+}}
 
-\item{\code{start}}{Specific starting date}
+\item{\code{start}}{Specific starting date.}
 
-\item{\code{end}}{Specific ending date}
+\item{\code{end}}{Specific ending date.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{aapl <- Ticker$new('aapl')
-aapl$get_history()
+\preformatted{\donttest{
+aapl <- Ticker$new('aapl')
 aapl$get_history(start = '2022-07-01', interval = '1d')
 aapl$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
 aapl$get_history(period = '1mo', interval = '1d')
+}
 }
 \if{html}{\out{</div>}}
 
