@@ -6,10 +6,15 @@
 \usage{
 get_currencies()
 }
+\value{
+Symbol, short and long name of the currencies.
+}
 \description{
-List of currencies Yahoo Finance supports
+List of currencies Yahoo Finance supports.
 }
 \examples{
+\donttest{
 get_currencies()
+}
 
 }

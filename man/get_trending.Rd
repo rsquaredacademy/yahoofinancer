@@ -7,14 +7,19 @@
 get_trending(country = "US", count = 10)
 }
 \arguments{
-\item{country}{Name of country}
+\item{country}{Name of the country.}
 
-\item{count}{Number of securities}
+\item{count}{Number of securities.}
+}
+\value{
+Securities trending in the country.
 }
 \description{
-List of trending securities for specific country
+List of trending securities for specific country.
 }
 \examples{
+\donttest{
 get_trending()
+}
 
 }

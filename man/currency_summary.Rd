@@ -7,14 +7,19 @@
 currency_summary(from = "USD", to = "INR")
 }
 \arguments{
-\item{from}{Currency to convert from}
+\item{from}{Currency to convert from.}
 
-\item{to}{Currency to convert to}
+\item{to}{Currency to convert to.}
+}
+\value{
+A \code{list}.
 }
 \description{
-Contains information available via the Summary tab in Yahoo Finance
+Contains information available via the Summary tab in Yahoo Finance.
 }
 \examples{
+\donttest{
 currency_summary('GBP', 'USD')
+}
 
 }

@@ -7,12 +7,17 @@
 get_market_summary(country = "US")
 }
 \arguments{
-\item{country}{Name of country}
+\item{country}{Name of the country.}
+}
+\value{
+A \code{data.frame}.
 }
 \description{
-List of relevant exchanges for specific country
+Summary info of relevant exchanges for specific country.
 }
 \examples{
-get_market_summary()
+\donttest{
+get_market_summary(country = 'US')
+}
 
 }

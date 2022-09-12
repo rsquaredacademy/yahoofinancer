@@ -1,9 +1,13 @@
 #' Currencies
 #'
-#' List of currencies Yahoo Finance supports
+#' List of currencies Yahoo Finance supports.
 #'
 #' @examples
+#' \donttest{
 #' get_currencies()
+#' }
+#' 
+#' @return Symbol, short and long name of the currencies.
 #'
 #' @export
 #'
@@ -30,12 +34,16 @@ get_currencies <- function() {
 
 #' Market Summary
 #'
-#' List of relevant exchanges for specific country
+#' Summary info of relevant exchanges for specific country.
 #'
-#' @param country Name of country
+#' @param country Name of the country.
+#' 
+#' @return A \code{data.frame}.
 #'
 #' @examples
-#' get_market_summary()
+#' \donttest{
+#' get_market_summary(country = 'US')
+#' }
 #'
 #' @export
 #'
@@ -54,13 +62,17 @@ get_market_summary <- function(country = 'US') {
 
 #' Trending securities
 #'
-#' List of trending securities for specific country
+#' List of trending securities for specific country.
 #'
-#' @param country Name of country
-#' @param count Number of securities
+#' @param country Name of the country.
+#' @param count Number of securities.
+#' 
+#' @return Securities trending in the country.
 #'
 #' @examples
+#' \donttest{
 #' get_trending()
+#' }
 #'
 #' @export
 #'
@@ -91,19 +103,43 @@ get_trending <- function(country = 'US', count = 10) {
 
 #' Currency converter
 #'
-#' Retrieve current conversion rate between two currencies as well as historical rates
+#' Retrieve current conversion rate between two currencies as well as historical rates.
 #'
-#' @param from Currency to convert from
-#' @param to Currency to convert to
-#' @param start Specific starting date
-#' @param end Specific ending date
-#' @param period Length of time (1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max)
-#' @param interval Time between data points (1h, 1d, 5d, 1wk, 1mo, 3mo)
+#' @param from Currency to convert from.
+#' @param to Currency to convert to.
+#' @param start Specific starting date.
+#' @param end Specific ending date.
+#' @param period Length of time. Defaults to \code{'ytd'} Valid values are:
+#' \itemize{ 
+#' \item \code{'1d'} 
+#' \item \code{'5d'} 
+#' \item \code{'1mo'} 
+#' \item \code{'3mo'} 
+#' \item \code{'6mo'} 
+#' \item \code{'1y'}
+#' \item \code{'2y'}
+#' \item \code{'5y'} 
+#' \item \code{'10y'} 
+#' \item \code{'ytd'} 
+#' \item \code{'max'}
+#' }
+#' @param interval Time between data points. Defaults to \code{'1d'} Valid values are:
+#' \itemize{
+#' \item \code{'1h'} 
+#' \item \code{'1d'} 
+#' \item \code{'5d'} 
+#' \item \code{'1wk'} 
+#' \item \code{'1mo'} 
+#' \item \code{'3mo'}
+#' }
+#' 
+#' @return  A \code{data.frame}.
 #'    
 #' @examples
-#' currency_converter()
+#' \donttest{
 #' currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
 #' currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
+#' }
 #'
 #' @export
 #'
@@ -178,13 +214,17 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
 
 #' Currency summary
 #'
-#' Contains information available via the Summary tab in Yahoo Finance
+#' Contains information available via the Summary tab in Yahoo Finance.
 #'
-#' @param from Currency to convert from
-#' @param to Currency to convert to
+#' @param from Currency to convert from.
+#' @param to Currency to convert to.
+#' 
+#' @return A \code{list}.
 #'    
 #' @examples
+#' \donttest{
 #' currency_summary('GBP', 'USD')
+#' }
 #'
 #' @export
 #'

@@ -14,24 +14,49 @@ currency_converter(
 )
 }
 \arguments{
-\item{from}{Currency to convert from}
+\item{from}{Currency to convert from.}
 
-\item{to}{Currency to convert to}
+\item{to}{Currency to convert to.}
 
-\item{start}{Specific starting date}
+\item{start}{Specific starting date.}
 
-\item{end}{Specific ending date}
+\item{end}{Specific ending date.}
 
-\item{period}{Length of time (1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max)}
+\item{period}{Length of time. Defaults to \code{'ytd'} Valid values are:
+\itemize{ 
+\item \code{'1d'} 
+\item \code{'5d'} 
+\item \code{'1mo'} 
+\item \code{'3mo'} 
+\item \code{'6mo'} 
+\item \code{'1y'}
+\item \code{'2y'}
+\item \code{'5y'} 
+\item \code{'10y'} 
+\item \code{'ytd'} 
+\item \code{'max'}
+}}
 
-\item{interval}{Time between data points (1h, 1d, 5d, 1wk, 1mo, 3mo)}
+\item{interval}{Time between data points. Defaults to \code{'1d'} Valid values are:
+\itemize{
+\item \code{'1h'} 
+\item \code{'1d'} 
+\item \code{'5d'} 
+\item \code{'1wk'} 
+\item \code{'1mo'} 
+\item \code{'3mo'}
+}}
+}
+\value{
+A \code{data.frame}.
 }
 \description{
-Retrieve current conversion rate between two currencies as well as historical rates
+Retrieve current conversion rate between two currencies as well as historical rates.
 }
 \examples{
-currency_converter()
+\donttest{
 currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
 currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
+}
 
 }
