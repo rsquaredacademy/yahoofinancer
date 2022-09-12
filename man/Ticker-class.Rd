@@ -246,6 +246,9 @@ Retrieves balance sheet data for most recent four quarters or most recent four y
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+A \code{tibble}.
+}
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{\donttest{
@@ -276,6 +279,9 @@ Retrieves cash flow data for most recent four quarters or most recent four years
 \item{\code{clean_names}}{Logical; if \code{TRUE}, converts column names to snake case.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{tibble}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -310,6 +316,9 @@ Retrieves income statement data for most recent four quarters or most recent fou
 \item{\code{clean_names}}{Logical; if \code{TRUE}, converts column names to snake case.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{tibble}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -373,6 +382,9 @@ Retrieves historical pricing data.
 \item{\code{end}}{Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{data.frame}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}

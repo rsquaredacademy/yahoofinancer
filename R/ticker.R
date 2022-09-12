@@ -55,6 +55,7 @@ Ticker <- R6::R6Class(
     #' Retrieves balance sheet data for most recent four quarters or most recent four years.
     #' @param frequency Annual or quarter.
     #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
+    #' @return A \code{tibble}.
     #' @examples
     #' \donttest{
     #' aapl <- Ticker$new('aapl')
@@ -104,6 +105,7 @@ Ticker <- R6::R6Class(
     #' Retrieves cash flow data for most recent four quarters or most recent four years.
     #' @param frequency Annual or quarter.
     #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
+    #' @return A \code{tibble}.
     #' @examples
     #' \donttest{
     #' aapl <- Ticker$new('aapl')
@@ -153,6 +155,7 @@ Ticker <- R6::R6Class(
     #' Retrieves income statement data for most recent four quarters or most recent four years.
     #' @param frequency Annual or quarter.
     #' @param clean_names Logical; if \code{TRUE}, converts column names to snake case.
+    #' @return A \code{tibble}.
     #' @examples
     #' \donttest{
     #' aapl <- Ticker$new('aapl')
@@ -232,6 +235,7 @@ Ticker <- R6::R6Class(
     #' }
     #' @param start Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format. 
     #' @param end Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format. 
+    #' @return A \code{data.frame}.
     #' @examples
     #' \donttest{
     #' aapl <- Ticker$new('aapl')
