@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">yahoofinancer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -290,7 +290,13 @@ nifty$get_history(period = '1mo', interval = '1d')
 <span class="r-out co"><span class="r-pr">#&gt;</span> 46 2022-09-07 03:45:00 354100 17650.75 17484.30 17519.40 17624.40  17624.40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 47 2022-09-08 03:45:00 279800 17807.65 17691.95 17748.15 17798.75  17798.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 48 2022-09-09 03:45:00 270300 17925.95 17786.00 17923.35 17833.35  17833.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49 2022-09-12 06:09:44      0 17970.60 17889.15 17890.85 17953.45  17953.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49 2022-09-12 03:45:00 228200 17980.55 17889.15 17890.85 17936.35  17936.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 2022-09-13 03:45:00 259900 18088.30 18015.45 18044.45 18070.05  18070.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51 2022-09-14 03:45:00 365900 18091.55 17771.15 17771.15 18003.75  18003.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52 2022-09-15 03:45:00 289600 18096.15 17861.50 18046.35 17877.40  17877.40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 2022-09-16 03:45:00 468500 17820.05 17497.25 17796.80 17530.85  17530.85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 2022-09-19 03:45:00 258300 17667.20 17429.70 17540.65 17622.25  17622.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 2022-09-20 06:23:22      0 17879.65 17744.40 17770.40 17854.30  17854.30</span>
 <span class="r-in"><span class="va">nifty</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2022-07-01'</span>, end <span class="op">=</span> <span class="st">'2022-07-14'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  date volume     high      low     open    close adj_close</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2022-07-01 03:45:00 364100 15793.95 15511.05 15703.70 15752.05  15752.05</span>
@@ -304,26 +310,27 @@ nifty$get_history(period = '1mo', interval = '1d')
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9 2022-07-13 03:45:00 233300 16140.00 15950.15 16128.20 15966.65  15966.65</span>
 <span class="r-in"><span class="va">nifty</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>period <span class="op">=</span> <span class="st">'1mo'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   date volume     high      low     open    close adj_close</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2022-08-12 03:45:00 303900 17724.65 17597.85 17659.65 17698.15  17698.15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2022-08-16 03:45:00      0 17839.10 17764.05 17797.20 17825.25  17825.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2022-08-17 03:45:00 262800 17965.95 17833.35 17868.15 17944.25  17944.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2022-08-18 03:45:00 263900 17968.45 17852.05 17898.65 17956.50  17956.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2022-08-19 03:45:00 295600 17992.20 17710.75 17966.55 17758.45  17758.45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2022-08-22 03:45:00 287600 17690.05 17467.35 17682.90 17490.70  17490.70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2022-08-23 03:45:00 285600 17625.55 17345.20 17357.35 17577.50  17577.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2022-08-24 03:45:00 262000 17623.65 17499.25 17525.45 17604.95  17604.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2022-08-25 03:45:00 230200 17726.50 17487.45 17679.00 17522.45  17522.45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2022-08-26 03:45:00 266600 17685.85 17519.35 17619.30 17558.90  17558.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2022-08-29 03:45:00 244900 17380.15 17166.20 17188.65 17312.90  17312.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2022-08-30 03:45:00 324700 17777.65 17401.50 17414.95 17759.30  17759.30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2022-09-01 03:45:00 308500 17695.60 17468.45 17485.70 17542.80  17542.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2022-09-02 03:45:00 256300 17643.85 17476.45 17598.40 17539.45  17539.45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2022-09-05 03:45:00 230300 17683.15 17540.35 17546.45 17665.80  17665.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2022-09-06 03:45:00 251200 17764.65 17587.65 17695.70 17655.60  17655.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2022-09-07 03:45:00 354100 17650.75 17484.30 17519.40 17624.40  17624.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2022-09-08 03:45:00 279800 17807.65 17691.95 17748.15 17798.75  17798.75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2022-09-09 03:45:00 270300 17925.95 17786.00 17923.35 17833.35  17833.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2022-09-12 06:09:45      0 17970.60 17889.15 17890.85 17953.15  17953.15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2022-08-22 03:45:00 287600 17690.05 17467.35 17682.90 17490.70  17490.70</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2022-08-23 03:45:00 285600 17625.55 17345.20 17357.35 17577.50  17577.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2022-08-24 03:45:00 262000 17623.65 17499.25 17525.45 17604.95  17604.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2022-08-25 03:45:00 230200 17726.50 17487.45 17679.00 17522.45  17522.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2022-08-26 03:45:00 266600 17685.85 17519.35 17619.30 17558.90  17558.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2022-08-29 03:45:00 244900 17380.15 17166.20 17188.65 17312.90  17312.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2022-08-30 03:45:00 324700 17777.65 17401.50 17414.95 17759.30  17759.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2022-09-01 03:45:00 308500 17695.60 17468.45 17485.70 17542.80  17542.80</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2022-09-02 03:45:00 256300 17643.85 17476.45 17598.40 17539.45  17539.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2022-09-05 03:45:00 230300 17683.15 17540.35 17546.45 17665.80  17665.80</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2022-09-06 03:45:00 251200 17764.65 17587.65 17695.70 17655.60  17655.60</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2022-09-07 03:45:00 354100 17650.75 17484.30 17519.40 17624.40  17624.40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2022-09-08 03:45:00 279800 17807.65 17691.95 17748.15 17798.75  17798.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2022-09-09 03:45:00 270300 17925.95 17786.00 17923.35 17833.35  17833.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2022-09-12 03:45:00 228200 17980.55 17889.15 17890.85 17936.35  17936.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2022-09-13 03:45:00 259900 18088.30 18015.45 18044.45 18070.05  18070.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2022-09-14 03:45:00 365900 18091.55 17771.15 17771.15 18003.75  18003.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2022-09-15 03:45:00 289600 18096.15 17861.50 18046.35 17877.40  17877.40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2022-09-16 03:45:00 468500 17820.05 17497.25 17796.80 17530.85  17530.85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2022-09-19 03:45:00 258300 17667.20 17429.70 17540.65 17622.25  17622.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2022-09-20 06:23:22      0 17879.65 17744.40 17770.40 17854.30  17854.30</span>
 <span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
