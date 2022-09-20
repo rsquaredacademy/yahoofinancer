@@ -75,7 +75,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of yahoofinancer is to obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.</p>
+<p>Obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -96,13 +96,19 @@
 
 <span class="co"># get historical market data</span>
 <span class="va">aapl</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2022-09-01'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span>
-<span class="co">#&gt;                  date   volume   high    low   open  close adj_close</span>
-<span class="co">#&gt; 1 2022-09-01 13:30:00 74229900 158.42 154.67 156.64 157.96    157.96</span>
-<span class="co">#&gt; 2 2022-09-02 13:30:00 76905200 160.36 154.97 159.75 155.81    155.81</span>
-<span class="co">#&gt; 3 2022-09-06 13:30:00 73714800 157.09 153.69 156.47 154.53    154.53</span>
-<span class="co">#&gt; 4 2022-09-07 13:30:00 87449600 156.67 153.61 154.82 155.96    155.96</span>
-<span class="co">#&gt; 5 2022-09-08 13:30:00 84923800 156.36 152.68 154.64 154.46    154.46</span>
-<span class="co">#&gt; 6 2022-09-09 13:30:00 68028800 157.82 154.75 155.47 157.37    157.37</span></code></pre></div>
+<span class="co">#&gt;                   date    volume   high    low   open  close adj_close</span>
+<span class="co">#&gt; 1  2022-09-01 13:30:00  74229900 158.42 154.67 156.64 157.96    157.96</span>
+<span class="co">#&gt; 2  2022-09-02 13:30:00  76905200 160.36 154.97 159.75 155.81    155.81</span>
+<span class="co">#&gt; 3  2022-09-06 13:30:00  73714800 157.09 153.69 156.47 154.53    154.53</span>
+<span class="co">#&gt; 4  2022-09-07 13:30:00  87449600 156.67 153.61 154.82 155.96    155.96</span>
+<span class="co">#&gt; 5  2022-09-08 13:30:00  84923800 156.36 152.68 154.64 154.46    154.46</span>
+<span class="co">#&gt; 6  2022-09-09 13:30:00  68028800 157.82 154.75 155.47 157.37    157.37</span>
+<span class="co">#&gt; 7  2022-09-12 13:30:00 104956000 164.26 159.30 159.59 163.43    163.43</span>
+<span class="co">#&gt; 8  2022-09-13 13:30:00 122656600 160.54 153.37 159.90 153.84    153.84</span>
+<span class="co">#&gt; 9  2022-09-14 13:30:00  87965400 157.10 153.61 154.79 155.31    155.31</span>
+<span class="co">#&gt; 10 2022-09-15 13:30:00  90481100 155.24 151.38 154.65 152.37    152.37</span>
+<span class="co">#&gt; 11 2022-09-16 13:30:00 162157000 151.35 148.37 151.21 150.70    150.70</span>
+<span class="co">#&gt; 12 2022-09-19 13:30:00  81328800 154.56 149.10 149.31 154.48    154.48</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="index">Index<a class="anchor" aria-label="anchor" href="#index"></a>
@@ -113,15 +119,21 @@
 
 <span class="co"># get historical data</span>
 <span class="va">nifty_50</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2022-09-01'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span>
-<span class="co">#&gt;                  date volume     high      low     open    close adj_close</span>
-<span class="co">#&gt; 1 2022-09-01 03:45:00 308500 17695.60 17468.45 17485.70 17542.80  17542.80</span>
-<span class="co">#&gt; 2 2022-09-02 03:45:00 256300 17643.85 17476.45 17598.40 17539.45  17539.45</span>
-<span class="co">#&gt; 3 2022-09-05 03:45:00 230300 17683.15 17540.35 17546.45 17665.80  17665.80</span>
-<span class="co">#&gt; 4 2022-09-06 03:45:00 251200 17764.65 17587.65 17695.70 17655.60  17655.60</span>
-<span class="co">#&gt; 5 2022-09-07 03:45:00 354100 17650.75 17484.30 17519.40 17624.40  17624.40</span>
-<span class="co">#&gt; 6 2022-09-08 03:45:00 279800 17807.65 17691.95 17748.15 17798.75  17798.75</span>
-<span class="co">#&gt; 7 2022-09-09 03:45:00 270300 17925.95 17786.00 17923.35 17833.35  17833.35</span>
-<span class="co">#&gt; 8 2022-09-12 06:20:57      0 17970.60 17889.15 17890.85 17952.60  17952.60</span></code></pre></div>
+<span class="co">#&gt;                   date volume     high      low     open    close adj_close</span>
+<span class="co">#&gt; 1  2022-09-01 03:45:00 308500 17695.60 17468.45 17485.70 17542.80  17542.80</span>
+<span class="co">#&gt; 2  2022-09-02 03:45:00 256300 17643.85 17476.45 17598.40 17539.45  17539.45</span>
+<span class="co">#&gt; 3  2022-09-05 03:45:00 230300 17683.15 17540.35 17546.45 17665.80  17665.80</span>
+<span class="co">#&gt; 4  2022-09-06 03:45:00 251200 17764.65 17587.65 17695.70 17655.60  17655.60</span>
+<span class="co">#&gt; 5  2022-09-07 03:45:00 354100 17650.75 17484.30 17519.40 17624.40  17624.40</span>
+<span class="co">#&gt; 6  2022-09-08 03:45:00 279800 17807.65 17691.95 17748.15 17798.75  17798.75</span>
+<span class="co">#&gt; 7  2022-09-09 03:45:00 270300 17925.95 17786.00 17923.35 17833.35  17833.35</span>
+<span class="co">#&gt; 8  2022-09-12 03:45:00 228200 17980.55 17889.15 17890.85 17936.35  17936.35</span>
+<span class="co">#&gt; 9  2022-09-13 03:45:00 259900 18088.30 18015.45 18044.45 18070.05  18070.05</span>
+<span class="co">#&gt; 10 2022-09-14 03:45:00 365900 18091.55 17771.15 17771.15 18003.75  18003.75</span>
+<span class="co">#&gt; 11 2022-09-15 03:45:00 289600 18096.15 17861.50 18046.35 17877.40  17877.40</span>
+<span class="co">#&gt; 12 2022-09-16 03:45:00 468500 17820.05 17497.25 17796.80 17530.85  17530.85</span>
+<span class="co">#&gt; 13 2022-09-19 03:45:00 258300 17667.20 17429.70 17540.65 17622.25  17622.25</span>
+<span class="co">#&gt; 14 2022-09-20 06:06:23      0 17879.65 17744.40 17770.40 17858.05  17858.05</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="currency">Currency<a class="anchor" aria-label="anchor" href="#currency"></a>
@@ -154,6 +166,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=yahoofinancer" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/rsquaredacademy/yahoofinancer/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/rsquaredacademy/yahoofinancer/issues" class="external-link">Report a bug</a></li>
 <li><a href="https://pkgs.rsquaredacademy.com" class="external-link">Our R packages</a></li>
@@ -196,9 +209,12 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://CRAN.R-project.org/package=yahoofinancer" class="external-link"><img src="https://www.r-pkg.org/badges/version/yahoofinancer" alt="CRAN status"></a></li>
+<li><a href="https://cran.r-project.org/web/checks/check_results_yahoofinancer.html" class="external-link"><img src="https://cranchecks.info/badges/summary/yahoofinancer" alt="cran checks"></a></li>
 <li><a href="https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://app.codecov.io/gh/rsquaredacademy/yahoofinancer?branch=master" class="external-link"><img src="https://codecov.io/gh/rsquaredacademy/yahoofinancer/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://CRAN.R-project.org/package=yahoofinancer" class="external-link"><img src="https://tinyverse.netlify.com/badge/yahoofinancer" alt="status"></a></li>
 </ul>
 </div>
 

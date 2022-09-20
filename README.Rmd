@@ -16,12 +16,15 @@ knitr::opts_chunk$set(
 # yahoofinancer
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/yahoofinancer)](https://CRAN.R-project.org/package=yahoofinancer)
+[![cran checks](https://cranchecks.info/badges/summary/yahoofinancer)](https://cran.r-project.org/web/checks/check_results_yahoofinancer.html)
 [![R-CMD-check](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Codecov test coverage](https://codecov.io/gh/rsquaredacademy/yahoofinancer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rsquaredacademy/yahoofinancer?branch=master)
+[![status](https://tinyverse.netlify.com/badge/yahoofinancer)](https://CRAN.R-project.org/package=yahoofinancer)
 <!-- badges: end -->
 
-The goal of yahoofinancer is to obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.
+Obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.
 
 ## Installation
 
