@@ -13,28 +13,9 @@ httptest::with_mock_api({
   })
 })
 
-
-httptest::with_mock_api({
-  test_that("output from index summary is as expected", {
-    testthat::skip_on_cran()
-    nifty <- Index$new('^NSEI')
-    trend <- nifty$summary_detail
-    expect_equal(length(trend), 54)
-    expect_equal(trend$symbol, "^NSEI")
-    expect_equal(trend$quoteType, "INDEX")
-    expect_equal(trend$currency, "INR")
-    expect_equal(trend$regularMarketPrice, 17558.9)
-    expect_equal(trend$shortName, "NIFTY 50")
-    expect_equal(trend$regularMarketDayHigh, 17685.85)
-    expect_equal(trend$regularMarketDayLow, 17519.35)
-    expect_equal(trend$fullExchangeName, "NSE")
-  })
-})
-
-
 test_that("index are properly validated", {
   testthat::skip_on_cran()
   nse <- Index$new("^NSEI")
-  expect_error(Index$new("^NSE"), "Not a valid index.")
-  expect_error(nse$set_index("^NSE"), "Not a valid index.")
+  expect_message(Index$new("^NSE"), "Not a valid index.")
+  expect_message(nse$set_index("^NSE"), "Not a valid index.")
 })

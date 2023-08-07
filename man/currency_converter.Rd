@@ -23,27 +23,27 @@ currency_converter(
 \item{end}{Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
 
 \item{period}{Length of time. Defaults to \code{'ytd'} Valid values are:
-\itemize{ 
-\item \code{'1d'} 
-\item \code{'5d'} 
-\item \code{'1mo'} 
-\item \code{'3mo'} 
-\item \code{'6mo'} 
+\itemize{
+\item \code{'1d'}
+\item \code{'5d'}
+\item \code{'1mo'}
+\item \code{'3mo'}
+\item \code{'6mo'}
 \item \code{'1y'}
 \item \code{'2y'}
-\item \code{'5y'} 
-\item \code{'10y'} 
-\item \code{'ytd'} 
+\item \code{'5y'}
+\item \code{'10y'}
+\item \code{'ytd'}
 \item \code{'max'}
 }}
 
 \item{interval}{Time between data points. Defaults to \code{'1d'} Valid values are:
 \itemize{
-\item \code{'1h'} 
-\item \code{'1d'} 
-\item \code{'5d'} 
-\item \code{'1wk'} 
-\item \code{'1mo'} 
+\item \code{'1h'}
+\item \code{'1d'}
+\item \code{'5d'}
+\item \code{'1wk'}
+\item \code{'1mo'}
 \item \code{'3mo'}
 }}
 }

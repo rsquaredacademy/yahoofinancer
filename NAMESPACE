@@ -3,7 +3,6 @@
 export(Index)
 export(Ticker)
 export(currency_converter)
-export(currency_summary)
 export(get_currencies)
 export(get_market_summary)
 export(get_trending)

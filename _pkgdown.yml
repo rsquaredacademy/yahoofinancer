@@ -54,7 +54,6 @@ reference:
     contents:
       - get_currencies
       - currency_converter
-      - currency_summary
 
   - title: Others
 

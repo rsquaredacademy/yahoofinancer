@@ -1,0 +1,96 @@
+{
+    "chart": {
+        "result": [
+            {
+                "meta": {
+                    "currency": "USD",
+                    "symbol": "AAPL",
+                    "exchangeName": "NMS",
+                    "instrumentType": "EQUITY",
+                    "firstTradeDate": 345479400,
+                    "regularMarketTime": 1691179201,
+                    "gmtoffset": -14400,
+                    "timezone": "EDT",
+                    "exchangeTimezoneName": "America/New_York",
+                    "regularMarketPrice": 181.99,
+                    "chartPreviousClose": 157.22,
+                    "priceHint": 2,
+                    "currentTradingPeriod": {
+                        "pre": {
+                            "timezone": "EDT",
+                            "start": 1691395200,
+                            "end": 1691415000,
+                            "gmtoffset": -14400
+                        },
+                        "regular": {
+                            "timezone": "EDT",
+                            "start": 1691415000,
+                            "end": 1691438400,
+                            "gmtoffset": -14400
+                        },
+                        "post": {
+                            "timezone": "EDT",
+                            "start": 1691438400,
+                            "end": 1691452800,
+                            "gmtoffset": -14400
+                        }
+                    },
+                    "dataGranularity": "1d",
+                    "range": "",
+                    "validRanges": [
+                        "1d",
+                        "5d",
+                        "1mo",
+                        "3mo",
+                        "6mo",
+                        "1y",
+                        "2y",
+                        "5y",
+                        "10y",
+                        "ytd",
+                        "max"
+                    ]
+                },
+                "timestamp": [
+                    1662039000,
+                    1662125400
+                ],
+                "indicators": {
+                    "quote": [
+                        {
+                            "high": [
+                                158.4199981689453,
+                                160.36000061035156
+                            ],
+                            "open": [
+                                156.63999938964844,
+                                159.75
+                            ],
+                            "volume": [
+                                74229900,
+                                76957800
+                            ],
+                            "close": [
+                                157.9600067138672,
+                                155.80999755859375
+                            ],
+                            "low": [
+                                154.6699981689453,
+                                154.97000122070312
+                            ]
+                        }
+                    ],
+                    "adjclose": [
+                        {
+                            "adjclose": [
+                                157.24049377441406,
+                                155.10028076171875
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "error": null
+    }
+}

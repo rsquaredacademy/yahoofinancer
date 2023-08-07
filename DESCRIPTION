@@ -1,7 +1,7 @@
 Package: yahoofinancer
 Type: Package
 Title: Fetch Data from Yahoo Finance API
-Version: 0.1.0.9000
+Version: 0.2.0
 Authors@R: person("Aravind", "Hebbali", email = "hebbali.aravind@gmail.com", role = c("aut", "cre"))
 Description: Obtain historical and near real time data related to stocks, index 
     and currencies from the Yahoo Finance API. This package is community maintained 
@@ -10,6 +10,7 @@ Description: Obtain historical and near real time data related to stocks, index
 Depends: 
     R(>= 3.4)
 Imports: 
+    curl,
     httr,
     jsonlite,
     lubridate,

@@ -44,13 +44,6 @@ nifty$get_history(period = '1mo', interval = '1d')
 }
 \if{html}{\out{</div>}}
 }
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{summary_detail}}{Contains information available via the Summary tab in Yahoo Finance}
-}
-\if{html}{\out{</div>}}
-}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{

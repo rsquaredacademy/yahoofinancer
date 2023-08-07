@@ -1,15 +1,15 @@
 #' R6 Class Representing a Ticker
-#' 
-#' @description 
+#'
+#' @description
 #' Base class for getting all data related to indices from Yahoo Finance API.
-#' 
+#'
 #' @param index Index for which data has to be retrieved.
-#' 
+#'
 #' @docType class
 #' @format An R6 class object
 #' @name Index-class
-#' 
-#' @export 
+#'
+#' @export
 Index <- R6::R6Class(
 
   "Index",
@@ -29,7 +29,8 @@ Index <- R6::R6Class(
       if (validate(index)) {
         self$index <- index
       } else {
-        stop("Not a valid index.", call. = FALSE)
+        message("Not a valid index.")
+        return(invisible(NULL))
       }
     },
 
@@ -43,11 +44,12 @@ Index <- R6::R6Class(
       if (validate(index)) {
         self$index <- index
       } else {
-        stop("Not a valid index.", call. = FALSE)
+        message("Not a valid index.")
+        return(invisible(NULL))
       }
     },
 
-    #' @description 
+    #' @description
     #' Retrieves historical data
     #' @param period Length of time. Defaults to \code{'ytd'}. Valid values are:
     #' \itemize{
@@ -79,8 +81,8 @@ Index <- R6::R6Class(
     #' \item \code{'1mo'}
     #' \item \code{'3mo'}
     #' }
-    #' @param start Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format. 
-    #' @param end Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format. 
+    #' @param start Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.
+    #' @param end Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.
     #' @return A \code{data.frame}.
     #' @examples
     #' \donttest{
@@ -92,11 +94,11 @@ Index <- R6::R6Class(
     get_history = function(period = 'ytd', interval = '1d', start = NULL, end = NULL) {
 
       if (!is.null(start)) {
-        start_date <- as.numeric(as.POSIXct(ymd(start)))
+        start_date <- as.numeric(as.POSIXct(ymd(start, tz = "UTC"), tz = "UTC"))
       }
 
       if (!is.null(end)) {
-        end_date <- as.numeric(as.POSIXct(ymd(end)))
+        end_date <- as.numeric(as.POSIXct(ymd(end, tz = "UTC"), tz = "UTC"))
       }
 
       path      <- 'v8/finance/chart/'
@@ -106,71 +108,74 @@ Index <- R6::R6Class(
       if (!is.null(start) && !is.null(end)) {
         qlist <- list(period1 = start_date, period2 = end_date, interval = interval)
       } else if (!is.null(start) && is.null(end)) {
-        qlist <- list(period1 = start_date, period2 = round(as.numeric(as.POSIXct(now()))), interval = interval)
+        qlist <- list(period1 = start_date, period2 = round(as.numeric(as.POSIXct(now("UTC")))), interval = interval)
       } else {
         qlist <- list(range = period, interval = interval)
       }
 
-      resp      <- GET(url, query = qlist)
-      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
-      
-      data <- 
-        parsed %>%
-        use_series(chart) %>%
-        use_series(result) %>%
-        extract2(1) 
-        
-      indicators <-
-        data %>%
-        use_series(indicators) %>%
-        use_series(quote) %>% 
-        extract2(1)
-
-      result <- data.frame(
-        date   = as_datetime(unlist(data$timestamp)),
-        volume = flatten_list(indicators$volume),
-        high   = flatten_list(indicators$high),
-        low    = flatten_list(indicators$low),
-        open   = flatten_list(indicators$open),
-        close  = flatten_list(indicators$close)
-      )
-
-      intervals <- c('1d', '5d', '1wk', '1mo', '3mo')
-
-      if (interval %in% intervals) {
-        adj_close <-
-          data %>%
-          use_series(indicators) %>%
-          use_series(adjclose) %>%
-          extract2(1) %>%
-          use_series(adjclose) %>%
-          unlist()
-
-        result$adj_close <- adj_close
-
+      if (!curl::has_internet()) {
+        message("No internet connection.")
+        return(invisible(NULL))
       }
 
-      result
+      resp      <- GET(url, query = qlist)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
-    }
-  ),
+      if (http_error(resp)) {
 
-  active = list(
+        message(
+          cat(
+            "Yahoo Finance API request failed", '\n',
+            paste('Status:', status_code(resp)), '\n',
+            paste('Type:', http_status(resp)$category), '\n',
+            paste('Mesage:', parsed$quoteSummary$error$code), '\n',
+            paste('Description:', parsed$quoteSummary$error$description, '\n'),
+            sep = ''
+          )
+        )
 
-    #' @field summary_detail Contains information available via the Summary tab in Yahoo Finance
-    summary_detail = function() {
-      
-      path   <- 'v7/finance/quote'
-      url    <- modify_url(url = private$base_url, path = path)
-      qlist  <- list(symbols = self$index)
-      resp   <- GET(url, query = qlist)
-      parsed <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
+        return(invisible(NULL))
+      } else {
 
-      parsed %>%
-        use_series(quoteResponse) %>%
-        use_series(result) %>%
-        extract2(1)
-        
+        data <-
+          parsed %>%
+          use_series(chart) %>%
+          use_series(result) %>%
+          extract2(1)
+
+        indicators <-
+          data %>%
+          use_series(indicators) %>%
+          use_series(quote) %>%
+          extract2(1)
+
+        result <- data.frame(
+          date   = as_datetime(unlist(data$timestamp)),
+          volume = flatten_list(indicators$volume),
+          high   = flatten_list(indicators$high),
+          low    = flatten_list(indicators$low),
+          open   = flatten_list(indicators$open),
+          close  = flatten_list(indicators$close)
+        )
+
+        intervals <- c('1d', '5d', '1wk', '1mo', '3mo')
+
+        if (interval %in% intervals) {
+          adj_close <-
+            data %>%
+            use_series(indicators) %>%
+            use_series(adjclose) %>%
+            extract2(1) %>%
+            use_series(adjclose) %>%
+            unlist()
+
+          result$adj_close <- adj_close
+
+        }
+
+        return(result)
+      }
+
     }
   ),
 

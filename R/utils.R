@@ -13,15 +13,21 @@
 validate <- function(symbol = NULL) {
 
   base_url <- 'https://query2.finance.yahoo.com'
-  path <- 'v6/finance/quote/validate'
-  url <- modify_url(url = base_url, path = path)
-  qlist     <- list(symbols = symbol)
-  resp      <- GET(url, query = qlist)
-  parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"),
+  path     <- 'v6/finance/quote/validate'
+  url      <- modify_url(url = base_url, path = path)
+  qlist    <- list(symbols = symbol)
+
+  if (!curl::has_internet()) {
+    message("No internet connection.")
+    return(invisible(NULL))
+  }
+  
+  resp     <- GET(url, query = qlist)
+  parsed   <- fromJSON(content(resp, "text", encoding = "UTF-8"),
                         simplifyVector = FALSE)
 
   if (http_error(resp)) {
-    stop(
+    message(
       cat(
         "Yahoo Finance API request failed", '\n',
         paste('Status:', status_code(resp)), '\n',
@@ -29,8 +35,9 @@ validate <- function(symbol = NULL) {
         paste('Mesage:', parsed$quoteSummary$error$code), '\n',
         paste('Description:', parsed$quoteSummary$error$description, '\n'),
         sep = ''
-      ),
-      call. = FALSE)
+      )
+    )
+    return(invisible(NULL))
   } else {
     parsed %>%
       use_series(symbolsValidation) %>%
@@ -39,4 +46,8 @@ validate <- function(symbol = NULL) {
       extract2(1)
   }
 
+}
+
+flatten_list <- function(x) {
+  unlist(lapply(x, function(m) ifelse(is.null(m), NA, m)))
 }
