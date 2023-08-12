@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">yahoofinancer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -506,7 +506,11 @@ nifty$get_history(period = '1mo', interval = '1d')
 <span class="r-out co"><span class="r-pr">#&gt;</span> 270 2023-08-02 03:45:00 290700 19678.25 19423.55 19655.40 19526.55  19526.55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 271 2023-08-03 03:45:00 315700 19537.65 19296.45 19463.75 19381.65  19381.65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 272 2023-08-04 03:45:00 280800 19538.85 19436.45 19462.80 19517.00  19517.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 273 2023-08-07 10:01:48      0 19620.45 19524.80 19576.85 19597.30  19597.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 273 2023-08-07 03:45:00 216600 19620.45 19524.80 19576.85 19597.30  19597.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 274 2023-08-08 03:45:00 260300 19634.40 19533.10 19627.20 19570.85  19570.85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 275 2023-08-09 03:45:00 266500 19645.50 19467.50 19578.80 19632.55  19632.55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 276 2023-08-10 03:45:00 312200 19623.60 19495.40 19605.55 19543.10  19543.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 277 2023-08-11 03:45:00 235500 19557.75 19412.75 19554.25 19428.30  19428.30</span>
 <span class="r-in"><span class="va">nifty</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2022-07-01'</span>, end <span class="op">=</span> <span class="st">'2022-07-14'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                  date volume     high      low     open    close adj_close</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2022-07-01 03:45:00 364100 15793.95 15511.05 15703.70 15752.05  15752.05</span>
@@ -520,28 +524,30 @@ nifty$get_history(period = '1mo', interval = '1d')
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9 2022-07-13 03:45:00 233300 16140.00 15950.15 16128.20 15966.65  15966.65</span>
 <span class="r-in"><span class="va">nifty</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>period <span class="op">=</span> <span class="st">'1mo'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   date volume     high      low     open    close adj_close</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2023-07-07 03:45:00 237100 19523.60 19303.60 19422.80 19331.80  19331.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2023-07-10 03:45:00 268200 19435.85 19327.10 19400.35 19355.90  19355.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2023-07-11 03:45:00 251300 19515.10 19406.45 19427.10 19439.40  19439.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2023-07-12 03:45:00 327900 19507.70 19361.75 19497.45 19384.30  19384.30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2023-07-13 03:45:00 310400 19567.00 19385.80 19495.20 19413.75  19413.75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2023-07-14 03:45:00 291200 19595.35 19433.50 19493.45 19564.50  19564.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2023-07-17 03:45:00 268700 19731.85 19562.95 19612.15 19711.45  19711.45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2023-07-18 03:45:00 286400 19819.45 19690.20 19787.50 19749.25  19749.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2023-07-19 03:45:00 259700 19851.70 19727.45 19802.95 19833.15  19833.15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2023-07-20 03:45:00 274700 19991.85 19758.40 19831.70 19979.15  19979.15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2023-07-21 03:45:00 312500 19887.40 19700.00 19800.45 19745.00  19745.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2023-07-24 03:45:00 265600 19782.75 19658.30 19748.45 19672.35  19672.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2023-07-25 03:45:00 369700 19729.35 19615.95 19729.35 19680.60  19680.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2023-07-26 03:45:00 244700 19825.60 19716.70 19733.35 19778.30  19778.30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2023-07-27 03:45:00 334900 19867.55 19603.55 19850.90 19659.90  19659.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2023-07-28 03:45:00 258700 19695.90 19563.10 19659.75 19646.05  19646.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2023-07-31 03:45:00 295100 19772.75 19597.60 19666.35 19753.80  19753.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2023-08-01 03:45:00 298000 19795.60 19704.60 19784.00 19733.55  19733.55</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2023-08-02 03:45:00 290700 19678.25 19423.55 19655.40 19526.55  19526.55</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2023-08-03 03:45:00 315700 19537.65 19296.45 19463.75 19381.65  19381.65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2023-08-04 03:45:00 280800 19538.85 19436.45 19462.80 19517.00  19517.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2023-08-07 10:01:48      0 19620.45 19524.80 19576.85 19597.30  19597.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2023-07-11 03:45:00 251300 19515.10 19406.45 19427.10 19439.40  19439.40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2023-07-12 03:45:00 327900 19507.70 19361.75 19497.45 19384.30  19384.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2023-07-13 03:45:00 310400 19567.00 19385.80 19495.20 19413.75  19413.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2023-07-14 03:45:00 291200 19595.35 19433.50 19493.45 19564.50  19564.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2023-07-17 03:45:00 268700 19731.85 19562.95 19612.15 19711.45  19711.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2023-07-18 03:45:00 286400 19819.45 19690.20 19787.50 19749.25  19749.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2023-07-19 03:45:00 259700 19851.70 19727.45 19802.95 19833.15  19833.15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2023-07-20 03:45:00 274700 19991.85 19758.40 19831.70 19979.15  19979.15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2023-07-21 03:45:00 312500 19887.40 19700.00 19800.45 19745.00  19745.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2023-07-24 03:45:00 265600 19782.75 19658.30 19748.45 19672.35  19672.35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2023-07-25 03:45:00 369700 19729.35 19615.95 19729.35 19680.60  19680.60</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2023-07-26 03:45:00 244700 19825.60 19716.70 19733.35 19778.30  19778.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2023-07-27 03:45:00 334900 19867.55 19603.55 19850.90 19659.90  19659.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2023-07-28 03:45:00 258700 19695.90 19563.10 19659.75 19646.05  19646.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2023-07-31 03:45:00 295100 19772.75 19597.60 19666.35 19753.80  19753.80</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2023-08-01 03:45:00 298000 19795.60 19704.60 19784.00 19733.55  19733.55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2023-08-02 03:45:00 290700 19678.25 19423.55 19655.40 19526.55  19526.55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2023-08-03 03:45:00 315700 19537.65 19296.45 19463.75 19381.65  19381.65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2023-08-04 03:45:00 280800 19538.85 19436.45 19462.80 19517.00  19517.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2023-08-07 03:45:00 216600 19620.45 19524.80 19576.85 19597.30  19597.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2023-08-08 03:45:00 260300 19634.40 19533.10 19627.20 19570.85  19570.85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2023-08-09 03:45:00 266500 19645.50 19467.50 19578.80 19632.55  19632.55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2023-08-10 03:45:00 312200 19623.60 19495.40 19605.55 19543.10  19543.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2023-08-11 03:45:00 235500 19557.75 19412.75 19554.25 19428.30  19428.30</span>
 <span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
