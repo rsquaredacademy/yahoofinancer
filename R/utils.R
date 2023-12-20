@@ -21,7 +21,7 @@ validate <- function(symbol = NULL) {
     message("No internet connection.")
     return(invisible(NULL))
   }
-  
+
   resp     <- GET(url, query = qlist)
   parsed   <- fromJSON(content(resp, "text", encoding = "UTF-8"),
                         simplifyVector = FALSE)
@@ -50,4 +50,10 @@ validate <- function(symbol = NULL) {
 
 flatten_list <- function(x) {
   unlist(lapply(x, function(m) ifelse(is.null(m), NA, m)))
+}
+
+get_metric <- function(data, metric) {
+  data[[metric]] %>%
+    map(., ~ifelse(is.null(.x), NA, .x)) %>%
+    unlist()
 }

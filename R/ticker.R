@@ -155,11 +155,11 @@ Ticker <- R6::R6Class(
 
         result <- data.frame(
           date   = as_datetime(unlist(data$timestamp)),
-          volume = unlist(indicators$volume),
-          high   = unlist(indicators$high),
-          low    = unlist(indicators$low),
-          open   = unlist(indicators$open),
-          close  = unlist(indicators$close)
+          volume = get_metric(indicators, 'volume'),
+          high   = get_metric(indicators, 'high'),
+          low    = get_metric(indicators, 'low'),
+          open   = get_metric(indicators, 'open'),
+          close  = get_metric(indicators, 'close')
         )
 
         intervals <- c('1d', '5d', '1wk', '1mo', '3mo')
@@ -170,8 +170,7 @@ Ticker <- R6::R6Class(
             use_series(indicators) %>%
             use_series(adjclose) %>%
             extract2(1) %>%
-            use_series(adjclose) %>%
-            unlist()
+            use_series(adjclose)
 
           result$adj_close <- adj_close
 
