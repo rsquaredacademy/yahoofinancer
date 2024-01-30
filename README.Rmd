@@ -17,22 +17,21 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/yahoofinancer)](https://CRAN.R-project.org/package=yahoofinancer)
-[![cran checks](https://badges.cranchecks.info/summary/yahoofinancer.svg)](https://cran.r-project.org/web/checks/check_results_yahoofinancer.html)
 [![R-CMD-check](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml)
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Codecov test coverage](https://codecov.io/gh/rsquaredacademy/yahoofinancer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rsquaredacademy/yahoofinancer?branch=master)
-[![status](https://tinyverse.netlify.com/badge/yahoofinancer)](https://CRAN.R-project.org/package=yahoofinancer)
 <!-- badges: end -->
 
 Obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.
 
 ## Installation
 
-You can install the development version of yahoofinancer from [GitHub](https://github.com/) with:
+```{r gh-installation, eval = FALSE}
+# Install rfm from CRAN
+install.packages("yahoofinancer")
 
-``` r
-# install.packages("devtools")
-devtools::install_github("rsquaredacademy/yahoofinancer")
+# Or the development version from GitHub
+# install.packages("pak")
+pak::pak("rsquaredacademy/yahoofinancer")
 ```
 
 ## Quick Start
@@ -50,7 +49,7 @@ To retrieve data from Yahoo Finance for a single stock, create an instance of th
 aapl <- Ticker$new('aapl')
 
 # get historical market data
-aapl$get_history(start = '2023-08-01', interval = '1d')
+aapl$get_history(start = '2024-01-15', interval = '1d')
 ```
 
 ### Index 
@@ -61,13 +60,13 @@ To retrieve data from Yahoo Finance for an index, create an instance of the `Ind
 nifty_50 <- Index$new('^NSEI')
 
 # get historical data
-nifty_50$get_history(start = '2023-08-01', interval = '1d')
+nifty_50$get_history(start = '2024-01-15', interval = '1d')
 ```
 
 ### Currency
 
 ```{r currency}
-currency_converter('GBP', 'USD', '2023-08-01', '2023-08-04')
+currency_converter('GBP', 'USD', '2024-01-15', '2023-08-04')
 ```
 
 ## IMPORTANT LEGAL DISCLAIMER 

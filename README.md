@@ -7,14 +7,9 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/yahoofinancer)](https://CRAN.R-project.org/package=yahoofinancer)
-[![cran
-checks](https://badges.cranchecks.info/summary/yahoofinancer.svg)](https://cran.r-project.org/web/checks/check_results_yahoofinancer.html)
 [![R-CMD-check](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rsquaredacademy/yahoofinancer/actions/workflows/R-CMD-check.yaml)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Codecov test
 coverage](https://codecov.io/gh/rsquaredacademy/yahoofinancer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rsquaredacademy/yahoofinancer?branch=master)
-[![status](https://tinyverse.netlify.com/badge/yahoofinancer)](https://CRAN.R-project.org/package=yahoofinancer)
 <!-- badges: end -->
 
 Obtain historical and near real time data related to stocks, index and
@@ -22,12 +17,13 @@ currencies from the Yahoo Finance API.
 
 ## Installation
 
-You can install the development version of yahoofinancer from
-[GitHub](https://github.com/) with:
-
 ``` r
-# install.packages("devtools")
-devtools::install_github("rsquaredacademy/yahoofinancer")
+# Install rfm from CRAN
+install.packages("yahoofinancer")
+
+# Or the development version from GitHub
+# install.packages("pak")
+pak::pak("rsquaredacademy/yahoofinancer")
 ```
 
 ## Quick Start
@@ -42,13 +38,18 @@ an argument:
 aapl <- Ticker$new('aapl')
 
 # get historical market data
-aapl$get_history(start = '2023-08-01', interval = '1d')
-#>                  date    volume   high    low   open  close adj_close
-#> 1 2023-08-01 13:30:00  35175100 196.73 195.28 196.24 195.61    195.61
-#> 2 2023-08-02 13:30:00  50389300 195.18 191.85 195.04 192.58    192.58
-#> 3 2023-08-03 13:30:00  61235200 192.37 190.69 191.57 191.17    191.17
-#> 4 2023-08-04 13:30:00 115799700 187.38 181.92 185.52 181.99    181.99
-#> 5 2023-08-07 13:50:28  19412704 183.13 178.80 182.13 178.93    178.93
+aapl$get_history(start = '2024-01-15', interval = '1d')
+#>                   date   volume   high    low   open  close adj_close
+#> 1  2024-01-16 14:30:00 65603000 184.26 180.93 182.16 183.63    183.63
+#> 2  2024-01-17 14:30:00 47317400 182.93 180.30 181.27 182.68    182.68
+#> 3  2024-01-18 14:30:00 78005800 189.14 185.83 186.09 188.63    188.63
+#> 4  2024-01-19 14:30:00 68741000 191.95 188.82 189.33 191.56    191.56
+#> 5  2024-01-22 14:30:00 60133900 195.33 192.26 192.30 193.89    193.89
+#> 6  2024-01-23 14:30:00 42355600 195.75 193.83 195.02 195.18    195.18
+#> 7  2024-01-24 14:30:00 53631300 196.38 194.34 195.42 194.50     194.5
+#> 8  2024-01-25 14:30:00 54822100 196.27 193.11 195.22 194.17    194.17
+#> 9  2024-01-26 14:30:00 44553400 194.76 191.94 194.27 192.42    192.42
+#> 10 2024-01-29 14:30:00 47042500 192.20 189.58 192.01 191.73    191.73
 ```
 
 ### Index
@@ -60,24 +61,31 @@ the `Index` class by passing the index symbol as an argument:
 nifty_50 <- Index$new('^NSEI')
 
 # get historical data
-nifty_50$get_history(start = '2023-08-01', interval = '1d')
-#>                  date volume     high      low     open    close adj_close
-#> 1 2023-08-01 03:45:00 298000 19795.60 19704.60 19784.00 19733.55  19733.55
-#> 2 2023-08-02 03:45:00 290700 19678.25 19423.55 19655.40 19526.55  19526.55
-#> 3 2023-08-03 03:45:00 315700 19537.65 19296.45 19463.75 19381.65  19381.65
-#> 4 2023-08-04 03:45:00 280800 19538.85 19436.45 19462.80 19517.00  19517.00
-#> 5 2023-08-07 10:01:48      0 19620.45 19524.80 19576.85 19597.30  19597.30
+nifty_50$get_history(start = '2024-01-15', interval = '1d')
+#>                   date volume     high      low     open    close adj_close
+#> 1  2024-01-15 03:45:00 345500 22115.55 21963.55 22053.15 22097.45  22097.45
+#> 2  2024-01-16 03:45:00 292400 22124.15 21969.80 22080.50 22032.30   22032.3
+#> 3  2024-01-17 03:45:00 456000 21851.50 21550.45 21647.25 21571.95  21571.95
+#> 4  2024-01-18 03:45:00 387300 21539.40 21285.55 21414.20 21462.25  21462.25
+#> 5  2024-01-19 03:45:00 343100 21670.60 21575.00 21615.20 21622.40   21622.4
+#> 6  2024-01-22 03:45:00     NA       NA       NA       NA       NA      NULL
+#> 7  2024-01-23 03:45:00 449700 21750.25 21192.60 21716.70 21238.80   21238.8
+#> 8  2024-01-24 03:45:00 407500 21482.35 21137.20 21185.25 21453.95  21453.95
+#> 9  2024-01-25 03:45:00 418100 21459.00 21247.05 21454.60 21352.60   21352.6
+#> 10 2024-01-29 03:45:00 376700 21763.25 21429.60 21433.10 21737.60   21737.6
+#> 11 2024-01-30 07:40:04      0 21813.05 21655.25 21775.75 21674.95  21674.95
 ```
 
 ### Currency
 
 ``` r
-currency_converter('GBP', 'USD', '2023-08-01', '2023-08-04')
-#>                  date     high      low     open    close volume adj_close
-#> 1 2023-07-31 23:00:00 1.283862 1.274161 1.283203 1.283401      0  1.283401
-#> 2 2023-08-01 23:00:00 1.279738 1.268183 1.279116 1.279574      0  1.279574
-#> 3 2023-08-02 23:00:00 1.272848 1.262594 1.271763 1.272038      0  1.272038
-#> 4 2023-08-03 23:00:00 1.278266 1.269164 1.271617 1.271634      0  1.271634
+currency_converter('GBP', 'USD', '2024-01-15', '2023-08-04')
+#> Yahoo Finance API request failed
+#> Status: 400
+#> Type: Client error
+#> Mesage: 
+#> Description:
+#> 
 ```
 
 ## IMPORTANT LEGAL DISCLAIMER
