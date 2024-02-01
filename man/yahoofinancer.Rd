@@ -3,6 +3,8 @@
 \docType{package}
 \name{yahoofinancer}
 \alias{yahoofinancer}
+\alias{_PACKAGE}
+\alias{yahoofinancer-package}
 \title{\code{yahoofinancer} package}
 \description{
 Fetch Data from Yahoo Finance API
@@ -10,5 +12,18 @@ Fetch Data from Yahoo Finance API
 \details{
 See the README on
 \href{https://github.com/rsquaredacademy/yahoofinancer}{GitHub}
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://yahoofinancer.rsquaredacademy.com/}
+  \item \url{https://github.com/rsquaredacademy/yahoofinancer}
+  \item Report bugs at \url{https://github.com/rsquaredacademy/yahoofinancer/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Aravind Hebbali \email{hebbali.aravind@gmail.com}
+
 }
 \keyword{internal}

@@ -28,4 +28,4 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://yahoofinancer.rsquaredacademy.com/, https://github.com/rsquaredacademy/yahoofinancer
 BugReports: https://github.com/rsquaredacademy/yahoofinancer/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3

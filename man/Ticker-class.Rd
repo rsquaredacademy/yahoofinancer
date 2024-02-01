@@ -66,15 +66,15 @@ aapl$get_history(period = '1mo', interval = '1d')
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Ticker$new()}}
-\item \href{#method-set_symbol}{\code{Ticker$set_symbol()}}
-\item \href{#method-get_history}{\code{Ticker$get_history()}}
-\item \href{#method-clone}{\code{Ticker$clone()}}
+\item \href{#method-Ticker-new}{\code{Ticker$new()}}
+\item \href{#method-Ticker-set_symbol}{\code{Ticker$set_symbol()}}
+\item \href{#method-Ticker-get_history}{\code{Ticker$get_history()}}
+\item \href{#method-Ticker-clone}{\code{Ticker$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Ticker-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new Ticker object.
 \subsection{Usage}{
@@ -101,8 +101,8 @@ A new `Ticker` object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_symbol"></a>}}
-\if{latex}{\out{\hypertarget{method-set_symbol}{}}}
+\if{html}{\out{<a id="method-Ticker-set_symbol"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-set_symbol}{}}}
 \subsection{Method \code{set_symbol()}}{
 Set a new symbol.
 \subsection{Usage}{
@@ -127,8 +127,8 @@ aapl$set_symbol('msft')
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_history"></a>}}
-\if{latex}{\out{\hypertarget{method-get_history}{}}}
+\if{html}{\out{<a id="method-Ticker-get_history"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-get_history}{}}}
 \subsection{Method \code{get_history()}}{
 Retrieves historical pricing data.
 \subsection{Usage}{
@@ -194,8 +194,8 @@ aapl$get_history(period = '1mo', interval = '1d')
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Ticker-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -47,15 +47,15 @@ nifty$get_history(period = '1mo', interval = '1d')
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Index$new()}}
-\item \href{#method-set_index}{\code{Index$set_index()}}
-\item \href{#method-get_history}{\code{Index$get_history()}}
-\item \href{#method-clone}{\code{Index$clone()}}
+\item \href{#method-Index-new}{\code{Index$new()}}
+\item \href{#method-Index-set_index}{\code{Index$set_index()}}
+\item \href{#method-Index-get_history}{\code{Index$get_history()}}
+\item \href{#method-Index-clone}{\code{Index$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Index-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Index-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new Index object
 \subsection{Usage}{
@@ -82,8 +82,8 @@ A new `Index` object
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_index"></a>}}
-\if{latex}{\out{\hypertarget{method-set_index}{}}}
+\if{html}{\out{<a id="method-Index-set_index"></a>}}
+\if{latex}{\out{\hypertarget{method-Index-set_index}{}}}
 \subsection{Method \code{set_index()}}{
 Set a new index.
 \subsection{Usage}{
@@ -108,8 +108,8 @@ indice$set_index('^NDX')
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_history"></a>}}
-\if{latex}{\out{\hypertarget{method-get_history}{}}}
+\if{html}{\out{<a id="method-Index-get_history"></a>}}
+\if{latex}{\out{\hypertarget{method-Index-get_history}{}}}
 \subsection{Method \code{get_history()}}{
 Retrieves historical data
 \subsection{Usage}{
@@ -175,8 +175,8 @@ nifty$get_history(period = '1mo', interval = '1d')
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Index-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Index-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
