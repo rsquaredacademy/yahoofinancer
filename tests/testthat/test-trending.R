@@ -1,4 +1,4 @@
-if (requireNamespace("httptest", quietyly = TRUE)) {
+if (requireNamespace("httptest", quietly = TRUE)) {
   httptest::with_mock_api({
     test_that("output from trending securities is as expected", {
       testthat::skip_on_cran()
