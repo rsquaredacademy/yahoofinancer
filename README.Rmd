@@ -49,7 +49,7 @@ To retrieve data from Yahoo Finance for a single stock, create an instance of th
 aapl <- Ticker$new('aapl')
 
 # get historical market data
-aapl$get_history(start = '2024-01-15', interval = '1d')
+aapl$get_history(start = '2024-01-20', interval = '1d')
 ```
 
 ### Index 
@@ -60,13 +60,13 @@ To retrieve data from Yahoo Finance for an index, create an instance of the `Ind
 nifty_50 <- Index$new('^NSEI')
 
 # get historical data
-nifty_50$get_history(start = '2024-01-15', interval = '1d')
+nifty_50$get_history(start = '2024-01-20', interval = '1d')
 ```
 
 ### Currency
 
 ```{r currency}
-currency_converter('GBP', 'USD', '2024-01-15', '2023-08-04')
+currency_converter('GBP', 'USD', '2024-01-20', '2024-01-30')
 ```
 
 ## IMPORTANT LEGAL DISCLAIMER 
