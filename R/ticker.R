@@ -333,7 +333,83 @@ Ticker <- R6::R6Class(
 
       }
 
+    },
+
+
+    #' @field currency Currency 
+    currency = function() {
+      private$meta_info() %>% use_series(currency)
+    },
+
+    #' @field exchange_name Exchange name 
+    exchange_name = function() {
+      private$meta_info() %>% use_series(exchangeName)
+    },
+
+    #' @field full_exchange_name Full exchange name 
+    full_exchange_name = function() {
+      private$meta_info() %>% use_series(fullExchangeName)
+    },
+
+    #' @field first_trade_date First trade date 
+    first_trade_date = function() {
+      private$meta_info() %>% 
+        use_series(firstTradeDate) %>%
+          as_datetime()
+    },
+
+    #' @field regular_market_time Regular market time
+    regular_market_time = function() {
+      private$meta_info() %>% 
+        use_series(regularMarketTime) %>%
+          as_datetime()
+    },
+
+    #' @field timezone Time zone 
+    timezone = function() {
+      private$meta_info() %>% use_series(timezone)
+    },
+
+    #' @field exchange_timezone_name Exchange timezone name 
+    exchange_timezone_name = function() {
+      private$meta_info() %>% use_series(exchangeTimezoneName)
+    },
+
+    #' @field regular_market_price Regular market price 
+    regular_market_price = function() {
+      private$meta_info() %>% use_series(regularMarketPrice)
+    },
+
+    #' @field fifty_two_week_high Fifty two week high 
+    fifty_two_week_high = function() {
+      private$meta_info() %>% use_series(fiftyTwoWeekHigh)
+    },
+    
+    #' @field fifty_two_week_low Fifty two week low
+    fifty_two_week_low = function() {
+      private$meta_info() %>% use_series(fiftyTwoWeekLow)
+    },
+
+    #' @field regular_market_day_high Regular market day high 
+    regular_market_day_high = function() {
+      private$meta_info() %>% use_series(regularMarketDayHigh)
+    },
+
+    #' @field regular_market_day_low Regular market day low
+    regular_market_day_low = function() {
+      private$meta_info() %>% use_series(regularMarketDayLow)
+    },
+
+    #' @field regular_market_volume Regular market volume
+    regular_market_volume = function() {
+      private$meta_info() %>% use_series(regularMarketVolume)
+    },
+
+    #' @field previous_close Previous close 
+    previous_close = function() {
+      private$meta_info() %>% use_series(previousClose)
     }
+    
   ),
 
   private = list(
@@ -382,6 +458,46 @@ Ticker <- R6::R6Class(
         map_depth(2, 'reportedValue') %>%
         map_depth(2, 'raw') %>%
         unlist()
+    },
+
+    meta_info = function() {
+
+      path      <- 'v8/finance/chart/'
+      end_point <- paste0(path, self$symbol)
+      url       <- modify_url(url = private$base_url, path = end_point)
+
+
+      if (!curl::has_internet()) {
+        message("No internet connection.")
+        return(invisible(NULL))
+      }
+
+      resp      <- GET(url)
+      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
+
+      if (http_error(resp)) {
+
+        message(
+          cat(
+            "Yahoo Finance API request failed", '\n',
+            paste('Status:', status_code(resp)), '\n',
+            paste('Type:', http_status(resp)$category), '\n',
+            paste('Mesage:', parsed$quoteSummary$error$code), '\n',
+            paste('Description:', parsed$quoteSummary$error$description, '\n'),
+            sep = ''
+          )
+        )
+
+        return(invisible(NULL))
+      } else {
+
+        parsed %>%
+          use_series(chart) %>%
+          use_series(result) %>%
+          extract2(1) %>%
+          use_series(meta)
+
+      }
     }
   )
 )

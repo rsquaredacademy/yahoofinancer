@@ -52,6 +52,34 @@ aapl$get_history(period = '1mo', interval = '1d')
 \item{\code{recommendations}}{Recommended symbols}
 
 \item{\code{technical_insights}}{Technical indicators for given symbol}
+
+\item{\code{currency}}{Currency}
+
+\item{\code{exchange_name}}{Exchange name}
+
+\item{\code{full_exchange_name}}{Full exchange name}
+
+\item{\code{first_trade_date}}{First trade date}
+
+\item{\code{regular_market_time}}{Regular market time}
+
+\item{\code{timezone}}{Time zone}
+
+\item{\code{exchange_timezone_name}}{Exchange timezone name}
+
+\item{\code{regular_market_price}}{Regular market price}
+
+\item{\code{fifty_two_week_high}}{Fifty two week high}
+
+\item{\code{fifty_two_week_low}}{Fifty two week low}
+
+\item{\code{regular_market_day_high}}{Regular market day high}
+
+\item{\code{regular_market_day_low}}{Regular market day low}
+
+\item{\code{regular_market_volume}}{Regular market volume}
+
+\item{\code{previous_close}}{Previous close}
 }
 \if{html}{\out{</div>}}
 }

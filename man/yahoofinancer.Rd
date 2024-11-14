@@ -3,7 +3,6 @@
 \docType{package}
 \name{yahoofinancer}
 \alias{yahoofinancer}
-\alias{_PACKAGE}
 \alias{yahoofinancer-package}
 \title{\code{yahoofinancer} package}
 \description{
