@@ -417,37 +417,6 @@ Ticker <- R6::R6Class(
     path = 'v10/finance/quoteSummary/',
     cors_domain = 'finance.yahoo.com',
 
-    # resp_data = function(symbol, module) {
-    #   end_point <- paste0(private$path, symbol)
-    #   url       <- modify_url(url = private$base_url, path = end_point)
-    #   qlist     <- list(modules = module, corsDomain = private$cors_domain)
-    #   resp      <- GET(url, query = qlist)
-    #   parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
-    #   list(resp = resp, parsed = parsed)
-    # },
-
-    # parse_data = function(parsed) {
-    #   parsed %>%
-    #     use_series(quoteSummary) %>%
-    #     use_series(result) %>%
-    #     extract2(1)
-    # },
-
-    # display_error = function(resp, parsed) {
-    #   cat(
-    #     "Yahoo Finance API request failed", '\n',
-    #     paste('Status:', status_code(resp)), '\n',
-    #     paste('Type:', http_status(resp)$category), '\n',
-    #     paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-    #     paste('Description:', parsed$quoteSummary$error$description, '\n'),
-    #     sep = ''
-    #   )
-    # },
-
-    # display_data = function(req) {
-    #   private$parse_data(req$parsed)
-    # },
-
     snake_case = function(x) {
       paste0('_', tolower(x))
     },
