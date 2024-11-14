@@ -49,12 +49,6 @@ aapl$get_history(period = '1mo', interval = '1d')
 \describe{
 \item{\code{valuation_measures}}{Retrieves valuation measures for most recent four quarters}
 
-\item{\code{option_chain}}{Option chain data for all expiration dates for a given symbol}
-
-\item{\code{option_expiration_dates}}{Option expiration dates}
-
-\item{\code{option_strikes}}{Option strikes}
-
 \item{\code{recommendations}}{Recommended symbols}
 
 \item{\code{technical_insights}}{Technical indicators for given symbol}
