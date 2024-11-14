@@ -49,7 +49,7 @@ To retrieve data from Yahoo Finance for a single stock, create an instance of th
 aapl <- Ticker$new('aapl')
 
 # get historical market data
-head(aapl$get_history(start = '2024-01-20', interval = '1d'))
+head(aapl$get_history(start = '2024-10-20', interval = '1d'))
 
 # meta info
 # regular market price

@@ -1,3 +1,5 @@
+# yahoofinancer 0.4.0.9000
+
 # yahoofinancer 0.4.0
 
 This is a minor release for bug fixes and other improvements.
