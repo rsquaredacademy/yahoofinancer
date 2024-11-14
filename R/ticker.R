@@ -402,49 +402,6 @@ Ticker <- R6::R6Class(
 
     },
 
-    #' @field quote Get real-time quote information for given symbol
-    quote = function() {
-
-      path      <- 'v7/finance/options/'
-      end_point <- paste0(path, self$symbol)
-      url       <- modify_url(url = private$base_url, path = end_point)
-      qlist     <- list(getAllData = 'True', corsDomain = private$cors_domain)
-
-      if (!curl::has_internet()) {
-        message("No internet connection.")
-        return(invisible(NULL))
-      }
-
-      resp      <- GET(url, query = qlist)
-      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"),
-                            simplifyVector = FALSE)
-
-      if (http_error(resp)) {
-
-        message(
-          cat(
-            "Yahoo Finance API request failed", '\n',
-            paste('Status:', status_code(resp)), '\n',
-            paste('Type:', http_status(resp)$category), '\n',
-            paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-            paste('Description:', parsed$quoteSummary$error$description, '\n'),
-            sep = ''
-          )
-        )
-
-        return(invisible(NULL))
-      } else {
-
-        parsed %>%
-          use_series(optionChain) %>%
-          use_series(result) %>%
-          extract2(1) %>%
-          use_series(quote)
-
-      }
-
-    },
-
     #' @field recommendations Recommended symbols
     recommendations = function() {
 
