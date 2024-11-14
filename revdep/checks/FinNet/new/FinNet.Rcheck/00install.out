@@ -1,0 +1,25 @@
+* installing *source* package 'FinNet' ...
+** package 'FinNet' successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: 'G__~1.EXE (GCC) 13.2.0'
+g++ -std=gnu++17  -I"C:/PROGRA~1/R/R-44~1.1/include" -DNDEBUG  -I'F:/R/Packages/finance/yahoofinancer/revdep/library/FinNet/Rcpp/include'   -I"C:/rtools44/x86_64-w64-mingw32.static.posix/include"     -O2 -Wall  -mfpmath=sse -msse2 -mstackrealign  -c RcppExports.cpp -o RcppExports.o
+g++ -std=gnu++17  -I"C:/PROGRA~1/R/R-44~1.1/include" -DNDEBUG  -I'F:/R/Packages/finance/yahoofinancer/revdep/library/FinNet/Rcpp/include'   -I"C:/rtools44/x86_64-w64-mingw32.static.posix/include"     -O2 -Wall  -mfpmath=sse -msse2 -mstackrealign  -c SCC2.cpp -o SCC2.o
+g++ -std=gnu++17 -shared -s -static-libgcc -o FinNet.dll tmp.def RcppExports.o SCC2.o -LC:/rtools44/x86_64-w64-mingw32.static.posix/lib/x64 -LC:/rtools44/x86_64-w64-mingw32.static.posix/lib -LC:/PROGRA~1/R/R-44~1.1/bin/x64 -lR
+installing to F:/R/Packages/finance/yahoofinancer/revdep/checks/FinNet/new/FinNet.Rcheck/00LOCK-FinNet/00new/FinNet/libs/x64
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+Creating a generic function for 'rownames' from package 'base' in package 'FinNet'
+Creating a generic function for 'colnames' from package 'base' in package 'FinNet'
+Creating a generic function for 'ncol' from package 'base' in package 'FinNet'
+Creating a generic function for 'nrow' from package 'base' in package 'FinNet'
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (FinNet)

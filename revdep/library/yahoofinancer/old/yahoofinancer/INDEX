@@ -1,0 +1,7 @@
+Index-class             R6 Class Representing a Ticker
+Ticker-class            R6 Class Representing a Ticker
+currency_converter      Currency converter
+get_currencies          Currencies
+get_market_summary      Market Summary
+get_trending            Trending securities
+validate                Symbol validation

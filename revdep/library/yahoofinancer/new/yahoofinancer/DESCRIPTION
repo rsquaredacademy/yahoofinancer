@@ -1,0 +1,26 @@
+Package: yahoofinancer
+Type: Package
+Title: Fetch Data from Yahoo Finance API
+Version: 0.4.0
+Authors@R: person("Aravind", "Hebbali", email = "hebbali.aravind@gmail.com", role = c("aut", "cre"))
+Description: Obtain historical and near real time data related to stocks, index 
+    and currencies from the Yahoo Finance API. This package is community maintained 
+    and is not officially supported by 'Yahoo'. The accuracy of data is only as 
+    correct as provided on <https://finance.yahoo.com/>.
+Depends: R(>= 3.4)
+Imports: curl, httr, jsonlite, lubridate, magrittr, purrr, R6, stringr
+Suggests: covr, httptest, testthat (>= 3.0.0)
+Config/testthat/edition: 3
+License: MIT + file LICENSE
+Encoding: UTF-8
+URL: https://yahoofinancer.rsquaredacademy.com/,
+        https://github.com/rsquaredacademy/yahoofinancer
+BugReports: https://github.com/rsquaredacademy/yahoofinancer/issues
+RoxygenNote: 7.3.2
+RemoteType: local
+RemoteUrl: F:\R\Packages\finance\yahoofinancer
+NeedsCompilation: no
+Packaged: 2024-11-14 15:25:08 UTC; HP
+Author: Aravind Hebbali [aut, cre]
+Maintainer: Aravind Hebbali <hebbali.aravind@gmail.com>
+Built: R 4.4.1; ; 2024-11-14 15:25:13 UTC; windows
