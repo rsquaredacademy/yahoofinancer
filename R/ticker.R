@@ -577,7 +577,7 @@ Ticker <- R6::R6Class(
 
     extract_valuation = function(data, measure) {
       data %>%
-        map_if(function(x) 'quarterlyEnterpriseValue' %in% names(x), 'quarterlyEnterpriseValue') %>%
+        map_if(function(x) measure %in% names(x), measure) %>%
         map_depth(2, 'reportedValue') %>%
         map_depth(2, 'raw') %>%
         unlist()
