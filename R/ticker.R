@@ -170,7 +170,8 @@ Ticker <- R6::R6Class(
             use_series(indicators) %>%
             use_series(adjclose) %>%
             extract2(1) %>%
-            use_series(adjclose)
+            use_series(adjclose) %>%
+            unlist()
 
           result$adj_close <- adj_close
 
