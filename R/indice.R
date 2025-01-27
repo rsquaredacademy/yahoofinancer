@@ -1,4 +1,4 @@
-#' R6 Class Representing a Ticker
+#' R6 Class Representing an Index
 #'
 #' @description
 #' Base class for getting all data related to indices from Yahoo Finance API.
@@ -7,7 +7,7 @@
 #'
 #' @docType class
 #' @format An R6 class object
-#' @name Index-class
+#' @name Indice-class
 #'
 #' @export
 Index <- R6::R6Class(

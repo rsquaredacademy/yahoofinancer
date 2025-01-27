@@ -49,7 +49,6 @@
   <meta name="twitter:image:height" content="300" />
   <meta name="twitter:creator" content="@rsquaredacademy" />
   <meta name="twitter:domain" content="yahoofinancer.rsquaredacademy.com" />
-  <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -123,19 +122,19 @@
 <code class="sourceCode R"><span><span class="va">aapl</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ticker-class.html">Ticker</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'aapl'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get historical market data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aapl</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-01-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aapl</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-10-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                  date   volume   high    low   open  close adj_close</span></span>
-<span><span class="co">#&gt; 1 2024-01-22 14:30:00 60133900 195.33 192.26 192.30 193.89  192.9447</span></span>
-<span><span class="co">#&gt; 2 2024-01-23 14:30:00 42355600 195.75 193.83 195.02 195.18  194.2285</span></span>
-<span><span class="co">#&gt; 3 2024-01-24 14:30:00 53631300 196.38 194.34 195.42 194.50  193.5518</span></span>
-<span><span class="co">#&gt; 4 2024-01-25 14:30:00 54822100 196.27 193.11 195.22 194.17  193.2234</span></span>
-<span><span class="co">#&gt; 5 2024-01-26 14:30:00 44594000 194.76 191.94 194.27 192.42  191.4819</span></span>
-<span><span class="co">#&gt; 6 2024-01-29 14:30:00 47145600 192.20 189.58 192.01 191.73  190.7953</span></span>
+<span><span class="co">#&gt; 1 2024-10-21 13:30:00 36254500 236.85 234.45 234.45 236.48  236.2201</span></span>
+<span><span class="co">#&gt; 2 2024-10-22 13:30:00 38846600 236.22 232.60 233.89 235.86  235.6008</span></span>
+<span><span class="co">#&gt; 3 2024-10-23 13:30:00 52287000 235.14 227.76 234.08 230.76  230.5064</span></span>
+<span><span class="co">#&gt; 4 2024-10-24 13:30:00 31109500 230.82 228.41 229.98 230.57  230.3166</span></span>
+<span><span class="co">#&gt; 5 2024-10-25 13:30:00 38802300 233.22 229.57 229.74 231.41  231.1557</span></span>
+<span><span class="co">#&gt; 6 2024-10-28 13:30:00 36087100 234.73 232.55 233.32 233.40  233.1435</span></span>
 <span></span>
 <span><span class="co"># meta info</span></span>
 <span><span class="co"># regular market price</span></span>
 <span><span class="va">aapl</span><span class="op">$</span><span class="va">regular_market_price</span></span>
-<span><span class="co">#&gt; [1] 226.655</span></span>
+<span><span class="co">#&gt; [1] 226.425</span></span>
 <span></span>
 <span><span class="co"># 52 week high</span></span>
 <span><span class="va">aapl</span><span class="op">$</span><span class="va">fifty_two_week_high</span></span>
@@ -150,7 +149,7 @@
 </h3>
 <p>To retrieve data from Yahoo Finance for an index, create an instance of the <code>Index</code> class by passing the index symbol as an argument:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Index-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Indice-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get historical data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nifty_50</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-01-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>
