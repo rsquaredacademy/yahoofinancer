@@ -7,7 +7,7 @@
 #'
 #' @importFrom magrittr %>% use_series extract2 extract
 #' @importFrom jsonlite fromJSON
-#' @import R6 httr purrr lubridate stringr
+#' @import R6 httr purrr lubridate
 #' @docType class
 #' @format An R6 class object
 #' @name Ticker-class
