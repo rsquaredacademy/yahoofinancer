@@ -141,17 +141,17 @@ Ticker <- R6::R6Class(
         return(invisible(NULL))
       } else {
 
-        data <-
-          parsed %>%
-          use_series(chart) %>%
-          use_series(result) %>%
-          extract2(1)
+        data <- parsed$chart$result[[1]]
+          # parsed %>%
+          # use_series(chart) %>%
+          # use_series(result) %>%
+          # extract2(1)
 
-        indicators <-
-          data %>%
-          use_series(indicators) %>%
-          use_series(quote) %>%
-          extract2(1)
+        indicators <- data$indicators$quote[[1]]
+          # data %>%
+          # use_series(indicators) %>%
+          # use_series(quote) %>%
+          # extract2(1)
 
         result <- data.frame(
           date   = as_datetime(unlist(data$timestamp)),
@@ -165,13 +165,13 @@ Ticker <- R6::R6Class(
         intervals <- c('1d', '5d', '1wk', '1mo', '3mo')
 
         if (interval %in% intervals) {
-          adj_close <-
-            data %>%
-            use_series(indicators) %>%
-            use_series(adjclose) %>%
-            extract2(1) %>%
-            use_series(adjclose) %>%
-            unlist()
+          adj_close <- unlist(data$indicators$adjclose[[1]]$adjclose)
+            # data %>%
+            # use_series(indicators) %>%
+            # use_series(adjclose) %>%
+            # extract2(1) %>%
+            # use_series(adjclose) %>%
+            # unlist()
 
           result$adj_close <- adj_close
 
@@ -226,10 +226,10 @@ Ticker <- R6::R6Class(
         return(invisible(NULL))
       } else {
 
-        data <-
-          parsed %>%
-          use_series(timeseries) %>%
-          use_series(result)
+        data <- parsed$timeseries$result
+          # parsed %>%
+          # use_series(timeseries) %>%
+          # use_series(result)
 
         data.frame(
           date = date(as_datetime(unlist(data[[1]]$timestamp))),
@@ -280,17 +280,22 @@ Ticker <- R6::R6Class(
         return(invisible(NULL))
       } else {
 
-        data <-
-          parsed %>%
-          use_series(finance) %>%
-          use_series(result) %>%
-          extract2(1) %>%
-          use_series(recommendedSymbols)
+        data <- parsed$finance$result[[1]]$recommendedSymbols
 
         data.frame(
-          symbol = map_chr(data, 'symbol'),
-          score = map_dbl(data, 'score')
+          symbol = vapply(data, FUN = function(x) x$symbol, FUN.VALUE = character(1)),
+          score = vapply(data, FUN = function(x) x$score, FUN.VALUE = numeric(1))
         )
+          # parsed %>%
+          # use_series(finance) %>%
+          # use_series(result) %>%
+          # extract2(1) %>%
+          # use_series(recommendedSymbols)
+
+        # data.frame(
+        #   symbol = map_chr(data, 'symbol'),
+        #   score = map_dbl(data, 'score')
+        # )
 
       }
 
@@ -327,10 +332,11 @@ Ticker <- R6::R6Class(
 
         return(invisible(NULL))
       } else {
-
-        parsed %>%
-          use_series(finance) %>%
-          use_series(result)
+        
+        parsed$finance$result
+        # parsed %>%
+        #   use_series(finance) %>%
+        #   use_series(result)
 
       }
 
@@ -339,76 +345,72 @@ Ticker <- R6::R6Class(
 
     #' @field currency Currency 
     currency = function() {
-      private$meta_info() %>% use_series(currency)
+      private$meta_info()$currency
     },
 
     #' @field exchange_name Exchange name 
     exchange_name = function() {
-      private$meta_info() %>% use_series(exchangeName)
+      private$meta_info()$exchangeName
     },
 
     #' @field full_exchange_name Full exchange name 
     full_exchange_name = function() {
-      private$meta_info() %>% use_series(fullExchangeName)
+      private$meta_info()$fullExchangeName
     },
 
     #' @field first_trade_date First trade date 
     first_trade_date = function() {
-      private$meta_info() %>% 
-        use_series(firstTradeDate) %>%
-          as_datetime()
+      as_datetime(private$meta_info()$firstTradeDate)
     },
 
     #' @field regular_market_time Regular market time
     regular_market_time = function() {
-      private$meta_info() %>% 
-        use_series(regularMarketTime) %>%
-          as_datetime()
+      as_datetime(private$meta_info()$regularMarketTime)
     },
 
     #' @field timezone Time zone 
     timezone = function() {
-      private$meta_info() %>% use_series(timezone)
+      private$meta_info()$timezone
     },
 
     #' @field exchange_timezone_name Exchange timezone name 
     exchange_timezone_name = function() {
-      private$meta_info() %>% use_series(exchangeTimezoneName)
+      private$meta_info()$exchangeTimezoneName
     },
 
     #' @field regular_market_price Regular market price 
     regular_market_price = function() {
-      private$meta_info() %>% use_series(regularMarketPrice)
+      private$meta_info()$regularMarketPrice
     },
 
     #' @field fifty_two_week_high Fifty two week high 
     fifty_two_week_high = function() {
-      private$meta_info() %>% use_series(fiftyTwoWeekHigh)
+      private$meta_info()$fiftyTwoWeekHigh
     },
     
     #' @field fifty_two_week_low Fifty two week low
     fifty_two_week_low = function() {
-      private$meta_info() %>% use_series(fiftyTwoWeekLow)
+      private$meta_info()$fiftyTwoWeekLow
     },
 
     #' @field regular_market_day_high Regular market day high 
     regular_market_day_high = function() {
-      private$meta_info() %>% use_series(regularMarketDayHigh)
+      private$meta_info()$regularMarketDayHigh
     },
 
     #' @field regular_market_day_low Regular market day low
     regular_market_day_low = function() {
-      private$meta_info() %>% use_series(regularMarketDayLow)
+      private$meta_info()$regularMarketDayLow
     },
 
     #' @field regular_market_volume Regular market volume
     regular_market_volume = function() {
-      private$meta_info() %>% use_series(regularMarketVolume)
+      private$meta_info()$regularMarketVolume
     },
 
     #' @field previous_close Previous close 
     previous_close = function() {
-      private$meta_info() %>% use_series(previousClose)
+      private$meta_info()$previousClose
     }
     
   ),
@@ -460,12 +462,13 @@ Ticker <- R6::R6Class(
 
         return(invisible(NULL))
       } else {
-
-        parsed %>%
-          use_series(chart) %>%
-          use_series(result) %>%
-          extract2(1) %>%
-          use_series(meta)
+        
+        parsed$chart$result[[1]]$meta
+        # parsed %>%
+        #   use_series(chart) %>%
+        #   use_series(result) %>%
+        #   extract2(1) %>%
+        #   use_series(meta)
 
       }
     }
