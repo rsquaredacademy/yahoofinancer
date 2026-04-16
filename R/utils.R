@@ -39,11 +39,7 @@ validate <- function(symbol = NULL) {
     )
     return(invisible(NULL))
   } else {
-    parsed %>%
-      use_series(symbolsValidation) %>%
-      use_series(result) %>%
-      extract2(1) %>%
-      extract2(1)
+    parsed$symbolsValidation$result[[1]][[1]]
   }
 
 }

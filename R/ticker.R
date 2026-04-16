@@ -142,16 +142,8 @@ Ticker <- R6::R6Class(
       } else {
 
         data <- parsed$chart$result[[1]]
-          # parsed %>%
-          # use_series(chart) %>%
-          # use_series(result) %>%
-          # extract2(1)
 
         indicators <- data$indicators$quote[[1]]
-          # data %>%
-          # use_series(indicators) %>%
-          # use_series(quote) %>%
-          # extract2(1)
 
         result <- data.frame(
           date   = as_datetime(unlist(data$timestamp)),
@@ -166,15 +158,7 @@ Ticker <- R6::R6Class(
 
         if (interval %in% intervals) {
           adj_close <- unlist(data$indicators$adjclose[[1]]$adjclose)
-            # data %>%
-            # use_series(indicators) %>%
-            # use_series(adjclose) %>%
-            # extract2(1) %>%
-            # use_series(adjclose) %>%
-            # unlist()
-
           result$adj_close <- adj_close
-
         }
 
         return(result)
@@ -227,9 +211,6 @@ Ticker <- R6::R6Class(
       } else {
 
         data <- parsed$timeseries$result
-          # parsed %>%
-          # use_series(timeseries) %>%
-          # use_series(result)
 
         data.frame(
           date = date(as_datetime(unlist(data[[1]]$timestamp))),
@@ -286,17 +267,6 @@ Ticker <- R6::R6Class(
           symbol = vapply(data, FUN = function(x) x$symbol, FUN.VALUE = character(1)),
           score = vapply(data, FUN = function(x) x$score, FUN.VALUE = numeric(1))
         )
-          # parsed %>%
-          # use_series(finance) %>%
-          # use_series(result) %>%
-          # extract2(1) %>%
-          # use_series(recommendedSymbols)
-
-        # data.frame(
-        #   symbol = map_chr(data, 'symbol'),
-        #   score = map_dbl(data, 'score')
-        # )
-
       }
 
     },
@@ -334,10 +304,6 @@ Ticker <- R6::R6Class(
       } else {
         
         parsed$finance$result
-        # parsed %>%
-        #   use_series(finance) %>%
-        #   use_series(result)
-
       }
 
     },
@@ -462,14 +428,7 @@ Ticker <- R6::R6Class(
 
         return(invisible(NULL))
       } else {
-        
         parsed$chart$result[[1]]$meta
-        # parsed %>%
-        #   use_series(chart) %>%
-        #   use_series(result) %>%
-        #   extract2(1) %>%
-        #   use_series(meta)
-
       }
     }
   )

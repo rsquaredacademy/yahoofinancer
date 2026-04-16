@@ -137,17 +137,9 @@ Index <- R6::R6Class(
         return(invisible(NULL))
       } else {
 
-        data <-
-          parsed %>%
-          use_series(chart) %>%
-          use_series(result) %>%
-          extract2(1)
+        data <- parsed$chart$result[[1]]
 
-        indicators <-
-          data %>%
-          use_series(indicators) %>%
-          use_series(quote) %>%
-          extract2(1)
+        indicators <- data$indicators$quote[[1]]
 
         result <- data.frame(
           date   = as_datetime(unlist(data$timestamp)),
@@ -161,12 +153,7 @@ Index <- R6::R6Class(
         intervals <- c('1d', '5d', '1wk', '1mo', '3mo')
 
         if (interval %in% intervals) {
-          adj_close <-
-            data %>%
-            use_series(indicators) %>%
-            use_series(adjclose) %>%
-            extract2(1) %>%
-            use_series(adjclose)
+          adj_close <- data$indicators$adjclose[[1]]$adjclose
 
           result$adj_close <- adj_close
 
