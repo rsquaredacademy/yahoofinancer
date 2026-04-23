@@ -302,29 +302,29 @@ Ticker <- R6::R6Class(
 
         return(invisible(NULL))
       } else {
-        
+
         parsed$finance$result
       }
 
     },
 
 
-    #' @field currency Currency 
+    #' @field currency Currency
     currency = function() {
       private$meta_info()$currency
     },
 
-    #' @field exchange_name Exchange name 
+    #' @field exchange_name Exchange name
     exchange_name = function() {
       private$meta_info()$exchangeName
     },
 
-    #' @field full_exchange_name Full exchange name 
+    #' @field full_exchange_name Full exchange name
     full_exchange_name = function() {
       private$meta_info()$fullExchangeName
     },
 
-    #' @field first_trade_date First trade date 
+    #' @field first_trade_date First trade date
     first_trade_date = function() {
       as_datetime(private$meta_info()$firstTradeDate)
     },
@@ -334,32 +334,32 @@ Ticker <- R6::R6Class(
       as_datetime(private$meta_info()$regularMarketTime)
     },
 
-    #' @field timezone Time zone 
+    #' @field timezone Time zone
     timezone = function() {
       private$meta_info()$timezone
     },
 
-    #' @field exchange_timezone_name Exchange timezone name 
+    #' @field exchange_timezone_name Exchange timezone name
     exchange_timezone_name = function() {
       private$meta_info()$exchangeTimezoneName
     },
 
-    #' @field regular_market_price Regular market price 
+    #' @field regular_market_price Regular market price
     regular_market_price = function() {
       private$meta_info()$regularMarketPrice
     },
 
-    #' @field fifty_two_week_high Fifty two week high 
+    #' @field fifty_two_week_high Fifty two week high
     fifty_two_week_high = function() {
       private$meta_info()$fiftyTwoWeekHigh
     },
-    
+
     #' @field fifty_two_week_low Fifty two week low
     fifty_two_week_low = function() {
       private$meta_info()$fiftyTwoWeekLow
     },
 
-    #' @field regular_market_day_high Regular market day high 
+    #' @field regular_market_day_high Regular market day high
     regular_market_day_high = function() {
       private$meta_info()$regularMarketDayHigh
     },
@@ -374,11 +374,11 @@ Ticker <- R6::R6Class(
       private$meta_info()$regularMarketVolume
     },
 
-    #' @field previous_close Previous close 
+    #' @field previous_close Previous close
     previous_close = function() {
       private$meta_info()$previousClose
     }
-    
+
   ),
 
   private = list(
