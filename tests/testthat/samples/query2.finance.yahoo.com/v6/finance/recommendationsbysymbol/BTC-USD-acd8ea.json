@@ -1,0 +1,32 @@
+{
+    "finance": {
+        "result": [
+            {
+                "symbol": "BTC-USD",
+                "recommendedSymbols": [
+                    {
+                        "symbol": "ETH-USD",
+                        "score": 0.280128
+                    },
+                    {
+                        "symbol": "DOGE-USD",
+                        "score": 0.129662
+                    },
+                    {
+                        "symbol": "NFLX",
+                        "score": 0.128321
+                    },
+                    {
+                        "symbol": "XRP-USD",
+                        "score": 0.113321
+                    },
+                    {
+                        "symbol": "AMD",
+                        "score": 0.104397
+                    }
+                ]
+            }
+        ],
+        "error": null
+    }
+}

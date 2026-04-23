@@ -11,6 +11,7 @@ Depends:
     R(>= 3.4)
 Imports: 
     curl,
+    dplyr,
     httr,
     jsonlite,
     lubridate,
@@ -26,4 +27,4 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://yahoofinancer.rsquaredacademy.com/, https://github.com/rsquaredacademy/yahoofinancer
 BugReports: https://github.com/rsquaredacademy/yahoofinancer/issues
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
