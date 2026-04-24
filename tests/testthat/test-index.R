@@ -21,3 +21,15 @@ test_that("index are properly validated", {
   expect_message(Index$new("^NSE"), "Not a valid index.")
   expect_message(nse$set_index("^NSE"), "Not a valid index.")
 })
+
+test_that("Index class retrieves data correctly", {
+  # Happy path for a standard index (^GSPC is the S&P 500)
+  sp500 <- Index$new("^GSPC")
+  expect_equal(sp500$index, "^GSPC")
+  
+  # Check data retrieval
+  df <- sp500$get_history(period = "5d", interval = "1d")
+  expect_s3_class(df, "data.frame")
+  expect_true(nrow(df) > 0)
+})
+

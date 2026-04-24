@@ -32,10 +32,8 @@ Ticker <- R6::R6Class(
       if (validate(symbol)) {
         self$symbol <- symbol
       } else {
-        message("Not a valid symbol.")
-        return(invisible(NULL))
+        stop("Not a valid symbol.", call. = FALSE)
       }
-
     },
 
     #' @description
@@ -48,71 +46,43 @@ Ticker <- R6::R6Class(
       if (validate(symbol)) {
         self$symbol <- symbol
       } else {
-        message("Not a valid symbol.")
-        return(invisible(NULL))
+        stop("Not a valid symbol.", call. = FALSE)
       }
     },
 
     #' @description
     #' Retrieves historical pricing data.
-    #' @param period Length of time. Defaults to \code{'ytd'}. Valid values are:
-    #' \itemize{
-    #' \item \code{'1d'}
-    #' \item \code{'5d'}
-    #' \item \code{'1mo'}
-    #' \item \code{'3mo'}
-    #' \item \code{'6mo'}
-    #' \item \code{'1y'}
-    #' \item \code{'2y'}
-    #' \item \code{'5y'}
-    #' \item \code{'10y'}
-    #' \item \code{'ytd'}
-    #' \item \code{'max'}
-    #' }
-    #' @param interval Time between data points. Defaults to \code{'1d'}. Valid values are:
-    #' \itemize{
-    #' \item \code{'1m'}
-    #' \item \code{'2m'}
-    #' \item \code{'5m'}
-    #' \item \code{'15m'}
-    #' \item \code{'30m'}
-    #' \item \code{'60m'}
-    #' \item \code{'90m'}
-    #' \item \code{'1h'}
-    #' \item \code{'1d'}
-    #' \item \code{'5d'}
-    #' \item \code{'1wk'}
-    #' \item \code{'1mo'}
-    #' \item \code{'3mo'}
-    #' }
-    #' @param start Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.
-    #' @param end Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.
+    #' @param period Length of time. Defaults to \code{'ytd'}.
+    #' @param interval Time between data points. Defaults to \code{'1d'}.
+    #' @param start Specific starting date. \code{String} or \code{date} object.
+    #' @param end Specific ending date. \code{String} or \code{date} object.
     #' @return A \code{data.frame}.
-    #' @examples
-    #' \donttest{
-    #' aapl <- Ticker$new('aapl')
-    #' aapl$get_history(start = '2022-07-01', interval = '1d')
-    #' aapl$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
-    #' aapl$get_history(period = '1mo', interval = '1d')
-    #' }
     get_history = function(period = 'ytd', interval = '1d', start = NULL, end = NULL) {
 
       if (!is.null(start)) {
-        start_date <- as.numeric(as.POSIXct(ymd(start, tz = "UTC"), tz = "UTC"))
+        start_dt <- lubridate::ymd(start, tz = "UTC", quiet = TRUE)
+        if (is.na(start_dt)) {
+          stop("Invalid 'start' date format. Please use 'YYYY-MM-DD'.", call. = FALSE)
+        }
+        start_date <- as.numeric(as.POSIXct(start_dt, tz = "UTC"))
       }
 
       if (!is.null(end)) {
-        end_date <- as.numeric(as.POSIXct(ymd(end, tz = "UTC"), tz = "UTC"))
+        end_dt <- lubridate::ymd(end, tz = "UTC", quiet = TRUE)
+        if (is.na(end_dt)) {
+          stop("Invalid 'end' date format. Please use 'YYYY-MM-DD'.", call. = FALSE)
+        }
+        end_date <- as.numeric(as.POSIXct(end_dt, tz = "UTC"))
       }
 
       path      <- 'v8/finance/chart/'
       end_point <- paste0(path, self$symbol)
-      url       <- modify_url(url = private$base_url, path = end_point)
+      url       <- httr::modify_url(url = private$base_url, path = end_point)
 
       if (!is.null(start) && !is.null(end)) {
         qlist <- list(period1 = start_date, period2 = end_date, interval = interval)
       } else if (!is.null(start) && is.null(end)) {
-        qlist <- list(period1 = start_date, period2 = round(as.numeric(as.POSIXct(now("UTC")))), interval = interval)
+        qlist <- list(period1 = start_date, period2 = floor(as.numeric(Sys.time())), interval = interval)
       } else {
         qlist <- list(range = period, interval = interval)
       }
@@ -122,67 +92,52 @@ Ticker <- R6::R6Class(
         return(invisible(NULL))
       }
 
-      resp      <- GET(url, query = qlist)
-      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
+      resp   <- httr::GET(url, query = qlist)
+      parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
-      if (http_error(resp)) {
-
-        message(
-          cat(
-            "Yahoo Finance API request failed", '\n',
-            paste('Status:', status_code(resp)), '\n',
-            paste('Type:', http_status(resp)$category), '\n',
-            paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-            paste('Description:', parsed$quoteSummary$error$description, '\n'),
-            sep = ''
-          )
-        )
-
+      if (httr::http_error(resp)) {
+        err_desc <- if (!is.null(parsed$chart$error$description)) parsed$chart$error$description else "Unknown Error"
+        warning(sprintf("Yahoo Finance API failed [%s]: %s", httr::status_code(resp), err_desc), call. = FALSE)
         return(invisible(NULL))
-      } else {
-
-        data <- parsed$chart$result[[1]]
-
-        indicators <- data$indicators$quote[[1]]
-
-        result <- data.frame(
-          date   = as_datetime(unlist(data$timestamp)),
-          volume = get_metric(indicators, 'volume'),
-          high   = get_metric(indicators, 'high'),
-          low    = get_metric(indicators, 'low'),
-          open   = get_metric(indicators, 'open'),
-          close  = get_metric(indicators, 'close')
-        )
-
-        intervals <- c('1d', '5d', '1wk', '1mo', '3mo')
-
-        if (interval %in% intervals) {
-          adj_close <- unlist(data$indicators$adjclose[[1]]$adjclose)
-          result$adj_close <- adj_close
-        }
-
-        return(result)
       }
 
+      data <- parsed$chart$result[[1]]
+      if (is.null(data$timestamp)) return(data.frame())
+
+      indicators <- data$indicators$quote[[1]]
+
+      result <- data.frame(
+        date   = lubridate::as_datetime(unlist(data$timestamp)),
+        volume = get_metric(indicators, 'volume'),
+        high   = get_metric(indicators, 'high'),
+        low    = get_metric(indicators, 'low'),
+        open   = get_metric(indicators, 'open'),
+        close  = get_metric(indicators, 'close'),
+        stringsAsFactors = FALSE
+      )
+
+      if (interval %in% c('1d', '5d', '1wk', '1mo', '3mo')) {
+        adj_close <- unlist(data$indicators$adjclose[[1]]$adjclose)
+        if (length(adj_close) == nrow(result)) result$adj_close <- adj_close
+      }
+
+      return(result)
     }
   ),
 
   active = list(
 
-    #' @field valuation_measures Retrieves valuation measures for most recent four quarters
+    #' @field valuation_measures Retrieves valuation measures
     valuation_measures = function() {
-
       path      <- 'ws/fundamentals-timeseries/v1/finance/timeseries/'
       end_point <- paste0(path, self$symbol)
-      url       <- modify_url(url = private$base_url, path = end_point)
+      url       <- httr::modify_url(url = private$base_url, path = end_point)
 
       measure   <- paste0('quarterly', c('MarketCap', 'EnterpriseValue', 'PeRatio', 'ForwardPeRatio',
                                          'PegRatio', 'PsRatio', 'PbRatio', 'EnterprisesValueRevenueRatio',
                                          'EnterprisesValueEBITDARatio'), collapse = ',')
 
-      qlist <- list(type = measure,
-                    period1 = 493590046,
-                    period2 = round(as.numeric(now())),
+      qlist <- list(type = measure, period1 = 493590046, period2 = floor(as.numeric(Sys.time())),
                     corsDomain = private$cors_domain)
 
       if (!curl::has_internet()) {
@@ -190,246 +145,111 @@ Ticker <- R6::R6Class(
         return(invisible(NULL))
       }
 
-      resp   <- GET(url, query = qlist)
-      parsed <- fromJSON(content(resp, "text", encoding = "UTF-8"),
-                         simplifyVector = FALSE)
+      resp   <- httr::GET(url, query = qlist)
+      parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
-      if (http_error(resp)) {
-
-        message(
-          cat(
-            "Yahoo Finance API request failed", '\n',
-            paste('Status:', status_code(resp)), '\n',
-            paste('Type:', http_status(resp)$category), '\n',
-            paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-            paste('Description:', parsed$quoteSummary$error$description, '\n'),
-            sep = ''
-          )
-        )
-
+      if (httr::http_error(resp)) {
+        warning("Yahoo Finance API request failed.", call. = FALSE)
         return(invisible(NULL))
-      } else {
-
-        data <- parsed$timeseries$result
-
-        data.frame(
-          date = date(as_datetime(unlist(data[[1]]$timestamp))),
-          enterprise_value = private$extract_valuation(data, 'quarterlyEnterpriseValue'),
-          enterprise_value_ebitda_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueEBITDARatio'),
-          enterprise_value_revenue_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueRevenueRatio'),
-          forward_pe_ratio = private$extract_valuation(data, 'quarterlyForwardPeRatio'),
-          market_cap = private$extract_valuation(data, 'quarterlyMarketCap'),
-          pb_ratio = private$extract_valuation(data, 'quarterlyPbRatio'),
-          pe_ratio = private$extract_valuation(data, 'quarterlyPeRatio'),
-          peg_ratio = private$extract_valuation(data, 'quarterlyPegRatio'),
-          ps_ratio = private$extract_valuation(data, 'quarterlyPsRatio')
-        )
       }
 
+      data <- parsed$timeseries$result
+      if (length(data) == 0) return(NULL)
+
+      data.frame(
+        date = lubridate::date(lubridate::as_datetime(unlist(data[[1]]$timestamp))),
+        enterprise_value = private$extract_valuation(data, 'quarterlyEnterpriseValue'),
+        enterprise_value_ebitda_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueEBITDARatio'),
+        enterprise_value_revenue_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueRevenueRatio'),
+        forward_pe_ratio = private$extract_valuation(data, 'quarterlyForwardPeRatio'),
+        market_cap = private$extract_valuation(data, 'quarterlyMarketCap'),
+        pb_ratio = private$extract_valuation(data, 'quarterlyPbRatio'),
+        pe_ratio = private$extract_valuation(data, 'quarterlyPeRatio'),
+        peg_ratio = private$extract_valuation(data, 'quarterlyPegRatio'),
+        ps_ratio = private$extract_valuation(data, 'quarterlyPsRatio'),
+        stringsAsFactors = FALSE
+      )
     },
 
-    #' @field recommendations Recommended symbols
     recommendations = function() {
-
       path      <- 'v6/finance/recommendationsbysymbol/'
       end_point <- paste0(path, self$symbol)
-      url       <- modify_url(url = private$base_url, path = end_point)
-      qlist     <- list(corsDomain = private$cors_domain)
+      url       <- httr::modify_url(url = private$base_url, path = end_point)
 
-      if (!curl::has_internet()) {
-        message("No internet connection.")
-        return(invisible(NULL))
-      }
+      if (!curl::has_internet()) return(invisible(NULL))
 
-      resp      <- GET(url, query = qlist)
-      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"),
-                            simplifyVector = FALSE)
+      resp   <- httr::GET(url, query = list(corsDomain = private$cors_domain))
+      parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
-      if (http_error(resp)) {
+      if (httr::http_error(resp)) return(invisible(NULL))
 
-        message(
-          cat(
-            "Yahoo Finance API request failed", '\n',
-            paste('Status:', status_code(resp)), '\n',
-            paste('Type:', http_status(resp)$category), '\n',
-            paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-            paste('Description:', parsed$quoteSummary$error$description, '\n'),
-            sep = ''
-          )
-        )
+      data <- parsed$finance$result[[1]]$recommendedSymbols
+      if (length(data) == 0) return(data.frame())
 
-        return(invisible(NULL))
-      } else {
-
-        data <- parsed$finance$result[[1]]$recommendedSymbols
-
-        data.frame(
-          symbol = vapply(data, FUN = function(x) x$symbol, FUN.VALUE = character(1)),
-          score = vapply(data, FUN = function(x) x$score, FUN.VALUE = numeric(1))
-        )
-      }
-
+      data.frame(
+        symbol = vapply(data, function(x) x$symbol, character(1)),
+        score = vapply(data, function(x) x$score, numeric(1)),
+        stringsAsFactors = FALSE
+      )
     },
 
-    #' @field technical_insights Technical indicators for given symbol
     technical_insights = function() {
+      path  <- 'ws/insights/v2/finance/insights'
+      url   <- httr::modify_url(url = private$base_url, path = path)
+      qlist <- list(symbol = self$symbol, corsDomain = private$cors_domain)
 
-      path      <- 'ws/insights/v2/finance/insights'
-      url       <- modify_url(url = private$base_url, path = path)
-      qlist     <- list(symbol = self$symbol, corsDomain = private$cors_domain)
+      if (!curl::has_internet()) return(invisible(NULL))
 
-      if (!curl::has_internet()) {
-        message("No internet connection.")
-        return(invisible(NULL))
-      }
+      resp   <- httr::GET(url, query = qlist)
+      parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
-      resp      <- GET(url, query = qlist)
-      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"),
-                            simplifyVector = FALSE)
-
-      if (http_error(resp)) {
-
-        message(
-          cat(
-            "Yahoo Finance API request failed", '\n',
-            paste('Status:', status_code(resp)), '\n',
-            paste('Type:', http_status(resp)$category), '\n',
-            paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-            paste('Description:', parsed$quoteSummary$error$description, '\n'),
-            sep = ''
-          )
-        )
-
-        return(invisible(NULL))
-      } else {
-
-        parsed$finance$result
-      }
-
+      if (httr::http_error(resp)) return(invisible(NULL))
+      parsed$finance$result
     },
 
-
-    #' @field currency Currency
-    currency = function() {
-      private$meta_info()$currency
-    },
-
-    #' @field exchange_name Exchange name
-    exchange_name = function() {
-      private$meta_info()$exchangeName
-    },
-
-    #' @field full_exchange_name Full exchange name
-    full_exchange_name = function() {
-      private$meta_info()$fullExchangeName
-    },
-
-    #' @field first_trade_date First trade date
-    first_trade_date = function() {
-      as_datetime(private$meta_info()$firstTradeDate)
-    },
-
-    #' @field regular_market_time Regular market time
-    regular_market_time = function() {
-      as_datetime(private$meta_info()$regularMarketTime)
-    },
-
-    #' @field timezone Time zone
-    timezone = function() {
-      private$meta_info()$timezone
-    },
-
-    #' @field exchange_timezone_name Exchange timezone name
-    exchange_timezone_name = function() {
-      private$meta_info()$exchangeTimezoneName
-    },
-
-    #' @field regular_market_price Regular market price
-    regular_market_price = function() {
-      private$meta_info()$regularMarketPrice
-    },
-
-    #' @field fifty_two_week_high Fifty two week high
-    fifty_two_week_high = function() {
-      private$meta_info()$fiftyTwoWeekHigh
-    },
-
-    #' @field fifty_two_week_low Fifty two week low
-    fifty_two_week_low = function() {
-      private$meta_info()$fiftyTwoWeekLow
-    },
-
-    #' @field regular_market_day_high Regular market day high
-    regular_market_day_high = function() {
-      private$meta_info()$regularMarketDayHigh
-    },
-
-    #' @field regular_market_day_low Regular market day low
-    regular_market_day_low = function() {
-      private$meta_info()$regularMarketDayLow
-    },
-
-    #' @field regular_market_volume Regular market volume
-    regular_market_volume = function() {
-      private$meta_info()$regularMarketVolume
-    },
-
-    #' @field previous_close Previous close
-    previous_close = function() {
-      private$meta_info()$previousClose
-    }
-
+    currency = function() private$meta_info()$currency,
+    exchange_name = function() private$meta_info()$exchangeName,
+    full_exchange_name = function() private$meta_info()$fullExchangeName,
+    first_trade_date = function() lubridate::as_datetime(private$meta_info()$firstTradeDate),
+    regular_market_time = function() lubridate::as_datetime(private$meta_info()$regularMarketTime),
+    timezone = function() private$meta_info()$timezone,
+    exchange_timezone_name = function() private$meta_info()$exchangeTimezoneName,
+    regular_market_price = function() private$meta_info()$regularMarketPrice,
+    fifty_two_week_high = function() private$meta_info()$fiftyTwoWeekHigh,
+    fifty_two_week_low = function() private$meta_info()$fiftyTwoWeekLow,
+    regular_market_day_high = function() private$meta_info()$regularMarketDayHigh,
+    regular_market_day_low = function() private$meta_info()$regularMarketDayLow,
+    regular_market_volume = function() private$meta_info()$regularMarketVolume,
+    previous_close = function() private$meta_info()$previousClose
   ),
 
   private = list(
     base_url = 'https://query2.finance.yahoo.com',
-    path = 'v10/finance/quoteSummary/',
     cors_domain = 'finance.yahoo.com',
 
-    snake_case = function(x) {
-      paste0('_', tolower(x))
-    },
-
     extract_valuation = function(data, measure) {
-      data %>%
-        map_if(function(x) measure %in% names(x), measure) %>%
-        map_depth(2, 'reportedValue') %>%
-        map_depth(2, 'raw') %>%
+      if (is.null(data) || length(data) == 0) return(numeric(0))
+      res <- data %>%
+        purrr::map_if(~measure %in% names(.x), measure) %>%
+        purrr::map_depth(2, 'reportedValue') %>%
+        purrr::map_depth(2, 'raw') %>%
         unlist()
+      if (is.null(res)) return(numeric(0))
+      return(res)
     },
 
     meta_info = function() {
-
       path      <- 'v8/finance/chart/'
       end_point <- paste0(path, self$symbol)
-      url       <- modify_url(url = private$base_url, path = end_point)
+      url       <- httr::modify_url(url = private$base_url, path = end_point)
 
+      if (!curl::has_internet()) return(NULL)
 
-      if (!curl::has_internet()) {
-        message("No internet connection.")
-        return(invisible(NULL))
-      }
+      resp   <- httr::GET(url)
+      parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
-      resp      <- GET(url)
-      parsed    <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
-
-      if (http_error(resp)) {
-
-        message(
-          cat(
-            "Yahoo Finance API request failed", '\n',
-            paste('Status:', status_code(resp)), '\n',
-            paste('Type:', http_status(resp)$category), '\n',
-            paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-            paste('Description:', parsed$quoteSummary$error$description, '\n'),
-            sep = ''
-          )
-        )
-
-        return(invisible(NULL))
-      } else {
-        parsed$chart$result[[1]]$meta
-      }
+      if (httr::http_error(resp)) return(NULL)
+      parsed$chart$result[[1]]$meta
     }
   )
 )
