@@ -17,9 +17,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Update `DESCRIPTION` to include `httptest2` in Suggests and ensure `httr` is in Imports
-- [ ] T002 Initialize `httptest2` and configure `tests/testthat/setup.R` with `httptest2::without_internet()`
-- [ ] T003 [P] Configure `tests/testthat.R` to support the new test environment
+- [X] T001 Update `DESCRIPTION` to include `httptest2` in Suggests and ensure `httr` is in Imports
+- [X] T002 Initialize `httptest2` and configure `tests/testthat/setup.R` with `httptest2::without_internet()`
+- [X] T003 [P] Configure `tests/testthat.R` to support the new test environment
 
 ---
 
@@ -27,8 +27,8 @@
 
 **Purpose**: Core infrastructure for mocking and utility testing
 
-- [ ] T004 Create `tests/testthat/helper-mocks.R` for shared mocking functions (e.g., mocking `curl::has_internet`)
-- [ ] T005 [P] Setup `tests/testthat/samples/` directory structure for new mock recordings
+- [X] T004 Create `tests/testthat/helper-mocks.R` for shared mocking functions (e.g., mocking `curl::has_internet`)
+- [X] T005 [P] Setup `tests/testthat/samples/` directory structure for new mock recordings
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -42,13 +42,13 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [P] [US1] Create mock responses for Ticker API errors (404/500) in `tests/testthat/samples/ticker_error/`
-- [ ] T007 [P] [US1] Create mock responses for currency data in `tests/testthat/samples/ticker_currency/`
-- [ ] T008 [US1] Implement tests for `Ticker$get_history()` error branches in `tests/testthat/test-ticker.R`
-- [ ] T009 [US1] Implement tests for `Ticker$valuation_measures()` empty result handling in `tests/testthat/test-ticker.R`
-- [ ] T010 [US1] Implement tests for `Ticker$recommendations()` empty symbols handling in `tests/testthat/test-ticker.R`
-- [ ] T011 [US1] Implement tests for `Ticker$technical_insights()` error handling in `tests/testthat/test-ticker.R`
-- [ ] T012 [US1] Implement tests for `currency_converter()` in `tests/testthat/test-currency.R`
+- [X] T006 [P] [US1] Create mock responses for Ticker API errors (404/500) in `tests/testthat/samples/ticker_error/`
+- [X] T007 [P] [US1] Create mock responses for currency data in `tests/testthat/samples/ticker_currency/`
+- [X] T008 [US1] Implement tests for `Ticker$get_history()` error branches in `tests/testthat/test-ticker.R`
+- [X] T009 [US1] Implement tests for `Ticker$valuation_measures()` empty result handling in `tests/testthat/test-ticker.R`
+- [X] T010 [US1] Implement tests for `Ticker$recommendations()` empty symbols handling in `tests/testthat/test-ticker.R`
+- [X] T011 [US1] Implement tests for `Ticker$technical_insights()` error handling in `tests/testthat/test-ticker.R`
+- [X] T012 [US1] Implement tests for `currency_converter()` in `tests/testthat/test-currency.R`
 
 **Checkpoint**: User Story 1 (Ticker) should have 90%+ coverage and pass offline.
 
@@ -62,11 +62,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T013 [P] [US2] Create mock responses for Index API errors in `tests/testthat/samples/index_error/`
-- [ ] T014 [US2] Implement tests for `Index$get_history()` unexecuted error lines in `tests/testthat/test-index.R` (maintaining `self$index`)
-- [ ] T015 [P] [US2] Implement tests for `validate()` with NULL, empty, and malformed inputs in `tests/testthat/test-utils.R`
-- [ ] T016 [P] [US2] Implement tests for `flatten_list()` with NULL and empty list inputs in `tests/testthat/test-utils.R`
-- [ ] T017 [P] [US2] Implement tests for `get_metric()` with missing metrics and NULL data in `tests/testthat/test-utils.R`
+- [X] T013 [P] [US2] Create mock responses for Index API errors in `tests/testthat/samples/index_error/`
+- [X] T014 [US2] Implement tests for `Index$get_history()` unexecuted error lines in `tests/testthat/test-index.R` (maintaining `self$index`)
+- [X] T015 [P] [US2] Implement tests for `validate()` with NULL, empty, and malformed inputs in `tests/testthat/test-utils.R`
+- [X] T016 [P] [US2] Implement tests for `flatten_list()` with NULL and empty list inputs in `tests/testthat/test-utils.R`
+- [X] T017 [P] [US2] Implement tests for `get_metric()` with missing metrics and NULL data in `tests/testthat/test-utils.R`
 
 **Checkpoint**: Indice and Utility functions should be fully covered and robust against bad inputs.
 
@@ -80,9 +80,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T018 [US3] Implement tests for `Tickers$aggregate_data()` mocking mixed success/failure symbols in `tests/testthat/test-tickers.R`
-- [ ] T019 [US3] Implement tests for `Tickers` active properties with partial symbol failures in `tests/testthat/test-tickers.R`
-- [ ] T020 [US3] Implement tests for `Tickers` aggregation when ALL symbols fail (returning NULL/empty) in `tests/testthat/test-tickers.R`
+- [X] T018 [US3] Implement tests for `Tickers$aggregate_data()` mocking mixed success/failure symbols in `tests/testthat/test-tickers.R`
+- [X] T019 [US3] Implement tests for `Tickers` active properties with partial symbol failures in `tests/testthat/test-tickers.R`
+- [X] T020 [US3] Implement tests for `Tickers` aggregation when ALL symbols fail (returning NULL/empty) in `tests/testthat/test-tickers.R`
 
 **Checkpoint**: Tickers aggregation logic is verified to be resilient to partial API failures.
 
@@ -92,10 +92,10 @@
 
 **Purpose**: Final validation and documentation
 
-- [ ] T021 [P] Update `audit.md` with new test coverage statistics
-- [ ] T022 Code cleanup in test files (standardize mocking patterns)
-- [ ] T023 Run `quickstart.md` validation steps to ensure reproducibility
-- [ ] T024 Final CRAN-compliance check (no global state changes in tests)
+- [X] T021 [P] Update `audit.md` with new test coverage statistics
+- [X] T022 Code cleanup in test files (standardize mocking patterns)
+- [X] T023 Run `quickstart.md` validation steps to ensure reproducibility
+- [X] T024 Final CRAN-compliance check (no global state changes in tests)
 
 ---
 

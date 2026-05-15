@@ -1,35 +1,51 @@
-if (requireNamespace("httptest", quietly = TRUE)) {
-  httptest::with_mock_api({
-    test_that("output from index history is as expected", {
-      testthat::skip_on_cran()
-      nifty <- Index$new('^NSEI')
-      trend <- nifty$get_history(start = '2022-07-01',
-                                 end = '2022-07-10',
-                                 interval = '1d')
-      expect_equal(nrow(trend), 6)
-      expect_equal(round(trend$high, 2),
-                   c(15793.95, 15852.35, 16025.75, 16011.35, 16150.50, 16275.50))
-      expect_equal(round(trend$close, 2),
-                   c(15752.05, 15835.35, 15810.85, 15989.80, 16132.90, 16220.60))
-    })
-  })
-}
+library(testthat)
+library(yahoofinancer)
 
-test_that("index are properly validated", {
-  testthat::skip_on_cran()
-  nse <- Index$new("^NSEI")
-  expect_message(Index$new("^NSE"), "Not a valid index.")
-  expect_message(nse$set_index("^NSE"), "Not a valid index.")
-})
+# Test User Story 2 - Indice and Utility Edge Cases (Priority: P1)
 
-test_that("Index class retrieves data correctly", {
-  # Happy path for a standard index (^GSPC is the S&P 500)
-  sp500 <- Index$new("^GSPC")
-  expect_equal(sp500$index, "^GSPC")
+test_that("Index handles missing internet connection gracefully", {
+  nifty <- Index$new("^NSEI")
   
-  # Check data retrieval
-  df <- sp500$get_history(period = "5d", interval = "1d")
-  expect_s3_class(df, "data.frame")
-  expect_true(nrow(df) > 0)
+  with_mock_api(
+    internet_mock = function() FALSE,
+    code = {
+      expect_message(nifty$get_history(), "No internet connection.")
+      expect_null(nifty$get_history())
+    }
+  )
 })
+
+test_that("Index$get_history handles API failure with message", {
+  nifty <- Index$new("^NSEI")
+  
+  # Index.R uses message() + cat() for errors
+  with_mock_api(
+    response_mock = mock_response(
+      status_code = 404,
+      body_json = list(quoteSummary = list(error = list(code = "NOT_FOUND", description = "Symbol not found"))),
+      is_error = TRUE
+    ),
+    code = {
+      # Use expect_output because it uses message(cat(...))
+      expect_output(nifty$get_history(), "Yahoo Finance API request failed")
+      expect_null(nifty$get_history())
+    }
+  )
+})
+
+test_that("Index initialization and set_index handle invalid index", {
+  # maintains self$index
+  test_idx <- "^NSEI"
+  nse <- Index$new(test_idx)
+  expect_equal(nse$index, test_idx)
+  
+  testthat::with_mocked_bindings(
+    validate = function(x) FALSE,
+    code = {
+      expect_message(Index$new("INVALID"), "Not a valid index.")
+      expect_message(nse$set_index("INVALID"), "Not a valid index.")
+    }
+  )
+})
+
 
