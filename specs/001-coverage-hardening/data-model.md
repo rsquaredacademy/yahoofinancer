@@ -1,19 +1,74 @@
-# Data Model / Testing Strategy: Coverage Hardening
+# Data Model: Test Coverage Hardening
 
-## Entities to Test
-1. **Ticker (`R/ticker.R`)**
-   - Focus: API error branches (e.g., 404, 503, 403).
-   - Focus: Currency conversion logic (foreign formats).
-   - State: Mocked network responses.
+This document outlines the core entities (R6 Classes) and utility functions targeted for test hardening, including their expected behaviors and edge cases.
 
-2. **Indice (`R/indice.R`)**
-   - Focus: Unexecuted lines identified in `coverage.html`.
-   - Constraints: Maintain `self$index` naming convention during these tests.
+## Core Entities
 
-3. **Tickers (`R/tickers.R`)**
-   - Focus: `Tickers$aggregate_data()`.
-   - Scenarios: Partial failure of some symbols in the list.
+### Ticker (R6 Class)
+- **Fields**:
+  - `symbol`: Character (validated).
+- **Public Methods**:
+  - `get_history()`: Returns `data.frame`. Must handle missing `timestamp` in JSON.
+  - `valuation_measures()`: Returns `data.frame`. Must handle empty `result` list.
+  - `recommendations()`: Returns `data.frame`. Must handle empty `recommendedSymbols`.
+  - `technical_insights()`: Returns `list`.
+- **Validation Rules**:
+  - `initialize()` and `set_symbol()` must call `validate()`.
 
-4. **Utils (`R/utils.R`)**
-   - Functions: `validate()`, `flatten_list()`, `get_metric()`.
-   - Scenarios: NULL, empty, and malformed inputs.
+### Index (R6 Class)
+- **Fields**:
+  - `index`: Character (validated).
+- **Public Methods**:
+  - `get_history()`: Returns `data.frame`. Must handle API errors and no-internet message.
+- **Validation Rules**:
+  - `initialize()` and `set_index()` must call `validate()`.
+
+### Tickers (R6 Class)
+- **Fields**:
+  - `symbols`: Character vector.
+  - `ticker_objs`: List of `Ticker` objects.
+- **Public Methods**:
+  - `aggregate_data(fn)`: Core aggregation logic. Must handle partial failures via `tryCatch`.
+
+## Utility Functions
+
+### validate(symbol)
+- **Input**: Character.
+- **Output**: Boolean.
+- **Edge Cases**: `NULL`, no-internet, API error.
+
+### flatten_list(x)
+- **Input**: List.
+- **Output**: Vector with `NA` for `NULL` elements.
+- **Edge Cases**: `NULL` input, empty list.
+
+### get_metric(data, metric)
+- **Input**: List, Character.
+- **Output**: Vector with `NA` for `NULL` elements.
+- **Edge Cases**: Missing metric in list.
+
+## Mock Data Models
+
+### Chart API Error
+```json
+{
+  "chart": {
+    "error": {
+      "code": "Not Found",
+      "description": "Symbol not found"
+    }
+  }
+}
+```
+
+### Empty Chart Data
+```json
+{
+  "chart": {
+    "result": [{
+      "meta": { "currency": "USD" },
+      "timestamp": null
+    }]
+  }
+}
+```
