@@ -34,21 +34,7 @@ test_that("flatten_list handles edge cases", {
   
   # List with NULLs
   expect_equal(flatten_list(list(1, NULL, 3)), c(1, NA, 3))
+  
+  # List with all NULLs
+  expect_equal(flatten_list(list(NULL, NULL)), as.logical(c(NA, NA)))
 })
-
-test_that("get_metric handles edge cases", {
-  data <- list(
-    volume = list(100, NULL, 300),
-    price = list(10.5, 11.0)
-  )
-  
-  # Normal usage
-  expect_equal(get_metric(data, "volume"), c(100, NA, 300))
-  
-  # Missing metric
-  expect_null(get_metric(data, "invalid"))
-  
-  # NULL data
-  expect_null(get_metric(NULL, "volume"))
-})
-

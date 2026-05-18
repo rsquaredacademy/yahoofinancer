@@ -69,7 +69,7 @@ test_that("valuation_measures handles API failure", {
   with_mock_api(
     response_mock = mock_response(status_code = 500, is_error = TRUE),
     code = {
-      expect_warning(aapl$valuation_measures, "Yahoo Finance API request failed.")
+      expect_warning(aapl$valuation_measures, "Yahoo Finance API failed \\[500\\]: Unknown Error")
       expect_null(aapl$valuation_measures)
     }
   )
@@ -152,6 +152,12 @@ test_that("private meta_info handles API failure", {
       expect_null(private_env$meta_info())
     }
   )
+})
+
+test_that("get_history handles invalid date strings", {
+  aapl <- Ticker$new("AAPL")
+  expect_error(aapl$get_history(start = "invalid"), "Invalid 'start' date format")
+  expect_error(aapl$get_history(end = "invalid"), "Invalid 'end' date format")
 })
 
 

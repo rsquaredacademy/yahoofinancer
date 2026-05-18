@@ -1,8 +1,6 @@
 library(testthat)
 library(yahoofinancer)
 
-# Test User Story 2 - Indice and Utility Edge Cases (Priority: P1)
-
 test_that("Index handles missing internet connection gracefully", {
   nifty <- Index$new("^NSEI")
   
@@ -15,37 +13,53 @@ test_that("Index handles missing internet connection gracefully", {
   )
 })
 
-test_that("Index$get_history handles API failure with message", {
+test_that("Index$get_history handles API failure", {
   nifty <- Index$new("^NSEI")
   
-  # Index.R uses message() + cat() for errors
   with_mock_api(
     response_mock = mock_response(
       status_code = 404,
-      body_json = list(quoteSummary = list(error = list(code = "NOT_FOUND", description = "Symbol not found"))),
+      body_json = list(chart = list(error = list(description = "Symbol not found"))),
       is_error = TRUE
     ),
     code = {
-      # Use expect_output because it uses message(cat(...))
-      expect_output(nifty$get_history(), "Yahoo Finance API request failed")
+      expect_warning(nifty$get_history(), "Yahoo Finance API failed \\[404\\]: Symbol not found")
       expect_null(nifty$get_history())
     }
   )
 })
 
-test_that("Index initialization and set_index handle invalid index", {
-  # maintains self$index
+test_that("Index initialization and set_index handle invalid symbol", {
   test_idx <- "^NSEI"
-  nse <- Index$new(test_idx)
+  nse <- Index$new(symbol = test_idx)
+  expect_equal(nse$symbol, test_idx)
   expect_equal(nse$index, test_idx)
   
   testthat::with_mocked_bindings(
     validate = function(x) FALSE,
     code = {
-      expect_message(Index$new("INVALID"), "Not a valid index.")
-      expect_message(nse$set_index("INVALID"), "Not a valid index.")
+      expect_error(Index$new("INVALID"), "Not a valid symbol.")
+      expect_error(nse$set_index("INVALID"), "Not a valid symbol.")
     }
   )
 })
 
+test_that("Index supports deprecation of index parameter", {
+  # Warning on initialize with index
+  expect_warning(Index$new(index = "^NSEI"), "The 'index' parameter is deprecated")
+  
+  # Warning on set_index with index
+  nifty <- Index$new("^NSEI")
+  expect_warning(nifty$set_index(index = "^NDX"), "The 'index' parameter is deprecated")
+  expect_equal(nifty$symbol, "^NDX")
+  
+  # Warning on index setter
+  expect_warning(nifty$index <- "^NSEI", "The 'index' field is deprecated")
+  expect_equal(nifty$symbol, "^NSEI")
+})
 
+test_that("get_history handles invalid date strings", {
+  nifty <- Index$new("^NSEI")
+  expect_error(nifty$get_history(start = "invalid"), "Invalid 'start' date format")
+  expect_error(nifty$get_history(end = "invalid"), "Invalid 'end' date format")
+})

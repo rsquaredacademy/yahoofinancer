@@ -45,11 +45,7 @@ validate <- function(symbol = NULL) {
 }
 
 flatten_list <- function(x) {
-  unlist(lapply(x, function(m) ifelse(is.null(m), NA, m)))
+  if (is.null(x)) return(NULL)
+  unlist(lapply(x, function(m) if (is.null(m)) NA else m))
 }
 
-get_metric <- function(data, metric) {
-  data[[metric]] %>%
-    map(., ~ifelse(is.null(.x), NA, .x)) %>%
-    unlist()
-}
