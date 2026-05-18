@@ -38,3 +38,12 @@ test_that("flatten_list handles edge cases", {
   # List with all NULLs
   expect_equal(flatten_list(list(NULL, NULL)), as.logical(c(NA, NA)))
 })
+
+test_that("validate supports deprecation of index parameter", {
+  with_mock_api(
+    response_mock = mock_response(body_json = list(symbolsValidation = list(result = list(list(TRUE))))),
+    code = {
+      expect_warning(validate(index = "^NSEI"), "The 'index' parameter is deprecated")
+    }
+  )
+})

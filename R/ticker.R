@@ -85,8 +85,16 @@ Ticker <- R6::R6Class(
     currency = function() private$meta_info()$currency,
     exchange_name = function() private$meta_info()$exchangeName,
     full_exchange_name = function() private$meta_info()$fullExchangeName,
-    first_trade_date = function() lubridate::as_datetime(private$meta_info()$firstTradeDate),
-    regular_market_time = function() lubridate::as_datetime(private$meta_info()$regularMarketTime),
+    first_trade_date = function() {
+      val <- private$meta_info()$firstTradeDate
+      if (is.null(val)) return(NULL)
+      lubridate::as_datetime(val)
+    },
+    regular_market_time = function() {
+      val <- private$meta_info()$regularMarketTime
+      if (is.null(val)) return(NULL)
+      lubridate::as_datetime(val)
+    },
     timezone = function() private$meta_info()$timezone,
     exchange_timezone_name = function() private$meta_info()$exchangeTimezoneName,
     regular_market_price = function() private$meta_info()$regularMarketPrice,

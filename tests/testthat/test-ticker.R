@@ -69,8 +69,8 @@ test_that("valuation_measures handles API failure", {
   with_mock_api(
     response_mock = mock_response(status_code = 500, is_error = TRUE),
     code = {
-      expect_warning(aapl$valuation_measures, "Yahoo Finance API failed \\[500\\]: Unknown Error")
-      expect_null(aapl$valuation_measures)
+      expect_warning(res <- aapl$valuation_measures, "Yahoo Finance API failed \\[500\\]: Unknown Error")
+      expect_null(res)
     }
   )
 })
@@ -103,7 +103,8 @@ test_that("recommendations handles API failure", {
   with_mock_api(
     response_mock = mock_response(status_code = 404, is_error = TRUE),
     code = {
-      expect_null(aapl$recommendations)
+      expect_warning(res <- aapl$recommendations, "Yahoo Finance API failed \\[404\\]: Unknown Error")
+      expect_null(res)
     }
   )
 })
@@ -125,7 +126,8 @@ test_that("technical_insights handles API failure", {
   with_mock_api(
     response_mock = mock_response(status_code = 500, is_error = TRUE),
     code = {
-      expect_null(aapl$technical_insights)
+      expect_warning(res <- aapl$technical_insights, "Yahoo Finance API failed \\[500\\]: Unknown Error")
+      expect_null(res)
     }
   )
 })
@@ -149,7 +151,8 @@ test_that("private meta_info handles API failure", {
   with_mock_api(
     response_mock = mock_response(status_code = 404, is_error = TRUE),
     code = {
-      expect_null(private_env$meta_info())
+      expect_warning(res <- private_env$meta_info(), "Yahoo Finance API failed \\[404\\]: Unknown Error")
+      expect_null(res)
     }
   )
 })

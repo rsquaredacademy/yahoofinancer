@@ -53,6 +53,7 @@ Index <- R6::R6Class(
     #' @field index Deprecated. Returns \code{self$symbol}.
     index = function(value) {
       if (missing(value)) {
+        warning("The 'index' field is deprecated. Please use 'symbol' instead.", call. = FALSE)
         return(self$symbol)
       } else {
         warning("The 'index' field is deprecated. Please use 'symbol' instead.", call. = FALSE)

@@ -23,8 +23,8 @@ test_that("Index$get_history handles API failure", {
       is_error = TRUE
     ),
     code = {
-      expect_warning(nifty$get_history(), "Yahoo Finance API failed \\[404\\]: Symbol not found")
-      expect_null(nifty$get_history())
+      expect_warning(res <- nifty$get_history(), "Yahoo Finance API failed \\[404\\]: Symbol not found")
+      expect_null(res)
     }
   )
 })
@@ -33,7 +33,7 @@ test_that("Index initialization and set_index handle invalid symbol", {
   test_idx <- "^NSEI"
   nse <- Index$new(symbol = test_idx)
   expect_equal(nse$symbol, test_idx)
-  expect_equal(nse$index, test_idx)
+  expect_warning(expect_equal(nse$index, test_idx), "The 'index' field is deprecated")
   
   testthat::with_mocked_bindings(
     validate = function(x) FALSE,
