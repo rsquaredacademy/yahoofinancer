@@ -132,6 +132,21 @@ test_that("technical_insights handles API failure", {
   )
 })
 
+test_that("technical_insights handles success path from flat sample", {
+  aapl <- Ticker$new("AAPL")
+  
+  with_mock_api(
+    response_mock = mock_response(
+      body_json = jsonlite::fromJSON("samples/insights_1.json", simplifyVector = FALSE)
+    ),
+    code = {
+      res <- aapl$technical_insights
+      expect_type(res, "list")
+      expect_equal(res$symbol, "MSFT")
+    }
+  )
+})
+
 test_that("private meta_info handles missing internet connection", {
   aapl <- Ticker$new("AAPL")
   private_env <- aapl$.__enclos_env__$private

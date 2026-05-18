@@ -125,9 +125,15 @@ test_that("Active bindings route correctly through aggregate_data", {
       )
       
       with_mock_api(
-        response_mock = mock_response(body_json = list(finance = list(result = list(list(recommendedSymbols = list()))))),
+        response_mock = mock_response(body_json = jsonlite::fromJSON("samples/rec_msft.json", simplifyVector = FALSE)),
         code = {
           expect_no_error(tks$recommendations)
+        }
+      )
+      
+      with_mock_api(
+        response_mock = mock_response(body_json = jsonlite::fromJSON("samples/insights_2.json", simplifyVector = FALSE)),
+        code = {
           expect_no_error(tks$technical_insights)
         }
       )
