@@ -11,208 +11,31 @@ An R6 class object
 \description{
 Base class for getting all data related to ticker from Yahoo Finance API.
 }
-\examples{
-
-## ------------------------------------------------
-## Method `Ticker$new`
-## ------------------------------------------------
-
-aapl <- Ticker$new('aapl')
-
-## ------------------------------------------------
-## Method `Ticker$set_symbol`
-## ------------------------------------------------
-
-aapl <- Ticker$new('aapl')
-aapl$set_symbol('msft')
-
-## ------------------------------------------------
-## Method `Ticker$get_history`
-## ------------------------------------------------
-
-\donttest{
-aapl <- Ticker$new('aapl')
-aapl$get_history(start = '2022-07-01', interval = '1d')
-aapl$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
-aapl$get_history(period = '1mo', interval = '1d')
-}
-}
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{symbol}}{Symbol for which data is retrieved.}
-}
-\if{html}{\out{</div>}}
+\section{Super class}{
+\code{\link[yahoofinancer:YahooFinanceBase]{yahoofinancer::YahooFinanceBase}} -> \code{Ticker}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{valuation_measures}}{Retrieves valuation measures for most recent four quarters}
-
-\item{\code{recommendations}}{Recommended symbols}
-
-\item{\code{technical_insights}}{Technical indicators for given symbol}
-
-\item{\code{currency}}{Currency}
-
-\item{\code{exchange_name}}{Exchange name}
-
-\item{\code{full_exchange_name}}{Full exchange name}
-
-\item{\code{first_trade_date}}{First trade date}
-
-\item{\code{regular_market_time}}{Regular market time}
-
-\item{\code{timezone}}{Time zone}
-
-\item{\code{exchange_timezone_name}}{Exchange timezone name}
-
-\item{\code{regular_market_price}}{Regular market price}
-
-\item{\code{fifty_two_week_high}}{Fifty two week high}
-
-\item{\code{fifty_two_week_low}}{Fifty two week low}
-
-\item{\code{regular_market_day_high}}{Regular market day high}
-
-\item{\code{regular_market_day_low}}{Regular market day low}
-
-\item{\code{regular_market_volume}}{Regular market volume}
-
-\item{\code{previous_close}}{Previous close}
+\item{\code{valuation_measures}}{Retrieves valuation measures}
 }
 \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-Ticker-new}{\code{Ticker$new()}}
-\item \href{#method-Ticker-set_symbol}{\code{Ticker$set_symbol()}}
-\item \href{#method-Ticker-get_history}{\code{Ticker$get_history()}}
 \item \href{#method-Ticker-clone}{\code{Ticker$clone()}}
 }
 }
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Ticker-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Ticker-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new Ticker object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$new(symbol = NA)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbol}}{Symbol.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new `Ticker` object
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{aapl <- Ticker$new('aapl')
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Ticker-set_symbol"></a>}}
-\if{latex}{\out{\hypertarget{method-Ticker-set_symbol}{}}}
-\subsection{Method \code{set_symbol()}}{
-Set a new symbol.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$set_symbol(symbol)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbol}}{New symbol}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{aapl <- Ticker$new('aapl')
-aapl$set_symbol('msft')
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Ticker-get_history"></a>}}
-\if{latex}{\out{\hypertarget{method-Ticker-get_history}{}}}
-\subsection{Method \code{get_history()}}{
-Retrieves historical pricing data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_history(period = "ytd", interval = "1d", start = NULL, end = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{period}}{Length of time. Defaults to \code{'ytd'}. Valid values are:
-\itemize{
-\item \code{'1d'}
-\item \code{'5d'}
-\item \code{'1mo'}
-\item \code{'3mo'}
-\item \code{'6mo'}
-\item \code{'1y'}
-\item \code{'2y'}
-\item \code{'5y'}
-\item \code{'10y'}
-\item \code{'ytd'}
-\item \code{'max'}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-get_history'><code>yahoofinancer::YahooFinanceBase$get_history()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="initialize"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-initialize'><code>yahoofinancer::YahooFinanceBase$initialize()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="set_symbol"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-set_symbol'><code>yahoofinancer::YahooFinanceBase$set_symbol()</code></a></span></li>
+</ul>
+</details>
 }}
-
-\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values are:
-\itemize{
-\item \code{'1m'}
-\item \code{'2m'}
-\item \code{'5m'}
-\item \code{'15m'}
-\item \code{'30m'}
-\item \code{'60m'}
-\item \code{'90m'}
-\item \code{'1h'}
-\item \code{'1d'}
-\item \code{'5d'}
-\item \code{'1wk'}
-\item \code{'1mo'}
-\item \code{'3mo'}
-}}
-
-\item{\code{start}}{Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
-
-\item{\code{end}}{Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{data.frame}.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{\donttest{
-aapl <- Ticker$new('aapl')
-aapl$get_history(start = '2022-07-01', interval = '1d')
-aapl$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
-aapl$get_history(period = '1mo', interval = '1d')
-}
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Ticker-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Ticker-clone}{}}}

@@ -12,3 +12,9 @@
 ^revdep$
 ^\.positai$
 ^\.claude$
+^GEMINI\.md$
+^audit\.md$
+^specs/
+^\.specify/
+^tasks\.md$
+^plan\.md$

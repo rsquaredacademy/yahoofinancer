@@ -25,22 +25,14 @@ nifty_50 <- Index$new('^NSEI')
 
 indice <- Index$new('^NSEI')
 indice$set_index('^NDX')
-
-## ------------------------------------------------
-## Method `Index$get_history`
-## ------------------------------------------------
-
-\donttest{
-nifty <- Index$new('^NSEI')
-nifty$get_history(start = '2022-07-01', interval = '1d')
-nifty$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
-nifty$get_history(period = '1mo', interval = '1d')
 }
+\section{Super class}{
+\code{\link[yahoofinancer:YahooFinanceBase]{yahoofinancer::YahooFinanceBase}} -> \code{Index}
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{index}}{Index for which data is retrieved}
+\item{\code{index}}{Deprecated. Returns \code{self$symbol}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -49,23 +41,32 @@ nifty$get_history(period = '1mo', interval = '1d')
 \itemize{
 \item \href{#method-Index-new}{\code{Index$new()}}
 \item \href{#method-Index-set_index}{\code{Index$set_index()}}
-\item \href{#method-Index-get_history}{\code{Index$get_history()}}
 \item \href{#method-Index-clone}{\code{Index$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-get_history'><code>yahoofinancer::YahooFinanceBase$get_history()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="set_symbol"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-set_symbol'><code>yahoofinancer::YahooFinanceBase$set_symbol()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Index-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Index-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new Index object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Index$new(index = NA)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Index$new(symbol = NA, index = NA)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{index}}{Index}
+\item{\code{symbol}}{Symbol}
+
+\item{\code{index}}{Deprecated. Use \code{symbol} instead.}
 }
 \if{html}{\out{</div>}}
 }
@@ -87,13 +88,15 @@ A new `Index` object
 \subsection{Method \code{set_index()}}{
 Set a new index.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Index$set_index(index)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Index$set_index(symbol = NA, index = NA)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{index}}{New index}
+\item{\code{symbol}}{New symbol}
+
+\item{\code{index}}{Deprecated. Use \code{symbol} instead.}
 }
 \if{html}{\out{</div>}}
 }
@@ -101,73 +104,6 @@ Set a new index.
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{indice <- Index$new('^NSEI')
 indice$set_index('^NDX')
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Index-get_history"></a>}}
-\if{latex}{\out{\hypertarget{method-Index-get_history}{}}}
-\subsection{Method \code{get_history()}}{
-Retrieves historical data
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Index$get_history(period = "ytd", interval = "1d", start = NULL, end = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{period}}{Length of time. Defaults to \code{'ytd'}. Valid values are:
-\itemize{
-\item \code{'1d'}
-\item \code{'5d'}
-\item \code{'1mo'}
-\item \code{'3mo'}
-\item \code{'6mo'}
-\item \code{'1y'}
-\item \code{'2y'}
-\item \code{'5y'}
-\item \code{'10y'}
-\item \code{'ytd'}
-\item \code{'max'}
-}}
-
-\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values are:
-\itemize{
-\item \code{'1m'}
-\item \code{'2m'}
-\item \code{'5m'}
-\item \code{'15m'}
-\item \code{'30m'}
-\item \code{'60m'}
-\item \code{'90m'}
-\item \code{'1h'}
-\item \code{'1d'}
-\item \code{'5d'}
-\item \code{'1wk'}
-\item \code{'1mo'}
-\item \code{'3mo'}
-}}
-
-\item{\code{start}}{Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
-
-\item{\code{end}}{Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{data.frame}.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{\donttest{
-nifty <- Index$new('^NSEI')
-nifty$get_history(start = '2022-07-01', interval = '1d')
-nifty$get_history(start = '2022-07-01', end = '2022-07-14', interval = '1d')
-nifty$get_history(period = '1mo', interval = '1d')
-}
 }
 \if{html}{\out{</div>}}
 
