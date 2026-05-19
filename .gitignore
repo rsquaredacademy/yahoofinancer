@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 .positai
+.gemini/
+coverage.html
+lib/
