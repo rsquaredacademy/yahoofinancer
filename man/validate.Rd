@@ -4,10 +4,12 @@
 \alias{validate}
 \title{Symbol validation}
 \usage{
-validate(symbol = NULL)
+validate(symbol = NA, index = NA)
 }
 \arguments{
 \item{symbol}{Ticker, index or fund name.}
+
+\item{index}{Deprecated. Use \code{symbol} instead.}
 }
 \description{
 Validate symbols before retrieving data.
