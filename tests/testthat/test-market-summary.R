@@ -1,5 +1,5 @@
-if (requireNamespace("httptest", quietly = TRUE)) {
-  httptest::with_mock_api({
+if (requireNamespace("httptest2", quietly = TRUE)) {
+  httptest2::with_mock_api({
     test_that("output from market summary is as expected", {
       testthat::skip_on_cran()
       trend <- get_market_summary()

@@ -7,7 +7,7 @@
 #'
 #' @importFrom magrittr %>% use_series extract2 extract
 #' @importFrom jsonlite fromJSON
-#' @import R6 httr purrr lubridate
+#' @import R6 httr2 purrr lubridate
 #' @docType class
 #' @format An R6 class object
 #' @name Ticker-class
@@ -56,6 +56,7 @@ Ticker <- R6::R6Class(
       )
     },
 
+    #' @field recommendations Related symbols recommended by Yahoo Finance and their scores.
     recommendations = function() {
       path      <- 'v6/finance/recommendationsbysymbol/'
       end_point <- paste0(path, self$symbol)
@@ -73,6 +74,7 @@ Ticker <- R6::R6Class(
       )
     },
 
+    #' @field technical_insights Technical insights and indicators snapshot.
     technical_insights = function() {
       path  <- 'ws/insights/v2/finance/insights'
       qlist <- list(symbol = self$symbol, corsDomain = private$cors_domain)
@@ -82,27 +84,54 @@ Ticker <- R6::R6Class(
       parsed$finance$result
     },
 
+    #' @field currency Currency code for the symbol.
     currency = function() private$meta_info()$currency,
+
+    #' @field exchange_name Short name of the stock exchange.
     exchange_name = function() private$meta_info()$exchangeName,
+
+    #' @field full_exchange_name Full name of the stock exchange.
     full_exchange_name = function() private$meta_info()$fullExchangeName,
+
+    #' @field first_trade_date Timestamp of the first recorded trade.
     first_trade_date = function() {
       val <- private$meta_info()$firstTradeDate
       if (is.null(val)) return(NULL)
       lubridate::as_datetime(val)
     },
+
+    #' @field regular_market_time Timestamp of the last market trade.
     regular_market_time = function() {
       val <- private$meta_info()$regularMarketTime
       if (is.null(val)) return(NULL)
       lubridate::as_datetime(val)
     },
+
+    #' @field timezone Timezone code of the exchange.
     timezone = function() private$meta_info()$timezone,
+
+    #' @field exchange_timezone_name Full timezone name of the exchange.
     exchange_timezone_name = function() private$meta_info()$exchangeTimezoneName,
+
+    #' @field regular_market_price Current regular market price.
     regular_market_price = function() private$meta_info()$regularMarketPrice,
+
+    #' @field fifty_two_week_high 52-week high price.
     fifty_two_week_high = function() private$meta_info()$fiftyTwoWeekHigh,
+
+    #' @field fifty_two_week_low 52-week low price.
     fifty_two_week_low = function() private$meta_info()$fiftyTwoWeekLow,
+
+    #' @field regular_market_day_high Highest price during the current trading session.
     regular_market_day_high = function() private$meta_info()$regularMarketDayHigh,
+
+    #' @field regular_market_day_low Lowest price during the current trading session.
     regular_market_day_low = function() private$meta_info()$regularMarketDayLow,
+
+    #' @field regular_market_volume Current trading volume.
     regular_market_volume = function() private$meta_info()$regularMarketVolume,
+
+    #' @field previous_close Closing price of the previous trading day.
     previous_close = function() private$meta_info()$previousClose
   ),
 

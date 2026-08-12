@@ -21,7 +21,7 @@ validate <- function(symbol = NA, index = NA) {
 
   base_url <- 'https://query2.finance.yahoo.com'
   path     <- 'v6/finance/quote/validate'
-  url      <- modify_url(url = base_url, path = path)
+  url      <- paste0(base_url, "/", path)
   qlist    <- list(symbols = symbol)
 
   if (!curl::has_internet()) {
@@ -29,20 +29,34 @@ validate <- function(symbol = NA, index = NA) {
     return(invisible(NULL))
   }
 
-  resp     <- GET(url, query = qlist)
-  parsed   <- fromJSON(content(resp, "text", encoding = "UTF-8"),
-                        simplifyVector = FALSE)
+  req <- httr2::request(url)
+  req <- httr2::req_user_agent(req, "yahoofinancer")
+  req <- do.call(httr2::req_url_query, c(list(req), qlist))
+  req <- httr2::req_retry(req, max_tries = 4, backoff = function(re_try) 2^re_try)
+  req <- httr2::req_timeout(req, 15)
+  req <- httr2::req_error(req, is_error = function(resp) FALSE)
 
-  if (http_error(resp)) {
-    message(
-      cat(
-        "Yahoo Finance API request failed", '\n',
-        paste('Status:', status_code(resp)), '\n',
-        paste('Type:', http_status(resp)$category), '\n',
-        paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-        paste('Description:', parsed$quoteSummary$error$description, '\n'),
-        sep = ''
-      )
+  resp <- tryCatch(
+    httr2::req_perform(req),
+    error = function(e) NULL
+  )
+
+  if (is.null(resp)) return(invisible(NULL))
+
+  parsed <- tryCatch(
+    httr2::resp_body_json(resp, simplifyVector = FALSE),
+    error = function(e) list()
+  )
+
+  if (httr2::resp_is_error(resp)) {
+    status <- httr2::resp_status(resp)
+    cat(
+      "Yahoo Finance API request failed", '\n',
+      paste('Status:', status), '\n',
+      paste('Type:', if (status >= 400 && status < 500) "Client error" else "Server error"), '\n',
+      paste('Mesage:', parsed$quoteSummary$error$code), '\n',
+      paste('Description:', parsed$quoteSummary$error$description, '\n'),
+      sep = ''
     )
     return(invisible(NULL))
   } else {

@@ -5,7 +5,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @importFrom jsonlite fromJSON
-#' @import R6 httr purrr lubridate
+#' @import R6 httr2 purrr lubridate
 #' @docType class
 #' @format An R6 class object
 #' @name YahooFinanceBase-class
@@ -112,18 +112,42 @@ YahooFinanceBase <- R6::R6Class(
     base_url = 'https://query2.finance.yahoo.com',
     cors_domain = 'finance.yahoo.com',
 
-    api_request = function(path, query = list()) {
-      url <- httr::modify_url(url = private$base_url, path = path)
+    api_request = function(path, query = list(), headers = list()) {
+      url <- paste0(private$base_url, "/", sub("^/", "", path))
 
       if (!curl::has_internet()) {
         message("No internet connection.")
         return(NULL)
       }
 
-      resp   <- httr::GET(url, query = query)
-      parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
+      req <- httr2::request(url)
+      req <- httr2::req_user_agent(req, "yahoofinancer")
 
-      if (httr::http_error(resp)) {
+      if (length(headers) > 0) {
+        req <- do.call(httr2::req_headers, c(list(req), headers))
+      }
+
+      if (length(query) > 0) {
+        req <- do.call(httr2::req_url_query, c(list(req), query))
+      }
+
+      req <- httr2::req_retry(req, max_tries = 4, backoff = function(re_try) 2^re_try)
+      req <- httr2::req_timeout(req, 15)
+      req <- httr2::req_error(req, is_error = function(resp) FALSE)
+
+      resp <- tryCatch(
+        httr2::req_perform(req),
+        error = function(e) NULL
+      )
+
+      if (is.null(resp)) return(NULL)
+
+      parsed <- tryCatch(
+        httr2::resp_body_json(resp, simplifyVector = FALSE),
+        error = function(e) list()
+      )
+
+      if (httr2::resp_is_error(resp)) {
         # Standardize error reporting
         err_msg <- if (!is.null(parsed$chart$error$description)) {
           parsed$chart$error$description
@@ -132,7 +156,7 @@ YahooFinanceBase <- R6::R6Class(
         } else {
           "Unknown Error"
         }
-        warning(sprintf("Yahoo Finance API failed [%s]: %s", httr::status_code(resp), err_msg), call. = FALSE)
+        warning(sprintf("Yahoo Finance API failed [%s]: %s", httr2::resp_status(resp), err_msg), call. = FALSE)
         return(NULL)
       }
 

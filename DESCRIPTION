@@ -12,7 +12,7 @@ Depends:
 Imports: 
     curl,
     dplyr,
-    httr,
+    httr2 (>= 1.0.0),
     jsonlite,
     lubridate,
     magrittr,
