@@ -16,7 +16,7 @@ get_currencies <- function() {
   path     <- 'v1/finance/currencies'
   url      <- paste0(base_url, "/", path)
 
-  if (!curl::has_internet()) {
+  if (!has_internet()) {
     message("No internet connection.")
     return(invisible(NULL))
   }
@@ -87,7 +87,7 @@ get_market_summary <- function(country = 'US') {
   url      <- paste0(base_url, "/", path)
   qlist    <- list(region = country)
 
-  if (!curl::has_internet()) {
+  if (!has_internet()) {
     message("No internet connection.")
     return(invisible(NULL))
   }
@@ -153,7 +153,7 @@ get_trending <- function(country = 'US', count = 10) {
   url       <- paste0(base_url, "/", end_point)
   qlist     <- list(count = count)
 
-  if (!curl::has_internet()) {
+  if (!has_internet()) {
     message("No internet connection.")
     return(invisible(NULL))
   }
@@ -271,7 +271,7 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
     qlist <- list(range = period, interval = interval, corsDomain = cors_domain)
   }
 
-  if (!curl::has_internet()) {
+  if (!has_internet()) {
     message("No internet connection.")
     return(invisible(NULL))
   }
