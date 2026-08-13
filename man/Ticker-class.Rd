@@ -18,6 +18,38 @@ Base class for getting all data related to ticker from Yahoo Finance API.
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
 \item{\code{valuation_measures}}{Retrieves valuation measures}
+
+\item{\code{recommendations}}{Related symbols recommended by Yahoo Finance and their scores.}
+
+\item{\code{technical_insights}}{Technical insights and indicators snapshot.}
+
+\item{\code{currency}}{Currency code for the symbol.}
+
+\item{\code{exchange_name}}{Short name of the stock exchange.}
+
+\item{\code{full_exchange_name}}{Full name of the stock exchange.}
+
+\item{\code{first_trade_date}}{Timestamp of the first recorded trade.}
+
+\item{\code{regular_market_time}}{Timestamp of the last market trade.}
+
+\item{\code{timezone}}{Timezone code of the exchange.}
+
+\item{\code{exchange_timezone_name}}{Full timezone name of the exchange.}
+
+\item{\code{regular_market_price}}{Current regular market price.}
+
+\item{\code{fifty_two_week_high}}{52-week high price.}
+
+\item{\code{fifty_two_week_low}}{52-week low price.}
+
+\item{\code{regular_market_day_high}}{Highest price during the current trading session.}
+
+\item{\code{regular_market_day_low}}{Lowest price during the current trading session.}
+
+\item{\code{regular_market_volume}}{Current trading volume.}
+
+\item{\code{previous_close}}{Closing price of the previous trading day.}
 }
 \if{html}{\out{</div>}}
 }

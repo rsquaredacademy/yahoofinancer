@@ -18,63 +18,74 @@ mock_response <- function(status_code = 200, body_json = list(), is_error = FALS
 #' @param internet_mock Function to mock curl::has_internet
 with_mock_api <- function(code, response_mock = NULL, internet_mock = NULL) {
   
-  # Default mocks
   if (is.null(response_mock)) {
     response_mock <- mock_response()
   }
   
-  mock_GET <- function(...) response_mock
-  
-  mock_http_error <- function(resp) {
-    if (is.list(resp) && !is.null(resp$is_error)) {
-      return(resp$is_error)
+  mock_req_perform <- function(req, ...) {
+    if (is.list(response_mock) && !is.null(response_mock$status_code)) {
+      status_code <- response_mock$status_code
+      content_val <- response_mock$content
+    } else {
+      status_code <- 200
+      content_val <- list()
     }
-    # If it's a status code (numeric)
-    if (is.numeric(resp)) {
-      return(resp >= 400)
-    }
-    FALSE
-  }
-  
-  mock_status_code <- function(resp) {
-    if (is.list(resp) && !is.null(resp$status_code)) {
-      return(resp$status_code)
+    
+    resp <- httr2::response(
+      status_code = status_code,
+      url = req$url,
+      headers = list(),
+      body = raw()
+    )
+    resp$body_json <- content_val
+    if (is.list(response_mock) && !is.null(response_mock$is_error)) {
+      resp$is_error <- response_mock$is_error
     }
     resp
   }
-  
-  mock_content <- function(resp, as = NULL, ...) {
-    if (!is.null(as) && as == "text") {
-      return(jsonlite::toJSON(resp$content, auto_unbox = TRUE))
+
+  mock_resp_body_json <- function(resp, ...) {
+    if (is.list(resp) && !is.null(resp$body_json)) {
+      return(resp$body_json)
     }
-    resp$content
+    if (is.list(resp) && !is.null(resp$content)) {
+      return(resp$content)
+    }
+    list()
   }
-  
-  # Indice.R uses http_status
-  mock_http_status <- function(resp) {
-    code <- if (is.list(resp)) resp$status_code else resp
-    list(category = if (code >= 400) "Client error" else "Success")
+
+  mock_resp_is_error <- function(resp) {
+    if (is.list(resp) && !is.null(resp$is_error)) {
+      return(resp$is_error)
+    }
+    if (is.list(resp) && !is.null(resp$status_code)) {
+      return(resp$status_code >= 400)
+    }
+    FALSE
+  }
+
+  mock_resp_status <- function(resp) {
+    if (is.list(resp) && !is.null(resp$status_code)) {
+      return(resp$status_code)
+    }
+    200
   }
 
   inner_code <- function() {
-    # Mock in httr
     testthat::with_mocked_bindings(
-      # Also mock in yahoofinancer because they are imported
       testthat::with_mocked_bindings(
         code,
-        GET = mock_GET,
-        http_error = mock_http_error,
-        status_code = mock_status_code,
-        content = mock_content,
-        http_status = mock_http_status,
+        req_perform = mock_req_perform,
+        resp_body_json = mock_resp_body_json,
+        resp_is_error = mock_resp_is_error,
+        resp_status = mock_resp_status,
         .package = "yahoofinancer"
       ),
-      GET = mock_GET,
-      http_error = mock_http_error,
-      status_code = mock_status_code,
-      content = mock_content,
-      http_status = mock_http_status,
-      .package = "httr"
+      req_perform = mock_req_perform,
+      resp_body_json = mock_resp_body_json,
+      resp_is_error = mock_resp_is_error,
+      resp_status = mock_resp_status,
+      .package = "httr2"
     )
   }
 
