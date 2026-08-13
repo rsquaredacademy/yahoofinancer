@@ -115,7 +115,7 @@ YahooFinanceBase <- R6::R6Class(
     api_request = function(path, query = list(), headers = list()) {
       url <- paste0(private$base_url, "/", sub("^/", "", path))
 
-      if (!curl::has_internet()) {
+      if (!has_internet()) {
         message("No internet connection.")
         return(NULL)
       }

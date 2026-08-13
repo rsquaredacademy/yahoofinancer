@@ -36,11 +36,12 @@ test_that("Index initialization and set_index handle invalid symbol", {
   expect_warning(expect_equal(nse$index, test_idx), "The 'index' field is deprecated")
   
   testthat::with_mocked_bindings(
-    validate = function(x) FALSE,
-    code = {
+    {
       expect_error(Index$new("INVALID"), "Not a valid symbol.")
       expect_error(nse$set_index("INVALID"), "Not a valid symbol.")
-    }
+    },
+    validate = function(x) FALSE,
+    .package = "yahoofinancer"
   )
 })
 

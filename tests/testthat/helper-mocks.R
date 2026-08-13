@@ -93,7 +93,7 @@ with_mock_api <- function(code, response_mock = NULL, internet_mock = NULL) {
     testthat::with_mocked_bindings(
       inner_code(),
       has_internet = internet_mock,
-      .package = "curl"
+      .package = "yahoofinancer"
     )
   } else {
     inner_code()

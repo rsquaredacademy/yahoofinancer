@@ -1,3 +1,4 @@
+has_internet <- function() curl::has_internet()
 #' Symbol validation
 #'
 #' Validate symbols before retrieving data.
@@ -24,7 +25,7 @@ validate <- function(symbol = NA, index = NA) {
   url      <- paste0(base_url, "/", path)
   qlist    <- list(symbols = symbol)
 
-  if (!curl::has_internet()) {
+  if (!has_internet()) {
     message("No internet connection.")
     return(invisible(NULL))
   }
@@ -69,4 +70,3 @@ flatten_list <- function(x) {
   if (is.null(x)) return(NULL)
   unlist(lapply(x, function(m) if (is.null(m)) NA else m))
 }
-

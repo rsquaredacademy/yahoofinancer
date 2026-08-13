@@ -17,7 +17,8 @@ Imports:
     lubridate,
     magrittr,
     purrr,
-    R6
+    R6,
+    tibble
 Suggests: 
     covr,
     httptest,
