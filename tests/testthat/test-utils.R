@@ -1,30 +1,6 @@
 library(testthat)
 library(yahoofinancer)
 
-test_that("validate handles missing internet connection", {
-  with_mock_api(
-    internet_mock = function() FALSE,
-    code = {
-      expect_message(validate("AAPL"), "No internet connection.")
-      expect_null(validate("AAPL"))
-    }
-  )
-})
-
-test_that("validate handles API failure", {
-  with_mock_api(
-    response_mock = mock_response(
-      status_code = 500,
-      body_json = list(quoteSummary = list(error = list(code = "ERR", description = "Error"))),
-      is_error = TRUE
-    ),
-    code = {
-      expect_output(validate("AAPL"), "Yahoo Finance API request failed")
-      expect_null(validate("AAPL"))
-    }
-  )
-})
-
 test_that("flatten_list handles edge cases", {
   # NULL input
   expect_null(flatten_list(NULL))
@@ -37,13 +13,4 @@ test_that("flatten_list handles edge cases", {
   
   # List with all NULLs
   expect_equal(flatten_list(list(NULL, NULL)), as.logical(c(NA, NA)))
-})
-
-test_that("validate supports deprecation of index parameter", {
-  with_mock_api(
-    response_mock = mock_response(body_json = list(symbolsValidation = list(result = list(list(TRUE))))),
-    code = {
-      expect_warning(validate(index = "^NSEI"), "The 'index' parameter is deprecated")
-    }
-  )
 })

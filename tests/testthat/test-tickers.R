@@ -4,7 +4,7 @@ library(dplyr)
 
 test_that("Tickers initializes and manages internal Ticker objects", {
   testthat::with_mocked_bindings(
-    validate = function(x) TRUE,
+    validate = function(x, ...) TRUE,
     code = {
       symbols <- c("AAPL", "MSFT", "AAPL")
       tks <- Tickers$new(symbols)
@@ -18,7 +18,7 @@ test_that("Tickers initializes and manages internal Ticker objects", {
 
 test_that("aggregate_data handles various data shapes and mismatches", {
   testthat::with_mocked_bindings(
-    validate = function(x) TRUE,
+    validate = function(x, ...) TRUE,
     code = {
       tks <- Tickers$new(c("AAPL", "MSFT"))
       
@@ -44,7 +44,7 @@ test_that("aggregate_data handles various data shapes and mismatches", {
 
 test_that("Tickers is resilient to partial API failures", {
   testthat::with_mocked_bindings(
-    validate = function(x) TRUE,
+    validate = function(x, ...) TRUE,
     code = {
       tks <- Tickers$new(c("GOOD", "FAIL"))
       
@@ -62,7 +62,7 @@ test_that("Tickers is resilient to partial API failures", {
 
 test_that("Tickers is resilient to total API failure", {
   testthat::with_mocked_bindings(
-    validate = function(x) TRUE,
+    validate = function(x, ...) TRUE,
     code = {
       tks <- Tickers$new(c("FAIL1", "FAIL2"))
       
@@ -77,7 +77,7 @@ test_that("Tickers is resilient to total API failure", {
 
 test_that("Tickers handle NULL or empty result from symbols", {
   testthat::with_mocked_bindings(
-    validate = function(x) TRUE,
+    validate = function(x, ...) TRUE,
     code = {
       tks <- Tickers$new(c("EMPTY", "NULL"))
       
@@ -94,7 +94,7 @@ test_that("Tickers handle NULL or empty result from symbols", {
 
 test_that("Active bindings route correctly through aggregate_data", {
   testthat::with_mocked_bindings(
-    validate = function(x) TRUE,
+    validate = function(x, ...) TRUE,
     code = {
       tks <- Tickers$new(c("AAPL", "MSFT"))
       
