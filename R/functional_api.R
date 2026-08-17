@@ -7,21 +7,39 @@
 #' @param start Date or character string representing the start date (`YYYY-MM-DD`).
 #' @param end Date or character string representing the end date (`YYYY-MM-DD`).
 #' @param interval Time between data points (e.g., "1d", "1wk", "1mo").
+#' @param period Relative time period for data retrieval (e.g., "1mo", "1y", "max"). Valid values are "1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max". Defaults to "1y" if both `start` and `period` are NULL.
 #'
 #' @return A `tibble` of historical prices with `symbol` as the first column.
 #'
 #' @examples
 #' \donttest{
 #' yf_download_prices("AAPL", start = "2023-01-01", end = "2023-01-10")
-#' yf_download_prices(c("AAPL", "MSFT"), interval = "1mo")
+#' yf_download_prices(c("AAPL", "MSFT"), period = "6mo", interval = "1mo")
 #' }
 #'
 #' @export
-yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d") {
+yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d", period = NULL) {
+  
+  if (!is.null(start) && !is.null(period)) {
+    warning("Both 'start' and 'period' were provided. Using explicit 'start' and 'end' dates and ignoring 'period'.", call. = FALSE)
+    period <- NULL
+  }
+  
+  if (is.null(start) && is.null(period)) {
+    period <- "1y"
+  }
+  
+  if (!is.null(period)) {
+    valid_periods <- c("1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max")
+    if (!(period %in% valid_periods)) {
+      stop(paste0("Invalid period: '", period, "'. Valid periods are: ", paste(valid_periods, collapse = ", ")), call. = FALSE)
+    }
+  }
+
   results <- lapply(tickers, function(ticker) {
     tryCatch({
       obj <- Ticker$new(ticker)
-      res <- obj$get_history(start = start, end = end, interval = interval)
+      res <- obj$get_history(start = start, end = end, interval = interval, period = period)
       if (is.null(res) || nrow(res) == 0) return(NULL)
       
       res$symbol <- ticker

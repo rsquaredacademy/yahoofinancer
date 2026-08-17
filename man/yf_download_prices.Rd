@@ -4,7 +4,13 @@
 \alias{yf_download_prices}
 \title{Download Historical Prices}
 \usage{
-yf_download_prices(tickers, start = NULL, end = NULL, interval = "1d")
+yf_download_prices(
+  tickers,
+  start = NULL,
+  end = NULL,
+  interval = "1d",
+  period = NULL
+)
 }
 \arguments{
 \item{tickers}{Character vector of stock symbols.}
@@ -14,6 +20,8 @@ yf_download_prices(tickers, start = NULL, end = NULL, interval = "1d")
 \item{end}{Date or character string representing the end date (`YYYY-MM-DD`).}
 
 \item{interval}{Time between data points (e.g., "1d", "1wk", "1mo").}
+
+\item{period}{Relative time period for data retrieval (e.g., "1mo", "1y", "max"). Valid values are "1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max". Defaults to "1y" if both `start` and `period` are NULL.}
 }
 \value{
 A `tibble` of historical prices with `symbol` as the first column.
@@ -24,7 +32,7 @@ Fetches historical price data for single or multiple tickers.
 \examples{
 \donttest{
 yf_download_prices("AAPL", start = "2023-01-01", end = "2023-01-10")
-yf_download_prices(c("AAPL", "MSFT"), interval = "1mo")
+yf_download_prices(c("AAPL", "MSFT"), period = "6mo", interval = "1mo")
 }
 
 }

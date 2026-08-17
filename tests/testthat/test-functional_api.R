@@ -6,7 +6,7 @@ test_that("yf_download_prices handles single and multi-ticker success", {
         if (symbol == "FAIL") stop("Simulated failure")
         self$symbol <- symbol
       },
-      get_history = function(start = NULL, end = NULL, interval = "1d") {
+      get_history = function(start = NULL, end = NULL, interval = "1d", period = NULL) {
         data.frame(date = as.POSIXct("2023-01-01"), close = 150)
       }
     )
@@ -29,6 +29,55 @@ test_that("yf_download_prices handles single and multi-ticker success", {
   
   expect_warning(res4 <- yf_download_prices("FAIL"), "Failed to fetch data for ticker: FAIL")
   expect_equal(nrow(res4), 0)
+})
+
+test_that("yf_download_prices supports period argument and precedence rules", {
+  MockTicker <- R6::R6Class("MockTicker",
+    public = list(
+      symbol = NULL,
+      initialize = function(symbol) {
+        self$symbol <- symbol
+      },
+      get_history = function(start = NULL, end = NULL, interval = "1d", period = NULL) {
+        data.frame(
+          date = as.POSIXct("2023-01-01"), 
+          close = 150, 
+          captured_start = if (is.null(start)) NA else as.character(start),
+          captured_period = if (is.null(period)) NA else period,
+          stringsAsFactors = FALSE
+        )
+      }
+    )
+  )
+  
+  testthat::local_mocked_bindings(Ticker = MockTicker, .package = "yahoofinancer")
+  
+  # 1 & 2. Valid periods
+  res_6mo <- yf_download_prices("AAPL", period = "6mo")
+  expect_equal(res_6mo$captured_period, "6mo")
+  expect_true(is.na(res_6mo$captured_start))
+  
+  res_1mo <- yf_download_prices("AAPL", period = "1mo")
+  expect_equal(res_1mo$captured_period, "1mo")
+  
+  res_ytd <- yf_download_prices("AAPL", period = "ytd")
+  expect_equal(res_ytd$captured_period, "ytd")
+  
+  # 3. Invalid period
+  expect_error(yf_download_prices("AAPL", period = "100years"), "Invalid period: '100years'")
+  
+  # 4. Both start and period provided (warns and ignores period)
+  expect_warning(
+    res_both <- yf_download_prices("AAPL", start = "2023-01-01", period = "6mo"),
+    "Both 'start' and 'period' were provided"
+  )
+  expect_equal(res_both$captured_start, "2023-01-01")
+  expect_true(is.na(res_both$captured_period))
+  
+  # 5. Default behavior (start=NULL, period=NULL)
+  res_default <- yf_download_prices("AAPL")
+  expect_equal(res_default$captured_period, "1y")
+  expect_true(is.na(res_default$captured_start))
 })
 
 test_that("yf_get_market_stats works", {
