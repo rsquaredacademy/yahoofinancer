@@ -22,3 +22,6 @@
 ^\.gemini$
 ^coverage\.html$
 ^lib$
+^yahoofinancer-recipes\.md$
+^yahoofinancer-recipes\.md\.pdf$
+^yahoofinancer-review\.pdf$

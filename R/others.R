@@ -65,31 +65,47 @@ get_currencies <- function() {
 }
 
 
-#' Market Summary
-#'
-#' Summary info of relevant exchanges for specific country.
-#'
-#' @param country Name of the country.
-#'
-#' @return A \code{data.frame}.
-#'
-#' @examples
-#' \donttest{
-#' get_market_summary(country = 'US')
-#' }
-#'
+#' @title Get Real-Time Market Summary
+#' @description Retrieve live market overview snapshots across global benchmark indices, commodities, currencies, and futures.
+#' @param as_tibble Logical; if TRUE (default), returns a tidy tibble. If FALSE, returns the raw nested list.
+#' @return A tibble of market quotes (if as_tibble = TRUE) or a nested list (if as_tibble = FALSE).
 #' @export
+#' @examples
+#' \dontrun{
+#' # Tidy tibble output (default)
+#' market_df <- get_market_summary()
 #'
-get_market_summary <- function(country = 'US') {
+#' # Raw list output
+#' market_list <- get_market_summary(as_tibble = FALSE)
+#' }
+get_market_summary <- function(as_tibble = TRUE) {
+
+  if (!is.logical(as_tibble) || length(as_tibble) != 1 || is.na(as_tibble)) {
+    stop("`as_tibble` must be a single logical value (TRUE or FALSE).", call. = FALSE)
+  }
+
+  empty_tibble <- function() {
+    tibble::tibble(
+      symbol = character(),
+      short_name = character(),
+      regular_market_price = numeric(),
+      regular_market_change = numeric(),
+      regular_market_change_percent = numeric(),
+      regular_market_previous_close = numeric(),
+      market_state = character(),
+      exchange = character(),
+      market_time = as.POSIXct(integer(), origin = "1970-01-01", tz = "UTC")
+    )
+  }
 
   base_url <- 'https://query1.finance.yahoo.com'
   path     <- 'v6/finance/quote/marketSummary'
   url      <- paste0(base_url, "/", path)
-  qlist    <- list(region = country)
+  qlist    <- list(region = 'US')
 
   if (!has_internet()) {
     message("No internet connection.")
-    return(invisible(NULL))
+    if (as_tibble) return(empty_tibble()) else return(invisible(NULL))
   }
 
   req <- httr2::request(url)
@@ -104,7 +120,9 @@ get_market_summary <- function(country = 'US') {
     error = function(e) NULL
   )
 
-  if (is.null(resp)) return(invisible(NULL))
+  if (is.null(resp)) {
+    if (as_tibble) return(empty_tibble()) else return(invisible(NULL))
+  }
 
   parsed <- tryCatch(
     httr2::resp_body_json(resp, simplifyVector = FALSE),
@@ -121,11 +139,44 @@ get_market_summary <- function(country = 'US') {
       paste('Description:', parsed$quoteSummary$error$description, '\n'),
       sep = ''
     )
-    return(invisible(NULL))
+    if (as_tibble) return(empty_tibble()) else return(invisible(NULL))
   } else {
+    data <- parsed$marketSummaryResponse$result
     
-    parsed$marketSummaryResponse$result
-
+    if (as_tibble) {
+      if (length(data) == 0) {
+        return(empty_tibble())
+      }
+      
+      safe_extract_scalar_char <- function(x, name, default = NA_character_) {
+        val <- x[[name]]
+        if (is.null(val)) return(default)
+        as.character(val)
+      }
+      
+      safe_extract_raw_numeric <- function(x, name, default = NA_real_) {
+        val <- x[[name]]
+        if (is.null(val) || is.null(val$raw)) return(default)
+        as.numeric(val$raw)
+      }
+      
+      res <- tibble::tibble(
+        symbol = vapply(data, safe_extract_scalar_char, name = "symbol", FUN.VALUE = character(1)),
+        short_name = vapply(data, safe_extract_scalar_char, name = "shortName", FUN.VALUE = character(1)),
+        regular_market_price = vapply(data, safe_extract_raw_numeric, name = "regularMarketPrice", FUN.VALUE = numeric(1)),
+        regular_market_change = vapply(data, safe_extract_raw_numeric, name = "regularMarketChange", FUN.VALUE = numeric(1)),
+        regular_market_change_percent = vapply(data, safe_extract_raw_numeric, name = "regularMarketChangePercent", FUN.VALUE = numeric(1)),
+        regular_market_previous_close = vapply(data, safe_extract_raw_numeric, name = "regularMarketPreviousClose", FUN.VALUE = numeric(1)),
+        market_state = vapply(data, safe_extract_scalar_char, name = "marketState", FUN.VALUE = character(1)),
+        exchange = vapply(data, safe_extract_scalar_char, name = "exchange", FUN.VALUE = character(1)),
+        market_time = as.POSIXct(vapply(data, safe_extract_raw_numeric, name = "regularMarketTime", FUN.VALUE = numeric(1)), origin = "1970-01-01", tz = "UTC")
+      )
+      
+      return(res)
+    } else {
+      if (length(data) == 0) return(list())
+      return(data)
+    }
   }
 }
 

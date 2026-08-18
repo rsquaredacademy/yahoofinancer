@@ -2,22 +2,25 @@
 % Please edit documentation in R/others.R
 \name{get_market_summary}
 \alias{get_market_summary}
-\title{Market Summary}
+\title{Get Real-Time Market Summary}
 \usage{
-get_market_summary(country = "US")
+get_market_summary(as_tibble = TRUE)
 }
 \arguments{
-\item{country}{Name of the country.}
+\item{as_tibble}{Logical; if TRUE (default), returns a tidy tibble. If FALSE, returns the raw nested list.}
 }
 \value{
-A \code{data.frame}.
+A tibble of market quotes (if as_tibble = TRUE) or a nested list (if as_tibble = FALSE).
 }
 \description{
-Summary info of relevant exchanges for specific country.
+Retrieve live market overview snapshots across global benchmark indices, commodities, currencies, and futures.
 }
 \examples{
-\donttest{
-get_market_summary(country = 'US')
-}
+\dontrun{
+# Tidy tibble output (default)
+market_df <- get_market_summary()
 
+# Raw list output
+market_list <- get_market_summary(as_tibble = FALSE)
+}
 }
