@@ -3,7 +3,16 @@
 .RData
 .Ruserdata
 .positai
+.claude/
 .gemini/
+.specify/
 coverage.html
 lib/
 revdep/
+GEMINI.md
+audit.md
+tasks.md
+plan.md
+yahoofinancer-recipes.md
+yahoofinancer-recipes.md.pdf
+yahoofinancer-review.pdf
