@@ -17,6 +17,8 @@ navbar:
   left:
     - text: 'Home'
       href: index.html
+    - text: 'Cookbook'
+      href: articles/cookbook.html
     - text: 'Reference'
       menu:
         - text: 'Functions'
@@ -26,6 +28,12 @@ navbar:
   right:
     - icon: fa-github
       href: https://github.com/rsquaredacademy/yahoofinancer
+
+articles:
+  - title: 'Guides & Cookbooks'
+    navbar: ~
+    contents:
+      - cookbook
 
 home:
   links:
@@ -40,24 +48,25 @@ home:
 
 reference:
   - title: Tickers
-
     contents:
       - Ticker-class
+      - Tickers
+      - yf_download_prices
+      - yf_get_financials
 
   - title: Indices
-
     contents:
       - Indice-class
+      - yf_get_index_quotes
 
   - title: Currencies
-
     contents:
       - get_currencies
       - currency_converter
 
-  - title: Others
-
+  - title: Market Overview & Other Utilities
     contents:
       - get_market_summary
       - get_trending
+      - yf_get_market_stats
       - validate
