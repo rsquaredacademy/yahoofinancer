@@ -1,7 +1,7 @@
 library(testthat)
 library(yahoofinancer)
 
-test_that("get_history handles success path with period", {
+test_that("get_history handles success path with period, 8-col schema, and adj_close parsing", {
   aapl <- Ticker$new("AAPL")
   
   with_mock_api(
@@ -32,9 +32,50 @@ test_that("get_history handles success path with period", {
     ),
     code = {
       res <- aapl$get_history(period = "1mo", interval = "1d")
-      expect_s3_class(res, "data.frame")
+      expect_s3_class(res, "tbl_df")
+      expect_equal(names(res), c("symbol", "date", "open", "high", "low", "close", "adj_close", "volume"))
       expect_equal(nrow(res), 2)
-      expect_true("adj_close" %in% names(res))
+      expect_type(res$adj_close, "double")
+      expect_equal(res$adj_close, c(135.5, 136.5))
+      
+      # Pipe compatibility
+      res_mutated <- res %>% dplyr::mutate(daily_return = (adj_close / dplyr::lag(adj_close)) - 1)
+      expect_true("daily_return" %in% names(res_mutated))
+      expect_equal(res_mutated$daily_return[2], (136.5 / 135.5) - 1)
+    }
+  )
+})
+
+test_that("get_history enforces adj_close fallback when absent", {
+  aapl <- Ticker$new("AAPL")
+  
+  with_mock_api(
+    response_mock = mock_response(
+      body_json = list(
+        chart = list(
+          result = list(
+            list(
+              timestamp = list(1625059200, 1625145600),
+              indicators = list(
+                quote = list(
+                  list(
+                    open = list(135.0, 136.0),
+                    high = list(137.0, 138.0),
+                    low = list(134.0, 135.0),
+                    close = list(136.0, 137.0),
+                    volume = list(1000000, 1100000)
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    ),
+    code = {
+      res <- aapl$get_history(period = "1mo", interval = "1d")
+      expect_equal(names(res), c("symbol", "date", "open", "high", "low", "close", "adj_close", "volume"))
+      expect_equal(res$adj_close, res$close)
     }
   )
 })

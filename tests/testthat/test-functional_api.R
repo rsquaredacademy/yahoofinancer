@@ -7,7 +7,7 @@ test_that("yf_download_prices handles single and multi-ticker success", {
         self$symbol <- symbol
       },
       get_history = function(start = NULL, end = NULL, interval = "1d", period = NULL) {
-        data.frame(date = as.POSIXct("2023-01-01"), close = 150)
+        tibble::tibble(symbol = self$symbol, date = as.POSIXct("2023-01-01"), open = 150, high = 150, low = 150, close = 150, adj_close = 150, volume = 1000)
       }
     )
   )
@@ -39,12 +39,12 @@ test_that("yf_download_prices supports period argument and precedence rules", {
         self$symbol <- symbol
       },
       get_history = function(start = NULL, end = NULL, interval = "1d", period = NULL) {
-        data.frame(
+        tibble::tibble(
+          symbol = self$symbol,
           date = as.POSIXct("2023-01-01"), 
-          close = 150, 
-          captured_start = if (is.null(start)) NA else as.character(start),
-          captured_period = if (is.null(period)) NA else period,
-          stringsAsFactors = FALSE
+          open = 150, high = 150, low = 150, close = 150, adj_close = 150, volume = 1000,
+          captured_start = if (is.null(start)) NA_character_ else as.character(start),
+          captured_period = if (is.null(period)) NA_character_ else period
         )
       }
     )
@@ -159,7 +159,7 @@ test_that("yf_get_index_quotes works", {
         self$symbol <- symbol
       },
       get_history = function(start = NULL, end = NULL, interval = "1d", period = "1d") {
-        data.frame(date = as.POSIXct("2023-01-01"), close = 4000)
+        tibble::tibble(symbol = self$symbol, date = as.POSIXct("2023-01-01"), open = 4000, high = 4000, low = 4000, close = 4000, adj_close = 4000, volume = 1000)
       }
     )
   )

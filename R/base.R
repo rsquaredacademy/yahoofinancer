@@ -83,28 +83,7 @@ YahooFinanceBase <- R6::R6Class(
       if (is.null(parsed)) return(invisible(NULL))
 
       data <- parsed$chart$result[[1]]
-      if (is.null(data$timestamp)) return(data.frame())
-
-      indicators <- data$indicators$quote[[1]]
-
-      result <- data.frame(
-        date   = lubridate::as_datetime(unlist(data$timestamp)),
-        volume = flatten_list(indicators$volume),
-        high   = flatten_list(indicators$high),
-        low    = flatten_list(indicators$low),
-        open   = flatten_list(indicators$open),
-        close  = flatten_list(indicators$close),
-        stringsAsFactors = FALSE
-      )
-
-      if (interval %in% c('1d', '5d', '1wk', '1mo', '3mo')) {
-        adj_close <- unlist(data$indicators$adjclose[[1]]$adjclose)
-        if (!is.null(adj_close) && length(adj_close) == nrow(result)) {
-          result$adj_close <- adj_close
-        }
-      }
-
-      return(result)
+      return(parse_chart_data(data, self$symbol))
     }
   ),
 

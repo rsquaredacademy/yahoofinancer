@@ -42,9 +42,6 @@ yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d
       res <- obj$get_history(start = start, end = end, interval = interval, period = period)
       if (is.null(res) || nrow(res) == 0) return(NULL)
       
-      res$symbol <- ticker
-      cols <- c("symbol", setdiff(names(res), "symbol"))
-      res <- res[, cols, drop = FALSE]
       return(res)
     }, error = function(e) {
       warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
@@ -179,11 +176,7 @@ yf_get_index_quotes <- function(index_symbol) {
     
     if (is.null(res) || nrow(res) == 0) return(tibble::tibble())
     
-    res$symbol <- index_symbol
-    cols <- c("symbol", setdiff(names(res), "symbol"))
-    res <- res[, cols, drop = FALSE]
-    
-    return(tibble::as_tibble(res))
+    return(res)
   }, error = function(e) {
     warning(paste0("Failed to fetch data for index: ", index_symbol), call. = FALSE)
     return(tibble::tibble())
