@@ -23,7 +23,10 @@ Suggests:
     covr,
     httptest,
     httptest2,
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 License: MIT + file LICENSE
 Encoding: UTF-8

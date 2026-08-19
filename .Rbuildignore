@@ -25,4 +25,4 @@
 ^yahoofinancer-recipes\.md$
 ^yahoofinancer-recipes\.md\.pdf$
 ^yahoofinancer-review\.pdf$
-^^vignettes/\.*\\.Rmd\\.orig$$
+^vignettes/.*\.Rmd\.orig$
