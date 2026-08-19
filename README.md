@@ -14,7 +14,20 @@ output: github_document
 [![Codecov test coverage](https://codecov.io/gh/rsquaredacademy/yahoofinancer/branch/master/graph/badge.svg)](https://app.codecov.io/gh/rsquaredacademy/yahoofinancer?branch=master)
 <!-- badges: end -->
 
-Obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.
+An R interface to the Yahoo Finance API. Fetch historical prices, real-time quotes, financial statements, valuation metrics, and currency exchange rates — all returned as tidy tibbles ready for analysis.
+
+## Features
+
+- **Historical prices** — daily, weekly, monthly, or intraday OHLCV data
+- **Real-time quotes** — current price, day range, 52-week high/low, volume
+- **Financial statements** — income statement, balance sheet, and cash flow
+- **Valuation metrics** — P/E, P/B, P/S, EV/EBITDA, market cap, and more
+- **Currency conversion** — historical and current exchange rates
+- **Market indices** — S&P 500, NIFTY 50, DAX, and any Yahoo-supported index
+- **Market summary** — global snapshot of indices, commodities, and futures
+- **Trending tickers** — what's popular right now, by region
+- **Multi-ticker support** — batch queries via `Tickers` class or `yf_download_prices()`
+- **Tidy output** — everything comes back as tibbles, ready for dplyr pipelines
 
 ## Installation
 
@@ -32,8 +45,20 @@ pak::pak("rsquaredacademy/yahoofinancer")
 
 
 
+### Download Prices
 
-### Ticker
+The fastest way to grab price data for one or more symbols is using the functional API:
+
+
+``` r
+# Single ticker
+prices <- yf_download_prices("AAPL", start = "2024-01-01", end = "2024-06-30")
+
+# Multiple tickers at once
+prices <- yf_download_prices(c("AAPL", "MSFT", "GOOGL"), period = "6mo")
+```
+
+### Single Ticker
 
 To retrieve data from Yahoo Finance for a single stock, create an instance of the `Ticker` class by passing the company's ticker symbol as an argument:
 
@@ -67,7 +92,29 @@ aapl$previous_close
 #> [1] 305.59
 ```
 
-### Index 
+### Multiple Tickers
+
+You can manage multiple symbols simultaneously using the `Tickers` class. This handles errors gracefully and returns data in a long format:
+
+
+``` r
+tech_stocks <- Tickers$new(c("AAPL", "MSFT", "GOOGL"))
+
+# Get current market prices for the group
+tech_stocks$regular_market_price
+```
+
+### Financial Statements
+
+Retrieve quarterly or annual financial statements using the functional API:
+
+
+``` r
+# Get income statements
+income <- yf_get_financials(c("AAPL", "MSFT"), statement_type = "income")
+```
+
+### Market Indices
 
 To retrieve data from Yahoo Finance for an index, create an instance of the `Index` class by passing the index symbol as an argument:
 
@@ -88,7 +135,22 @@ head(nifty_50$get_history(start = '2024-01-20', interval = '1d'))
 #> 6 ^NSEI  2024-01-31 03:45:00 21487. 21741. 21449. 21726.    21726. 410600
 ```
 
-### Currency
+### Market Overview
+
+Get a snapshot of the global market or see what's trending:
+
+
+``` r
+# Get global market summary
+market_summary <- get_market_summary()
+
+# Get trending securities in the US
+trending <- get_trending(country = "US")
+```
+
+### Currency Conversion
+
+Retrieve current and historical exchange rates between two currencies:
 
 
 ``` r
@@ -102,21 +164,18 @@ head(currency_converter('GBP', 'USD', '2024-01-20', '2024-01-30'))
 #> 6 2024-01-29 1.271941 1.266320 1.269712 1.269761      0  1.269761
 ```
 
-## IMPORTANT LEGAL DISCLAIMER 
+## Learning More
 
-**Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of
-Yahoo, Inc.**
+- 📖 [Package documentation](https://yahoofinancer.rsquaredacademy.com/) — full function reference and articles
+- 🐛 [Report a bug](https://github.com/rsquaredacademy/yahoofinancer/issues) — found a problem? Let us know
 
-yahoofinancer is **not** affiliated, endorsed, or vetted by Yahoo, Inc. It's
-an open-source tool that uses Yahoo's publicly available APIs, and is
-intended for research and educational purposes.
+## Legal Disclaimer
 
-**You should refer to Yahoo!'s terms of use**
-([here](https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm),
-[here](https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html), and
-[here](https://policies.yahoo.com/us/en/yahoo/terms/index.htm)) **for
-details on your rights to use the actual data downloaded. Remember - the
-Yahoo! finance API is intended for personal use only.**
+**Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of Yahoo, Inc.**
+
+yahoofinancer is **not** affiliated, endorsed, or vetted by Yahoo, Inc. It's an open-source tool that uses Yahoo's publicly available APIs, and is intended for research and educational purposes.
+
+You should refer to Yahoo!'s terms of use ([here](https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm), [here](https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html), and [here](https://policies.yahoo.com/us/en/yahoo/terms/index.htm)) for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.
 
 ## Code of Conduct
 
