@@ -55,12 +55,39 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>Obtain historical and near real time data related to stocks, index and currencies from the Yahoo Finance API.</p>
+<p>An R interface to the Yahoo Finance API. Fetch historical prices, real-time quotes, financial statements, valuation metrics, and currency exchange rates — all returned as tidy tibbles ready for analysis.</p>
+<div class="section level2">
+<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+</h2>
+<ul>
+<li>
+<strong>Historical prices</strong> — daily, weekly, monthly, or intraday OHLCV data</li>
+<li>
+<strong>Real-time quotes</strong> — current price, day range, 52-week high/low, volume</li>
+<li>
+<strong>Financial statements</strong> — income statement, balance sheet, and cash flow</li>
+<li>
+<strong>Valuation metrics</strong> — P/E, P/B, P/S, EV/EBITDA, market cap, and more</li>
+<li>
+<strong>Currency conversion</strong> — historical and current exchange rates</li>
+<li>
+<strong>Market indices</strong> — S&amp;P 500, NIFTY 50, DAX, and any Yahoo-supported index</li>
+<li>
+<strong>Market summary</strong> — global snapshot of indices, commodities, and futures</li>
+<li>
+<strong>Trending tickers</strong> — what’s popular right now, by region</li>
+<li>
+<strong>Multi-ticker support</strong> — batch queries via <code>Tickers</code> class or <code><a href="reference/yf_download_prices.html">yf_download_prices()</a></code>
+</li>
+<li>
+<strong>Tidy output</strong> — everything comes back as tibbles, ready for dplyr pipelines</li>
+</ul>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install rfm from CRAN</span></span>
+<code class="sourceCode R"><span><span class="co"># Install yahoofinancer from CRAN</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"yahoofinancer"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Or the development version from GitHub</span></span>
@@ -71,56 +98,101 @@
 <h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
 <div class="section level3">
-<h3 id="ticker">Ticker<a class="anchor" aria-label="anchor" href="#ticker"></a>
+<h3 id="download-prices">Download Prices<a class="anchor" aria-label="anchor" href="#download-prices"></a>
+</h3>
+<p>The fastest way to grab price data for one or more symbols is using the functional API:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Single ticker</span></span>
+<span><span class="va">prices</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/yf_download_prices.html">yf_download_prices</a></span><span class="op">(</span><span class="st">"AAPL"</span>, start <span class="op">=</span> <span class="st">"2024-01-01"</span>, end <span class="op">=</span> <span class="st">"2024-06-30"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Multiple tickers at once</span></span>
+<span><span class="va">prices</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/yf_download_prices.html">yf_download_prices</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAPL"</span>, <span class="st">"MSFT"</span>, <span class="st">"GOOGL"</span><span class="op">)</span>, period <span class="op">=</span> <span class="st">"6mo"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="single-ticker">Single Ticker<a class="anchor" aria-label="anchor" href="#single-ticker"></a>
 </h3>
 <p>To retrieve data from Yahoo Finance for a single stock, create an instance of the <code>Ticker</code> class by passing the company’s ticker symbol as an argument:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aapl</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ticker-class.html">Ticker</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'aapl'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get historical market data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aapl</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-10-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                  date   volume   high    low   open  close adj_close</span></span>
-<span><span class="co">#&gt; 1 2024-10-21 13:30:00 36254500 236.85 234.45 234.45 236.48  234.7204</span></span>
-<span><span class="co">#&gt; 2 2024-10-22 13:30:00 38846600 236.22 232.60 233.89 235.86  234.1051</span></span>
-<span><span class="co">#&gt; 3 2024-10-23 13:30:00 52287000 235.14 227.76 234.08 230.76  229.0430</span></span>
-<span><span class="co">#&gt; 4 2024-10-24 13:30:00 31109500 230.82 228.41 229.98 230.57  228.8544</span></span>
-<span><span class="co">#&gt; 5 2024-10-25 13:30:00 38802300 233.22 229.57 229.74 231.41  229.6882</span></span>
-<span><span class="co">#&gt; 6 2024-10-28 13:30:00 36087100 234.73 232.55 233.32 233.40  231.6634</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
+<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close   volume</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 aapl   2024-10-21 13:30:00  234.  237.  234.  236.      235. 36254500</span></span>
+<span><span class="co">#&gt; 2 aapl   2024-10-22 13:30:00  234.  236.  233.  236.      234. 38846600</span></span>
+<span><span class="co">#&gt; 3 aapl   2024-10-23 13:30:00  234.  235.  228.  231.      229. 52287000</span></span>
+<span><span class="co">#&gt; 4 aapl   2024-10-24 13:30:00  230.  231.  228.  231.      229. 31109500</span></span>
+<span><span class="co">#&gt; 5 aapl   2024-10-25 13:30:00  230.  233.  230.  231.      229. 38802300</span></span>
+<span><span class="co">#&gt; 6 aapl   2024-10-28 13:30:00  233.  235.  233.  233.      231. 36087100</span></span>
 <span></span>
 <span><span class="co"># meta info</span></span>
 <span><span class="co"># regular market price</span></span>
 <span><span class="va">aapl</span><span class="op">$</span><span class="va">regular_market_price</span></span>
-<span><span class="co">#&gt; [1] 297.84</span></span>
+<span><span class="co">#&gt; [1] 310.03</span></span>
 <span></span>
 <span><span class="co"># 52 week high</span></span>
 <span><span class="va">aapl</span><span class="op">$</span><span class="va">fifty_two_week_high</span></span>
-<span><span class="co">#&gt; [1] 303.2</span></span>
+<span><span class="co">#&gt; [1] 344.57</span></span>
 <span></span>
 <span><span class="co"># previous close</span></span>
 <span><span class="va">aapl</span><span class="op">$</span><span class="va">previous_close</span></span>
-<span><span class="co">#&gt; [1] 300.23</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 305.59</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="index">Index<a class="anchor" aria-label="anchor" href="#index"></a>
+<h3 id="multiple-tickers">Multiple Tickers<a class="anchor" aria-label="anchor" href="#multiple-tickers"></a>
+</h3>
+<p>You can manage multiple symbols simultaneously using the <code>Tickers</code> class. This handles errors gracefully and returns data in a long format:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tech_stocks</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Tickers.html">Tickers</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAPL"</span>, <span class="st">"MSFT"</span>, <span class="st">"GOOGL"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get current market prices for the group</span></span>
+<span><span class="va">tech_stocks</span><span class="op">$</span><span class="va">regular_market_price</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="financial-statements">Financial Statements<a class="anchor" aria-label="anchor" href="#financial-statements"></a>
+</h3>
+<p>Retrieve quarterly or annual financial statements using the functional API:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get income statements</span></span>
+<span><span class="va">income</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/yf_get_financials.html">yf_get_financials</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAPL"</span>, <span class="st">"MSFT"</span><span class="op">)</span>, statement_type <span class="op">=</span> <span class="st">"income"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="market-indices">Market Indices<a class="anchor" aria-label="anchor" href="#market-indices"></a>
 </h3>
 <p>To retrieve data from Yahoo Finance for an index, create an instance of the <code>Index</code> class by passing the index symbol as an argument:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Indice-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get historical data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nifty_50</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-01-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                  date volume     high      low     open    close adj_close</span></span>
-<span><span class="co">#&gt; 1 2024-01-23 03:45:00 449700 21750.25 21192.60 21716.70 21238.80   21238.8</span></span>
-<span><span class="co">#&gt; 2 2024-01-24 03:45:00 407500 21482.35 21137.20 21185.25 21453.95  21453.95</span></span>
-<span><span class="co">#&gt; 3 2024-01-25 03:45:00 418100 21459.00 21247.05 21454.60 21352.60   21352.6</span></span>
-<span><span class="co">#&gt; 4 2024-01-29 03:45:00 376700 21763.25 21429.60 21433.10 21737.60   21737.6</span></span>
-<span><span class="co">#&gt; 5 2024-01-30 03:45:00 375100 21813.05 21501.80 21775.75 21522.10   21522.1</span></span>
-<span><span class="co">#&gt; 6 2024-01-31 03:45:00 410600 21741.35 21448.85 21487.25 21725.70   21725.7</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
+<span><span class="co">#&gt;   symbol date                  open   high    low  close adj_close volume</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;               &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 ^NSEI  2024-01-23 03:45:00 21717. 21750. 21193. 21239.    21239. 449700</span></span>
+<span><span class="co">#&gt; 2 ^NSEI  2024-01-24 03:45:00 21185. 21482. 21137. 21454.    21454. 407500</span></span>
+<span><span class="co">#&gt; 3 ^NSEI  2024-01-25 03:45:00 21455. 21459  21247. 21353.    21353. 418100</span></span>
+<span><span class="co">#&gt; 4 ^NSEI  2024-01-29 03:45:00 21433. 21763. 21430. 21738.    21738. 376700</span></span>
+<span><span class="co">#&gt; 5 ^NSEI  2024-01-30 03:45:00 21776. 21813. 21502. 21522.    21522. 375100</span></span>
+<span><span class="co">#&gt; 6 ^NSEI  2024-01-31 03:45:00 21487. 21741. 21449. 21726.    21726. 410600</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="currency">Currency<a class="anchor" aria-label="anchor" href="#currency"></a>
+<h3 id="market-overview">Market Overview<a class="anchor" aria-label="anchor" href="#market-overview"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>Get a snapshot of the global market or see what’s trending:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get global market summary</span></span>
+<span><span class="va">market_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_market_summary.html">get_market_summary</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get trending securities in the US</span></span>
+<span><span class="va">trending</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_trending.html">get_trending</a></span><span class="op">(</span>country <span class="op">=</span> <span class="st">"US"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="currency-conversion">Currency Conversion<a class="anchor" aria-label="anchor" href="#currency-conversion"></a>
+</h3>
+<p>Retrieve current and historical exchange rates between two currencies:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="reference/currency_converter.html">currency_converter</a></span><span class="op">(</span><span class="st">'GBP'</span>, <span class="st">'USD'</span>, <span class="st">'2024-01-20'</span>, <span class="st">'2024-01-30'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         date     high      low     open    close volume adj_close</span></span>
 <span><span class="co">#&gt; 1 2024-01-22 1.273075 1.268826 1.270083 1.269986      0  1.269986</span></span>
@@ -132,11 +204,19 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="important-legal-disclaimer">IMPORTANT LEGAL DISCLAIMER<a class="anchor" aria-label="anchor" href="#important-legal-disclaimer"></a>
+<h2 id="learning-more">Learning More<a class="anchor" aria-label="anchor" href="#learning-more"></a>
+</h2>
+<ul>
+<li>📖 <a href="https://yahoofinancer.rsquaredacademy.com/">Package documentation</a> — full function reference and articles</li>
+<li>🐛 <a href="https://github.com/rsquaredacademy/yahoofinancer/issues" class="external-link">Report a bug</a> — found a problem? Let us know</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="legal-disclaimer">Legal Disclaimer<a class="anchor" aria-label="anchor" href="#legal-disclaimer"></a>
 </h2>
 <p><strong>Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of Yahoo, Inc.</strong></p>
 <p>yahoofinancer is <strong>not</strong> affiliated, endorsed, or vetted by Yahoo, Inc. It’s an open-source tool that uses Yahoo’s publicly available APIs, and is intended for research and educational purposes.</p>
-<p><strong>You should refer to Yahoo!’s terms of use</strong> (<a href="https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm" class="external-link">here</a>, <a href="https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html" class="external-link">here</a>, and <a href="https://policies.yahoo.com/us/en/yahoo/terms/index.htm" class="external-link">here</a>) <strong>for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.</strong></p>
+<p>You should refer to Yahoo!’s terms of use (<a href="https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm" class="external-link">here</a>, <a href="https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html" class="external-link">here</a>, and <a href="https://policies.yahoo.com/us/en/yahoo/terms/index.htm" class="external-link">here</a>) for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.</p>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>

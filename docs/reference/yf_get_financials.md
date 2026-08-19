@@ -1,7 +1,7 @@
 # Get Financial Statements
 
-Retrieves financial statements (income statement, balance sheet, or cash
-flow) for given tickers.
+Retrieves quarterly/annual financial statements (income statement,
+balance sheet, or cash flow) for one or more tickers.
 
 ## Usage
 
@@ -20,19 +20,21 @@ yf_get_financials(
 
 - statement_type:
 
-  The type of financial statement to retrieve. One of "income",
-  "balance-sheet", or "cash-flow".
+  The type of financial statement to retrieve. One of `"income"`,
+  `"balance-sheet"`, or `"cash-flow"`.
 
 ## Value
 
-A \`tibble\` of financial data with \`symbol\` as the first column.
+A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with
+`symbol` as the first column. Remaining columns vary by `statement_type`
+and reflect the line items returned by the Yahoo Finance API. Returns an
+empty tibble if all tickers fail.
 
 ## Examples
 
 ``` r
-# \donttest{
+if (FALSE) { # \dontrun{
 yf_get_financials("AAPL", statement_type = "income")
-#> Warning: Failed to fetch data for ticker: AAPL
-#> # A tibble: 0 × 0
-# }
+yf_get_financials(c("AAPL", "MSFT"), statement_type = "balance-sheet")
+} # }
 ```

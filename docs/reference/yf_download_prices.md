@@ -1,6 +1,16 @@
 # Download Historical Prices
 
-Fetches historical price data for single or multiple tickers.
+Fetches historical OHLCV price data for one or more tickers using the
+Yahoo Finance chart API. Results are combined into a single long-format
+tibble suitable for `dplyr` pipelines.
+
+\*\*Intraday lookback limits\*\* (imposed by Yahoo Finance):
+
+- `"1m"`: max 7 days
+
+- `"5m"`, `"15m"`, `"30m"`: max 60 days
+
+- `"1h"`: max 730 days
 
 ## Usage
 
@@ -18,61 +28,53 @@ yf_download_prices(
 
 - tickers:
 
-  Character vector of stock symbols.
+  Character vector of one or more stock symbols (e.g.,
+  `c("AAPL", "MSFT")`).
 
 - start:
 
-  Date or character string representing the start date (\`YYYY-MM-DD\`).
+  Date or character string in `"YYYY-MM-DD"` format representing the
+  start date. When provided, `period` is ignored.
 
 - end:
 
-  Date or character string representing the end date (\`YYYY-MM-DD\`).
+  Date or character string in `"YYYY-MM-DD"` format representing the end
+  date. Defaults to today if `start` is set but `end` is `NULL`.
 
 - interval:
 
-  Time between data points (e.g., "1d", "1wk", "1mo").
+  Time between data points. Valid values: `"1m"`, `"2m"`, `"5m"`,
+  `"15m"`, `"30m"`, `"60m"`, `"90m"`, `"1h"`, `"1d"`, `"5d"`, `"1wk"`,
+  `"1mo"`, `"3mo"`. Defaults to `"1d"`.
 
 - period:
 
-  Relative time period for data retrieval (e.g., "1mo", "1y", "max").
-  Valid values are "1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y",
-  "10y", "ytd", "max". Defaults to "1y" if both \`start\` and \`period\`
-  are NULL.
+  Relative time period. Valid values: `"1d"`, `"5d"`, `"1mo"`, `"3mo"`,
+  `"6mo"`, `"1y"`, `"2y"`, `"5y"`, `"10y"`, `"ytd"`, `"max"`. Defaults
+  to `"1y"` when both `start` and `period` are `NULL`.
 
 ## Value
 
-A \`tibble\` of historical prices with \`symbol\` as the first column.
+A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with 8
+columns: `symbol`, `date`, `open`, `high`, `low`, `close`, `adj_close`,
+`volume`. Returns an empty tibble if all tickers fail.
+
+## See also
+
+Other historical data:
+[`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
+[`Ticker-class`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md),
+[`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md),
+[`yf_get_index_quotes()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.md)
 
 ## Examples
 
 ``` r
-# \donttest{
+if (FALSE) { # \dontrun{
+# Single ticker with date range
 yf_download_prices("AAPL", start = "2023-01-01", end = "2023-01-10")
-#> # A tibble: 5 × 8
-#>   symbol date                 open  high   low close adj_close    volume
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>     <dbl>
-#> 1 AAPL   2023-01-03 14:30:00  130.  131.  124.  125.      123. 112117500
-#> 2 AAPL   2023-01-04 14:30:00  127.  129.  125.  126.      124.  89113600
-#> 3 AAPL   2023-01-05 14:30:00  127.  128.  125.  125.      123.  80962700
-#> 4 AAPL   2023-01-06 14:30:00  126.  130.  125.  130.      127.  87754700
-#> 5 AAPL   2023-01-09 14:30:00  130.  133.  130.  130.      128.  70790800
+
+# Multiple tickers with relative period
 yf_download_prices(c("AAPL", "MSFT"), period = "6mo", interval = "1mo")
-#> # A tibble: 14 × 8
-#>    symbol date                 open  high   low close adj_close     volume
-#>    <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>      <dbl>
-#>  1 AAPL   2026-03-01 05:00:00  262.  267.  246.  254.      253.  900035700
-#>  2 AAPL   2026-04-01 04:00:00  254.  276   246.  271.      271.  907538500
-#>  3 AAPL   2026-05-01 04:00:00  279.  315   275.  312.      312.  981286400
-#>  4 AAPL   2026-06-01 04:00:00  310.  317.  274.  289.      289. 1401170100
-#>  5 AAPL   2026-07-01 04:00:00  293.  345.  289.  309.      309. 1198861200
-#>  6 AAPL   2026-08-01 04:00:00  310.  316.  301.  306.      306.  465551900
-#>  7 AAPL   2026-08-18 15:59:30  308.  311.  306.  310.      310.   19723811
-#>  8 MSFT   2026-03-01 05:00:00  393.  413.  356.  370.      369.  745288400
-#>  9 MSFT   2026-04-01 04:00:00  373.  434.  364.  408.      407.  716519100
-#> 10 MSFT   2026-05-01 04:00:00  413.  450.  401.  450.      450.  698954800
-#> 11 MSFT   2026-06-01 04:00:00  465.  466.  349.  373.      373. 1017814300
-#> 12 MSFT   2026-07-01 04:00:00  381.  467.  373.  465.      465.  815118000
-#> 13 MSFT   2026-08-01 04:00:00  476.  514.  475   495.      495.  338395800
-#> 14 MSFT   2026-08-18 15:59:30  482.  484.  477.  482.      482.    7787969
-# }
+} # }
 ```

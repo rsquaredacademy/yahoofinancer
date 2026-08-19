@@ -15,6 +15,14 @@ prevent the collection of data for others.
 Most properties return a `data.frame` where the first column is
 `symbol`, facilitating easy filtering and joining in tidy workflows.
 
+## See also
+
+Other historical data:
+[`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
+[`Ticker-class`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md),
+[`yf_download_prices()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md),
+[`yf_get_index_quotes()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.md)
+
 ## Public fields
 
 - `symbols`:
@@ -141,30 +149,39 @@ Retrieve historical market data for all symbols.
 
 - `period`:
 
-  The duration of history to fetch; "1d", "5d", "1mo", "1y", "max" etc.
+  Length of time. Defaults to `'1y'`. Valid values: `"1d"`, `"5d"`,
+  `"1mo"`, `"3mo"`, `"6mo"`, `"1y"`, `"2y"`, `"5y"`, `"10y"`, `"ytd"`,
+  `"max"`. Ignored when `start` is provided.
 
 - `interval`:
 
-  The frequency of data points; "1m", "2m", "5m", "1h", "1d", "1wk" etc.
+  Time between data points. Defaults to `'1d'`. Valid values: `"1m"`,
+  `"2m"`, `"5m"`, `"15m"`, `"30m"`, `"60m"`, `"90m"`, `"1h"`, `"1d"`,
+  `"5d"`, `"1wk"`, `"1mo"`, `"3mo"`.
 
 - `start`:
 
-  Date or timestamp for the start of the period.
+  Specific starting date. `String` or `Date` object in `"YYYY-MM-DD"`
+  format.
 
 - `end`:
 
-  Date or timestamp for the end of the period.
+  Specific ending date. `String` or `Date` object in `"YYYY-MM-DD"`
+  format. Defaults to today when `start` is provided but `end` is
+  `NULL`.
 
 #### Returns
 
-A tidy `data.frame` containing historical prices and volumes.
+A tidy [`tibble`](https://tibble.tidyverse.org/reference/tibble.html)
+containing historical prices and volumes. Columns: `symbol`, `date`,
+`open`, `high`, `low`, `close`, `adj_close`, `volume`.
 
 ------------------------------------------------------------------------
 
 ### Method `aggregate_data()`
 
 Internal helper to execute a method across all symbols and combine
-results.
+results. Not intended for direct end-user use.
 
 #### Usage
 

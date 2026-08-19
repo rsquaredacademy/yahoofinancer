@@ -97,7 +97,11 @@
 
 </div><p></p><hr><a id="method-YahooFinanceBase-get_history"></a><div class="section">
 <h3 id="method-get-history-">Method <code>get_history()</code><a class="anchor" aria-label="anchor" href="#method-get-history-"></a></h3>
-<p>Retrieves historical pricing data.</p><div class="section">
+<p>Retrieves historical pricing data from the Yahoo Finance chart API.</p>
+<p>**Intraday lookback limits** (imposed by Yahoo Finance):</p><ul><li><p><code>"1m"</code>: max 7 days</p></li>
+<li><p><code>"5m"</code>, <code>"15m"</code>, <code>"30m"</code>: max 60 days</p></li>
+<li><p><code>"1h"</code>: max 730 days</p></li>
+</ul><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">YahooFinanceBase</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span></span>
 <span>  period <span class="op">=</span> <span class="st">"ytd"</span>,</span>
@@ -110,26 +114,61 @@
 <div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>period</code></dt>
-<dd><p>Length of time. Defaults to <code>'ytd'</code>.</p></dd>
+<dd><p>Length of time. Defaults to <code>'ytd'</code>. Valid values:
+<code>"1d"</code>, <code>"5d"</code>, <code>"1mo"</code>, <code>"3mo"</code>, <code>"6mo"</code>,
+<code>"1y"</code>, <code>"2y"</code>, <code>"5y"</code>, <code>"10y"</code>, <code>"ytd"</code>, <code>"max"</code>.
+Ignored when <code>start</code> is provided.</p></dd>
 
 
 <dt><code>interval</code></dt>
-<dd><p>Time between data points. Defaults to <code>'1d'</code>.</p></dd>
+<dd><p>Time between data points. Defaults to <code>'1d'</code>. Valid values:
+<code>"1m"</code>, <code>"2m"</code>, <code>"5m"</code>, <code>"15m"</code>, <code>"30m"</code>,
+<code>"60m"</code>, <code>"90m"</code>, <code>"1h"</code>, <code>"1d"</code>, <code>"5d"</code>,
+<code>"1wk"</code>, <code>"1mo"</code>, <code>"3mo"</code>.</p></dd>
 
 
 <dt><code>start</code></dt>
-<dd><p>Specific starting date. <code>String</code> or <code>date</code> object.</p></dd>
+<dd><p>Specific starting date. <code>String</code> or <code>Date</code> object
+in <code>"YYYY-MM-DD"</code> format.</p></dd>
 
 
 <dt><code>end</code></dt>
-<dd><p>Specific ending date. <code>String</code> or <code>date</code> object.</p></dd>
+<dd><p>Specific ending date. <code>String</code> or <code>Date</code> object
+in <code>"YYYY-MM-DD"</code> format. Defaults to today when <code>start</code> is
+provided but <code>end</code> is <code>NULL</code>.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 <div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
-<p>A <code>data.frame</code>.</p>
+<p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></code> with 8 columns:</p><dl><dt><code>symbol</code></dt>
+<dd><p>Character. Ticker symbol.</p></dd>
+
+  <dt><code>date</code></dt>
+<dd><p>POSIXct. Timestamp of the data point (UTC).</p></dd>
+
+  <dt><code>open</code></dt>
+<dd><p>Numeric. Opening price.</p></dd>
+
+  <dt><code>high</code></dt>
+<dd><p>Numeric. Period high.</p></dd>
+
+  <dt><code>low</code></dt>
+<dd><p>Numeric. Period low.</p></dd>
+
+  <dt><code>close</code></dt>
+<dd><p>Numeric. Closing price.</p></dd>
+
+  <dt><code>adj_close</code></dt>
+<dd><p>Numeric. Split- and dividend-adjusted close.
+    Falls back to <code>close</code> when the API omits adjusted data.</p></dd>
+
+  <dt><code>volume</code></dt>
+<dd><p>Numeric. Trading volume.</p></dd>
+
+
+</dl><p>Returns <code>invisible(NULL)</code> on network failure or invalid symbol.</p>
 </div>
 
 </div><p></p><hr><a id="method-YahooFinanceBase-clone"></a><div class="section">

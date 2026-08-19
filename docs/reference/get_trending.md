@@ -1,6 +1,7 @@
-# Trending securities
+# Get Trending Securities
 
-List of trending securities for specific country.
+Retrieves the list of currently trending securities for a specific
+region from Yahoo Finance.
 
 ## Usage
 
@@ -12,22 +13,29 @@ get_trending(country = "US", count = 10)
 
 - country:
 
-  Name of the country.
+  ISO 3166-1 alpha-2 region code (e.g., `"US"`, `"GB"`, `"IN"`).
+  Defaults to `"US"`.
 
 - count:
 
-  Number of securities.
+  Maximum number of trending securities to return. Defaults to `10`.
 
 ## Value
 
-Securities trending in the country.
+A character vector of trending ticker symbols. Returns `invisible(NULL)`
+on network failure or if no data is available (with a message).
+
+## See also
+
+Other market data:
+[`get_market_summary()`](https://yahoofinancer.rsquaredacademy.com/reference/get_market_summary.md),
+[`yf_get_market_stats()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_market_stats.md)
 
 ## Examples
 
 ``` r
-# \donttest{
+if (FALSE) { # \dontrun{
 get_trending()
-#>  [1] "XOS"     "BTC-USD" "KLAR"    "HD"      "BIDU"    "AMLX"    "FN"     
-#>  [8] "PFSA"    "AIXC"    "META"   
-# }
+get_trending(country = "GB", count = 5)
+} # }
 ```

@@ -1,7 +1,7 @@
-# Currency converter
+# Currency Converter
 
-Retrieve current conversion rate between two currencies as well as
-historical rates.
+Retrieve current and historical exchange rates between two currencies
+via the Yahoo Finance chart API.
 
 ## Usage
 
@@ -20,25 +20,27 @@ currency_converter(
 
 - from:
 
-  Currency to convert from.
+  ISO 4217 three-letter currency code to convert from (e.g., `"EUR"`,
+  `"GBP"`). Defaults to `"EUR"`.
 
 - to:
 
-  Currency to convert to.
+  ISO 4217 three-letter currency code to convert to (e.g., `"USD"`,
+  `"JPY"`). Defaults to `"USD"`.
 
 - start:
 
-  Specific starting date. `String` or `date` object in `yyyy-mm-dd`
+  Specific starting date. `String` or `Date` object in `"YYYY-MM-DD"`
   format.
 
 - end:
 
-  Specific ending date. `String` or `date` object in `yyyy-mm-dd`
+  Specific ending date. `String` or `Date` object in `"YYYY-MM-DD"`
   format.
 
 - period:
 
-  Length of time. Defaults to `'ytd'` Valid values are:
+  Length of time. Defaults to `'ytd'`. Valid values:
 
   - `'1d'`
 
@@ -64,7 +66,7 @@ currency_converter(
 
 - interval:
 
-  Time between data points. Defaults to `'1d'` Valid values are:
+  Time between data points. Defaults to `'1d'`. Valid values:
 
   - `'1h'`
 
@@ -80,44 +82,21 @@ currency_converter(
 
 ## Value
 
-A `data.frame`.
+A `data.frame` with columns: `date` (POSIXct), `high`, `low`, `open`,
+`close`, `volume` (all numeric), and conditionally `adj_close` (numeric,
+present for daily and longer intervals). Rows with `NA` volume are
+excluded. Returns `invisible(NULL)` on network failure.
+
+## See also
+
+Other currency:
+[`get_currencies()`](https://yahoofinancer.rsquaredacademy.com/reference/get_currencies.md)
 
 ## Examples
 
 ``` r
-# \donttest{
+if (FALSE) { # \dontrun{
 currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
-#>                  date     high      low     open    close volume adj_close
-#> 1 2022-06-30 23:00:00 1.216205 1.198064 1.215998 1.216086      0  1.216086
-#> 2 2022-07-03 23:00:00 1.216515 1.208634 1.210580 1.210273      0  1.210273
-#> 3 2022-07-04 23:00:00 1.212606 1.190051 1.211402 1.211446      0  1.211446
-#> 4 2022-07-05 23:00:00 1.198638 1.187761 1.194957 1.194914      0  1.194914
-#> 5 2022-07-06 23:00:00 1.202183 1.191001 1.191895 1.192321      0  1.192321
-#> 6 2022-07-07 23:00:00 1.205531 1.192194 1.203196 1.202805      0  1.202805
 currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
-#>                   date     high      low     open    close volume adj_close
-#> 1  2026-07-19 23:00:00 1.348072 1.341544 1.344429 1.344628      0  1.344628
-#> 2  2026-07-20 23:00:00 1.345533 1.336095 1.343183 1.343165      0  1.343165
-#> 3  2026-07-21 23:00:00 1.339316 1.335666 1.337882 1.337918      0  1.337918
-#> 4  2026-07-22 23:00:00 1.339405 1.330052 1.337596 1.337524      0  1.337524
-#> 5  2026-07-23 23:00:00 1.334917 1.330743 1.331257 1.331274      0  1.331274
-#> 6  2026-07-26 23:00:00 1.336434 1.330035 1.335345 1.335131      0  1.335131
-#> 7  2026-07-27 23:00:00 1.331115 1.327316 1.328886 1.328992      0  1.328992
-#> 8  2026-07-28 23:00:00 1.330938 1.327986 1.328392 1.328727      0  1.328727
-#> 9  2026-07-29 23:00:00 1.346276 1.333333 1.336863 1.336730      0  1.336730
-#> 10 2026-07-30 23:00:00 1.347219 1.340429 1.346094 1.346094      0  1.346094
-#> 11 2026-08-02 23:00:00 1.350129 1.342520 1.348927 1.349164      0  1.349164
-#> 12 2026-08-03 23:00:00 1.345714 1.342001 1.342805 1.342700      0  1.342700
-#> 13 2026-08-04 23:00:00 1.348527 1.344447 1.345171 1.345098      0  1.345098
-#> 14 2026-08-05 23:00:00 1.347927 1.345171 1.346801 1.346965      0  1.346965
-#> 15 2026-08-06 23:00:00 1.350785 1.343526 1.345406 1.345533      0  1.345533
-#> 16 2026-08-09 23:00:00 1.352997 1.348381 1.348909 1.349071      0  1.349071
-#> 17 2026-08-10 23:00:00 1.351717 1.349291 1.351114 1.351132      0  1.351132
-#> 18 2026-08-11 23:00:00 1.354005 1.350238 1.350895 1.350986      0  1.350986
-#> 19 2026-08-12 23:00:00 1.351278 1.347618 1.349928 1.349783      0  1.349783
-#> 20 2026-08-13 23:00:00 1.356043 1.348909 1.349164 1.349073      0  1.349073
-#> 21 2026-08-16 23:00:00 1.357147 1.354775 1.354848 1.354665      0  1.354665
-#> 22 2026-08-17 23:00:00 1.355436 1.352082 1.354371       NA      0        NA
-#> 23 2026-08-18 15:58:55 1.355436 1.352082 1.354371 1.354335      0  1.354335
-# }
+} # }
 ```

@@ -1,11 +1,20 @@
 # R6 Class Representing an Index
 
-Base class for getting all data related to indices from Yahoo Finance
-API.
+Class for retrieving data related to market indices from the Yahoo
+Finance API. Inherits `get_history()` from
+[`YahooFinanceBase-class`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase-class.md).
 
 ## Format
 
 An R6 class object
+
+## See also
+
+Other historical data:
+[`Ticker-class`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md),
+[`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md),
+[`yf_download_prices()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md),
+[`yf_get_index_quotes()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.md)
 
 ## Super class
 
@@ -37,7 +46,7 @@ Inherited methods
 
 ### Method `new()`
 
-Create a new Index object
+Create a new Index object.
 
 #### Usage
 
@@ -47,7 +56,7 @@ Create a new Index object
 
 - `symbol`:
 
-  Symbol
+  Symbol (e.g., `"^NSEI"`).
 
 - `index`:
 
@@ -55,17 +64,19 @@ Create a new Index object
 
 #### Returns
 
-A new \`Index\` object
+A new `Index` object.
 
 #### Examples
 
+    \dontrun{
     nifty_50 <- Index$new('^NSEI')
+    }
 
 ------------------------------------------------------------------------
 
 ### Method `set_index()`
 
-Set a new index.
+Set a new index symbol.
 
 #### Usage
 
@@ -75,7 +86,7 @@ Set a new index.
 
 - `symbol`:
 
-  New symbol
+  New symbol.
 
 - `index`:
 
@@ -83,8 +94,10 @@ Set a new index.
 
 #### Examples
 
+    \dontrun{
     indice <- Index$new('^NSEI')
     indice$set_index('^NDX')
+    }
 
 ------------------------------------------------------------------------
 
@@ -110,12 +123,16 @@ The objects of this class are cloneable with this method.
 ## Method `Index$new`
 ## ------------------------------------------------
 
+if (FALSE) { # \dontrun{
 nifty_50 <- Index$new('^NSEI')
+} # }
 
 ## ------------------------------------------------
 ## Method `Index$set_index`
 ## ------------------------------------------------
 
+if (FALSE) { # \dontrun{
 indice <- Index$new('^NSEI')
 indice$set_index('^NDX')
+} # }
 ```

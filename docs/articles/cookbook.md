@@ -142,7 +142,7 @@ ggplot(basket_prices, aes(x = date, y = adj_close, color = symbol)) +
 ```
 
 ![plot of chunk
-recipe-2-faceted-plot](figure/recipe-2-faceted-plot-1.png)
+recipe-2-faceted-plot](cookbook-figures/recipe-2-faceted-plot-1.png)
 
 plot of chunk recipe-2-faceted-plot
 
@@ -205,7 +205,8 @@ ggplot(intraday_5m, aes(x = date, y = volume)) +
   theme_minimal()
 ```
 
-![plot of chunk recipe-3-volume-plot](figure/recipe-3-volume-plot-1.png)
+![plot of chunk
+recipe-3-volume-plot](cookbook-figures/recipe-3-volume-plot-1.png)
 
 plot of chunk recipe-3-volume-plot
 
@@ -290,7 +291,7 @@ ggplot(normalized_indices, aes(x = date, y = indexed_price, color = symbol)) +
   theme_minimal()
 ```
 
-![plot of chunk recipe-5-core](figure/recipe-5-core-1.png)
+![plot of chunk recipe-5-core](cookbook-figures/recipe-5-core-1.png)
 
 plot of chunk recipe-5-core
 
@@ -489,7 +490,7 @@ ggplot(returns_df, aes(x = daily_return, fill = symbol)) +
 ```
 
 ![plot of chunk
-recipe-8-density-plot](figure/recipe-8-density-plot-1.png)
+recipe-8-density-plot](cookbook-figures/recipe-8-density-plot-1.png)
 
 plot of chunk recipe-8-density-plot
 
@@ -571,7 +572,8 @@ ggplot(cor_long, aes(x = asset1, y = asset2, fill = correlation)) +
   theme_minimal()
 ```
 
-![plot of chunk recipe-9-heatmap](figure/recipe-9-heatmap-1.png)
+![plot of chunk
+recipe-9-heatmap](cookbook-figures/recipe-9-heatmap-1.png)
 
 plot of chunk recipe-9-heatmap
 
@@ -657,7 +659,8 @@ ggplot(filter(sma_df, !is.na(sma_200)), aes(x = date)) +
   theme(legend.position = "bottom")
 ```
 
-![plot of chunk recipe-10-ma-chart](figure/recipe-10-ma-chart-1.png)
+![plot of chunk
+recipe-10-ma-chart](cookbook-figures/recipe-10-ma-chart-1.png)
 
 plot of chunk recipe-10-ma-chart
 
@@ -723,7 +726,7 @@ ggplot(drawdown_df, aes(x = date, y = drawdown)) +
 ```
 
 ![plot of chunk
-recipe-11-underwater-chart](figure/recipe-11-underwater-chart-1.png)
+recipe-11-underwater-chart](cookbook-figures/recipe-11-underwater-chart-1.png)
 
 plot of chunk recipe-11-underwater-chart
 
@@ -817,7 +820,7 @@ ggplot(returns_wide, aes(x = `^GSPC`, y = AAPL)) +
 ```
 
 ![plot of chunk
-recipe-12-regression-plot](figure/recipe-12-regression-plot-1.png)
+recipe-12-regression-plot](cookbook-figures/recipe-12-regression-plot-1.png)
 
 plot of chunk recipe-12-regression-plot
 
@@ -927,7 +930,7 @@ ggplot(wealth_df, aes(x = date, y = wealth_index, color = symbol)) +
 ```
 
 ![plot of chunk
-recipe-13-wealth-plot](figure/recipe-13-wealth-plot-1.png)
+recipe-13-wealth-plot](cookbook-figures/recipe-13-wealth-plot-1.png)
 
 plot of chunk recipe-13-wealth-plot
 
@@ -1017,7 +1020,7 @@ ggplot(performance_metrics, aes(x = annual_volatility, y = annual_return, color 
 ```
 
 ![plot of chunk
-recipe-14-bubble-plot](figure/recipe-14-bubble-plot-1.png)
+recipe-14-bubble-plot](cookbook-figures/recipe-14-bubble-plot-1.png)
 
 plot of chunk recipe-14-bubble-plot
 
@@ -1082,7 +1085,7 @@ ggplot(filter(bb_df, !is.na(bb_upper)), aes(x = date)) +
 ```
 
 ![plot of chunk
-recipe-15-ribbon-plot](figure/recipe-15-ribbon-plot-1.png)
+recipe-15-ribbon-plot](cookbook-figures/recipe-15-ribbon-plot-1.png)
 
 plot of chunk recipe-15-ribbon-plot
 

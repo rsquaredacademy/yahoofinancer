@@ -1,7 +1,6 @@
 # Get Index Quotes
 
-Retrieves current quotes and summary statistics for a given index
-symbol.
+Retrieves the most recent 1-day price snapshot for a given market index.
 
 ## Usage
 
@@ -13,20 +12,29 @@ yf_get_index_quotes(index_symbol)
 
 - index_symbol:
 
-  Character string of the index symbol (e.g., "^GSPC").
+  Character string of the index symbol (e.g., `"^GSPC"` for S&P 500,
+  `"^NSEI"` for Nifty 50).
 
 ## Value
 
-A \`tibble\` containing the index quote data.
+A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with
+the same 8-column schema as
+[`yf_download_prices`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md):
+`symbol`, `date`, `open`, `high`, `low`, `close`, `adj_close`, `volume`.
+Returns an empty tibble on failure.
+
+## See also
+
+Other historical data:
+[`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
+[`Ticker-class`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md),
+[`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md),
+[`yf_download_prices()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md)
 
 ## Examples
 
 ``` r
-# \donttest{
+if (FALSE) { # \dontrun{
 yf_get_index_quotes("^GSPC")
-#> # A tibble: 1 × 8
-#>   symbol date                 open  high   low close adj_close    volume
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>     <dbl>
-#> 1 ^GSPC  2026-08-18 15:59:34 7700. 7714. 7694. 7702.     7702. 943928194
-# }
+} # }
 ```

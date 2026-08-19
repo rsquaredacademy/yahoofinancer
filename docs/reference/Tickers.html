@@ -57,6 +57,14 @@ not prevent the collection of data for others.</p>
 <code>symbol</code>, facilitating easy filtering and joining in tidy workflows.</p>
     </div>
     <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other historical data:
+<code><a href="Indice-class.html">Indice-class</a></code>,
+<code><a href="Ticker-class.html">Ticker-class</a></code>,
+<code><a href="yf_download_prices.html">yf_download_prices()</a></code>,
+<code><a href="yf_get_index_quotes.html">yf_get_index_quotes()</a></code></p></div>
+    </div>
+    <div class="section level2">
     <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
     <p></p><div class="r6-fields"><dl><dt><code>symbols</code></dt>
 <dd><p>A unique character vector of symbols being tracked.</p></dd>
@@ -180,31 +188,42 @@ not prevent the collection of data for others.</p>
 <div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>period</code></dt>
-<dd><p>The duration of history to fetch; "1d", "5d", "1mo", "1y", "max" etc.</p></dd>
+<dd><p>Length of time. Defaults to <code>'1y'</code>. Valid values:
+<code>"1d"</code>, <code>"5d"</code>, <code>"1mo"</code>, <code>"3mo"</code>, <code>"6mo"</code>,
+<code>"1y"</code>, <code>"2y"</code>, <code>"5y"</code>, <code>"10y"</code>, <code>"ytd"</code>, <code>"max"</code>.
+Ignored when <code>start</code> is provided.</p></dd>
 
 
 <dt><code>interval</code></dt>
-<dd><p>The frequency of data points; "1m", "2m", "5m", "1h", "1d", "1wk" etc.</p></dd>
+<dd><p>Time between data points. Defaults to <code>'1d'</code>. Valid values:
+<code>"1m"</code>, <code>"2m"</code>, <code>"5m"</code>, <code>"15m"</code>, <code>"30m"</code>,
+<code>"60m"</code>, <code>"90m"</code>, <code>"1h"</code>, <code>"1d"</code>, <code>"5d"</code>,
+<code>"1wk"</code>, <code>"1mo"</code>, <code>"3mo"</code>.</p></dd>
 
 
 <dt><code>start</code></dt>
-<dd><p>Date or timestamp for the start of the period.</p></dd>
+<dd><p>Specific starting date. <code>String</code> or <code>Date</code> object
+in <code>"YYYY-MM-DD"</code> format.</p></dd>
 
 
 <dt><code>end</code></dt>
-<dd><p>Date or timestamp for the end of the period.</p></dd>
+<dd><p>Specific ending date. <code>String</code> or <code>Date</code> object
+in <code>"YYYY-MM-DD"</code> format. Defaults to today when <code>start</code> is
+provided but <code>end</code> is <code>NULL</code>.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 <div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
-<p>A tidy <code>data.frame</code> containing historical prices and volumes.</p>
+<p>A tidy <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></code> containing historical prices and volumes.
+  Columns: <code>symbol</code>, <code>date</code>, <code>open</code>, <code>high</code>, <code>low</code>,
+  <code>close</code>, <code>adj_close</code>, <code>volume</code>.</p>
 </div>
 
 </div><p></p><hr><a id="method-Tickers-aggregate_data"></a><div class="section">
 <h3 id="method-aggregate-data-">Method <code>aggregate_data()</code><a class="anchor" aria-label="anchor" href="#method-aggregate-data-"></a></h3>
-<p>Internal helper to execute a method across all symbols and combine results.</p><div class="section">
+<p>Internal helper to execute a method across all symbols and combine results. Not intended for direct end-user use.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Tickers</span><span class="op">$</span><span class="fu">aggregate_data</span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>

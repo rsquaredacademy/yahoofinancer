@@ -1,11 +1,20 @@
 # R6 Class Representing a Ticker
 
-Base class for getting all data related to ticker from Yahoo Finance
-API.
+Class for retrieving all data related to a single ticker from the Yahoo
+Finance API. Inherits `get_history()` from
+[`YahooFinanceBase-class`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase-class.md).
 
 ## Format
 
 An R6 class object
+
+## See also
+
+Other historical data:
+[`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
+[`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md),
+[`yf_download_prices()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md),
+[`yf_get_index_quotes()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.md)
 
 ## Super class
 
