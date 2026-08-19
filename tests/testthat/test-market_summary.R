@@ -46,3 +46,29 @@ test_that("Invalid inputs raise informative error", {
   expect_error(get_market_summary(as_tibble = NA), "`as_tibble` must be a single logical value")
   expect_error(get_market_summary(as_tibble = c(TRUE, FALSE)), "`as_tibble` must be a single logical value")
 })
+
+test_that('get_market_summary handles offline (as_tibble=TRUE)', {
+  with_mock_api(internet_mock = function() FALSE, code = {
+    expect_message(res <- get_market_summary(), 'No internet connection.')
+    expect_s3_class(res, 'tbl_df')
+    expect_equal(nrow(res), 0)
+  })
+})
+
+test_that('get_market_summary handles offline (as_tibble=FALSE)', {
+  with_mock_api(internet_mock = function() FALSE, code = {
+    expect_message(res <- get_market_summary(as_tibble = FALSE), 'No internet connection.')
+    expect_null(res)
+  })
+})
+
+test_that('get_market_summary handles empty data', {
+  with_mock_api(
+    response_mock = mock_response(body_json = list(marketSummaryResponse = list(result = list()))),
+    code = {
+      res <- get_market_summary()
+      expect_equal(nrow(res), 0)
+    }
+  )
+})
+

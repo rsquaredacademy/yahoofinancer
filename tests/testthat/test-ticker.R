@@ -179,3 +179,39 @@ test_that("get_history handles invalid date strings", {
 })
 
 
+
+test_that('extract_valuation returns numeric(0) for NULL data', {
+  aapl <- Ticker$new('AAPL')
+  private_env <- aapl$.__enclos_env__$private
+  expect_equal(private_env$extract_valuation(NULL, 'quarterlyMarketCap'), numeric(0))
+  expect_equal(private_env$extract_valuation(list(), 'quarterlyMarketCap'), numeric(0))
+})
+
+test_that('get_history surfaces quoteSummary error description', {
+  aapl <- Ticker$new('AAPL')
+  with_mock_api(
+    response_mock = mock_response(
+      status_code = 403,
+      body_json = list(quoteSummary = list(error = list(description = 'Forbidden'))),
+      is_error = TRUE
+    ),
+    code = {
+      expect_warning(aapl$get_history(), 'Yahoo Finance API failed \\[403\\]: Forbidden')
+    }
+  )
+})
+
+test_that('recommendations returns empty data.frame when no recommendations', {
+  aapl <- Ticker$new('AAPL')
+  with_mock_api(
+    response_mock = mock_response(
+      body_json = list(finance = list(result = list(list(recommendedSymbols = list()))))
+    ),
+    code = {
+      res <- aapl$recommendations
+      expect_s3_class(res, 'data.frame')
+      expect_equal(nrow(res), 0)
+    }
+  )
+})
+

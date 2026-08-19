@@ -174,3 +174,8 @@ test_that("yf_get_index_quotes works", {
   expect_warning(res2 <- yf_get_index_quotes("FAIL"), "Failed to fetch data for index: FAIL")
   expect_equal(nrow(res2), 0)
 })
+
+test_that('yf_get_financials rejects invalid statement_type', {
+  expect_error(yf_get_financials('AAPL', 'invalid'), "'arg' should be one of")
+})
+

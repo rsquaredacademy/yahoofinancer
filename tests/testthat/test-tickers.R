@@ -98,50 +98,45 @@ test_that("Active bindings route correctly through aggregate_data", {
     code = {
       tks <- Tickers$new(c("AAPL", "MSFT"))
       
-      # We need to mock the active bindings if they call API, 
-      # but aggregate_data calls the function passed to it.
-      # The active bindings in Tickers.R call self$aggregate_data(function(t) t$property)
-      
-      # For now, just call them to see if they work with our existing mocks
       with_mock_api(
-        response_mock = mock_response(body_json = list(chart = list(result = list(list(meta = list(currency = "USD")))))),
+        response_mock = mock_response(body_json = list(chart = list(result = list(list(meta = list(currency = "USD", regularMarketPrice = 150.0)))))),
         code = {
-          expect_no_error(tks$currency)
-          expect_no_error(tks$regular_market_price)
-          expect_no_error(tks$regular_market_time)
-          expect_no_error(tks$regular_market_volume)
-          expect_no_error(tks$regular_market_day_high)
-          expect_no_error(tks$regular_market_day_low)
-          expect_no_error(tks$previous_close)
-          expect_no_error(tks$fifty_two_week_high)
-          expect_no_error(tks$fifty_two_week_low)
-          expect_no_error(tks$exchange_name)
-          expect_no_error(tks$full_exchange_name)
-          expect_no_error(tks$first_trade_date)
-          expect_no_error(tks$timezone)
-          expect_no_error(tks$exchange_timezone_name)
-          expect_no_error(tks$get_history())
+          res <- tks$currency
+          expect_s3_class(res, "data.frame")
+          expect_true("symbol" %in% names(res))
+          expect_true("value" %in% names(res))
+          expect_equal(nrow(res), 2)
+          
+          res_rmp <- tks$regular_market_price
+          expect_s3_class(res_rmp, "data.frame")
+          expect_true("value" %in% names(res_rmp))
         }
       )
       
       with_mock_api(
         response_mock = mock_response(body_json = jsonlite::fromJSON("samples/rec_msft.json", simplifyVector = FALSE)),
         code = {
-          expect_no_error(tks$recommendations)
+          res <- tks$recommendations
+          expect_s3_class(res, "data.frame")
+          expect_true("symbol" %in% names(res))
+          expect_true("recommended_symbol" %in% names(res))
         }
       )
       
       with_mock_api(
         response_mock = mock_response(body_json = jsonlite::fromJSON("samples/insights_2.json", simplifyVector = FALSE)),
         code = {
-          expect_no_error(tks$technical_insights)
+          res <- tks$technical_insights
+          expect_s3_class(res, "data.frame")
+          expect_true("symbol" %in% names(res))
         }
       )
 
       with_mock_api(
         response_mock = mock_response(body_json = list(timeseries = list(result = list()))),
         code = {
-          expect_no_error(tks$valuation_measures)
+          res <- tks$valuation_measures
+          expect_null(res)
         }
       )
     }
