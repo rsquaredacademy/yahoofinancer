@@ -1,13 +1,19 @@
-#' Currencies
+#' Get Supported Currencies
 #'
-#' List of currencies Yahoo Finance supports.
+#' @description
+#' Retrieves the list of currencies supported by Yahoo Finance.
+#'
+#' @return A \code{data.frame} with 4 columns:
+#'   \code{short_name} (character), \code{long_name} (character),
+#'   \code{symbol} (character), \code{local_long_name} (character).
+#'   Returns \code{invisible(NULL)} on network failure.
+#'
+#' @family currency
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' get_currencies()
 #' }
-#'
-#' @return Symbol, short and long name of the currencies.
 #'
 #' @export
 #'
@@ -66,10 +72,24 @@ get_currencies <- function() {
 
 
 #' @title Get Real-Time Market Summary
-#' @description Retrieve live market overview snapshots across global benchmark indices, commodities, currencies, and futures.
-#' @param as_tibble Logical; if TRUE (default), returns a tidy tibble. If FALSE, returns the raw nested list.
-#' @return A tibble of market quotes (if as_tibble = TRUE) or a nested list (if as_tibble = FALSE).
-#' @export
+#'
+#' @description
+#' Retrieve live market overview snapshots across global benchmark indices,
+#' commodities, currencies, and futures.
+#'
+#' @param as_tibble Logical; if \code{TRUE} (default), returns a tidy tibble.
+#'   If \code{FALSE}, returns the raw nested list from the API.
+#'
+#' @return If \code{as_tibble = TRUE}, a \code{\link[tibble]{tibble}} with 9 columns:
+#'   \code{symbol}, \code{short_name}, \code{regular_market_price},
+#'   \code{regular_market_change}, \code{regular_market_change_percent},
+#'   \code{regular_market_previous_close}, \code{market_state},
+#'   \code{exchange}, \code{market_time} (POSIXct, UTC).
+#'   If \code{as_tibble = FALSE}, a nested list.
+#'   Returns an empty tibble (or \code{invisible(NULL)}) on failure.
+#'
+#' @family market data
+#'
 #' @examples
 #' \dontrun{
 #' # Tidy tibble output (default)
@@ -78,6 +98,8 @@ get_currencies <- function() {
 #' # Raw list output
 #' market_list <- get_market_summary(as_tibble = FALSE)
 #' }
+#'
+#' @export
 get_market_summary <- function(as_tibble = TRUE) {
 
   if (!is.logical(as_tibble) || length(as_tibble) != 1 || is.na(as_tibble)) {
@@ -180,18 +202,27 @@ get_market_summary <- function(as_tibble = TRUE) {
   }
 }
 
-#' Trending securities
+#' Get Trending Securities
 #'
-#' List of trending securities for specific country.
+#' @description
+#' Retrieves the list of currently trending securities for a specific
+#' region from Yahoo Finance.
 #'
-#' @param country Name of the country.
-#' @param count Number of securities.
+#' @param country ISO 3166-1 alpha-2 region code (e.g., \code{"US"},
+#'   \code{"GB"}, \code{"IN"}). Defaults to \code{"US"}.
+#' @param count Maximum number of trending securities to return.
+#'   Defaults to \code{10}.
 #'
-#' @return Securities trending in the country.
+#' @return A character vector of trending ticker symbols.
+#'   Returns \code{invisible(NULL)} on network failure or if no data
+#'   is available (with a message).
+#'
+#' @family market data
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' get_trending()
+#' get_trending(country = "GB", count = 5)
 #' }
 #'
 #' @export
@@ -256,15 +287,21 @@ get_trending <- function(country = 'US', count = 10) {
 
 }
 
-#' Currency converter
+#' Currency Converter
 #'
-#' Retrieve current conversion rate between two currencies as well as historical rates.
+#' @description
+#' Retrieve current and historical exchange rates between two currencies
+#' via the Yahoo Finance chart API.
 #'
-#' @param from Currency to convert from.
-#' @param to Currency to convert to.
-#' @param start Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.
-#' @param end Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.
-#' @param period Length of time. Defaults to \code{'ytd'} Valid values are:
+#' @param from ISO 4217 three-letter currency code to convert from
+#'   (e.g., \code{"EUR"}, \code{"GBP"}). Defaults to \code{"EUR"}.
+#' @param to ISO 4217 three-letter currency code to convert to
+#'   (e.g., \code{"USD"}, \code{"JPY"}). Defaults to \code{"USD"}.
+#' @param start Specific starting date. \code{String} or \code{Date} object
+#'   in \code{"YYYY-MM-DD"} format.
+#' @param end Specific ending date. \code{String} or \code{Date} object
+#'   in \code{"YYYY-MM-DD"} format.
+#' @param period Length of time. Defaults to \code{'ytd'}. Valid values:
 #' \itemize{
 #' \item \code{'1d'}
 #' \item \code{'5d'}
@@ -278,7 +315,7 @@ get_trending <- function(country = 'US', count = 10) {
 #' \item \code{'ytd'}
 #' \item \code{'max'}
 #' }
-#' @param interval Time between data points. Defaults to \code{'1d'} Valid values are:
+#' @param interval Time between data points. Defaults to \code{'1d'}. Valid values:
 #' \itemize{
 #' \item \code{'1h'}
 #' \item \code{'1d'}
@@ -288,10 +325,16 @@ get_trending <- function(country = 'US', count = 10) {
 #' \item \code{'3mo'}
 #' }
 #'
-#' @return  A \code{data.frame}.
+#' @return A \code{data.frame} with columns: \code{date} (POSIXct),
+#'   \code{high}, \code{low}, \code{open}, \code{close}, \code{volume}
+#'   (all numeric), and conditionally \code{adj_close} (numeric, present
+#'   for daily and longer intervals). Rows with \code{NA} volume are
+#'   excluded. Returns \code{invisible(NULL)} on network failure.
+#'
+#' @family currency
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
 #' currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
 #' }

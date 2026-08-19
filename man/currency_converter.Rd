@@ -2,7 +2,7 @@
 % Please edit documentation in R/others.R
 \name{currency_converter}
 \alias{currency_converter}
-\title{Currency converter}
+\title{Currency Converter}
 \usage{
 currency_converter(
   from = "EUR",
@@ -14,15 +14,19 @@ currency_converter(
 )
 }
 \arguments{
-\item{from}{Currency to convert from.}
+\item{from}{ISO 4217 three-letter currency code to convert from
+(e.g., \code{"EUR"}, \code{"GBP"}). Defaults to \code{"EUR"}.}
 
-\item{to}{Currency to convert to.}
+\item{to}{ISO 4217 three-letter currency code to convert to
+(e.g., \code{"USD"}, \code{"JPY"}). Defaults to \code{"USD"}.}
 
-\item{start}{Specific starting date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
+\item{start}{Specific starting date. \code{String} or \code{Date} object
+in \code{"YYYY-MM-DD"} format.}
 
-\item{end}{Specific ending date. \code{String} or \code{date} object in \code{yyyy-mm-dd} format.}
+\item{end}{Specific ending date. \code{String} or \code{Date} object
+in \code{"YYYY-MM-DD"} format.}
 
-\item{period}{Length of time. Defaults to \code{'ytd'} Valid values are:
+\item{period}{Length of time. Defaults to \code{'ytd'}. Valid values:
 \itemize{
 \item \code{'1d'}
 \item \code{'5d'}
@@ -37,7 +41,7 @@ currency_converter(
 \item \code{'max'}
 }}
 
-\item{interval}{Time between data points. Defaults to \code{'1d'} Valid values are:
+\item{interval}{Time between data points. Defaults to \code{'1d'}. Valid values:
 \itemize{
 \item \code{'1h'}
 \item \code{'1d'}
@@ -48,15 +52,25 @@ currency_converter(
 }}
 }
 \value{
-A \code{data.frame}.
+A \code{data.frame} with columns: \code{date} (POSIXct),
+  \code{high}, \code{low}, \code{open}, \code{close}, \code{volume}
+  (all numeric), and conditionally \code{adj_close} (numeric, present
+  for daily and longer intervals). Rows with \code{NA} volume are
+  excluded. Returns \code{invisible(NULL)} on network failure.
 }
 \description{
-Retrieve current conversion rate between two currencies as well as historical rates.
+Retrieve current and historical exchange rates between two currencies
+via the Yahoo Finance chart API.
 }
 \examples{
-\donttest{
+\dontrun{
 currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
 currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
 }
 
 }
+\seealso{
+Other currency: 
+\code{\link{get_currencies}()}
+}
+\concept{currency}

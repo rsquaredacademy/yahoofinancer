@@ -1,9 +1,11 @@
 #' R6 Class Representing a Ticker
 #'
 #' @description
-#' Base class for getting all data related to ticker from Yahoo Finance API.
+#' Class for retrieving all data related to a single ticker from the
+#' Yahoo Finance API. Inherits \code{get_history()} from
+#' \code{\link{YahooFinanceBase-class}}.
 #'
-#' @param symbol Symbol for which data has to be retrieved.
+#' @param symbol Symbol for which data has to be retrieved (e.g., \code{"AAPL"}).
 #'
 #' @importFrom magrittr %>% use_series extract2 extract
 #' @importFrom jsonlite fromJSON
@@ -11,6 +13,8 @@
 #' @docType class
 #' @format An R6 class object
 #' @name Ticker-class
+#'
+#' @family historical data
 #'
 #' @export
 Ticker <- R6::R6Class(

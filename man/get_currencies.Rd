@@ -2,19 +2,27 @@
 % Please edit documentation in R/others.R
 \name{get_currencies}
 \alias{get_currencies}
-\title{Currencies}
+\title{Get Supported Currencies}
 \usage{
 get_currencies()
 }
 \value{
-Symbol, short and long name of the currencies.
+A \code{data.frame} with 4 columns:
+  \code{short_name} (character), \code{long_name} (character),
+  \code{symbol} (character), \code{local_long_name} (character).
+  Returns \code{invisible(NULL)} on network failure.
 }
 \description{
-List of currencies Yahoo Finance supports.
+Retrieves the list of currencies supported by Yahoo Finance.
 }
 \examples{
-\donttest{
+\dontrun{
 get_currencies()
 }
 
 }
+\seealso{
+Other currency: 
+\code{\link{currency_converter}()}
+}
+\concept{currency}

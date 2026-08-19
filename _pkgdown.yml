@@ -47,26 +47,42 @@ home:
       href: https://www.rsquaredacademy.com
 
 reference:
-  - title: Tickers
+  - title: Historical Pricing & Quotes
+    desc: >
+      Retrieve historical OHLCV price series and live market quotes
+      via functional helpers or R6 class methods.
     contents:
+      - yf_download_prices
+      - yf_get_index_quotes
       - Ticker-class
       - Tickers
-      - yf_download_prices
-      - yf_get_financials
-
-  - title: Indices
-    contents:
       - Indice-class
-      - yf_get_index_quotes
 
-  - title: Currencies
+  - title: Fundamental & Market Data
+    desc: >
+      Access financial statements, valuation statistics, and real-time
+      market overview snapshots.
+    contents:
+      - yf_get_financials
+      - yf_get_market_stats
+      - get_market_summary
+
+  - title: Currency
+    desc: >
+      Currency listings and historical exchange rate conversion.
     contents:
       - get_currencies
       - currency_converter
 
-  - title: Market Overview & Other Utilities
+  - title: Utilities
+    desc: >
+      Trending securities, symbol validation, and other helpers.
     contents:
-      - get_market_summary
       - get_trending
-      - yf_get_market_stats
       - validate
+
+  - title: Internal
+    desc: Internal base class (not for end-user use).
+    contents:
+      - YahooFinanceBase-class
+      - yahoofinancer

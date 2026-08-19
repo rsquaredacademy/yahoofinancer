@@ -9,8 +9,18 @@
 An R6 class object
 }
 \description{
-Base class for getting all data related to ticker from Yahoo Finance API.
+Class for retrieving all data related to a single ticker from the
+Yahoo Finance API. Inherits \code{get_history()} from
+\code{\link{YahooFinanceBase-class}}.
 }
+\seealso{
+Other historical data: 
+\code{\link{Indice-class}},
+\code{\link{Tickers}},
+\code{\link{yf_download_prices}()},
+\code{\link{yf_get_index_quotes}()}
+}
+\concept{historical data}
 \section{Super class}{
 \code{\link[yahoofinancer:YahooFinanceBase]{yahoofinancer::YahooFinanceBase}} -> \code{Ticker}
 }

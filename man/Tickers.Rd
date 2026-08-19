@@ -37,6 +37,15 @@ tech <- stocks$technical_insights
 }
 
 }
+\seealso{
+Other historical data: 
+\code{\link{Indice-class}},
+\code{\link{Ticker-class}},
+\code{\link{yf_download_prices}()},
+\code{\link{yf_get_index_quotes}()}
+}
+\concept{historical data}
+\keyword{internal}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -126,25 +135,36 @@ Retrieve historical market data for all symbols.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{period}}{The duration of history to fetch; "1d", "5d", "1mo", "1y", "max" etc.}
+\item{\code{period}}{Length of time. Defaults to \code{'1y'}. Valid values:
+\code{"1d"}, \code{"5d"}, \code{"1mo"}, \code{"3mo"}, \code{"6mo"},
+\code{"1y"}, \code{"2y"}, \code{"5y"}, \code{"10y"}, \code{"ytd"}, \code{"max"}.
+Ignored when \code{start} is provided.}
 
-\item{\code{interval}}{The frequency of data points; "1m", "2m", "5m", "1h", "1d", "1wk" etc.}
+\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values:
+\code{"1m"}, \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"},
+\code{"60m"}, \code{"90m"}, \code{"1h"}, \code{"1d"}, \code{"5d"},
+\code{"1wk"}, \code{"1mo"}, \code{"3mo"}.}
 
-\item{\code{start}}{Date or timestamp for the start of the period.}
+\item{\code{start}}{Specific starting date. \code{String} or \code{Date} object
+in \code{"YYYY-MM-DD"} format.}
 
-\item{\code{end}}{Date or timestamp for the end of the period.}
+\item{\code{end}}{Specific ending date. \code{String} or \code{Date} object
+in \code{"YYYY-MM-DD"} format. Defaults to today when \code{start} is
+provided but \code{end} is \code{NULL}.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A tidy \code{data.frame} containing historical prices and volumes.
+A tidy \code{\link[tibble]{tibble}} containing historical prices and volumes.
+  Columns: \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
+  \code{close}, \code{adj_close}, \code{volume}.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Tickers-aggregate_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Tickers-aggregate_data}{}}}
 \subsection{Method \code{aggregate_data()}}{
-Internal helper to execute a method across all symbols and combine results.
+Internal helper to execute a method across all symbols and combine results. Not intended for direct end-user use.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Tickers$aggregate_data(fn)}\if{html}{\out{</div>}}
 }

@@ -7,13 +7,21 @@
 get_market_summary(as_tibble = TRUE)
 }
 \arguments{
-\item{as_tibble}{Logical; if TRUE (default), returns a tidy tibble. If FALSE, returns the raw nested list.}
+\item{as_tibble}{Logical; if \code{TRUE} (default), returns a tidy tibble.
+If \code{FALSE}, returns the raw nested list from the API.}
 }
 \value{
-A tibble of market quotes (if as_tibble = TRUE) or a nested list (if as_tibble = FALSE).
+If \code{as_tibble = TRUE}, a \code{\link[tibble]{tibble}} with 9 columns:
+  \code{symbol}, \code{short_name}, \code{regular_market_price},
+  \code{regular_market_change}, \code{regular_market_change_percent},
+  \code{regular_market_previous_close}, \code{market_state},
+  \code{exchange}, \code{market_time} (POSIXct, UTC).
+  If \code{as_tibble = FALSE}, a nested list.
+  Returns an empty tibble (or \code{invisible(NULL)}) on failure.
 }
 \description{
-Retrieve live market overview snapshots across global benchmark indices, commodities, currencies, and futures.
+Retrieve live market overview snapshots across global benchmark indices,
+commodities, currencies, and futures.
 }
 \examples{
 \dontrun{
@@ -23,4 +31,11 @@ market_df <- get_market_summary()
 # Raw list output
 market_list <- get_market_summary(as_tibble = FALSE)
 }
+
 }
+\seealso{
+Other market data: 
+\code{\link{get_trending}()},
+\code{\link{yf_get_market_stats}()}
+}
+\concept{market data}

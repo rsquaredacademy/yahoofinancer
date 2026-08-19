@@ -4,12 +4,14 @@
 \name{Indice-class}
 \alias{Indice-class}
 \alias{Index}
+\alias{Index-class}
 \title{R6 Class Representing an Index}
 \format{
 An R6 class object
 }
 \description{
-Base class for getting all data related to indices from Yahoo Finance API.
+Class for retrieving data related to market indices from the Yahoo Finance API.
+Inherits \code{get_history()} from \code{\link{YahooFinanceBase-class}}.
 }
 \examples{
 
@@ -17,15 +19,27 @@ Base class for getting all data related to indices from Yahoo Finance API.
 ## Method `Index$new`
 ## ------------------------------------------------
 
+\dontrun{
 nifty_50 <- Index$new('^NSEI')
+}
 
 ## ------------------------------------------------
 ## Method `Index$set_index`
 ## ------------------------------------------------
 
+\dontrun{
 indice <- Index$new('^NSEI')
 indice$set_index('^NDX')
 }
+}
+\seealso{
+Other historical data: 
+\code{\link{Ticker-class}},
+\code{\link{Tickers}},
+\code{\link{yf_download_prices}()},
+\code{\link{yf_get_index_quotes}()}
+}
+\concept{historical data}
 \section{Super class}{
 \code{\link[yahoofinancer:YahooFinanceBase]{yahoofinancer::YahooFinanceBase}} -> \code{Index}
 }
@@ -56,7 +70,7 @@ indice$set_index('^NDX')
 \if{html}{\out{<a id="method-Index-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Index-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new Index object
+Create a new Index object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Index$new(symbol = NA, index = NA)}\if{html}{\out{</div>}}
 }
@@ -64,18 +78,20 @@ Create a new Index object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{symbol}}{Symbol}
+\item{\code{symbol}}{Symbol (e.g., \code{"^NSEI"}).}
 
 \item{\code{index}}{Deprecated. Use \code{symbol} instead.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A new `Index` object
+A new \code{Index} object.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{nifty_50 <- Index$new('^NSEI')
+\preformatted{\dontrun{
+nifty_50 <- Index$new('^NSEI')
+}
 }
 \if{html}{\out{</div>}}
 
@@ -86,7 +102,7 @@ A new `Index` object
 \if{html}{\out{<a id="method-Index-set_index"></a>}}
 \if{latex}{\out{\hypertarget{method-Index-set_index}{}}}
 \subsection{Method \code{set_index()}}{
-Set a new index.
+Set a new index symbol.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Index$set_index(symbol = NA, index = NA)}\if{html}{\out{</div>}}
 }
@@ -94,7 +110,7 @@ Set a new index.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{symbol}}{New symbol}
+\item{\code{symbol}}{New symbol.}
 
 \item{\code{index}}{Deprecated. Use \code{symbol} instead.}
 }
@@ -102,8 +118,10 @@ Set a new index.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
-\preformatted{indice <- Index$new('^NSEI')
+\preformatted{\dontrun{
+indice <- Index$new('^NSEI')
 indice$set_index('^NDX')
+}
 }
 \if{html}{\out{</div>}}
 

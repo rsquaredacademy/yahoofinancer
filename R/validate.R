@@ -21,6 +21,8 @@
 #' validate(c("AAPL", "NOTASTOCK", "MSFT"), return_logical = TRUE)
 #' }
 #'
+#' @family validation
+#'
 #' @export
 #'
 validate <- function(symbol = NULL, index = NA, return_logical = FALSE) {

@@ -60,7 +60,7 @@ head(aapl_history)
 
 ### Variations & Tips
 
-* **Explicit Date Boundaries**: Query fixed historical windows using `start_date` and `end_date`:
+* **Explicit Date Boundaries**: Query fixed historical windows using `start` and `end`:
 ```{r recipe-1-custom-dates}
 aapl_custom <- yf_download_prices(
   tickers  = "AAPL",

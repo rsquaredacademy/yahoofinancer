@@ -2,24 +2,36 @@
 % Please edit documentation in R/others.R
 \name{get_trending}
 \alias{get_trending}
-\title{Trending securities}
+\title{Get Trending Securities}
 \usage{
 get_trending(country = "US", count = 10)
 }
 \arguments{
-\item{country}{Name of the country.}
+\item{country}{ISO 3166-1 alpha-2 region code (e.g., \code{"US"},
+\code{"GB"}, \code{"IN"}). Defaults to \code{"US"}.}
 
-\item{count}{Number of securities.}
+\item{count}{Maximum number of trending securities to return.
+Defaults to \code{10}.}
 }
 \value{
-Securities trending in the country.
+A character vector of trending ticker symbols.
+  Returns \code{invisible(NULL)} on network failure or if no data
+  is available (with a message).
 }
 \description{
-List of trending securities for specific country.
+Retrieves the list of currently trending securities for a specific
+region from Yahoo Finance.
 }
 \examples{
-\donttest{
+\dontrun{
 get_trending()
+get_trending(country = "GB", count = 5)
 }
 
 }
+\seealso{
+Other market data: 
+\code{\link{get_market_summary}()},
+\code{\link{yf_get_market_stats}()}
+}
+\concept{market data}

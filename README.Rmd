@@ -26,7 +26,7 @@ Obtain historical and near real time data related to stocks, index and currencie
 ## Installation
 
 ```{r gh-installation, eval = FALSE}
-# Install rfm from CRAN
+# Install yahoofinancer from CRAN
 install.packages("yahoofinancer")
 
 # Or the development version from GitHub

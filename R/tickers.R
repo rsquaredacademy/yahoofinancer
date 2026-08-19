@@ -14,6 +14,8 @@
 #' Most properties return a \code{data.frame} where the first column is
 #' \code{symbol}, facilitating easy filtering and joining in tidy workflows.
 #'
+#' @family historical data
+#'
 #' @export
 #'
 #' @examples
@@ -57,19 +59,31 @@ Tickers <- R6::R6Class("Tickers",
 
     #' @description
     #' Retrieve historical market data for all symbols.
-    #' @param period The duration of history to fetch; "1d", "5d", "1mo", "1y", "max" etc.
-    #' @param interval The frequency of data points; "1m", "2m", "5m", "1h", "1d", "1wk" etc.
-    #' @param start Date or timestamp for the start of the period.
-    #' @param end Date or timestamp for the end of the period.
-    #' @return A tidy \code{data.frame} containing historical prices and volumes.
+    #' @param period Length of time. Defaults to \code{'1y'}. Valid values:
+    #' \code{"1d"}, \code{"5d"}, \code{"1mo"}, \code{"3mo"}, \code{"6mo"},
+    #' \code{"1y"}, \code{"2y"}, \code{"5y"}, \code{"10y"}, \code{"ytd"}, \code{"max"}.
+    #' Ignored when \code{start} is provided.
+    #' @param interval Time between data points. Defaults to \code{'1d'}. Valid values:
+    #' \code{"1m"}, \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"},
+    #' \code{"60m"}, \code{"90m"}, \code{"1h"}, \code{"1d"}, \code{"5d"},
+    #' \code{"1wk"}, \code{"1mo"}, \code{"3mo"}.
+    #' @param start Specific starting date. \code{String} or \code{Date} object
+    #'   in \code{"YYYY-MM-DD"} format.
+    #' @param end Specific ending date. \code{String} or \code{Date} object
+    #'   in \code{"YYYY-MM-DD"} format. Defaults to today when \code{start} is
+    #'   provided but \code{end} is \code{NULL}.
+    #' @return A tidy \code{\link[tibble]{tibble}} containing historical prices and volumes.
+    #'   Columns: \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
+    #'   \code{close}, \code{adj_close}, \code{volume}.
     get_history = function(period = "1y", interval = "1d", start = NULL, end = NULL) {
       self$aggregate_data(function(t) t$get_history(period, interval, start, end))
     },
 
     #' @description
-    #' Internal helper to execute a method across all symbols and combine results.
+    #' Internal helper to execute a method across all symbols and combine results. Not intended for direct end-user use.
     #' @param fn A function or anonymous function that takes a \code{Ticker} object.
     #' @return A combined \code{data.frame} or \code{NULL}.
+    #' @keywords internal
     aggregate_data = function(fn) {
       results <- lapply(self$ticker_objs, function(t) {
         tryCatch({

@@ -1,14 +1,18 @@
 #' R6 Class Representing an Index
 #'
 #' @description
-#' Base class for getting all data related to indices from Yahoo Finance API.
+#' Class for retrieving data related to market indices from the Yahoo Finance API.
+#' Inherits \code{get_history()} from \code{\link{YahooFinanceBase-class}}.
 #'
-#' @param symbol Symbol for which data has to be retrieved.
+#' @param symbol Symbol for which data has to be retrieved (e.g., \code{"^GSPC"}).
 #' @param index Deprecated. Use \code{symbol} instead.
 #'
 #' @docType class
 #' @format An R6 class object
 #' @name Indice-class
+#' @aliases Index-class
+#'
+#' @family historical data
 #'
 #' @export
 Index <- R6::R6Class(
@@ -19,12 +23,14 @@ Index <- R6::R6Class(
   public = list(
 
     #' @description
-    #' Create a new Index object
-    #' @param symbol Symbol
+    #' Create a new Index object.
+    #' @param symbol Symbol (e.g., \code{"^NSEI"}).
     #' @param index Deprecated. Use \code{symbol} instead.
+    #' @return A new \code{Index} object.
     #' @examples
+    #' \dontrun{
     #' nifty_50 <- Index$new('^NSEI')
-    #' @return A new `Index` object
+    #' }
     initialize = function(symbol = NA, index = NA) {
       if (!is.na(index)) {
         warning("The 'index' parameter is deprecated. Please use 'symbol' instead.", call. = FALSE)
@@ -34,12 +40,14 @@ Index <- R6::R6Class(
     },
 
     #' @description
-    #' Set a new index.
-    #' @param symbol New symbol
+    #' Set a new index symbol.
+    #' @param symbol New symbol.
     #' @param index Deprecated. Use \code{symbol} instead.
     #' @examples
+    #' \dontrun{
     #' indice <- Index$new('^NSEI')
     #' indice$set_index('^NDX')
+    #' }
     set_index = function(symbol = NA, index = NA) {
       if (!is.na(index)) {
         warning("The 'index' parameter is deprecated. Please use 'symbol' instead.", call. = FALSE)

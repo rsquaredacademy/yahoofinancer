@@ -10,15 +10,27 @@ yf_get_market_stats(tickers)
 \item{tickers}{Character vector of stock symbols.}
 }
 \value{
-A `tibble` of market statistics with `symbol` as the first column.
+A \code{\link[tibble]{tibble}} with 7 columns:
+  \code{symbol} (character), \code{regular_market_price} (numeric),
+  \code{fifty_two_week_high} (numeric), \code{fifty_two_week_low} (numeric),
+  \code{regular_market_volume} (numeric), \code{previous_close} (numeric),
+  \code{currency} (character).
+  Returns an empty tibble if all tickers fail.
 }
 \description{
-Retrieves key valuation and summary fields for given tickers.
+Retrieves key real-time valuation and summary fields for one or more
+tickers.
 }
 \examples{
-\donttest{
+\dontrun{
 yf_get_market_stats("AAPL")
 yf_get_market_stats(c("AAPL", "MSFT"))
 }
 
 }
+\seealso{
+Other market data: 
+\code{\link{get_market_summary}()},
+\code{\link{get_trending}()}
+}
+\concept{market data}

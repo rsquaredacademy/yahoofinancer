@@ -26,3 +26,4 @@
 ^yahoofinancer-recipes\.md\.pdf$
 ^yahoofinancer-review\.pdf$
 ^vignettes/.*\.Rmd\.orig$
+^docs_audit.*\.md$

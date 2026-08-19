@@ -12,17 +12,24 @@ yf_get_financials(
 \arguments{
 \item{tickers}{Character vector of stock symbols.}
 
-\item{statement_type}{The type of financial statement to retrieve. One of "income", "balance-sheet", or "cash-flow".}
+\item{statement_type}{The type of financial statement to retrieve.
+One of \code{"income"}, \code{"balance-sheet"}, or \code{"cash-flow"}.}
 }
 \value{
-A `tibble` of financial data with `symbol` as the first column.
+A \code{\link[tibble]{tibble}} with \code{symbol} as the first
+  column. Remaining columns vary by \code{statement_type} and reflect the
+  line items returned by the Yahoo Finance API.
+  Returns an empty tibble if all tickers fail.
 }
 \description{
-Retrieves financial statements (income statement, balance sheet, or cash flow) for given tickers.
+Retrieves quarterly/annual financial statements (income statement,
+balance sheet, or cash flow) for one or more tickers.
 }
 \examples{
-\donttest{
+\dontrun{
 yf_get_financials("AAPL", statement_type = "income")
+yf_get_financials(c("AAPL", "MSFT"), statement_type = "balance-sheet")
 }
 
 }
+\concept{fundamental data}

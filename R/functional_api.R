@@ -1,19 +1,47 @@
 #' Download Historical Prices
 #'
 #' @description
-#' Fetches historical price data for single or multiple tickers.
+#' Fetches historical OHLCV price data for one or more tickers using the
+#' Yahoo Finance chart API. Results are combined into a single long-format
+#' tibble suitable for \code{dplyr} pipelines.
 #'
-#' @param tickers Character vector of stock symbols.
-#' @param start Date or character string representing the start date (`YYYY-MM-DD`).
-#' @param end Date or character string representing the end date (`YYYY-MM-DD`).
-#' @param interval Time between data points (e.g., "1d", "1wk", "1mo").
-#' @param period Relative time period for data retrieval (e.g., "1mo", "1y", "max"). Valid values are "1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max". Defaults to "1y" if both `start` and `period` are NULL.
+#' **Intraday lookback limits** (imposed by Yahoo Finance):
+#' \itemize{
+#'   \item \code{"1m"}: max 7 days
+#'   \item \code{"5m"}, \code{"15m"}, \code{"30m"}: max 60 days
+#'   \item \code{"1h"}: max 730 days
+#' }
 #'
-#' @return A `tibble` of historical prices with `symbol` as the first column.
+#' @param tickers Character vector of one or more stock symbols
+#'   (e.g., \code{c("AAPL", "MSFT")}).
+#' @param start Date or character string in \code{"YYYY-MM-DD"} format
+#'   representing the start date. When provided, \code{period} is ignored.
+#' @param end Date or character string in \code{"YYYY-MM-DD"} format
+#'   representing the end date. Defaults to today if \code{start} is set
+#'   but \code{end} is \code{NULL}.
+#' @param interval Time between data points. Valid values:
+#'   \code{"1m"}, \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"},
+#'   \code{"60m"}, \code{"90m"}, \code{"1h"}, \code{"1d"}, \code{"5d"},
+#'   \code{"1wk"}, \code{"1mo"}, \code{"3mo"}. Defaults to \code{"1d"}.
+#' @param period Relative time period. Valid values:
+#'   \code{"1d"}, \code{"5d"}, \code{"1mo"}, \code{"3mo"}, \code{"6mo"},
+#'   \code{"1y"}, \code{"2y"}, \code{"5y"}, \code{"10y"}, \code{"ytd"},
+#'   \code{"max"}. Defaults to \code{"1y"} when both \code{start} and
+#'   \code{period} are \code{NULL}.
+#'
+#' @return A \code{\link[tibble]{tibble}} with 8 columns:
+#'   \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
+#'   \code{close}, \code{adj_close}, \code{volume}.
+#'   Returns an empty tibble if all tickers fail.
+#'
+#' @family historical data
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
+#' # Single ticker with date range
 #' yf_download_prices("AAPL", start = "2023-01-01", end = "2023-01-10")
+#'
+#' # Multiple tickers with relative period
 #' yf_download_prices(c("AAPL", "MSFT"), period = "6mo", interval = "1mo")
 #' }
 #'
@@ -60,14 +88,22 @@ yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d
 #' Get Market Statistics
 #'
 #' @description
-#' Retrieves key valuation and summary fields for given tickers.
+#' Retrieves key real-time valuation and summary fields for one or more
+#' tickers.
 #'
 #' @param tickers Character vector of stock symbols.
 #'
-#' @return A `tibble` of market statistics with `symbol` as the first column.
+#' @return A \code{\link[tibble]{tibble}} with 7 columns:
+#'   \code{symbol} (character), \code{regular_market_price} (numeric),
+#'   \code{fifty_two_week_high} (numeric), \code{fifty_two_week_low} (numeric),
+#'   \code{regular_market_volume} (numeric), \code{previous_close} (numeric),
+#'   \code{currency} (character).
+#'   Returns an empty tibble if all tickers fail.
+#'
+#' @family market data
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' yf_get_market_stats("AAPL")
 #' yf_get_market_stats(c("AAPL", "MSFT"))
 #' }
@@ -108,16 +144,24 @@ yf_get_market_stats <- function(tickers) {
 #' Get Financial Statements
 #'
 #' @description
-#' Retrieves financial statements (income statement, balance sheet, or cash flow) for given tickers.
+#' Retrieves quarterly/annual financial statements (income statement,
+#' balance sheet, or cash flow) for one or more tickers.
 #'
 #' @param tickers Character vector of stock symbols.
-#' @param statement_type The type of financial statement to retrieve. One of "income", "balance-sheet", or "cash-flow".
+#' @param statement_type The type of financial statement to retrieve.
+#'   One of \code{"income"}, \code{"balance-sheet"}, or \code{"cash-flow"}.
 #'
-#' @return A `tibble` of financial data with `symbol` as the first column.
+#' @return A \code{\link[tibble]{tibble}} with \code{symbol} as the first
+#'   column. Remaining columns vary by \code{statement_type} and reflect the
+#'   line items returned by the Yahoo Finance API.
+#'   Returns an empty tibble if all tickers fail.
+#'
+#' @family fundamental data
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' yf_get_financials("AAPL", statement_type = "income")
+#' yf_get_financials(c("AAPL", "MSFT"), statement_type = "balance-sheet")
 #' }
 #'
 #' @export
@@ -157,14 +201,21 @@ yf_get_financials <- function(tickers, statement_type = c("income", "balance-she
 #' Get Index Quotes
 #'
 #' @description
-#' Retrieves current quotes and summary statistics for a given index symbol.
+#' Retrieves the most recent 1-day price snapshot for a given market index.
 #'
-#' @param index_symbol Character string of the index symbol (e.g., "^GSPC").
+#' @param index_symbol Character string of the index symbol (e.g.,
+#'   \code{"^GSPC"} for S&P 500, \code{"^NSEI"} for Nifty 50).
 #'
-#' @return A `tibble` containing the index quote data.
+#' @return A \code{\link[tibble]{tibble}} with the same 8-column schema as
+#'   \code{\link{yf_download_prices}}: \code{symbol}, \code{date},
+#'   \code{open}, \code{high}, \code{low}, \code{close}, \code{adj_close},
+#'   \code{volume}.
+#'   Returns an empty tibble on failure.
+#'
+#' @family historical data
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' yf_get_index_quotes("^GSPC")
 #' }
 #'

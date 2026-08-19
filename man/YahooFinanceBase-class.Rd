@@ -66,7 +66,14 @@ Set a new symbol.
 \if{html}{\out{<a id="method-YahooFinanceBase-get_history"></a>}}
 \if{latex}{\out{\hypertarget{method-YahooFinanceBase-get_history}{}}}
 \subsection{Method \code{get_history()}}{
-Retrieves historical pricing data.
+Retrieves historical pricing data from the Yahoo Finance chart API.
+
+**Intraday lookback limits** (imposed by Yahoo Finance):
+\itemize{
+  \item \code{"1m"}: max 7 days
+  \item \code{"5m"}, \code{"15m"}, \code{"30m"}: max 60 days
+  \item \code{"1h"}: max 730 days
+}
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$get_history(
   period = "ytd",
@@ -79,18 +86,39 @@ Retrieves historical pricing data.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{period}}{Length of time. Defaults to \code{'ytd'}.}
+\item{\code{period}}{Length of time. Defaults to \code{'ytd'}. Valid values:
+\code{"1d"}, \code{"5d"}, \code{"1mo"}, \code{"3mo"}, \code{"6mo"},
+\code{"1y"}, \code{"2y"}, \code{"5y"}, \code{"10y"}, \code{"ytd"}, \code{"max"}.
+Ignored when \code{start} is provided.}
 
-\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}.}
+\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values:
+\code{"1m"}, \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"},
+\code{"60m"}, \code{"90m"}, \code{"1h"}, \code{"1d"}, \code{"5d"},
+\code{"1wk"}, \code{"1mo"}, \code{"3mo"}.}
 
-\item{\code{start}}{Specific starting date. \code{String} or \code{date} object.}
+\item{\code{start}}{Specific starting date. \code{String} or \code{Date} object
+in \code{"YYYY-MM-DD"} format.}
 
-\item{\code{end}}{Specific ending date. \code{String} or \code{date} object.}
+\item{\code{end}}{Specific ending date. \code{String} or \code{Date} object
+in \code{"YYYY-MM-DD"} format. Defaults to today when \code{start} is
+provided but \code{end} is \code{NULL}.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \code{data.frame}.
+A \code{\link[tibble]{tibble}} with 8 columns:
+\describe{
+  \item{\code{symbol}}{Character. Ticker symbol.}
+  \item{\code{date}}{POSIXct. Timestamp of the data point (UTC).}
+  \item{\code{open}}{Numeric. Opening price.}
+  \item{\code{high}}{Numeric. Period high.}
+  \item{\code{low}}{Numeric. Period low.}
+  \item{\code{close}}{Numeric. Closing price.}
+  \item{\code{adj_close}}{Numeric. Split- and dividend-adjusted close.
+    Falls back to \code{close} when the API omits adjusted data.}
+  \item{\code{volume}}{Numeric. Trading volume.}
+}
+Returns \code{invisible(NULL)} on network failure or invalid symbol.
 }
 }
 \if{html}{\out{<hr>}}

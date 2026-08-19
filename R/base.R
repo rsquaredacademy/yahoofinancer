@@ -43,12 +43,41 @@ YahooFinanceBase <- R6::R6Class(
     },
 
     #' @description
-    #' Retrieves historical pricing data.
-    #' @param period Length of time. Defaults to \code{'ytd'}.
-    #' @param interval Time between data points. Defaults to \code{'1d'}.
-    #' @param start Specific starting date. \code{String} or \code{date} object.
-    #' @param end Specific ending date. \code{String} or \code{date} object.
-    #' @return A \code{data.frame}.
+    #' Retrieves historical pricing data from the Yahoo Finance chart API.
+    #'
+    #' **Intraday lookback limits** (imposed by Yahoo Finance):
+    #' \itemize{
+    #'   \item \code{"1m"}: max 7 days
+    #'   \item \code{"5m"}, \code{"15m"}, \code{"30m"}: max 60 days
+    #'   \item \code{"1h"}: max 730 days
+    #' }
+    #'
+    #' @param period Length of time. Defaults to \code{'ytd'}. Valid values:
+    #' \code{"1d"}, \code{"5d"}, \code{"1mo"}, \code{"3mo"}, \code{"6mo"},
+    #' \code{"1y"}, \code{"2y"}, \code{"5y"}, \code{"10y"}, \code{"ytd"}, \code{"max"}.
+    #' Ignored when \code{start} is provided.
+    #' @param interval Time between data points. Defaults to \code{'1d'}. Valid values:
+    #' \code{"1m"}, \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"},
+    #' \code{"60m"}, \code{"90m"}, \code{"1h"}, \code{"1d"}, \code{"5d"},
+    #' \code{"1wk"}, \code{"1mo"}, \code{"3mo"}.
+    #' @param start Specific starting date. \code{String} or \code{Date} object
+    #'   in \code{"YYYY-MM-DD"} format.
+    #' @param end Specific ending date. \code{String} or \code{Date} object
+    #'   in \code{"YYYY-MM-DD"} format. Defaults to today when \code{start} is
+    #'   provided but \code{end} is \code{NULL}.
+    #' @return A \code{\link[tibble]{tibble}} with 8 columns:
+    #' \describe{
+    #'   \item{\code{symbol}}{Character. Ticker symbol.}
+    #'   \item{\code{date}}{POSIXct. Timestamp of the data point (UTC).}
+    #'   \item{\code{open}}{Numeric. Opening price.}
+    #'   \item{\code{high}}{Numeric. Period high.}
+    #'   \item{\code{low}}{Numeric. Period low.}
+    #'   \item{\code{close}}{Numeric. Closing price.}
+    #'   \item{\code{adj_close}}{Numeric. Split- and dividend-adjusted close.
+    #'     Falls back to \code{close} when the API omits adjusted data.}
+    #'   \item{\code{volume}}{Numeric. Trading volume.}
+    #' }
+    #' Returns \code{invisible(NULL)} on network failure or invalid symbol.
     get_history = function(period = 'ytd', interval = '1d', start = NULL, end = NULL) {
 
       if (!is.null(start)) {

@@ -13,26 +13,60 @@ yf_download_prices(
 )
 }
 \arguments{
-\item{tickers}{Character vector of stock symbols.}
+\item{tickers}{Character vector of one or more stock symbols
+(e.g., \code{c("AAPL", "MSFT")}).}
 
-\item{start}{Date or character string representing the start date (`YYYY-MM-DD`).}
+\item{start}{Date or character string in \code{"YYYY-MM-DD"} format
+representing the start date. When provided, \code{period} is ignored.}
 
-\item{end}{Date or character string representing the end date (`YYYY-MM-DD`).}
+\item{end}{Date or character string in \code{"YYYY-MM-DD"} format
+representing the end date. Defaults to today if \code{start} is set
+but \code{end} is \code{NULL}.}
 
-\item{interval}{Time between data points (e.g., "1d", "1wk", "1mo").}
+\item{interval}{Time between data points. Valid values:
+\code{"1m"}, \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"},
+\code{"60m"}, \code{"90m"}, \code{"1h"}, \code{"1d"}, \code{"5d"},
+\code{"1wk"}, \code{"1mo"}, \code{"3mo"}. Defaults to \code{"1d"}.}
 
-\item{period}{Relative time period for data retrieval (e.g., "1mo", "1y", "max"). Valid values are "1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max". Defaults to "1y" if both `start` and `period` are NULL.}
+\item{period}{Relative time period. Valid values:
+\code{"1d"}, \code{"5d"}, \code{"1mo"}, \code{"3mo"}, \code{"6mo"},
+\code{"1y"}, \code{"2y"}, \code{"5y"}, \code{"10y"}, \code{"ytd"},
+\code{"max"}. Defaults to \code{"1y"} when both \code{start} and
+\code{period} are \code{NULL}.}
 }
 \value{
-A `tibble` of historical prices with `symbol` as the first column.
+A \code{\link[tibble]{tibble}} with 8 columns:
+  \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
+  \code{close}, \code{adj_close}, \code{volume}.
+  Returns an empty tibble if all tickers fail.
 }
 \description{
-Fetches historical price data for single or multiple tickers.
+Fetches historical OHLCV price data for one or more tickers using the
+Yahoo Finance chart API. Results are combined into a single long-format
+tibble suitable for \code{dplyr} pipelines.
+
+**Intraday lookback limits** (imposed by Yahoo Finance):
+\itemize{
+  \item \code{"1m"}: max 7 days
+  \item \code{"5m"}, \code{"15m"}, \code{"30m"}: max 60 days
+  \item \code{"1h"}: max 730 days
+}
 }
 \examples{
-\donttest{
+\dontrun{
+# Single ticker with date range
 yf_download_prices("AAPL", start = "2023-01-01", end = "2023-01-10")
+
+# Multiple tickers with relative period
 yf_download_prices(c("AAPL", "MSFT"), period = "6mo", interval = "1mo")
 }
 
 }
+\seealso{
+Other historical data: 
+\code{\link{Indice-class}},
+\code{\link{Ticker-class}},
+\code{\link{Tickers}},
+\code{\link{yf_get_index_quotes}()}
+}
+\concept{historical data}

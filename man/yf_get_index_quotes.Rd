@@ -7,17 +7,30 @@
 yf_get_index_quotes(index_symbol)
 }
 \arguments{
-\item{index_symbol}{Character string of the index symbol (e.g., "^GSPC").}
+\item{index_symbol}{Character string of the index symbol (e.g.,
+\code{"^GSPC"} for S&P 500, \code{"^NSEI"} for Nifty 50).}
 }
 \value{
-A `tibble` containing the index quote data.
+A \code{\link[tibble]{tibble}} with the same 8-column schema as
+  \code{\link{yf_download_prices}}: \code{symbol}, \code{date},
+  \code{open}, \code{high}, \code{low}, \code{close}, \code{adj_close},
+  \code{volume}.
+  Returns an empty tibble on failure.
 }
 \description{
-Retrieves current quotes and summary statistics for a given index symbol.
+Retrieves the most recent 1-day price snapshot for a given market index.
 }
 \examples{
-\donttest{
+\dontrun{
 yf_get_index_quotes("^GSPC")
 }
 
 }
+\seealso{
+Other historical data: 
+\code{\link{Indice-class}},
+\code{\link{Ticker-class}},
+\code{\link{Tickers}},
+\code{\link{yf_download_prices}()}
+}
+\concept{historical data}

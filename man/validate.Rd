@@ -32,3 +32,4 @@ validate(c("AAPL", "NOTASTOCK", "MSFT"), return_logical = TRUE)
 }
 
 }
+\concept{validation}
