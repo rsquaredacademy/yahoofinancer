@@ -62,7 +62,7 @@ columns: `symbol`, `date`, `open`, `high`, `low`, `close`, `adj_close`,
 ## See also
 
 Other historical data:
-[`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
+[`Index-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
 [`Ticker-class`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md),
 [`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md),
 [`yf_get_index_quotes()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.md)

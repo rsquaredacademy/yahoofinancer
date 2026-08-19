@@ -28,7 +28,7 @@ yf_get_index_quotes("^GSPC")
 }
 \seealso{
 Other historical data: 
-\code{\link{Indice-class}},
+\code{\link{Index-class}},
 \code{\link{Ticker-class}},
 \code{\link{Tickers}},
 \code{\link{yf_download_prices}()}

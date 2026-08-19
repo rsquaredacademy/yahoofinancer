@@ -163,7 +163,7 @@
 </h3>
 <p>To retrieve data from Yahoo Finance for an index, create an instance of the <code>Index</code> class by passing the index symbol as an argument:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Indice-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get historical data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nifty_50</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-01-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>
