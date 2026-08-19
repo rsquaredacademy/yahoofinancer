@@ -209,7 +209,9 @@ functional helpers or R6 class methods.
   : R6 Class Representing a Ticker
 - [`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md)
   : Multi-Symbol Ticker Data Aggregator
-- [`Index-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md)
+- [`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md)
+  [`Index`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md)
+  [`Index-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md)
   : R6 Class Representing an Index
 
 ## Fundamental & Market Data

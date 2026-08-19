@@ -10,7 +10,7 @@
 #' @docType class
 #' @format An R6 class object
 #' @name Indice-class
-#' @aliases NULL Index-class
+#' @aliases Index Index-class
 #'
 #' @family historical data
 #'

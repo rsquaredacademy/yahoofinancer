@@ -15,7 +15,7 @@ Yahoo Finance API. Inherits \code{get_history()} from
 }
 \seealso{
 Other historical data: 
-\code{\link{Index-class}},
+\code{\link{Indice-class}},
 \code{\link{Tickers}},
 \code{\link{yf_download_prices}()},
 \code{\link{yf_get_index_quotes}()}

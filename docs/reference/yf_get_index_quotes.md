@@ -26,7 +26,7 @@ Returns an empty tibble on failure.
 ## See also
 
 Other historical data:
-[`Index-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
+[`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
 [`Ticker-class`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md),
 [`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md),
 [`yf_download_prices()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md)

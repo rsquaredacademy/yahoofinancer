@@ -39,7 +39,7 @@ tech <- stocks$technical_insights
 }
 \seealso{
 Other historical data: 
-\code{\link{Index-class}},
+\code{\link{Indice-class}},
 \code{\link{Ticker-class}},
 \code{\link{yf_download_prices}()},
 \code{\link{yf_get_index_quotes}()}
