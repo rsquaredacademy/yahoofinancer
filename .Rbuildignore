@@ -27,3 +27,5 @@
 ^yahoofinancer-review\.pdf$
 ^vignettes/.*\.Rmd\.orig$
 ^docs_audit.*\.md$
+^audits$
+^audits/
