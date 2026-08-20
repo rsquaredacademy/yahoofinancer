@@ -1,18 +1,15 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/404.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/articles/cookbook.html</loc></url>
+<url><loc>https://yahoofinancer.rsquaredacademy.com/articles/first-stock-analysis.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/articles/index.html</loc></url>
-<url><loc>https://yahoofinancer.rsquaredacademy.com/audit_tests.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/authors.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/CODE_OF_CONDUCT.html</loc></url>
-<url><loc>https://yahoofinancer.rsquaredacademy.com/docs_audit.html</loc></url>
-<url><loc>https://yahoofinancer.rsquaredacademy.com/docs_audit_opus.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/GEMINI.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/index.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/LICENSE-text.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/LICENSE.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/news/index.html</loc></url>
-<url><loc>https://yahoofinancer.rsquaredacademy.com/readme_audit.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/reference/get_currencies.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/reference/get_market_summary.html</loc></url>
@@ -28,6 +25,5 @@
 <url><loc>https://yahoofinancer.rsquaredacademy.com/reference/yf_get_financials.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.html</loc></url>
 <url><loc>https://yahoofinancer.rsquaredacademy.com/reference/yf_get_market_stats.html</loc></url>
-<url><loc>https://yahoofinancer.rsquaredacademy.com/yahoofinancer-recipes.html</loc></url>
 </urlset>
 

@@ -21,11 +21,15 @@ Imports:
     tibble
 Suggests: 
     covr,
+    ggplot2,
     httptest,
     httptest2,
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    scales,
+    testthat (>= 3.0.0),
+    tidyr,
+    zoo
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 License: MIT + file LICENSE

@@ -17,8 +17,12 @@ navbar:
   left:
     - text: 'Home'
       href: index.html
-    - text: 'Cookbook'
-      href: articles/cookbook.html
+    - text: 'Guides'
+      menu:
+        - text: 'Your First Stock Analysis'
+          href: articles/first-stock-analysis.html
+        - text: 'Cookbook (15 Recipes)'
+          href: articles/cookbook.html
     - text: 'Reference'
       menu:
         - text: 'Functions'
@@ -33,6 +37,7 @@ articles:
   - title: 'Guides & Cookbooks'
     navbar: ~
     contents:
+      - first-stock-analysis
       - cookbook
 
 home:
