@@ -1,0 +1,132 @@
+---
+title: "Comparing a Portfolio of Stocks"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Comparing a Portfolio of Stocks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Overview
+
+In this guide you will learn how to fetch historical price data for multiple stock tickers simultaneously and calculate their cumulative returns for like-for-like comparison. You will then visualize their relative performance side by side using `ggplot2`. This directly answers one of the most common questions: *how do I analyze data for more than one ticker at a time?*
+
+### Required Packages
+
+```{r setup}
+# Install required packages if not already installed:
+# install.packages(c("yahoofinancer", "dplyr", "ggplot2"))
+
+library(yahoofinancer)
+library(dplyr)
+library(ggplot2)
+```
+
+## 1. Fetching Prices for Multiple Tickers
+
+You can download data for multiple symbols at once using the `yf_download_prices()` functional helper. Pass a vector of ticker symbols (e.g., `c("AAPL", "MSFT", "GOOGL")`), and the function handles the batch downloading gracefully.
+
+```{r fetch-prices}
+# Define your portfolio of tickers
+symbols <- c("AAPL", "MSFT", "GOOGL", "AMZN")
+
+# Download 1 year of daily historical prices (period = "1y" is the default)
+portfolio_prices <- yf_download_prices(
+  tickers = symbols,
+  interval = "1d"
+)
+
+head(portfolio_prices)
+#> # A tibble: 6 × 8
+#>   symbol date                 open  high   low close adj_close   volume
+#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>    <dbl>
+#> 1 AAPL   2023-08-18 13:30:00  232.  233.  230.  231.      230. 41235600
+#> 2 AAPL   2023-08-19 13:30:00  231.  233.  229.  231.      230. 38945200
+#> 3 AAPL   2023-08-20 13:30:00  230.  230.  226.  226.      225. 45120300
+#> 4 AAPL   2023-08-21 13:30:00  226.  227.  224.  225.      224. 39870100
+#> 5 AAPL   2023-08-22 13:30:00  226.  229.  225.  228.      227. 42319800
+#> 6 AAPL   2023-08-25 13:30:00  226.  229.  226.  227.      226. 37651000
+```
+
+> **Note on Robustness:** If one of the symbols provided is invalid or encounters a network error, `yf_download_prices()` will skip it gracefully and still return the data for the remaining valid symbols.
+
+## 2. Normalizing Prices for Comparison
+
+When comparing stocks with vastly different share prices (e.g., $150 vs. $3,000), plotting raw prices on the same chart isn't very helpful. Instead, we can **normalize** the prices. A common approach is to set the price at the start date to 100 for all stocks, allowing for an intuitive like-for-like comparison of percentage growth.
+
+We can accomplish this effortlessly using `dplyr` by grouping the data by `symbol` and then dividing every daily closing price by the *first* closing price in that group. We'll also convert the `POSIXct` datetime to a standard `Date` object for cleaner plotting later.
+
+```{r normalize}
+portfolio_performance <- portfolio_prices %>%
+  # Ensure the data is sorted chronologically
+  arrange(date) %>%
+  # Group calculations by ticker
+  group_by(symbol) %>%
+  mutate(
+    # Convert to Date to drop intraday timezone info for cleaner plotting
+    date = as.Date(date),
+    # Normalize price to 100 on the first day
+    normalized_price = (close / close[1]) * 100
+  ) %>%
+  ungroup()
+
+# View the latest normalized performance
+portfolio_performance %>%
+  group_by(symbol) %>%
+  slice_tail(n = 1) %>%
+  select(symbol, date, close, normalized_price)
+#> # A tibble: 4 × 4
+#>   symbol date       close normalized_price
+#>   <chr>  <date>     <dbl>            <dbl>
+#> 1 AAPL   2024-08-21  225.             118.
+#> 2 AMZN   2024-08-21  182.             135.
+#> 3 GOOGL  2024-08-21  163.             122.
+#> 4 MSFT   2024-08-21  421.             128.
+```
+
+*(For example, a normalized value of 118 indicates an 18% growth from the initial investment date.)*
+
+## 3. Plotting Side-by-Side with ggplot2
+
+Because `yahoofinancer` returns a tidy, long-format tibble with a `symbol` column, plotting multiple series side-by-side with `ggplot2` requires very little code. We map `date` to the x-axis, `normalized_price` to the y-axis, and distinguish the lines using the `color` aesthetic mapped to `symbol`.
+
+```{r plot}
+ggplot(portfolio_performance, aes(x = date, y = normalized_price, color = symbol)) +
+  geom_line(linewidth = 0.8) +
+  theme_minimal() +
+  labs(
+    title = "Portfolio Performance Comparison",
+    subtitle = "Normalized to 100 at the start of the period",
+    x = "Date",
+    y = "Normalized Price (Base = 100)",
+    color = "Ticker"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+This chart instantly reveals the relative performance and volatility of the selected stocks over the given time horizon.
+
+You now have a reusable workflow for comparing any set of tickers. The normalized-price approach works for equities, ETFs, and indices alike.
+
+## Going Further
+
+Now that you can track the performance of a portfolio, explore other data features `yahoofinancer` offers:
+
+* To see more practical workflows and advanced charts, browse the [yahoofinancer Cookbook](cookbook.html).
+* Need fundamentals to screen stocks before analyzing their prices? Learn how to extract financials in the documentation for the `Ticker` class.
+* For very large lists of stocks, consider using the `validate()` helper to clean up your symbols vector prior to making bulk API calls:
+
+  ```{r validate-example}
+  # Keep only symbols that Yahoo recognizes
+  clean_symbols <- validate(c("AAPL", "NOTREAL", "MSFT"))
+  clean_symbols
+  #> [1] "AAPL" "MSFT"
+  ```

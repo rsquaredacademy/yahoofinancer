@@ -2,9 +2,10 @@ pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
+  comparing-portfolios: comparing-portfolios.html
   cookbook: cookbook.html
   first-stock-analysis: first-stock-analysis.html
-last_built: 2026-08-20T13:07Z
+last_built: 2026-08-21T07:04Z
 urls:
   reference: https://yahoofinancer.rsquaredacademy.com/reference
   article: https://yahoofinancer.rsquaredacademy.com/articles

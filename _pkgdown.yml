@@ -21,6 +21,8 @@ navbar:
       menu:
         - text: 'Your First Stock Analysis'
           href: articles/first-stock-analysis.html
+        - text: 'Comparing a Portfolio of Stocks'
+          href: articles/comparing-portfolios.html
         - text: 'Cookbook (15 Recipes)'
           href: articles/cookbook.html
     - text: 'Reference'
@@ -38,6 +40,7 @@ articles:
     navbar: ~
     contents:
       - first-stock-analysis
+      - comparing-portfolios
       - cookbook
 
 home:
