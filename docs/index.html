@@ -37,6 +37,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-guides">
 <li><a class="dropdown-item" href="articles/first-stock-analysis.html">Your First Stock Analysis</a></li>
     <li><a class="dropdown-item" href="articles/comparing-portfolios.html">Comparing a Portfolio of Stocks</a></li>
+    <li><a class="dropdown-item" href="articles/currency-conversion.html">Currency Conversion and Forex Data</a></li>
     <li><a class="dropdown-item" href="articles/cookbook.html">Cookbook (15 Recipes)</a></li>
   </ul>
 </li>
@@ -170,7 +171,7 @@
 </h3>
 <p>To retrieve data from Yahoo Finance for an index, create an instance of the <code>Index</code> class by passing the index symbol as an argument:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Indice-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va">Index</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get historical data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nifty_50</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-01-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>

@@ -2,8 +2,6 @@
 % Please edit documentation in R/indice.R
 \docType{class}
 \name{Indice-class}
-\alias{Indice-class}
-\alias{Index}
 \alias{Index-class}
 \title{R6 Class Representing an Index}
 \format{

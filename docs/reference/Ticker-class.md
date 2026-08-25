@@ -11,7 +11,7 @@ An R6 class object
 ## See also
 
 Other historical data:
-[`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
+[`Index-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
 [`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md),
 [`yf_download_prices()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md),
 [`yf_get_index_quotes()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.md)

@@ -18,13 +18,7 @@ one ticker at a time?*
 
 library(yahoofinancer)
 library(dplyr)
-
-if (!requireNamespace("ggplot2", quietly = TRUE)) {
-  message("Install the 'ggplot2' package to run this section.")
-  knitr::opts_chunk$set(eval = FALSE)
-} else {
-  library(ggplot2)
-}
+library(ggplot2)
 ```
 
 ## 1. Fetching Prices for Multiple Tickers
