@@ -18,7 +18,7 @@ Most properties return a `data.frame` where the first column is
 ## See also
 
 Other historical data:
-[`Index-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
+[`Indice-class`](https://yahoofinancer.rsquaredacademy.com/reference/Indice-class.md),
 [`Ticker-class`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md),
 [`yf_download_prices()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md),
 [`yf_get_index_quotes()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.md)

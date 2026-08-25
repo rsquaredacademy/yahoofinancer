@@ -11,15 +11,7 @@ one ticker at a time?*
 
 ### Required Packages
 
-``` r
-
-# Install required packages if not already installed:
-# install.packages(c("yahoofinancer", "dplyr", "ggplot2"))
-
-library(yahoofinancer)
-library(dplyr)
-library(ggplot2)
-```
+`# Install required packages if not already installed:`` ``# install.packages(c("yahoofinancer", "dplyr", "ggplot2"))`` `` `[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`
 
 ## 1. Fetching Prices for Multiple Tickers
 
@@ -29,28 +21,7 @@ functional helper. Pass a vector of ticker symbols (e.g.,
 `c("AAPL", "MSFT", "GOOGL")`), and the function handles the batch
 downloading gracefully.
 
-``` r
-
-# Define your portfolio of tickers
-symbols <- c("AAPL", "MSFT", "GOOGL", "AMZN")
-
-# Download 1 year of daily historical prices (period = "1y" is the default)
-portfolio_prices <- yf_download_prices(
-  tickers = symbols,
-  interval = "1d"
-)
-
-head(portfolio_prices)
-#> # A tibble: 6 × 8
-#>   symbol date                 open  high   low close adj_close   volume
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>    <dbl>
-#> 1 AAPL   2023-08-18 13:30:00  232.  233.  230.  231.      230. 41235600
-#> 2 AAPL   2023-08-19 13:30:00  231.  233.  229.  231.      230. 38945200
-#> 3 AAPL   2023-08-20 13:30:00  230.  230.  226.  226.      225. 45120300
-#> 4 AAPL   2023-08-21 13:30:00  226.  227.  224.  225.      224. 39870100
-#> 5 AAPL   2023-08-22 13:30:00  226.  229.  225.  228.      227. 42319800
-#> 6 AAPL   2023-08-25 13:30:00  226.  229.  226.  227.      226. 37651000
-```
+`# Define your portfolio of tickers`` ``symbols`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"AAPL"``, ``"MSFT"``, ``"GOOGL"``, ``"AMZN"``)`` `` ``# Download 1 year of daily historical prices (period = "1y" is the default)`` ``portfolio_prices`` ``<-`` `[`yf_download_prices`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md)`(`` `` tickers ``=`` ``symbols``,`` `` interval ``=`` ``"1d"`` ``)`` `` `[`head`](https://rdrr.io/r/utils/head.html)`(``portfolio_prices``)`` ``#> # A tibble: 6 × 8`` ``#> symbol date open high low close adj_close volume`` ``#> <chr> <dttm> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>`` ``#> 1 AAPL 2023-08-18 13:30:00 232. 233. 230. 231. 230. 41235600`` ``#> 2 AAPL 2023-08-19 13:30:00 231. 233. 229. 231. 230. 38945200`` ``#> 3 AAPL 2023-08-20 13:30:00 230. 230. 226. 226. 225. 45120300`` ``#> 4 AAPL 2023-08-21 13:30:00 226. 227. 224. 225. 224. 39870100`` ``#> 5 AAPL 2023-08-22 13:30:00 226. 229. 225. 228. 227. 42319800`` ``#> 6 AAPL 2023-08-25 13:30:00 226. 229. 226. 227. 226. 37651000`
 
 > **Note on Robustness:** If one of the symbols provided is invalid or
 > encounters a network error,
@@ -71,34 +42,7 @@ by `symbol` and then dividing every daily closing price by the *first*
 closing price in that group. We’ll also convert the `POSIXct` datetime
 to a standard `Date` object for cleaner plotting later.
 
-``` r
-
-portfolio_performance <- portfolio_prices %>%
-  # Ensure the data is sorted chronologically
-  arrange(date) %>%
-  # Group calculations by ticker
-  group_by(symbol) %>%
-  mutate(
-    # Convert to Date to drop intraday timezone info for cleaner plotting
-    date = as.Date(date),
-    # Normalize price to 100 on the first day
-    normalized_price = (close / close[1]) * 100
-  ) %>%
-  ungroup()
-
-# View the latest normalized performance
-portfolio_performance %>%
-  group_by(symbol) %>%
-  slice_tail(n = 1) %>%
-  select(symbol, date, close, normalized_price)
-#> # A tibble: 4 × 4
-#>   symbol date       close normalized_price
-#>   <chr>  <date>     <dbl>            <dbl>
-#> 1 AAPL   2024-08-21  225.             118.
-#> 2 AMZN   2024-08-21  182.             135.
-#> 3 GOOGL  2024-08-21  163.             122.
-#> 4 MSFT   2024-08-21  421.             128.
-```
+`portfolio_performance`` ``<-`` ``portfolio_prices`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` ``# Ensure the data is sorted chronologically`` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` ``# Group calculations by ticker`` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``symbol``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`` `` ``# Convert to Date to drop intraday timezone info for cleaner plotting`` `` date ``=`` `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``date``)``,`` `` ``# Normalize price to 100 on the first day`` `` normalized_price ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`` `` ``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`` `` ``# View the latest normalized performance`` ``portfolio_performance`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``symbol``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`slice_tail`](https://dplyr.tidyverse.org/reference/slice.html)`(``n ``=`` ``1``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``symbol``, ``date``, ``close``, ``normalized_price``)`` ``#> # A tibble: 4 × 4`` ``#> symbol date close normalized_price`` ``#> <chr> <date> <dbl> <dbl>`` ``#> 1 AAPL 2024-08-21 225. 118.`` ``#> 2 AMZN 2024-08-21 182. 135.`` ``#> 3 GOOGL 2024-08-21 163. 122.`` ``#> 4 MSFT 2024-08-21 421. 128.`
 
 *(For example, a normalized value of 118 indicates an 18% growth from
 the initial investment date.)*
@@ -111,20 +55,7 @@ requires very little code. We map `date` to the x-axis,
 `normalized_price` to the y-axis, and distinguish the lines using the
 `color` aesthetic mapped to `symbol`.
 
-``` r
-
-ggplot(portfolio_performance, aes(x = date, y = normalized_price, color = symbol)) +
-  geom_line(linewidth = 0.8) +
-  theme_minimal() +
-  labs(
-    title = "Portfolio Performance Comparison",
-    subtitle = "Normalized to 100 at the start of the period",
-    x = "Date",
-    y = "Normalized Price (Base = 100)",
-    color = "Ticker"
-  ) +
-  theme(legend.position = "bottom")
-```
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``portfolio_performance``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``date``, y ``=`` ``normalized_price``, color ``=`` ``symbol``)``)`` ``+`` `` `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``linewidth ``=`` ``0.8``)`` ``+`` `` `[`theme_minimal`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`` ``+`` `` `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(`` `` title ``=`` ``"Portfolio Performance Comparison"``,`` `` subtitle ``=`` ``"Normalized to 100 at the start of the period"``,`` `` x ``=`` ``"Date"``,`` `` y ``=`` ``"Normalized Price (Base = 100)"``,`` `` color ``=`` ``"Ticker"`` `` ``)`` ``+`` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"bottom"``)`
 
 This chart instantly reveals the relative performance and volatility of
 the selected stocks over the given time horizon.
@@ -149,10 +80,4 @@ data features `yahoofinancer` offers:
   [`validate()`](https://yahoofinancer.rsquaredacademy.com/reference/validate.md)
   helper to clean up your symbols vector prior to making bulk API calls:
 
-  ``` r
-
-  # Keep only symbols that Yahoo recognizes
-  clean_symbols <- validate(c("AAPL", "NOTREAL", "MSFT"))
-  clean_symbols
-  #> [1] "AAPL" "MSFT"
-  ```
+  `# Keep only symbols that Yahoo recognizes`` ``clean_symbols`` ``<-`` `[`validate`](https://yahoofinancer.rsquaredacademy.com/reference/validate.md)`(`[`c`](https://rdrr.io/r/base/c.html)`(``"AAPL"``, ``"NOTREAL"``, ``"MSFT"``)``)`` ``clean_symbols`` ``#> [1] "AAPL" "MSFT"`

@@ -7,12 +7,16 @@
 # Helper: locate a vignette .Rmd file whether running under R CMD check
 # (installed package) or interactively / via devtools::test() (source tree).
 find_vignette_rmd <- function(name) {
-  # 1. Installed location (R CMD check / R CMD build)
+  # 1. Source tree: check for .Rmd.orig first (for pre-computed vignettes like cookbook)
+  root <- testthat::test_path("..", "..")
+  orig <- file.path(root, "vignettes", paste0(name, ".Rmd.orig"))
+  if (file.exists(orig)) return(orig)
+
+  # 2. Installed location (R CMD check / R CMD build)
   installed <- system.file("doc", paste0(name, ".Rmd"), package = "yahoofinancer")
   if (nzchar(installed)) return(installed)
 
-  # 2. Source tree: walk up from tests/testthat/ to package root
-  root <- testthat::test_path("..", "..")
+  # 3. Source tree standard .Rmd
   src <- file.path(root, "vignettes", paste0(name, ".Rmd"))
   if (file.exists(src)) return(src)
 

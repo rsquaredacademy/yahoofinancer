@@ -32,6 +32,7 @@ navbar:
   right:
     - icon: fa-github
       href: https://github.com/rsquaredacademy/yahoofinancer
+      aria-label: GitHub
 
 articles:
   - title: 'Guides & Cookbooks'

@@ -73,8 +73,8 @@ aapl_custom <- yf_download_prices(
 * **Inspect Security Metadata via R6**:
 ```{r recipe-1-metadata}
 cat("Currency:    ", aapl_obj$currency, "\n")
-cat("Quote Type:  ", aapl_obj$quote_type, "\n")
-cat("Exchange:    ", aapl_obj$exchange, "\n")
+cat("Exchange:    ", aapl_obj$exchange_name, "\n")
+cat("Timezone:    ", aapl_obj$timezone, "\n")
 ```
 
 ---
@@ -161,11 +161,11 @@ Retrieve live market snapshots across international equity indices, currencies, 
 ```{r recipe-4-core}
 market_overview <- get_market_summary(as_tibble = TRUE)
 
-# Filter for Indian indices and INR currency pairs
-indian_market <- market_overview |>
-  filter(grepl("NSE|BSE|NIFTY|SENSEX|INR", short_name, ignore.case = TRUE))
+# Filter for benchmark indices and currencies in market overview
+us_overview <- market_overview |>
+  filter(grepl("S&P|Nasdaq|Dow|EUR/USD|Gold|Crude", short_name, ignore.case = TRUE))
 
-print(indian_market)
+print(us_overview)
 ```
 
 ### Variations & Tips
@@ -176,12 +176,10 @@ commodities_crypto <- market_overview |>
   filter(grepl("Gold|Crude|Silver|BTC|ETH", short_name, ignore.case = TRUE))
 ```
 
-* **Alternative Filtering with `stringr`**:
-```{r recipe-4-stringr}
-library(stringr)
-
+* **Filter for Major European Indices**:
+```{r recipe-4-european}
 european_market <- market_overview |>
-  filter(str_detect(short_name, regex("DAX|FTSE|CAC", ignore_case = TRUE)))
+  filter(grepl("DAX|FTSE|CAC|ESTX", short_name, ignore.case = TRUE))
 ```
 
 ---
@@ -202,7 +200,7 @@ benchmark_prices <- yf_download_prices(
 # Normalize price levels (Base = 100)
 normalized_indices <- benchmark_prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(indexed_price = (close / first(close)) * 100) |>
   ungroup()
 
@@ -225,11 +223,12 @@ sectoral_symbols <- c("^CNXIT", "^NSEBANK", "^CNXAUTO")
 sectoral_prices  <- yf_download_prices(sectoral_symbols, period = "1y", interval = "1d")
 ```
 
-* **Index Class R6 Query**:
+* **Index Class R6 Query & Latest Quote**:
 ```{r recipe-5-index-r6}
 nifty <- Index$new("^NSEI")
-cat("Index Name:   ", nifty$short_name, "\n")
-cat("Current Level:", nifty$regular_market_price, "\n")
+nifty_quote <- yf_get_index_quotes("^NSEI")
+cat("Index Symbol: ", nifty$symbol, "\n")
+cat("Latest Close: ", tail(nifty_quote$close, 1), "\n")
 ```
 
 ---
@@ -319,7 +318,7 @@ symbols <- c("AAPL", "MSFT", "GOOGL")
 
 returns_df <- yf_download_prices(symbols, period = "1y", interval = "1d") |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     daily_return = (adj_close / lag(adj_close)) - 1,
     log_return   = log(adj_close / lag(adj_close))
@@ -373,15 +372,14 @@ prices <- yf_download_prices(symbols, period = "1y", interval = "1d")
 
 returns_matrix <- prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(daily_return = (adj_close / lag(adj_close)) - 1) |>
   filter(!is.na(daily_return)) |>
   ungroup() |>
   select(date, symbol, daily_return) |>
-  pivot_wider(names_from = symbol, values_from = daily_return) |>
-  select(-date)
+  pivot_wider(names_from = symbol, values_from = daily_return)
 
-cor_matrix <- cor(returns_matrix, use = "pairwise.complete.obs")
+cor_matrix <- cor(select(returns_matrix, -date), use = "pairwise.complete.obs")
 round(cor_matrix, 2)
 ```
 
@@ -524,7 +522,7 @@ multi_basket <- yf_download_prices(c("AAPL", "MSFT", "GOOGL", "^GSPC"), period =
 
 mdd_comparison <- multi_basket |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     peak = cummax(adj_close),
     dd   = (adj_close - peak) / peak
@@ -549,7 +547,7 @@ prices <- yf_download_prices(c("AAPL", "^GSPC"), period = "2y", interval = "1d")
 
 returns_wide <- prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(daily_return = (adj_close / lag(adj_close)) - 1) |>
   filter(!is.na(daily_return)) |>
   ungroup() |>
@@ -595,7 +593,7 @@ in_prices  <- yf_download_prices(in_basket, period = "2y", interval = "1d")
 
 in_returns <- in_prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(ret = (adj_close / lag(adj_close)) - 1) |>
   filter(!is.na(ret)) |>
   ungroup() |>
@@ -625,7 +623,7 @@ prices <- yf_download_prices(tickers, period = "2y", interval = "1d")
 
 returns_df <- prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(daily_return = (adj_close / lag(adj_close)) - 1) |>
   filter(!is.na(daily_return)) |>
   ungroup()
@@ -643,7 +641,7 @@ benchmark_returns <- returns_df |>
 
 wealth_df <- bind_rows(portfolio_returns, benchmark_returns) |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     cum_return   = cumprod(1 + daily_return) - 1,
     wealth_index = 10000 * cumprod(1 + daily_return)
@@ -702,7 +700,7 @@ rf_daily  <- rf_annual / 252
 
 performance_metrics <- prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     daily_return  = (adj_close / lag(adj_close)) - 1,
     excess_return = daily_return - rf_daily

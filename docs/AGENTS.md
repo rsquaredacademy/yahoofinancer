@@ -7,12 +7,7 @@ API. CRAN-published; default branch is `master`.
 
 Run in this order after any change:
 
-``` r
-
-devtools::document()               # regenerates man/ and NAMESPACE from roxygen
-devtools::test()                   # single file: devtools::test(filter = "ticker")
-devtools::check(args = "--as-cran") # release gate: target 0 errors / 0 warnings / 0 notes
-```
+`devtools``::`[`document`](https://devtools.r-lib.org/reference/document.html)`(``)`` ``# regenerates man/ and NAMESPACE from roxygen`` ``devtools``::`[`test`](https://devtools.r-lib.org/reference/test.html)`(``)`` ``# single file: devtools::test(filter = "ticker")`` ``devtools``::`[`check`](https://devtools.r-lib.org/reference/check.html)`(``args ``=`` ``"--as-cran"``)`` ``# release gate: target 0 errors / 0 warnings / 0 notes`
 
 - The test suite is **hermetic**: tests must pass fully offline, never
   calling the real Yahoo API.

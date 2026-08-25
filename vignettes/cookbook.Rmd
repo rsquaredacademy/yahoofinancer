@@ -42,15 +42,14 @@ aapl_prices <- yf_download_prices(
 
 head(aapl_prices)
 #> # A tibble: 6 × 8
-#>   symbol date                 open  high   low close adj_close
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>
-#> 1 AAPL   2025-08-18 13:30:00  232.  233.  230.  231.      230.
-#> 2 AAPL   2025-08-19 13:30:00  231.  233.  229.  231.      230.
-#> 3 AAPL   2025-08-20 13:30:00  230.  230.  226.  226.      225.
-#> 4 AAPL   2025-08-21 13:30:00  226.  227.  224.  225.      224.
-#> 5 AAPL   2025-08-22 13:30:00  226.  229.  225.  228.      227.
-#> 6 AAPL   2025-08-25 13:30:00  226.  229.  226.  227.      226.
-#> # ℹ 1 more variable: volume <dbl>
+#>   symbol date                 open  high   low close adj_close   volume
+#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>    <dbl>
+#> 1 AAPL   2025-08-25 13:30:00  226.  229.  226.  227.      226. 30983100
+#> 2 AAPL   2025-08-26 13:30:00  227.  229.  225.  229.      228. 54575100
+#> 3 AAPL   2025-08-27 13:30:00  229.  231.  228.  230.      230. 31259500
+#> 4 AAPL   2025-08-28 13:30:00  231.  233.  229.  233.      232. 38074700
+#> 5 AAPL   2025-08-29 13:30:00  233.  233.  231.  232.      231. 39418400
+#> 6 AAPL   2025-09-02 13:30:00  229.  231.  227.  230.      229. 44075600
 
 # R6 Class Interface
 aapl_obj <- Ticker$new("AAPL")
@@ -58,20 +57,19 @@ aapl_history <- aapl_obj$get_history(period = "1y", interval = "1d")
 
 head(aapl_history)
 #> # A tibble: 6 × 8
-#>   symbol date                 open  high   low close adj_close
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>
-#> 1 AAPL   2025-08-18 13:30:00  232.  233.  230.  231.      230.
-#> 2 AAPL   2025-08-19 13:30:00  231.  233.  229.  231.      230.
-#> 3 AAPL   2025-08-20 13:30:00  230.  230.  226.  226.      225.
-#> 4 AAPL   2025-08-21 13:30:00  226.  227.  224.  225.      224.
-#> 5 AAPL   2025-08-22 13:30:00  226.  229.  225.  228.      227.
-#> 6 AAPL   2025-08-25 13:30:00  226.  229.  226.  227.      226.
-#> # ℹ 1 more variable: volume <dbl>
+#>   symbol date                 open  high   low close adj_close   volume
+#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>    <dbl>
+#> 1 AAPL   2025-08-25 13:30:00  226.  229.  226.  227.      226. 30983100
+#> 2 AAPL   2025-08-26 13:30:00  227.  229.  225.  229.      228. 54575100
+#> 3 AAPL   2025-08-27 13:30:00  229.  231.  228.  230.      230. 31259500
+#> 4 AAPL   2025-08-28 13:30:00  231.  233.  229.  233.      232. 38074700
+#> 5 AAPL   2025-08-29 13:30:00  233.  233.  231.  232.      231. 39418400
+#> 6 AAPL   2025-09-02 13:30:00  229.  231.  227.  230.      229. 44075600
 ```
 
 ### Variations & Tips
 
-* **Explicit Date Boundaries**: Query fixed historical windows using `start_date` and `end_date`:
+* **Explicit Date Boundaries**: Query fixed historical windows using `start` and `end`:
 
 ``` r
 aapl_custom <- yf_download_prices(
@@ -87,10 +85,10 @@ aapl_custom <- yf_download_prices(
 ``` r
 cat("Currency:    ", aapl_obj$currency, "\n")
 #> Currency:     USD
-cat("Quote Type:  ", aapl_obj$quote_type, "\n")
-#> Quote Type:
-cat("Exchange:    ", aapl_obj$exchange, "\n")
-#> Exchange:
+cat("Exchange:    ", aapl_obj$exchange_name, "\n")
+#> Exchange:     NMS
+cat("Timezone:    ", aapl_obj$timezone, "\n")
+#> Timezone:     EDT
 ```
 
 ---
@@ -115,10 +113,10 @@ basket_prices |>
 #> # A tibble: 5 × 2
 #>   symbol     n
 #>   <chr>  <int>
-#> 1 AAPL     126
-#> 2 GOOGL    126
-#> 3 MSFT     126
-#> 4 NVDA     126
+#> 1 AAPL     125
+#> 2 GOOGL    125
+#> 3 MSFT     125
+#> 4 NVDA     125
 #> 5 TCS.NS   125
 ```
 
@@ -156,15 +154,14 @@ intraday_5m <- yf_download_prices(
 
 head(intraday_5m)
 #> # A tibble: 6 × 8
-#>   symbol date                 open  high   low close adj_close
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>
-#> 1 MSFT   2026-08-12 13:30:00  500.  502.  497.  498.      498.
-#> 2 MSFT   2026-08-12 13:35:00  498.  500.  498.  499.      499.
-#> 3 MSFT   2026-08-12 13:40:00  499.  499.  497.  498.      498.
-#> 4 MSFT   2026-08-12 13:45:00  498.  498.  496.  497.      497.
-#> 5 MSFT   2026-08-12 13:50:00  497.  497.  494.  494.      494.
-#> 6 MSFT   2026-08-12 13:55:00  494.  494   493.  494.      494.
-#> # ℹ 1 more variable: volume <dbl>
+#>   symbol date                 open  high   low close adj_close  volume
+#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>   <dbl>
+#> 1 MSFT   2026-08-18 13:30:00  482.  483.  477.  479.      479. 1477683
+#> 2 MSFT   2026-08-18 13:35:00  479.  483.  479.  483.      483.  388264
+#> 3 MSFT   2026-08-18 13:40:00  483.  484.  483.  483.      483.  437979
+#> 4 MSFT   2026-08-18 13:45:00  483.  483.  482.  482.      482.  238777
+#> 5 MSFT   2026-08-18 13:50:00  482.  483.  480.  482.      482.  477575
+#> 6 MSFT   2026-08-18 13:55:00  482.  482.  479.  480.      480.  351820
 ```
 
 ### Variations & Tips
@@ -205,17 +202,23 @@ Retrieve live market snapshots across international equity indices, currencies, 
 ``` r
 market_overview <- get_market_summary(as_tibble = TRUE)
 
-# Filter for Indian indices and INR currency pairs
-indian_market <- market_overview |>
-  filter(grepl("NSE|BSE|NIFTY|SENSEX|INR", short_name, ignore.case = TRUE))
+# Filter for benchmark indices and currencies in market overview
+us_overview <- market_overview |>
+  filter(grepl("S&P|Nasdaq|Dow|EUR/USD|Gold|Crude", short_name, ignore.case = TRUE))
 
-print(indian_market)
-#> # A tibble: 0 × 9
-#> # ℹ 9 variables: symbol <chr>, short_name <chr>,
-#> #   regular_market_price <dbl>, regular_market_change <dbl>,
-#> #   regular_market_change_percent <dbl>,
-#> #   regular_market_previous_close <dbl>, market_state <chr>,
-#> #   exchange <chr>, market_time <dttm>
+print(us_overview)
+#> # A tibble: 6 × 9
+#>   symbol   short_name     regular_market_price regular_market_change
+#>   <chr>    <chr>                         <dbl>                 <dbl>
+#> 1 ES=F     S&P Futures                 7697                27.2     
+#> 2 YM=F     Dow Futures                53689               200       
+#> 3 NQ=F     Nasdaq Futures             29330               224.      
+#> 4 CL=F     Crude Oil                     82.6              -2.41    
+#> 5 GC=F     Gold                        4696.               -1.90    
+#> 6 EURUSD=X EUR/USD                        1.17             -0.000408
+#> # ℹ 5 more variables: regular_market_change_percent <dbl>,
+#> #   regular_market_previous_close <dbl>, market_state <chr>, exchange <chr>,
+#> #   market_time <dttm>
 ```
 
 ### Variations & Tips
@@ -227,13 +230,11 @@ commodities_crypto <- market_overview |>
   filter(grepl("Gold|Crude|Silver|BTC|ETH", short_name, ignore.case = TRUE))
 ```
 
-* **Alternative Filtering with `stringr`**:
+* **Filter for Major European Indices**:
 
 ``` r
-library(stringr)
-
 european_market <- market_overview |>
-  filter(str_detect(short_name, regex("DAX|FTSE|CAC", ignore_case = TRUE)))
+  filter(grepl("DAX|FTSE|CAC|ESTX", short_name, ignore.case = TRUE))
 ```
 
 ---
@@ -255,7 +256,7 @@ benchmark_prices <- yf_download_prices(
 # Normalize price levels (Base = 100)
 normalized_indices <- benchmark_prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(indexed_price = (close / first(close)) * 100) |>
   ungroup()
 
@@ -281,14 +282,15 @@ sectoral_symbols <- c("^CNXIT", "^NSEBANK", "^CNXAUTO")
 sectoral_prices  <- yf_download_prices(sectoral_symbols, period = "1y", interval = "1d")
 ```
 
-* **Index Class R6 Query**:
+* **Index Class R6 Query & Latest Quote**:
 
 ``` r
 nifty <- Index$new("^NSEI")
-cat("Index Name:   ", nifty$short_name, "\n")
-#> Index Name:
-cat("Current Level:", nifty$regular_market_price, "\n")
-#> Current Level:
+nifty_quote <- yf_get_index_quotes("^NSEI")
+cat("Index Symbol: ", nifty$symbol, "\n")
+#> Index Symbol:  ^NSEI
+cat("Latest Close: ", tail(nifty_quote$close, 1), "\n")
+#> Latest Close:  24219.1
 ```
 
 ---
@@ -318,12 +320,12 @@ head(aapl_inr)
 #> # A tibble: 6 × 4
 #>   date_day   close_usd fx_rate close_inr
 #>   <date>         <dbl>   <dbl>     <dbl>
-#> 1 2026-02-18      264.    90.6    23957.
-#> 2 2026-02-19      261.    90.8    23659.
-#> 3 2026-02-20      265.    91.0    24088.
-#> 4 2026-02-23      266.    90.7    24150.
-#> 5 2026-02-24      272.    91.0    24770.
-#> 6 2026-02-25      274.    90.9    24932.
+#> 1 2026-02-25      274.    90.9    24932.
+#> 2 2026-02-26      273.    91.0    24825.
+#> 3 2026-02-27      264.    91.0    24042.
+#> 4 2026-03-02      265.    91.1    24111.
+#> 5 2026-03-03      264.    91.6    24150.
+#> 6 2026-03-04      263.    92.0    24154.
 ```
 
 ### Variations & Tips
@@ -338,8 +340,8 @@ head(supported_currencies)
 #> 2        MXN       Mexican Peso    MXN       Mexican Peso
 #> 3        SCR  Seychellois Rupee    SCR  Seychellois Rupee
 #> 4        CDF    Congolese Franc    CDF    Congolese Franc
-#> 5        GTQ Guatemalan Quetzal    GTQ Guatemalan Quetzal
-#> 6        BBD   Barbadian Dollar    BBD   Barbadian Dollar
+#> 5        BBD   Barbadian Dollar    BBD   Barbadian Dollar
+#> 6        GTQ Guatemalan Quetzal    GTQ Guatemalan Quetzal
 ```
 
 * **Direct Forex Pair Download**: Query exchange rates using the `=X` ticker convention:
@@ -377,15 +379,14 @@ clean_prices <- yf_download_prices(
 
 head(clean_prices)
 #> # A tibble: 6 × 8
-#>   symbol date                 open  high   low close adj_close
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>
-#> 1 AAPL   2026-05-18 13:30:00  300.  301.  295.  298.      298.
-#> 2 AAPL   2026-05-19 13:30:00  297.  301.  296.  299.      299.
-#> 3 AAPL   2026-05-20 13:30:00  298.  303.  298.  302.      302.
-#> 4 AAPL   2026-05-21 13:30:00  301.  306.  300.  305.      305.
-#> 5 AAPL   2026-05-22 13:30:00  306.  311.  306.  309.      309.
-#> 6 AAPL   2026-05-26 13:30:00  310.  312.  308.  308.      308.
-#> # ℹ 1 more variable: volume <dbl>
+#>   symbol date                 open  high   low close adj_close   volume
+#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>    <dbl>
+#> 1 AAPL   2026-05-26 13:30:00  310.  312.  308.  308.      308. 48000500
+#> 2 AAPL   2026-05-27 13:30:00  308.  313.  308.  311.      311. 50430900
+#> 3 AAPL   2026-05-28 13:30:00  311.  313.  310.  313.      312. 48220400
+#> 4 AAPL   2026-05-29 13:30:00  312.  315   310.  312.      312. 70026800
+#> 5 AAPL   2026-06-01 13:30:00  310.  311.  305.  306.      306. 48849900
+#> 6 AAPL   2026-06-02 13:30:00  307.  315.  307.  315.      315. 44534700
 ```
 
 ### Variations & Tips
@@ -413,7 +414,7 @@ symbols <- c("AAPL", "MSFT", "GOOGL")
 
 returns_df <- yf_download_prices(symbols, period = "1y", interval = "1d") |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     daily_return = (adj_close / lag(adj_close)) - 1,
     log_return   = log(adj_close / lag(adj_close))
@@ -423,16 +424,15 @@ returns_df <- yf_download_prices(symbols, period = "1y", interval = "1d") |>
 
 head(returns_df)
 #> # A tibble: 6 × 10
-#>   symbol date                 open  high   low close adj_close
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>
-#> 1 AAPL   2025-08-19 13:30:00  231.  233.  229.  231.      230.
-#> 2 MSFT   2025-08-19 13:30:00  515   515.  509.  510.      506.
-#> 3 GOOGL  2025-08-19 13:30:00  203.  203.  200.  202.      201.
-#> 4 AAPL   2025-08-20 13:30:00  230.  230.  226.  226.      225.
-#> 5 MSFT   2025-08-20 13:30:00  510.  511   504.  506.      502.
-#> 6 GOOGL  2025-08-20 13:30:00  201.  201.  197.  199.      199.
-#> # ℹ 3 more variables: volume <dbl>, daily_return <dbl>,
-#> #   log_return <dbl>
+#>   symbol date                 open  high   low close adj_close   volume
+#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>    <dbl>
+#> 1 AAPL   2025-08-26 13:30:00  227.  229.  225.  229.      228. 54575100
+#> 2 AAPL   2025-08-27 13:30:00  229.  231.  228.  230.      230. 31259500
+#> 3 AAPL   2025-08-28 13:30:00  231.  233.  229.  233.      232. 38074700
+#> 4 AAPL   2025-08-29 13:30:00  233.  233.  231.  232.      231. 39418400
+#> 5 AAPL   2025-09-02 13:30:00  229.  231.  227.  230.      229. 44075600
+#> 6 AAPL   2025-09-03 13:30:00  237.  239.  234.  238.      238. 66427800
+#> # ℹ 2 more variables: daily_return <dbl>, log_return <dbl>
 ```
 
 ### Variations & Tips
@@ -470,9 +470,9 @@ print(returns_summary)
 #> # A tibble: 3 × 6
 #>   symbol trading_days mean_daily sd_daily annual_return annual_vol
 #>   <chr>         <int>      <dbl>    <dbl>         <dbl>      <dbl>
-#> 1 AAPL            251  0.00131     0.0157        0.329       0.250
-#> 2 GOOGL           251  0.00230     0.0206        0.580       0.328
-#> 3 MSFT            251 -0.0000526   0.0203       -0.0133      0.323
+#> 1 AAPL            250  0.00139     0.0158        0.350       0.251
+#> 2 GOOGL           250  0.00227     0.0206        0.573       0.327
+#> 3 MSFT            250  0.0000991   0.0204        0.0250      0.323
 ```
 
 ---
@@ -489,22 +489,21 @@ prices <- yf_download_prices(symbols, period = "1y", interval = "1d")
 
 returns_matrix <- prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(daily_return = (adj_close / lag(adj_close)) - 1) |>
   filter(!is.na(daily_return)) |>
   ungroup() |>
   select(date, symbol, daily_return) |>
-  pivot_wider(names_from = symbol, values_from = daily_return) |>
-  select(-date)
+  pivot_wider(names_from = symbol, values_from = daily_return)
 
-cor_matrix <- cor(returns_matrix, use = "pairwise.complete.obs")
+cor_matrix <- cor(select(returns_matrix, -date), use = "pairwise.complete.obs")
 round(cor_matrix, 2)
-#>       AAPL MSFT NVDA  GLD ^GSPC
-#> AAPL  1.00 0.11 0.12 0.08  0.38
-#> MSFT  0.11 1.00 0.27 0.08  0.39
-#> NVDA  0.12 0.27 1.00 0.23  0.66
-#> GLD   0.08 0.08 0.23 1.00  0.32
-#> ^GSPC 0.38 0.39 0.66 0.32  1.00
+#>       AAPL  GLD MSFT NVDA ^GSPC
+#> AAPL  1.00 0.09 0.11 0.11  0.38
+#> GLD   0.09 1.00 0.08 0.22  0.32
+#> MSFT  0.11 0.08 1.00 0.27  0.38
+#> NVDA  0.11 0.22 0.27 1.00  0.66
+#> ^GSPC 0.38 0.32 0.38 0.66  1.00
 ```
 
 ### Variations & Tips
@@ -573,14 +572,14 @@ sma_df <- prices |>
 
 tail(sma_df |> select(date, close, adj_close, sma_50, sma_200, regime, signal), 6)
 #> # A tibble: 6 × 7
-#>   date                close adj_close sma_50 sma_200 regime  signal
-#>   <dttm>              <dbl>     <dbl>  <dbl>   <dbl> <chr>   <chr> 
-#> 1 2026-08-11 13:30:00  305.      305.   309.    279. Bullis… <NA>  
-#> 2 2026-08-12 13:30:00  302.      302.   309.    280. Bullis… <NA>  
-#> 3 2026-08-13 13:30:00  305.      305.   309.    280. Bullis… <NA>  
-#> 4 2026-08-14 13:30:00  306.      306.   309.    280. Bullis… <NA>  
-#> 5 2026-08-17 13:30:00  306.      306.   309.    280. Bullis… <NA>  
-#> 6 2026-08-18 13:30:00  310.      310.   309.    280. Bullis… <NA>
+#>   date                close adj_close sma_50 sma_200 regime               signal
+#>   <dttm>              <dbl>     <dbl>  <dbl>   <dbl> <chr>                <chr> 
+#> 1 2026-08-17 13:30:00  306.      306.   309.    280. Bullish (SMA50 > SM… <NA>  
+#> 2 2026-08-18 13:30:00  310.      310.   309.    280. Bullish (SMA50 > SM… <NA>  
+#> 3 2026-08-19 13:30:00  317.      317.   309.    281. Bullish (SMA50 > SM… <NA>  
+#> 4 2026-08-20 13:30:00  311.      311.   310.    281. Bullish (SMA50 > SM… <NA>  
+#> 5 2026-08-21 13:30:00  309.      309.   310.    281. Bullish (SMA50 > SM… <NA>  
+#> 6 2026-08-24 13:30:00  310.      310.   310.    281. Bullish (SMA50 > SM… <NA>
 ```
 
 ### Variations & Tips
@@ -673,7 +672,7 @@ multi_basket <- yf_download_prices(c("AAPL", "MSFT", "GOOGL", "^GSPC"), period =
 
 mdd_comparison <- multi_basket |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     peak = cummax(adj_close),
     dd   = (adj_close - peak) / peak
@@ -688,10 +687,10 @@ print(mdd_comparison)
 #> # A tibble: 4 × 3
 #>   symbol max_drawdown current_drawdown
 #>   <chr>         <dbl>            <dbl>
-#> 1 GOOGL        -0.443          -0.148 
-#> 2 MSFT         -0.371          -0.106 
-#> 3 AAPL         -0.334          -0.0890
-#> 4 ^GSPC        -0.254          -0.0123
+#> 1 GOOGL        -0.443          -0.135 
+#> 2 MSFT         -0.371          -0.0936
+#> 3 AAPL         -0.334          -0.0867
+#> 4 ^GSPC        -0.254          -0.0187
 ```
 
 ---
@@ -706,7 +705,7 @@ prices <- yf_download_prices(c("AAPL", "^GSPC"), period = "2y", interval = "1d")
 
 returns_wide <- prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(daily_return = (adj_close / lag(adj_close)) - 1) |>
   filter(!is.na(daily_return)) |>
   ungroup() |>
@@ -722,13 +721,13 @@ beta        <- coef(capm_fit)[2]
 r_squared   <- fit_summary$r.squared
 
 cat("Beta (Systematic Risk):", round(beta, 3), "\n")
-#> Beta (Systematic Risk): 1.108
+#> Beta (Systematic Risk): 1.11
 cat("Daily Alpha:           ", sprintf("%.4f%%", alpha_daily * 100), "\n")
-#> Daily Alpha:            0.0049%
+#> Daily Alpha:            0.0060%
 cat("Annualized Alpha:      ", sprintf("%.2f%%", alpha_daily * 252 * 100), "\n")
-#> Annualized Alpha:       1.23%
+#> Annualized Alpha:       1.51%
 cat("R-Squared:             ", round(r_squared, 3), "\n")
-#> R-Squared:              0.391
+#> R-Squared:              0.39
 ```
 
 ### Variations & Tips
@@ -760,7 +759,7 @@ in_prices  <- yf_download_prices(in_basket, period = "2y", interval = "1d")
 
 in_returns <- in_prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(ret = (adj_close / lag(adj_close)) - 1) |>
   filter(!is.na(ret)) |>
   ungroup() |>
@@ -780,8 +779,8 @@ print(beta_table)
 #>   <chr>       <dbl>
 #> 1 HDFCBANK.NS 1.08 
 #> 2 RELIANCE.NS 1.04 
-#> 3 INFY.NS     0.924
-#> 4 TCS.NS      0.845
+#> 3 INFY.NS     0.923
+#> 4 TCS.NS      0.843
 ```
 
 ---
@@ -798,7 +797,7 @@ prices <- yf_download_prices(tickers, period = "2y", interval = "1d")
 
 returns_df <- prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(daily_return = (adj_close / lag(adj_close)) - 1) |>
   filter(!is.na(daily_return)) |>
   ungroup()
@@ -816,7 +815,7 @@ benchmark_returns <- returns_df |>
 
 wealth_df <- bind_rows(portfolio_returns, benchmark_returns) |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     cum_return   = cumprod(1 + daily_return) - 1,
     wealth_index = 10000 * cumprod(1 + daily_return)
@@ -829,10 +828,10 @@ wealth_df |>
   select(symbol, date, cum_return, wealth_index)
 #> # A tibble: 2 × 4
 #> # Groups:   symbol [2]
-#>   symbol                date                cum_return wealth_index
-#>   <chr>                 <dttm>                   <dbl>        <dbl>
-#> 1 Equal-Weight Tech Po… 2026-08-18 13:30:00      0.471       14715.
-#> 2 ^GSPC                 2026-08-18 13:30:00      0.373       13735.
+#>   symbol                      date                cum_return wealth_index
+#>   <chr>                       <dttm>                   <dbl>        <dbl>
+#> 1 Equal-Weight Tech Portfolio 2026-08-24 13:30:00      0.474       14736.
+#> 2 ^GSPC                       2026-08-24 13:30:00      0.362       13625.
 ```
 
 ### Variations & Tips
@@ -886,7 +885,7 @@ rf_daily  <- rf_annual / 252
 
 performance_metrics <- prices |>
   group_by(symbol) |>
-  arrange(date) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     daily_return  = (adj_close / lag(adj_close)) - 1,
     excess_return = daily_return - rf_daily
@@ -905,13 +904,13 @@ performance_metrics <- prices |>
 
 print(performance_metrics)
 #> # A tibble: 4 × 7
-#>   symbol trading_days annual_return annual_volatility sharpe_ratio
-#>   <chr>         <int>         <dbl>             <dbl>        <dbl>
-#> 1 ^GSPC           500         0.173             0.162        0.820
-#> 2 NVDA            500         0.368             0.451        0.727
-#> 3 AAPL            500         0.204             0.288        0.570
-#> 4 MSFT            500         0.115             0.288        0.259
-#> # ℹ 2 more variables: downside_vol <dbl>, sortino_ratio <dbl>
+#>   symbol trading_days annual_return annual_volatility sharpe_ratio downside_vol
+#>   <chr>         <int>         <dbl>             <dbl>        <dbl>        <dbl>
+#> 1 ^GSPC           499         0.169             0.162        0.797        0.111
+#> 2 NVDA            499         0.355             0.449        0.700        0.314
+#> 3 AAPL            499         0.203             0.289        0.565        0.197
+#> 4 MSFT            499         0.132             0.288        0.318        0.188
+#> # ℹ 1 more variable: sortino_ratio <dbl>
 ```
 
 ### Variations & Tips
@@ -964,15 +963,14 @@ bb_df <- prices |>
 
 tail(bb_df |> select(date, adj_close, bb_lower, bb_middle, bb_upper, bb_pct_b, bandwidth), 6)
 #> # A tibble: 6 × 7
-#>   date                adj_close bb_lower bb_middle bb_upper
-#>   <dttm>                  <dbl>    <dbl>     <dbl>    <dbl>
-#> 1 2026-08-11 13:30:00      504.     334.      436.     537.
-#> 2 2026-08-12 13:30:00      492.     338.      440.     543.
-#> 3 2026-08-13 13:30:00      497.     342.      445.     549.
-#> 4 2026-08-14 13:30:00      495.     347.      450.     553.
-#> 5 2026-08-17 13:30:00      480.     353.      454.     555.
-#> 6 2026-08-18 13:30:00      481.     360.      458.     557.
-#> # ℹ 2 more variables: bb_pct_b <dbl>, bandwidth <dbl>
+#>   date                adj_close bb_lower bb_middle bb_upper bb_pct_b bandwidth
+#>   <dttm>                  <dbl>    <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+#> 1 2026-08-17 13:30:00      479.     352.      453.     554.    0.630     0.446
+#> 2 2026-08-18 13:30:00      481.     359.      457.     556.    0.619     0.429
+#> 3 2026-08-19 13:30:00      483.     369.      462.     555.    0.614     0.404
+#> 4 2026-08-20 13:30:00      481.     382.      467.     552.    0.582     0.365
+#> 5 2026-08-21 13:30:00      483.     397.      472.     547.    0.573     0.318
+#> 6 2026-08-24 13:30:00      487.     413.      477.     541.    0.578     0.269
 ```
 
 ### Variations & Tips
@@ -1027,11 +1025,11 @@ screener_results <- yf_download_prices(watchlist, period = "6mo", interval = "1d
 
 print(screener_results)
 #> # A tibble: 5 × 7
-#>   symbol date                close    ub    lb pct_b status        
-#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl> <chr>         
-#> 1 AAPL   2026-08-18 13:30:00  310.  342.  290. 0.371 Within Normal…
-#> 2 AMZN   2026-08-18 13:30:00  260.  296.  219. 0.535 Within Normal…
-#> 3 GOOGL  2026-08-18 13:30:00  343.  377.  314. 0.455 Within Normal…
-#> 4 MSFT   2026-08-18 13:30:00  481.  557.  360. 0.617 Within Normal…
-#> 5 NVDA   2026-08-18 13:30:00  220.  235.  189. 0.672 Within Normal…
+#>   symbol date                close    ub    lb pct_b status             
+#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl> <chr>              
+#> 1 AAPL   2026-08-24 13:30:00  310.  335.  291. 0.442 Within Normal Bands
+#> 2 AMZN   2026-08-24 13:30:00  262.  294.  232. 0.486 Within Normal Bands
+#> 3 GOOGL  2026-08-24 13:30:00  348.  373.  326. 0.470 Within Normal Bands
+#> 4 MSFT   2026-08-24 13:30:00  487.  541.  413. 0.578 Within Normal Bands
+#> 5 NVDA   2026-08-24 13:30:00  208.  235.  192. 0.377 Within Normal Bands
 ```

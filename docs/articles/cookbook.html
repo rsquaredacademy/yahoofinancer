@@ -16,7 +16,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="inverse" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">yahoofinancer</a>
 
@@ -48,7 +48,7 @@
 </li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/rsquaredacademy/yahoofinancer"><span class="fa fa-github"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/rsquaredacademy/yahoofinancer" aria-label="GitHub"><span class="fa fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -108,15 +108,14 @@ object-oriented (R6) interfaces.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aapl_prices</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
-<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 AAPL   2025-08-18 13:30:00  232.  233.  230.  231.      230.</span></span>
-<span><span class="co">#&gt; 2 AAPL   2025-08-19 13:30:00  231.  233.  229.  231.      230.</span></span>
-<span><span class="co">#&gt; 3 AAPL   2025-08-20 13:30:00  230.  230.  226.  226.      225.</span></span>
-<span><span class="co">#&gt; 4 AAPL   2025-08-21 13:30:00  226.  227.  224.  225.      224.</span></span>
-<span><span class="co">#&gt; 5 AAPL   2025-08-22 13:30:00  226.  229.  225.  228.      227.</span></span>
-<span><span class="co">#&gt; 6 AAPL   2025-08-25 13:30:00  226.  229.  226.  227.      226.</span></span>
-<span><span class="co">#&gt; # ℹ 1 more variable: volume &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close   volume</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 AAPL   2025-08-25 13:30:00  226.  229.  226.  227.      226. 30983100</span></span>
+<span><span class="co">#&gt; 2 AAPL   2025-08-26 13:30:00  227.  229.  225.  229.      228. 54575100</span></span>
+<span><span class="co">#&gt; 3 AAPL   2025-08-27 13:30:00  229.  231.  228.  230.      230. 31259500</span></span>
+<span><span class="co">#&gt; 4 AAPL   2025-08-28 13:30:00  231.  233.  229.  233.      232. 38074700</span></span>
+<span><span class="co">#&gt; 5 AAPL   2025-08-29 13:30:00  233.  233.  231.  232.      231. 39418400</span></span>
+<span><span class="co">#&gt; 6 AAPL   2025-09-02 13:30:00  229.  231.  227.  230.      229. 44075600</span></span>
 <span></span>
 <span><span class="co"># R6 Class Interface</span></span>
 <span><span class="va">aapl_obj</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Ticker-class.html">Ticker</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"AAPL"</span><span class="op">)</span></span>
@@ -124,22 +123,21 @@ object-oriented (R6) interfaces.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aapl_history</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
-<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 AAPL   2025-08-18 13:30:00  232.  233.  230.  231.      230.</span></span>
-<span><span class="co">#&gt; 2 AAPL   2025-08-19 13:30:00  231.  233.  229.  231.      230.</span></span>
-<span><span class="co">#&gt; 3 AAPL   2025-08-20 13:30:00  230.  230.  226.  226.      225.</span></span>
-<span><span class="co">#&gt; 4 AAPL   2025-08-21 13:30:00  226.  227.  224.  225.      224.</span></span>
-<span><span class="co">#&gt; 5 AAPL   2025-08-22 13:30:00  226.  229.  225.  228.      227.</span></span>
-<span><span class="co">#&gt; 6 AAPL   2025-08-25 13:30:00  226.  229.  226.  227.      226.</span></span>
-<span><span class="co">#&gt; # ℹ 1 more variable: volume &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close   volume</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 AAPL   2025-08-25 13:30:00  226.  229.  226.  227.      226. 30983100</span></span>
+<span><span class="co">#&gt; 2 AAPL   2025-08-26 13:30:00  227.  229.  225.  229.      228. 54575100</span></span>
+<span><span class="co">#&gt; 3 AAPL   2025-08-27 13:30:00  229.  231.  228.  230.      230. 31259500</span></span>
+<span><span class="co">#&gt; 4 AAPL   2025-08-28 13:30:00  231.  233.  229.  233.      232. 38074700</span></span>
+<span><span class="co">#&gt; 5 AAPL   2025-08-29 13:30:00  233.  233.  231.  232.      231. 39418400</span></span>
+<span><span class="co">#&gt; 6 AAPL   2025-09-02 13:30:00  229.  231.  227.  230.      229. 44075600</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips"></a>
 </h3>
 <ul>
 <li>
 <strong>Explicit Date Boundaries</strong>: Query fixed historical
-windows using <code>start_date</code> and <code>end_date</code>:</li>
+windows using <code>start</code> and <code>end</code>:</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aapl_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yf_download_prices.html">yf_download_prices</a></span><span class="op">(</span></span>
@@ -155,10 +153,10 @@ windows using <code>start_date</code> and <code>end_date</code>:</li>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Currency:    "</span>, <span class="va">aapl_obj</span><span class="op">$</span><span class="va">currency</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Currency:     USD</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Quote Type:  "</span>, <span class="va">aapl_obj</span><span class="op">$</span><span class="va">quote_type</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Quote Type:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Exchange:    "</span>, <span class="va">aapl_obj</span><span class="op">$</span><span class="va">exchange</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Exchange:</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Exchange:    "</span>, <span class="va">aapl_obj</span><span class="op">$</span><span class="va">exchange_name</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Exchange:     NMS</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Timezone:    "</span>, <span class="va">aapl_obj</span><span class="op">$</span><span class="va">timezone</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Timezone:     EDT</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -182,10 +180,10 @@ equities into a single long-format tibble in one vectorized call.</p>
 <span><span class="co">#&gt; # A tibble: 5 × 2</span></span>
 <span><span class="co">#&gt;   symbol     n</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 AAPL     126</span></span>
-<span><span class="co">#&gt; 2 GOOGL    126</span></span>
-<span><span class="co">#&gt; 3 MSFT     126</span></span>
-<span><span class="co">#&gt; 4 NVDA     126</span></span>
+<span><span class="co">#&gt; 1 AAPL     125</span></span>
+<span><span class="co">#&gt; 2 GOOGL    125</span></span>
+<span><span class="co">#&gt; 3 MSFT     125</span></span>
+<span><span class="co">#&gt; 4 NVDA     125</span></span>
 <span><span class="co">#&gt; 5 TCS.NS   125</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-1">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-1"></a>
@@ -226,15 +224,14 @@ volatility, liquidity patterns, and trading microstructure.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">intraday_5m</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
-<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 MSFT   2026-08-12 13:30:00  500.  502.  497.  498.      498.</span></span>
-<span><span class="co">#&gt; 2 MSFT   2026-08-12 13:35:00  498.  500.  498.  499.      499.</span></span>
-<span><span class="co">#&gt; 3 MSFT   2026-08-12 13:40:00  499.  499.  497.  498.      498.</span></span>
-<span><span class="co">#&gt; 4 MSFT   2026-08-12 13:45:00  498.  498.  496.  497.      497.</span></span>
-<span><span class="co">#&gt; 5 MSFT   2026-08-12 13:50:00  497.  497.  494.  494.      494.</span></span>
-<span><span class="co">#&gt; 6 MSFT   2026-08-12 13:55:00  494.  494   493.  494.      494.</span></span>
-<span><span class="co">#&gt; # ℹ 1 more variable: volume &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close  volume</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 MSFT   2026-08-18 13:30:00  482.  483.  477.  479.      479. 1477683</span></span>
+<span><span class="co">#&gt; 2 MSFT   2026-08-18 13:35:00  479.  483.  479.  483.      483.  388264</span></span>
+<span><span class="co">#&gt; 3 MSFT   2026-08-18 13:40:00  483.  484.  483.  483.      483.  437979</span></span>
+<span><span class="co">#&gt; 4 MSFT   2026-08-18 13:45:00  483.  483.  482.  482.      482.  238777</span></span>
+<span><span class="co">#&gt; 5 MSFT   2026-08-18 13:50:00  482.  483.  480.  482.      482.  477575</span></span>
+<span><span class="co">#&gt; 6 MSFT   2026-08-18 13:55:00  482.  482.  479.  480.      480.  351820</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-2">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-2"></a>
 </h3>
@@ -279,17 +276,23 @@ exchanges.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">market_overview</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_market_summary.html">get_market_summary</a></span><span class="op">(</span>as_tibble <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Filter for Indian indices and INR currency pairs</span></span>
-<span><span class="va">indian_market</span> <span class="op">&lt;-</span> <span class="va">market_overview</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"NSE|BSE|NIFTY|SENSEX|INR"</span>, <span class="va">short_name</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Filter for benchmark indices and currencies in market overview</span></span>
+<span><span class="va">us_overview</span> <span class="op">&lt;-</span> <span class="va">market_overview</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"S&amp;P|Nasdaq|Dow|EUR/USD|Gold|Crude"</span>, <span class="va">short_name</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">indian_market</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 0 × 9</span></span>
-<span><span class="co">#&gt; # ℹ 9 variables: symbol &lt;chr&gt;, short_name &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   regular_market_price &lt;dbl&gt;, regular_market_change &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   regular_market_change_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   regular_market_previous_close &lt;dbl&gt;, market_state &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   exchange &lt;chr&gt;, market_time &lt;dttm&gt;</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">us_overview</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 9</span></span>
+<span><span class="co">#&gt;   symbol   short_name     regular_market_price regular_market_change</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;                         &lt;dbl&gt;                 &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 ES=F     S&amp;P Futures                 7697                27.2     </span></span>
+<span><span class="co">#&gt; 2 YM=F     Dow Futures                53689               200       </span></span>
+<span><span class="co">#&gt; 3 NQ=F     Nasdaq Futures             29330               224.      </span></span>
+<span><span class="co">#&gt; 4 CL=F     Crude Oil                     82.6              -2.41    </span></span>
+<span><span class="co">#&gt; 5 GC=F     Gold                        4696.               -1.90    </span></span>
+<span><span class="co">#&gt; 6 EURUSD=X EUR/USD                        1.17             -0.000408</span></span>
+<span><span class="co">#&gt; # ℹ 5 more variables: regular_market_change_percent &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   regular_market_previous_close &lt;dbl&gt;, market_state &lt;chr&gt;, exchange &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   market_time &lt;dttm&gt;</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-3">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-3"></a>
 </h3>
@@ -302,14 +305,11 @@ exchanges.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"Gold|Crude|Silver|BTC|ETH"</span>, <span class="va">short_name</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
-<strong>Alternative Filtering with
-<code>stringr</code></strong>:</li>
+<strong>Filter for Major European Indices</strong>:</li>
 </ul>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stringr.tidyverse.org" class="external-link">stringr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">european_market</span> <span class="op">&lt;-</span> <span class="va">market_overview</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">short_name</span>, <span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html" class="external-link">regex</a></span><span class="op">(</span><span class="st">"DAX|FTSE|CAC"</span>, ignore_case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">european_market</span> <span class="op">&lt;-</span> <span class="va">market_overview</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"DAX|FTSE|CAC|ESTX"</span>, <span class="va">short_name</span>, ignore.case <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -332,7 +332,7 @@ comparative performance tracking.</p>
 <span><span class="co"># Normalize price levels (Base = 100)</span></span>
 <span><span class="va">normalized_indices</span> <span class="op">&lt;-</span> <span class="va">benchmark_prices</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>indexed_price <span class="op">=</span> <span class="op">(</span><span class="va">close</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/nth.html" class="external-link">first</a></span><span class="op">(</span><span class="va">close</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -361,14 +361,15 @@ sub-indices:</li>
 <span><span class="va">sectoral_prices</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yf_download_prices.html">yf_download_prices</a></span><span class="op">(</span><span class="va">sectoral_symbols</span>, period <span class="op">=</span> <span class="st">"1y"</span>, interval <span class="op">=</span> <span class="st">"1d"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
-<strong>Index Class R6 Query</strong>:</li>
+<strong>Index Class R6 Query &amp; Latest Quote</strong>:</li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nifty</span> <span class="op">&lt;-</span> <span class="va">Index</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"^NSEI"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Index Name:   "</span>, <span class="va">nifty</span><span class="op">$</span><span class="va">short_name</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Index Name:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Current Level:"</span>, <span class="va">nifty</span><span class="op">$</span><span class="va">regular_market_price</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Current Level:</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">nifty</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Indice-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"^NSEI"</span><span class="op">)</span></span>
+<span><span class="va">nifty_quote</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yf_get_index_quotes.html">yf_get_index_quotes</a></span><span class="op">(</span><span class="st">"^NSEI"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Index Symbol: "</span>, <span class="va">nifty</span><span class="op">$</span><span class="va">symbol</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Index Symbol:  ^NSEI</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Latest Close: "</span>, <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">nifty_quote</span><span class="op">$</span><span class="va">close</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Latest Close:  24219.1</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -398,12 +399,12 @@ currency pairs.</p>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   date_day   close_usd fx_rate close_inr</span></span>
 <span><span class="co">#&gt;   &lt;date&gt;         &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 2026-02-18      264.    90.6    23957.</span></span>
-<span><span class="co">#&gt; 2 2026-02-19      261.    90.8    23659.</span></span>
-<span><span class="co">#&gt; 3 2026-02-20      265.    91.0    24088.</span></span>
-<span><span class="co">#&gt; 4 2026-02-23      266.    90.7    24150.</span></span>
-<span><span class="co">#&gt; 5 2026-02-24      272.    91.0    24770.</span></span>
-<span><span class="co">#&gt; 6 2026-02-25      274.    90.9    24932.</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 2026-02-25      274.    90.9    24932.</span></span>
+<span><span class="co">#&gt; 2 2026-02-26      273.    91.0    24825.</span></span>
+<span><span class="co">#&gt; 3 2026-02-27      264.    91.0    24042.</span></span>
+<span><span class="co">#&gt; 4 2026-03-02      265.    91.1    24111.</span></span>
+<span><span class="co">#&gt; 5 2026-03-03      264.    91.6    24150.</span></span>
+<span><span class="co">#&gt; 6 2026-03-04      263.    92.0    24154.</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-5">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-5"></a>
 </h3>
@@ -419,8 +420,8 @@ currency pairs.</p>
 <span><span class="co">#&gt; 2        MXN       Mexican Peso    MXN       Mexican Peso</span></span>
 <span><span class="co">#&gt; 3        SCR  Seychellois Rupee    SCR  Seychellois Rupee</span></span>
 <span><span class="co">#&gt; 4        CDF    Congolese Franc    CDF    Congolese Franc</span></span>
-<span><span class="co">#&gt; 5        GTQ Guatemalan Quetzal    GTQ Guatemalan Quetzal</span></span>
-<span><span class="co">#&gt; 6        BBD   Barbadian Dollar    BBD   Barbadian Dollar</span></span></code></pre></div>
+<span><span class="co">#&gt; 5        BBD   Barbadian Dollar    BBD   Barbadian Dollar</span></span>
+<span><span class="co">#&gt; 6        GTQ Guatemalan Quetzal    GTQ Guatemalan Quetzal</span></span></code></pre></div>
 <ul>
 <li>
 <strong>Direct Forex Pair Download</strong>: Query exchange rates
@@ -459,15 +460,14 @@ delisted or malformed symbols.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">clean_prices</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
-<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 AAPL   2026-05-18 13:30:00  300.  301.  295.  298.      298.</span></span>
-<span><span class="co">#&gt; 2 AAPL   2026-05-19 13:30:00  297.  301.  296.  299.      299.</span></span>
-<span><span class="co">#&gt; 3 AAPL   2026-05-20 13:30:00  298.  303.  298.  302.      302.</span></span>
-<span><span class="co">#&gt; 4 AAPL   2026-05-21 13:30:00  301.  306.  300.  305.      305.</span></span>
-<span><span class="co">#&gt; 5 AAPL   2026-05-22 13:30:00  306.  311.  306.  309.      309.</span></span>
-<span><span class="co">#&gt; 6 AAPL   2026-05-26 13:30:00  310.  312.  308.  308.      308.</span></span>
-<span><span class="co">#&gt; # ℹ 1 more variable: volume &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close   volume</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 AAPL   2026-05-26 13:30:00  310.  312.  308.  308.      308. 48000500</span></span>
+<span><span class="co">#&gt; 2 AAPL   2026-05-27 13:30:00  308.  313.  308.  311.      311. 50430900</span></span>
+<span><span class="co">#&gt; 3 AAPL   2026-05-28 13:30:00  311.  313.  310.  313.      312. 48220400</span></span>
+<span><span class="co">#&gt; 4 AAPL   2026-05-29 13:30:00  312.  315   310.  312.      312. 70026800</span></span>
+<span><span class="co">#&gt; 5 AAPL   2026-06-01 13:30:00  310.  311.  305.  306.      306. 48849900</span></span>
+<span><span class="co">#&gt; 6 AAPL   2026-06-02 13:30:00  307.  315.  307.  315.      315. 44534700</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-6">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-6"></a>
 </h3>
@@ -496,7 +496,7 @@ prices (<code>adj_close</code>).</p>
 <span></span>
 <span><span class="va">returns_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yf_download_prices.html">yf_download_prices</a></span><span class="op">(</span><span class="va">symbols</span>, period <span class="op">=</span> <span class="st">"1y"</span>, interval <span class="op">=</span> <span class="st">"1d"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    daily_return <span class="op">=</span> <span class="op">(</span><span class="va">adj_close</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">adj_close</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>    log_return   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">adj_close</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">adj_close</span><span class="op">)</span><span class="op">)</span></span>
@@ -506,16 +506,15 @@ prices (<code>adj_close</code>).</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">returns_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 10</span></span>
-<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 AAPL   2025-08-19 13:30:00  231.  233.  229.  231.      230.</span></span>
-<span><span class="co">#&gt; 2 MSFT   2025-08-19 13:30:00  515   515.  509.  510.      506.</span></span>
-<span><span class="co">#&gt; 3 GOOGL  2025-08-19 13:30:00  203.  203.  200.  202.      201.</span></span>
-<span><span class="co">#&gt; 4 AAPL   2025-08-20 13:30:00  230.  230.  226.  226.      225.</span></span>
-<span><span class="co">#&gt; 5 MSFT   2025-08-20 13:30:00  510.  511   504.  506.      502.</span></span>
-<span><span class="co">#&gt; 6 GOOGL  2025-08-20 13:30:00  201.  201.  197.  199.      199.</span></span>
-<span><span class="co">#&gt; # ℹ 3 more variables: volume &lt;dbl&gt;, daily_return &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   log_return &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   symbol date                 open  high   low close adj_close   volume</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 AAPL   2025-08-26 13:30:00  227.  229.  225.  229.      228. 54575100</span></span>
+<span><span class="co">#&gt; 2 AAPL   2025-08-27 13:30:00  229.  231.  228.  230.      230. 31259500</span></span>
+<span><span class="co">#&gt; 3 AAPL   2025-08-28 13:30:00  231.  233.  229.  233.      232. 38074700</span></span>
+<span><span class="co">#&gt; 4 AAPL   2025-08-29 13:30:00  233.  233.  231.  232.      231. 39418400</span></span>
+<span><span class="co">#&gt; 5 AAPL   2025-09-02 13:30:00  229.  231.  227.  230.      229. 44075600</span></span>
+<span><span class="co">#&gt; 6 AAPL   2025-09-03 13:30:00  237.  239.  234.  238.      238. 66427800</span></span>
+<span><span class="co">#&gt; # ℹ 2 more variables: daily_return &lt;dbl&gt;, log_return &lt;dbl&gt;</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-7">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-7"></a>
 </h3>
@@ -556,9 +555,9 @@ density curves to evaluate return dispersion and tail thickness:</li>
 <span><span class="co">#&gt; # A tibble: 3 × 6</span></span>
 <span><span class="co">#&gt;   symbol trading_days mean_daily sd_daily annual_return annual_vol</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 AAPL            251  0.00131     0.0157        0.329       0.250</span></span>
-<span><span class="co">#&gt; 2 GOOGL           251  0.00230     0.0206        0.580       0.328</span></span>
-<span><span class="co">#&gt; 3 MSFT            251 -0.0000526   0.0203       -0.0133      0.323</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 AAPL            250  0.00139     0.0158        0.350       0.251</span></span>
+<span><span class="co">#&gt; 2 GOOGL           250  0.00227     0.0206        0.573       0.327</span></span>
+<span><span class="co">#&gt; 3 MSFT            250  0.0000991   0.0204        0.0250      0.323</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -575,22 +574,21 @@ and evaluate diversification benefits.</p>
 <span></span>
 <span><span class="va">returns_matrix</span> <span class="op">&lt;-</span> <span class="va">prices</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>daily_return <span class="op">=</span> <span class="op">(</span><span class="va">adj_close</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">adj_close</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">daily_return</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">symbol</span>, <span class="va">daily_return</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">symbol</span>, values_from <span class="op">=</span> <span class="va">daily_return</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">date</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html" class="external-link">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">symbol</span>, values_from <span class="op">=</span> <span class="va">daily_return</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">cor_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">returns_matrix</span>, use <span class="op">=</span> <span class="st">"pairwise.complete.obs"</span><span class="op">)</span></span>
+<span><span class="va">cor_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">returns_matrix</span>, <span class="op">-</span><span class="va">date</span><span class="op">)</span>, use <span class="op">=</span> <span class="st">"pairwise.complete.obs"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">cor_matrix</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       AAPL MSFT NVDA  GLD ^GSPC</span></span>
-<span><span class="co">#&gt; AAPL  1.00 0.11 0.12 0.08  0.38</span></span>
-<span><span class="co">#&gt; MSFT  0.11 1.00 0.27 0.08  0.39</span></span>
-<span><span class="co">#&gt; NVDA  0.12 0.27 1.00 0.23  0.66</span></span>
-<span><span class="co">#&gt; GLD   0.08 0.08 0.23 1.00  0.32</span></span>
-<span><span class="co">#&gt; ^GSPC 0.38 0.39 0.66 0.32  1.00</span></span></code></pre></div>
+<span><span class="co">#&gt;       AAPL  GLD MSFT NVDA ^GSPC</span></span>
+<span><span class="co">#&gt; AAPL  1.00 0.09 0.11 0.11  0.38</span></span>
+<span><span class="co">#&gt; GLD   0.09 1.00 0.08 0.22  0.32</span></span>
+<span><span class="co">#&gt; MSFT  0.11 0.08 1.00 0.27  0.38</span></span>
+<span><span class="co">#&gt; NVDA  0.11 0.22 0.27 1.00  0.66</span></span>
+<span><span class="co">#&gt; ^GSPC 0.38 0.32 0.38 0.66  1.00</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-8">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-8"></a>
 </h3>
@@ -663,14 +661,14 @@ signals.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">sma_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">close</span>, <span class="va">adj_close</span>, <span class="va">sma_50</span>, <span class="va">sma_200</span>, <span class="va">regime</span>, <span class="va">signal</span><span class="op">)</span>, <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
-<span><span class="co">#&gt;   date                close adj_close sma_50 sma_200 regime  signal</span></span>
-<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 2026-08-11 13:30:00  305.      305.   309.    279. Bullis… &lt;NA&gt;  </span></span>
-<span><span class="co">#&gt; 2 2026-08-12 13:30:00  302.      302.   309.    280. Bullis… &lt;NA&gt;  </span></span>
-<span><span class="co">#&gt; 3 2026-08-13 13:30:00  305.      305.   309.    280. Bullis… &lt;NA&gt;  </span></span>
-<span><span class="co">#&gt; 4 2026-08-14 13:30:00  306.      306.   309.    280. Bullis… &lt;NA&gt;  </span></span>
-<span><span class="co">#&gt; 5 2026-08-17 13:30:00  306.      306.   309.    280. Bullis… &lt;NA&gt;  </span></span>
-<span><span class="co">#&gt; 6 2026-08-18 13:30:00  310.      310.   309.    280. Bullis… &lt;NA&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   date                close adj_close sma_50 sma_200 regime               signal</span></span>
+<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 2026-08-17 13:30:00  306.      306.   309.    280. Bullish (SMA50 &gt; SM… &lt;NA&gt;  </span></span>
+<span><span class="co">#&gt; 2 2026-08-18 13:30:00  310.      310.   309.    280. Bullish (SMA50 &gt; SM… &lt;NA&gt;  </span></span>
+<span><span class="co">#&gt; 3 2026-08-19 13:30:00  317.      317.   309.    281. Bullish (SMA50 &gt; SM… &lt;NA&gt;  </span></span>
+<span><span class="co">#&gt; 4 2026-08-20 13:30:00  311.      311.   310.    281. Bullish (SMA50 &gt; SM… &lt;NA&gt;  </span></span>
+<span><span class="co">#&gt; 5 2026-08-21 13:30:00  309.      309.   310.    281. Bullish (SMA50 &gt; SM… &lt;NA&gt;  </span></span>
+<span><span class="co">#&gt; 6 2026-08-24 13:30:00  310.      310.   310.    281. Bullish (SMA50 &gt; SM… &lt;NA&gt;</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-9">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-9"></a>
 </h3>
@@ -769,7 +767,7 @@ drawdowns across securities:</li>
 <span></span>
 <span><span class="va">mdd_comparison</span> <span class="op">&lt;-</span> <span class="va">multi_basket</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    peak <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cummax</a></span><span class="op">(</span><span class="va">adj_close</span><span class="op">)</span>,</span>
 <span>    dd   <span class="op">=</span> <span class="op">(</span><span class="va">adj_close</span> <span class="op">-</span> <span class="va">peak</span><span class="op">)</span> <span class="op">/</span> <span class="va">peak</span></span>
@@ -784,10 +782,10 @@ drawdowns across securities:</li>
 <span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
 <span><span class="co">#&gt;   symbol max_drawdown current_drawdown</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 GOOGL        -0.443          -0.148 </span></span>
-<span><span class="co">#&gt; 2 MSFT         -0.371          -0.106 </span></span>
-<span><span class="co">#&gt; 3 AAPL         -0.334          -0.0890</span></span>
-<span><span class="co">#&gt; 4 ^GSPC        -0.254          -0.0123</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 GOOGL        -0.443          -0.135 </span></span>
+<span><span class="co">#&gt; 2 MSFT         -0.371          -0.0936</span></span>
+<span><span class="co">#&gt; 3 AAPL         -0.334          -0.0867</span></span>
+<span><span class="co">#&gt; 4 ^GSPC        -0.254          -0.0187</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -804,7 +802,7 @@ and abnormal alpha
 <span></span>
 <span><span class="va">returns_wide</span> <span class="op">&lt;-</span> <span class="va">prices</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>daily_return <span class="op">=</span> <span class="op">(</span><span class="va">adj_close</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">adj_close</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">daily_return</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -820,13 +818,13 @@ and abnormal alpha
 <span><span class="va">r_squared</span>   <span class="op">&lt;-</span> <span class="va">fit_summary</span><span class="op">$</span><span class="va">r.squared</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Beta (Systematic Risk):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">beta</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Beta (Systematic Risk): 1.108</span></span>
+<span><span class="co">#&gt; Beta (Systematic Risk): 1.11</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Daily Alpha:           "</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.4f%%"</span>, <span class="va">alpha_daily</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Daily Alpha:            0.0049%</span></span>
+<span><span class="co">#&gt; Daily Alpha:            0.0060%</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Annualized Alpha:      "</span>, <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.2f%%"</span>, <span class="va">alpha_daily</span> <span class="op">*</span> <span class="fl">252</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Annualized Alpha:       1.23%</span></span>
+<span><span class="co">#&gt; Annualized Alpha:       1.51%</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"R-Squared:             "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">r_squared</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R-Squared:              0.391</span></span></code></pre></div>
+<span><span class="co">#&gt; R-Squared:              0.39</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-11">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-11"></a>
 </h3>
@@ -860,7 +858,7 @@ and abnormal alpha
 <span></span>
 <span><span class="va">in_returns</span> <span class="op">&lt;-</span> <span class="va">in_prices</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ret <span class="op">=</span> <span class="op">(</span><span class="va">adj_close</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">adj_close</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ret</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -880,8 +878,8 @@ and abnormal alpha
 <span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 HDFCBANK.NS 1.08 </span></span>
 <span><span class="co">#&gt; 2 RELIANCE.NS 1.04 </span></span>
-<span><span class="co">#&gt; 3 INFY.NS     0.924</span></span>
-<span><span class="co">#&gt; 4 TCS.NS      0.845</span></span></code></pre></div>
+<span><span class="co">#&gt; 3 INFY.NS     0.923</span></span>
+<span><span class="co">#&gt; 4 TCS.NS      0.843</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -899,7 +897,7 @@ against the S&amp;P 500 index.</p>
 <span></span>
 <span><span class="va">returns_df</span> <span class="op">&lt;-</span> <span class="va">prices</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>daily_return <span class="op">=</span> <span class="op">(</span><span class="va">adj_close</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">adj_close</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">daily_return</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -917,7 +915,7 @@ against the S&amp;P 500 index.</p>
 <span></span>
 <span><span class="va">wealth_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">portfolio_returns</span>, <span class="va">benchmark_returns</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    cum_return   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumprod</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">daily_return</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>    wealth_index <span class="op">=</span> <span class="fl">10000</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumprod</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">daily_return</span><span class="op">)</span></span>
@@ -930,10 +928,10 @@ against the S&amp;P 500 index.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">symbol</span>, <span class="va">date</span>, <span class="va">cum_return</span>, <span class="va">wealth_index</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 4</span></span>
 <span><span class="co">#&gt; # Groups:   symbol [2]</span></span>
-<span><span class="co">#&gt;   symbol                date                cum_return wealth_index</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;                 &lt;dttm&gt;                   &lt;dbl&gt;        &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 Equal-Weight Tech Po… 2026-08-18 13:30:00      0.471       14715.</span></span>
-<span><span class="co">#&gt; 2 ^GSPC                 2026-08-18 13:30:00      0.373       13735.</span></span></code></pre></div>
+<span><span class="co">#&gt;   symbol                      date                cum_return wealth_index</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                       &lt;dttm&gt;                   &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Equal-Weight Tech Portfolio 2026-08-24 13:30:00      0.474       14736.</span></span>
+<span><span class="co">#&gt; 2 ^GSPC                       2026-08-24 13:30:00      0.362       13625.</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-12">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-12"></a>
 </h3>
@@ -991,7 +989,7 @@ rate
 <span></span>
 <span><span class="va">performance_metrics</span> <span class="op">&lt;-</span> <span class="va">prices</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    daily_return  <span class="op">=</span> <span class="op">(</span><span class="va">adj_close</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">adj_close</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>    excess_return <span class="op">=</span> <span class="va">daily_return</span> <span class="op">-</span> <span class="va">rf_daily</span></span>
@@ -1010,13 +1008,13 @@ rate
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">performance_metrics</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 7</span></span>
-<span><span class="co">#&gt;   symbol trading_days annual_return annual_volatility sharpe_ratio</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt;         &lt;dbl&gt;             &lt;dbl&gt;        &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ^GSPC           500         0.173             0.162        0.820</span></span>
-<span><span class="co">#&gt; 2 NVDA            500         0.368             0.451        0.727</span></span>
-<span><span class="co">#&gt; 3 AAPL            500         0.204             0.288        0.570</span></span>
-<span><span class="co">#&gt; 4 MSFT            500         0.115             0.288        0.259</span></span>
-<span><span class="co">#&gt; # ℹ 2 more variables: downside_vol &lt;dbl&gt;, sortino_ratio &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   symbol trading_days annual_return annual_volatility sharpe_ratio downside_vol</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;         &lt;int&gt;         &lt;dbl&gt;             &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 ^GSPC           499         0.169             0.162        0.797        0.111</span></span>
+<span><span class="co">#&gt; 2 NVDA            499         0.355             0.449        0.700        0.314</span></span>
+<span><span class="co">#&gt; 3 AAPL            499         0.203             0.289        0.565        0.197</span></span>
+<span><span class="co">#&gt; 4 MSFT            499         0.132             0.288        0.318        0.188</span></span>
+<span><span class="co">#&gt; # ℹ 1 more variable: sortino_ratio &lt;dbl&gt;</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-13">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-13"></a>
 </h3>
@@ -1074,15 +1072,14 @@ breakouts.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">bb_df</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">adj_close</span>, <span class="va">bb_lower</span>, <span class="va">bb_middle</span>, <span class="va">bb_upper</span>, <span class="va">bb_pct_b</span>, <span class="va">bandwidth</span><span class="op">)</span>, <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 7</span></span>
-<span><span class="co">#&gt;   date                adj_close bb_lower bb_middle bb_upper</span></span>
-<span><span class="co">#&gt;   &lt;dttm&gt;                  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 2026-08-11 13:30:00      504.     334.      436.     537.</span></span>
-<span><span class="co">#&gt; 2 2026-08-12 13:30:00      492.     338.      440.     543.</span></span>
-<span><span class="co">#&gt; 3 2026-08-13 13:30:00      497.     342.      445.     549.</span></span>
-<span><span class="co">#&gt; 4 2026-08-14 13:30:00      495.     347.      450.     553.</span></span>
-<span><span class="co">#&gt; 5 2026-08-17 13:30:00      480.     353.      454.     555.</span></span>
-<span><span class="co">#&gt; 6 2026-08-18 13:30:00      481.     360.      458.     557.</span></span>
-<span><span class="co">#&gt; # ℹ 2 more variables: bb_pct_b &lt;dbl&gt;, bandwidth &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   date                adj_close bb_lower bb_middle bb_upper bb_pct_b bandwidth</span></span>
+<span><span class="co">#&gt;   &lt;dttm&gt;                  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 2026-08-17 13:30:00      479.     352.      453.     554.    0.630     0.446</span></span>
+<span><span class="co">#&gt; 2 2026-08-18 13:30:00      481.     359.      457.     556.    0.619     0.429</span></span>
+<span><span class="co">#&gt; 3 2026-08-19 13:30:00      483.     369.      462.     555.    0.614     0.404</span></span>
+<span><span class="co">#&gt; 4 2026-08-20 13:30:00      481.     382.      467.     552.    0.582     0.365</span></span>
+<span><span class="co">#&gt; 5 2026-08-21 13:30:00      483.     397.      472.     547.    0.573     0.318</span></span>
+<span><span class="co">#&gt; 6 2026-08-24 13:30:00      487.     413.      477.     541.    0.578     0.269</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="variations-tips-14">Variations &amp; Tips<a class="anchor" aria-label="anchor" href="#variations-tips-14"></a>
 </h3>
@@ -1139,13 +1136,13 @@ breakouts.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">screener_results</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 7</span></span>
-<span><span class="co">#&gt;   symbol date                close    ub    lb pct_b status        </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;         </span></span>
-<span><span class="co">#&gt; 1 AAPL   2026-08-18 13:30:00  310.  342.  290. 0.371 Within Normal…</span></span>
-<span><span class="co">#&gt; 2 AMZN   2026-08-18 13:30:00  260.  296.  219. 0.535 Within Normal…</span></span>
-<span><span class="co">#&gt; 3 GOOGL  2026-08-18 13:30:00  343.  377.  314. 0.455 Within Normal…</span></span>
-<span><span class="co">#&gt; 4 MSFT   2026-08-18 13:30:00  481.  557.  360. 0.617 Within Normal…</span></span>
-<span><span class="co">#&gt; 5 NVDA   2026-08-18 13:30:00  220.  235.  189. 0.672 Within Normal…</span></span></code></pre></div>
+<span><span class="co">#&gt;   symbol date                close    ub    lb pct_b status             </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;              </span></span>
+<span><span class="co">#&gt; 1 AAPL   2026-08-24 13:30:00  310.  335.  291. 0.442 Within Normal Bands</span></span>
+<span><span class="co">#&gt; 2 AMZN   2026-08-24 13:30:00  262.  294.  232. 0.486 Within Normal Bands</span></span>
+<span><span class="co">#&gt; 3 GOOGL  2026-08-24 13:30:00  348.  373.  326. 0.470 Within Normal Bands</span></span>
+<span><span class="co">#&gt; 4 MSFT   2026-08-24 13:30:00  487.  541.  413. 0.578 Within Normal Bands</span></span>
+<span><span class="co">#&gt; 5 NVDA   2026-08-24 13:30:00  208.  235.  192. 0.377 Within Normal Bands</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
