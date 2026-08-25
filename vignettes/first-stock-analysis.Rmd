@@ -21,7 +21,7 @@ In this guide, you will learn how to extract historical stock prices from Yahoo 
 
 ### Required Packages
 
-``` r
+```{r load-libraries, message=FALSE, warning=FALSE}
 # Install required packages if not already installed:
 # install.packages(c("yahoofinancer", "dplyr", "ggplot2", "zoo", "scales"))
 
@@ -38,7 +38,7 @@ library(scales)
 
 To download historical stock data, use the functional helper `yf_download_prices()`. By default, specifying a ticker and a relative time period (e.g., `"1y"` for 1 year) pulls daily Open, High, Low, Close, Adjusted Close, and Volume (OHLCV) records.
 
-``` r
+```{r download-prices}
 # Fetch 1 year of daily historical data for Apple Inc. (AAPL)
 aapl <- yf_download_prices(
   tickers  = "AAPL",
@@ -84,9 +84,9 @@ A **Simple Moving Average (SMA)** calculates the average closing price over a sl
 
 We can compute this rolling metric easily using `dplyr` and `zoo::rollmean()`:
 
-``` r
-aapl_trend <- aapl %>%
-  arrange(date) %>%
+```{r compute-sma}
+aapl_trend <- aapl |>
+  arrange(date) |>
   mutate(
     sma_50 = rollmean(close, k = 50, fill = NA, align = "right")
   )
@@ -111,7 +111,7 @@ tail(aapl_trend)
 
 With `ggplot2`, we can plot the daily closing price alongside the smoothed 50-day moving average:
 
-``` r
+```{r plot-price-sma}
 # Convert POSIXct timestamp to Date for clean daily axis scaling
 ggplot(aapl_trend, aes(x = as.Date(date))) +
   # Closing price line
@@ -146,7 +146,7 @@ ggplot(aapl_trend, aes(x = as.Date(date))) +
 
 Below is the complete, self-contained workflow in a single copy-pasteable script:
 
-``` r
+```{r full-workflow}
 library(yahoofinancer)
 library(dplyr)
 library(ggplot2)
@@ -157,12 +157,12 @@ library(scales)
 aapl <- yf_download_prices("AAPL", period = "1y", interval = "1d")
 
 # 2. Compute 50-day Simple Moving Average
-aapl_analyzed <- aapl %>%
-  arrange(date) %>%
+aapl_trend <- aapl |>
+  arrange(date) |>
   mutate(sma_50 = rollmean(close, k = 50, fill = NA, align = "right"))
 
 # 3. Plot price chart with SMA overlay
-ggplot(aapl_analyzed, aes(x = as.Date(date))) +
+ggplot(aapl_trend, aes(x = as.Date(date))) +
   geom_line(aes(y = close, color = "Closing Price"), linewidth = 0.85) +
   geom_line(aes(y = sma_50, color = "50-Day SMA"), linewidth = 1.05, na.rm = TRUE) +
   scale_color_manual(
@@ -203,13 +203,13 @@ In this guide, you learned how to:
 Now that you have fetched your first dataset and built a chart, here are several next steps and related features to explore:
 
 * **Custom Date Ranges**: Specify exact date boundaries instead of relative periods:
-  ``` r
+  ```{r custom-dates}
   aapl_custom <- yf_download_prices("AAPL", start = "2024-01-01", end = "2024-12-31")
   ```
 * **Different Frequencies**: Query weekly (`interval = "1wk"`) or monthly (`interval = "1mo"`) bars for multi-year trend analysis.
 * **Global Equities & Indices**: Fetch international securities using standard exchange suffixes (e.g., `"RELIANCE.NS"` for NSE India or `"AZN.L"` for London) or market indices (e.g., `Index$new("^GSPC")` for the S&P 500).
 * **Object-Oriented R6 Interface**: For stateful workflows, market metadata, and fundamental valuation metrics, use the [`Ticker`](../reference/Ticker-class.html) class:
-  ``` r
+  ```{r r6-demo}
   aapl_obj <- Ticker$new("AAPL")
 
   # Inspect security metadata and valuation measures
