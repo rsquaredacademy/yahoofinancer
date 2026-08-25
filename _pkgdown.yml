@@ -1,19 +1,15 @@
 url: https://yahoofinancer.rsquaredacademy.com
 template:
   bootstrap: 5
+  bslib:
+    bootswatch: cerulean
 
 authors:
   Aravind Hebbali:
     href: https://www.aravindhebbali.com
 
-templates:
-  params:
-    bootswatch: cerulean
-    ganalytics: UA-57270671-33
-
 navbar:
   title: 'yahoofinancer'
-  type: inverse
   left:
     - text: 'Home'
       href: index.html

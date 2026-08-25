@@ -8,7 +8,7 @@ Description: Obtain historical and near real time data related to stocks, index
     and is not officially supported by 'Yahoo'. The accuracy of data is only as 
     correct as provided on <https://finance.yahoo.com/>.
 Depends: 
-    R(>= 3.4)
+    R (>= 4.1)
 Imports: 
     curl,
     dplyr,
@@ -22,7 +22,6 @@ Imports:
 Suggests: 
     covr,
     ggplot2,
-    httptest,
     httptest2,
     knitr,
     rmarkdown,
