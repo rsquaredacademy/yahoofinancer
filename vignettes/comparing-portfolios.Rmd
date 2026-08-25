@@ -65,23 +65,22 @@ When comparing stocks with vastly different share prices (e.g., $150 vs. $3,000)
 We can accomplish this effortlessly using `dplyr` by grouping the data by `symbol` and then dividing every daily closing price by the *first* closing price in that group. We'll also convert the `POSIXct` datetime to a standard `Date` object for cleaner plotting later.
 
 ```{r normalize}
-portfolio_performance <- portfolio_prices %>%
-  # Ensure the data is sorted chronologically
-  arrange(date) %>%
-  # Group calculations by ticker
-  group_by(symbol) %>%
+portfolio_performance <- portfolio_prices |>
+  # Group calculations by ticker and ensure chronological sorting within group
+  group_by(symbol) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     # Convert to Date to drop intraday timezone info for cleaner plotting
     date = as.Date(date),
     # Normalize price to 100 on the first day
     normalized_price = (close / close[1]) * 100
-  ) %>%
+  ) |>
   ungroup()
 
 # View the latest normalized performance
-portfolio_performance %>%
-  group_by(symbol) %>%
-  slice_tail(n = 1) %>%
+portfolio_performance |>
+  group_by(symbol) |>
+  slice_tail(n = 1) |>
   select(symbol, date, close, normalized_price)
 #> # A tibble: 4 × 4
 #>   symbol date       close normalized_price

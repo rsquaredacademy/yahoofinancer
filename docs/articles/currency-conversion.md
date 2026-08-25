@@ -63,6 +63,8 @@ knowing:
   is standalone — unlike most of the package, no `Ticker` object is
   needed.
 
+`# Example: Rolling 1-month window with weekly candle intervals`` ``weekly_rates`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"GBP"``,`` `` to ``=`` ``"USD"``,`` `` period ``=`` ``"1mo"``,`` `` interval ``=`` ``"1wk"`` ``)`
+
 > **Note:** For intraday analysis, remember FX markets close on weekends
 > — hourly data will show natural gaps.
 
@@ -72,7 +74,7 @@ The real power comes from comparing pairs side by side. Let’s fetch the
 euro against the dollar over the same window, stack both pairs into one
 long data frame, and label each row with its pair.
 
-`eur_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"EUR"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` ``fx`` ``<-`` `[`bind_rows`](https://dplyr.tidyverse.org/reference/bind_rows.html)`(`` `` ``gbp_usd`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"GBP/USD"``)``,`` `` ``eur_usd`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"EUR/USD"``)`` ``)`
+`eur_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"EUR"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` ``fx`` ``<-`` `[`bind_rows`](https://dplyr.tidyverse.org/reference/bind_rows.html)`(`` `` ``gbp_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"GBP/USD"``)``,`` `` ``eur_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"EUR/USD"``)`` ``)`
 
 The pound trades near \$1.27 while the euro trades near \$1.08, so
 plotting raw rates would compare *levels*, not *movement*. As in the
@@ -80,7 +82,7 @@ portfolio guide, we normalize each series to 100 at the start of the
 period so the lines show percentage change — a like-for-like view of
 which currency strengthened against the dollar.
 
-`fx_performance`` ``<-`` ``fx`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`` `` date ``=`` `[`as.Date`](https://rdrr.io/pkg/zoo/man/yearmon.html)`(``date``)``,`` `` normalized_rate ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`` `` ``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`` `` ``# Where did each pair end the year?`` ``fx_performance`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`slice_tail`](https://dplyr.tidyverse.org/reference/slice.html)`(``n ``=`` ``1``)`` `[`%>%`](https://magrittr.tidyverse.org/reference/pipe.html)` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``pair``, ``date``, ``close``, ``normalized_rate``)`` ``#> # A tibble: 2 × 4`` ``#> pair date close normalized_rate`` ``#> <chr> <date> <dbl> <dbl>`` ``#> 1 EUR/USD 2024-12-31 1.038 96.2`` ``#> 2 GBP/USD 2024-12-31 1.252 98.6`
+`fx_performance`` ``<-`` ``fx`` ``|>`` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``, .by_group ``=`` ``TRUE``)`` ``|>`` `` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`` `` date ``=`` `[`as.Date`](https://rdrr.io/pkg/zoo/man/yearmon.html)`(``date``)``,`` `` normalized_rate ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`` `` ``)`` ``|>`` `` `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`` `` ``# Where did each pair end the year?`` ``fx_performance`` ``|>`` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`` `` `[`slice_tail`](https://dplyr.tidyverse.org/reference/slice.html)`(``n ``=`` ``1``)`` ``|>`` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``pair``, ``date``, ``close``, ``normalized_rate``)`` ``#> # A tibble: 2 × 4`` ``#> pair date close normalized_rate`` ``#> <chr> <date> <dbl> <dbl>`` ``#> 1 EUR/USD 2024-12-31 1.038 96.2`` ``#> 2 GBP/USD 2024-12-31 1.252 98.6`
 
 *(A normalized value below 100 means the currency weakened against the
 dollar over the window; above 100 means it strengthened.)*

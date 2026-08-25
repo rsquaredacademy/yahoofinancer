@@ -80,6 +80,16 @@ The result mirrors the package's price-history schema: a data frame with `date` 
 * Forex pairs trade no shares, so `volume` is reported as `0` rather than a meaningful quantity.
 * `currency_converter()` is standalone — unlike most of the package, no `Ticker` object is needed.
 
+```{r rolling-forex}
+# Example: Rolling 1-month window with weekly candle intervals
+weekly_rates <- currency_converter(
+  from     = "GBP",
+  to       = "USD",
+  period   = "1mo",
+  interval = "1wk"
+)
+```
+
 > **Note:** For intraday analysis, remember FX markets close on weekends — hourly data will show natural gaps.
 
 ## 3. Comparing Two Pairs
@@ -95,27 +105,27 @@ eur_usd <- currency_converter(
 )
 
 fx <- bind_rows(
-  gbp_usd %>% mutate(pair = "GBP/USD"),
-  eur_usd %>% mutate(pair = "EUR/USD")
+  gbp_usd |> mutate(pair = "GBP/USD"),
+  eur_usd |> mutate(pair = "EUR/USD")
 )
 ```
 
 The pound trades near $1.27 while the euro trades near $1.08, so plotting raw rates would compare *levels*, not *movement*. As in the portfolio guide, we normalize each series to 100 at the start of the period so the lines show percentage change — a like-for-like view of which currency strengthened against the dollar.
 
 ```{r normalize}
-fx_performance <- fx %>%
-  arrange(date) %>%
-  group_by(pair) %>%
+fx_performance <- fx |>
+  group_by(pair) |>
+  arrange(date, .by_group = TRUE) |>
   mutate(
     date = as.Date(date),
     normalized_rate = (close / close[1]) * 100
-  ) %>%
+  ) |>
   ungroup()
 
 # Where did each pair end the year?
-fx_performance %>%
-  group_by(pair) %>%
-  slice_tail(n = 1) %>%
+fx_performance |>
+  group_by(pair) |>
+  slice_tail(n = 1) |>
   select(pair, date, close, normalized_rate)
 #> # A tibble: 2 × 4
 #>   pair    date       close normalized_rate
