@@ -1,0 +1,26 @@
+# Auto detect text files and perform LF normalization on checkout
+* text=auto eol=lf
+
+# Source code and documentation
+*.R text eol=lf
+*.Rmd text eol=lf
+*.md text eol=lf
+*.Rd text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.txt text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.rds binary
+*.RData binary
+*.rda binary

@@ -13,6 +13,7 @@
 ^revdep/
 ^\.positai$
 ^\.claude$
+^\.gitattributes$
 ^GEMINI\.md$
 ^AGENTS\.md$
 ^audit\.md$
