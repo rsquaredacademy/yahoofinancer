@@ -54,3 +54,15 @@ test_that("first-stock-analysis vignette code parses cleanly", {
   knitr::purl(rmd, output = tmp, documentation = 0L, quiet = TRUE)
   expect_no_error(parse(file = tmp))
 })
+
+test_that("currency-conversion vignette code parses cleanly", {
+  skip_if_not_installed("knitr")
+  rmd <- find_vignette_rmd("currency-conversion")
+  skip_if(is.na(rmd), "Vignette source not found")
+
+  tmp <- tempfile(fileext = ".R")
+  on.exit(unlink(tmp), add = TRUE)
+
+  knitr::purl(rmd, output = tmp, documentation = 0L, quiet = TRUE)
+  expect_no_error(parse(file = tmp))
+})
