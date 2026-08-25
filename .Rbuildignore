@@ -34,4 +34,5 @@
 ^roadmap$
 ^roadmap/
 ^cookb.*review.*\.md$
+^daily-logs\.md$
 
