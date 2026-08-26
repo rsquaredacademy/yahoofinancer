@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">yahoofinancer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-guides"><li><a class="dropdown-item" href="../articles/first-stock-analysis.html">Your First Stock Analysis</a></li>
     <li><a class="dropdown-item" href="../articles/comparing-portfolios.html">Comparing a Portfolio of Stocks</a></li>
     <li><a class="dropdown-item" href="../articles/currency-conversion.html">Currency Conversion and Forex Data</a></li>
+    <li><a class="dropdown-item" href="../articles/fundamental-screening.html">Fundamental Analysis and Stock Screening</a></li>
     <li><a class="dropdown-item" href="../articles/shiny-dashboard.html">Building a Live Market Dashboard</a></li>
     <li><a class="dropdown-item" href="../articles/analyst-sentiment.html">Related-Symbol Recommendations and Technical Insights</a></li>
     <li><a class="dropdown-item" href="../articles/event-study.html">Event Study: Earnings Announcements and Price Reactions</a></li>
@@ -45,7 +46,34 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="yahoofinancer-development-version">yahoofinancer (development version)<a class="anchor" aria-label="anchor" href="#yahoofinancer-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.6.1" id="yahoofinancer-061">yahoofinancer 0.6.1<a class="anchor" aria-label="anchor" href="#yahoofinancer-061"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes--architectural-improvements-0-6-1">Bug Fixes &amp; Architectural Improvements<a class="anchor" aria-label="anchor" href="#bug-fixes--architectural-improvements-0-6-1"></a></h3>
+<ul><li>
+<strong>Financial Statements Restoration</strong>: Added working <code>$get_income_statement()</code>, <code>$get_balance_sheet()</code>, and <code>$get_cash_flow()</code> methods on <code>Ticker</code> backed by Yahoo’s <code>fundamentals-timeseries</code> endpoint with support for <code>frequency = c("annual", "quarterly")</code>. Updated <code><a href="../reference/yf_get_financials.html">yf_get_financials()</a></code> to return tidy tibbles with line items. (<a href="https://github.com/rsquaredacademy/yahoofinancer/issues/48" class="external-link">#48</a>)</li>
+<li>
+<strong>Unified HTTP Request Engine</strong>: Centralized all API communication into a unified internal <code>api_request()</code> helper with automatic retry, timeout, user agent header, and structured error reporting across all endpoints. (<a href="https://github.com/rsquaredacademy/yahoofinancer/issues/49" class="external-link">#49</a>)</li>
+<li>
+<strong>Standardized Failure Contracts</strong>: Multi-symbol routines (<code>Tickers$aggregate_data()</code>, <code><a href="../reference/yf_download_prices.html">yf_download_prices()</a></code>, <code><a href="../reference/yf_get_financials.html">yf_get_financials()</a></code>, <code><a href="../reference/yf_get_market_stats.html">yf_get_market_stats()</a></code>, <code><a href="../reference/yf_get_index_quotes.html">yf_get_index_quotes()</a></code>) consistently warn on failed symbols and return empty tibbles matching documented schemas on full failure. (<a href="https://github.com/rsquaredacademy/yahoofinancer/issues/50" class="external-link">#50</a>)</li>
+<li>
+<strong>Batch Symbol Validation &amp; Metadata Caching</strong>: <code><a href="../reference/validate.html">validate()</a></code> vectorizes symbol queries into a single HTTP request. <code>Ticker</code> caches instance metadata, invalidating on <code>set_symbol()</code>. (<a href="https://github.com/rsquaredacademy/yahoofinancer/issues/51" class="external-link">#51</a>)</li>
+<li>
+<strong>Date Hygiene &amp; Lookback Limit Enforcement</strong>: <code>get_history()</code> validates dates client-side and enforces intraday lookback boundaries (1m &lt;= 7d, 5m/15m/30m &lt;= 60d, 1h &lt;= 730d). <code><a href="../reference/currency_converter.html">currency_converter()</a></code> guards against NA date inputs. (<a href="https://github.com/rsquaredacademy/yahoofinancer/issues/52" class="external-link">#52</a>)</li>
+<li>
+<strong>Hermetic Testing &amp; Fixtures</strong>: Redacted <code>httptest2</code> fixtures for financial statements and sanitized test mock surfaces. (<a href="https://github.com/rsquaredacademy/yahoofinancer/issues/53" class="external-link">#53</a>)</li>
+<li>
+<strong>Package Hygiene</strong>: Declared <code>R (&gt;= 4.1)</code> floor, configured <code>.lintr</code>, updated User-Agent to include package version. (<a href="https://github.com/rsquaredacademy/yahoofinancer/issues/54" class="external-link">#54</a>)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.6.0" id="yahoofinancer-060">yahoofinancer 0.6.0<a class="anchor" aria-label="anchor" href="#yahoofinancer-060"></a></h2>
+<div class="section level3">
+<h3 id="enhancements-0-6-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-6-0"></a></h3>
+<ul><li>
+<strong>Functional API</strong>: Introduced <code><a href="../reference/yf_download_prices.html">yf_download_prices()</a></code>, <code><a href="../reference/yf_get_market_stats.html">yf_get_market_stats()</a></code>, <code><a href="../reference/yf_get_financials.html">yf_get_financials()</a></code>, and <code><a href="../reference/yf_get_index_quotes.html">yf_get_index_quotes()</a></code> for pipe-friendly, tidy data analysis workflows.</li>
+<li>
+<strong>Migration to httr2</strong>: Migrated package networking from <code>httr</code> to <code>httr2</code> for modern, resilient HTTP operations.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="yahoofinancer-050">yahoofinancer 0.5.0<a class="anchor" aria-label="anchor" href="#yahoofinancer-050"></a></h2><p class="text-muted">CRAN release: 2026-05-21</p>

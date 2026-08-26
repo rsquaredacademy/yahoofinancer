@@ -8,8 +8,9 @@ articles:
   currency-conversion: currency-conversion.html
   event-study: event-study.html
   first-stock-analysis: first-stock-analysis.html
+  fundamental-screening: fundamental-screening.html
   shiny-dashboard: shiny-dashboard.html
-last_built: 2026-08-26T09:55Z
+last_built: 2026-08-26T12:14Z
 urls:
   reference: https://yahoofinancer.rsquaredacademy.com/reference
   article: https://yahoofinancer.rsquaredacademy.com/articles
