@@ -106,3 +106,15 @@ test_that("event-study vignette code parses cleanly", {
   knitr::purl(rmd, output = tmp, documentation = 0L, quiet = TRUE)
   expect_no_error(parse(file = tmp))
 })
+
+test_that("fundamental-screening vignette code parses cleanly", {
+  skip_if_not_installed("knitr")
+  rmd <- find_vignette_rmd("fundamental-screening")
+  skip_if(is.na(rmd), "Vignette source not found")
+
+  tmp <- tempfile(fileext = ".R")
+  on.exit(unlink(tmp), add = TRUE)
+
+  knitr::purl(rmd, output = tmp, documentation = 0L, quiet = TRUE)
+  expect_no_error(parse(file = tmp))
+})

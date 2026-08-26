@@ -32,9 +32,8 @@ test_that('get_trending handles API error', {
   with_mock_api(
     response_mock = mock_response(status_code = 500, is_error = TRUE),
     code = {
-      expect_output(res <- get_trending(), 'Yahoo Finance API request failed')
+      expect_warning(res <- get_trending(), 'Yahoo Finance API failed \\[500\\]: Unknown Error')
       expect_null(res)
     }
   )
 })
-

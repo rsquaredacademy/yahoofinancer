@@ -5,7 +5,7 @@ library(yahoofinancer)
 
 test_that("Ticker handles missing internet connection gracefully", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     internet_mock = function() FALSE,
     code = {
@@ -17,16 +17,16 @@ test_that("Ticker handles missing internet connection gracefully", {
 
 test_that("get_history issues warning on API failure", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     response_mock = mock_response(
-      status_code = 404, 
+      status_code = 404,
       body_json = list(chart = list(error = list(description = "Symbol not found"))),
       is_error = TRUE
     ),
     code = {
       expect_warning(
-        aapl$get_history(), 
+        aapl$get_history(),
         "Yahoo Finance API failed \\[404\\]: Symbol not found"
       )
     }
@@ -35,16 +35,16 @@ test_that("get_history issues warning on API failure", {
 
 test_that("get_history handles API failure with unknown error description", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     response_mock = mock_response(
-      status_code = 500, 
+      status_code = 500,
       body_json = list(chart = list(error = list(something_else = "err"))),
       is_error = TRUE
     ),
     code = {
       expect_warning(
-        aapl$get_history(), 
+        aapl$get_history(),
         "Yahoo Finance API failed \\[500\\]: Unknown Error"
       )
     }
@@ -53,7 +53,7 @@ test_that("get_history handles API failure with unknown error description", {
 
 test_that("valuation_measures handles missing internet connection", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     internet_mock = function() FALSE,
     code = {
@@ -65,7 +65,7 @@ test_that("valuation_measures handles missing internet connection", {
 
 test_that("valuation_measures handles API failure", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     response_mock = mock_response(status_code = 500, is_error = TRUE),
     code = {
@@ -77,7 +77,7 @@ test_that("valuation_measures handles API failure", {
 
 test_that("valuation_measures handles empty result", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     response_mock = mock_response(body_json = list(timeseries = list(result = list()))),
     code = {
@@ -88,7 +88,7 @@ test_that("valuation_measures handles empty result", {
 
 test_that("recommendations handles missing internet connection", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     internet_mock = function() FALSE,
     code = {
@@ -99,7 +99,7 @@ test_that("recommendations handles missing internet connection", {
 
 test_that("recommendations handles API failure", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     response_mock = mock_response(status_code = 404, is_error = TRUE),
     code = {
@@ -111,7 +111,7 @@ test_that("recommendations handles API failure", {
 
 test_that("technical_insights handles missing internet connection", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     internet_mock = function() FALSE,
     code = {
@@ -122,7 +122,7 @@ test_that("technical_insights handles missing internet connection", {
 
 test_that("technical_insights handles API failure", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     response_mock = mock_response(status_code = 500, is_error = TRUE),
     code = {
@@ -134,7 +134,7 @@ test_that("technical_insights handles API failure", {
 
 test_that("technical_insights handles success path from flat sample", {
   aapl <- Ticker$new("AAPL")
-  
+
   with_mock_api(
     response_mock = mock_response(
       body_json = jsonlite::fromJSON("samples/insights_1.json", simplifyVector = FALSE)
@@ -150,7 +150,7 @@ test_that("technical_insights handles success path from flat sample", {
 test_that("private meta_info handles missing internet connection", {
   aapl <- Ticker$new("AAPL")
   private_env <- aapl$.__enclos_env__$private
-  
+
   with_mock_api(
     internet_mock = function() FALSE,
     code = {
@@ -162,7 +162,7 @@ test_that("private meta_info handles missing internet connection", {
 test_that("private meta_info handles API failure", {
   aapl <- Ticker$new("AAPL")
   private_env <- aapl$.__enclos_env__$private
-  
+
   with_mock_api(
     response_mock = mock_response(status_code = 404, is_error = TRUE),
     code = {
@@ -172,13 +172,37 @@ test_that("private meta_info handles API failure", {
   )
 })
 
-test_that("get_history handles invalid date strings", {
+test_that("get_history handles invalid date strings and orphan end date", {
   aapl <- Ticker$new("AAPL")
   expect_error(aapl$get_history(start = "invalid"), "Invalid 'start' date format")
   expect_error(aapl$get_history(end = "invalid"), "Invalid 'end' date format")
+
+  expect_warning(
+    aapl$get_history(end = "2023-01-01"),
+    "'end' was provided without 'start'. Ignoring 'end' and using 'period'."
+  )
+
+  expect_error(
+    aapl$get_history(start = "2023-01-10", end = "2023-01-01"),
+    "'start' date must be before or equal to 'end' date."
+  )
 })
 
+test_that("get_history enforces intraday lookback constraints", {
+  aapl <- Ticker$new("AAPL")
 
+  # 1m <= 7d
+  expect_error(aapl$get_history(interval = "1m", period = "1mo"), "Interval '1m' is limited to a maximum lookback of 7 days.")
+  expect_error(aapl$get_history(interval = "1m", start = as.character(Sys.Date() - 10)), "Interval '1m' is limited to a maximum lookback of 7 days.")
+
+  # 5m/15m/30m <= 60d
+  expect_error(aapl$get_history(interval = "5m", period = "1y"), "Interval '5m' is limited to a maximum lookback of 60 days.")
+  expect_error(aapl$get_history(interval = "15m", period = "6mo"), "Interval '15m' is limited to a maximum lookback of 60 days.")
+  expect_error(aapl$get_history(interval = "30m", start = as.character(Sys.Date() - 100)), "Interval '30m' is limited to a maximum lookback of 60 days.")
+
+  # 1h <= 730d
+  expect_error(aapl$get_history(interval = "1h", period = "5y"), "Interval '1h' is limited to a maximum lookback of 730 days.")
+})
 
 test_that('extract_valuation returns numeric(0) for NULL data', {
   aapl <- Ticker$new('AAPL')
@@ -215,3 +239,24 @@ test_that('recommendations returns empty data.frame when no recommendations', {
   )
 })
 
+test_that("Ticker financial statement methods handle failure gracefully", {
+  aapl <- Ticker$new("AAPL")
+
+  with_mock_api(
+    response_mock = mock_response(status_code = 500, is_error = TRUE),
+    code = {
+      expect_warning(expect_null(aapl$get_income_statement()), "Yahoo Finance API failed")
+      expect_warning(expect_null(aapl$get_balance_sheet()), "Yahoo Finance API failed")
+      expect_warning(expect_null(aapl$get_cash_flow()), "Yahoo Finance API failed")
+    }
+  )
+
+  with_mock_api(
+    response_mock = mock_response(body_json = list(timeseries = list(result = list()))),
+    code = {
+      expect_null(aapl$get_income_statement())
+      expect_null(aapl$get_balance_sheet())
+      expect_null(aapl$get_cash_flow())
+    }
+  )
+})

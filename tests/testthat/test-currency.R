@@ -21,8 +21,11 @@ test_that("currency_converter handles API failure with message", {
       is_error = TRUE
     ),
     code = {
-      expect_output(currency_converter("XYZ", "ABC"), "Yahoo Finance API request failed")
-      expect_null(currency_converter("XYZ", "ABC"))
+      expect_warning(currency_converter("XYZ", "ABC"), "Yahoo Finance API failed \\[404\\]: Invalid pairs")
+      expect_warning(
+        expect_null(currency_converter("XYZ", "ABC")),
+        "Yahoo Finance API failed \\[404\\]: Invalid pairs"
+      )
     }
   )
 })
@@ -56,14 +59,15 @@ test_that("currency_converter handles success path", {
     ),
     code = {
       res <- currency_converter("EUR", "USD", period = "1d")
-      # Note: currency_converter uses subset(result, !is.na(volume))
-      # In the mock, volume is 0, which is not NA.
-      # But indicators$volume in mock should be 0.
       expect_s3_class(res, "data.frame")
     }
   )
 })
 
+test_that('currency_converter validates date inputs', {
+  expect_error(currency_converter("EUR", "USD", start = "invalid-date"), "Invalid 'start' date format")
+  expect_error(currency_converter("EUR", "USD", start = "2021-01-01", end = "invalid-date"), "Invalid 'end' date format")
+})
 
 test_that('get_currencies handles offline gracefully', {
   with_mock_api(internet_mock = function() FALSE, code = {
@@ -76,7 +80,7 @@ test_that('get_currencies handles API error', {
   with_mock_api(
     response_mock = mock_response(status_code = 500, is_error = TRUE),
     code = {
-      expect_output(res <- get_currencies(), 'Yahoo Finance API request failed')
+      expect_warning(res <- get_currencies(), 'Yahoo Finance API failed \\[500\\]: Unknown Error')
       expect_null(res)
     }
   )
@@ -149,4 +153,3 @@ test_that('currency_converter filters out NA volumes', {
     }
   )
 })
-
