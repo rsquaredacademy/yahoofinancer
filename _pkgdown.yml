@@ -21,6 +21,12 @@ navbar:
           href: articles/comparing-portfolios.html
         - text: 'Currency Conversion and Forex Data'
           href: articles/currency-conversion.html
+        - text: 'Building a Live Market Dashboard'
+          href: articles/shiny-dashboard.html
+        - text: 'Related-Symbol Recommendations and Technical Insights'
+          href: articles/analyst-sentiment.html
+        - text: 'Event Study: Earnings Announcements and Price Reactions'
+          href: articles/event-study.html
         - text: 'Cookbook (15 Recipes)'
           href: articles/cookbook.html
     - text: 'Reference'
@@ -41,6 +47,9 @@ articles:
       - first-stock-analysis
       - comparing-portfolios
       - currency-conversion
+      - shiny-dashboard
+      - analyst-sentiment
+      - event-study
       - cookbook
 
 home:

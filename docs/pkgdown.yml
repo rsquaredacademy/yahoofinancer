@@ -2,11 +2,14 @@ pandoc: 3.10.2
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
+  analyst-sentiment: analyst-sentiment.html
   comparing-portfolios: comparing-portfolios.html
   cookbook: cookbook.html
   currency-conversion: currency-conversion.html
+  event-study: event-study.html
   first-stock-analysis: first-stock-analysis.html
-last_built: 2026-08-25T12:35Z
+  shiny-dashboard: shiny-dashboard.html
+last_built: 2026-08-26T09:55Z
 urls:
   reference: https://yahoofinancer.rsquaredacademy.com/reference
   article: https://yahoofinancer.rsquaredacademy.com/articles
