@@ -1,0 +1,350 @@
+---
+title: "Building a Live Market Dashboard with Shiny"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Building a Live Market Dashboard with Shiny}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Overview
+
+In this guide, you will combine `yahoofinancer` with [Shiny](https://shiny.posit.co/) to build a live market dashboard: a web application that shows real-time quote cards for any ticker, its position within the 52-week range, and an interactive price history chart driven by period and interval selectors. No prior Shiny experience is required—every reactive concept used here is explained as it appears.
+
+### Required Packages
+
+```{r load-libraries, message=FALSE, warning=FALSE}
+# Install required packages if not already installed:
+# install.packages(c("yahoofinancer", "shiny", "dplyr", "ggplot2", "scales"))
+
+library(yahoofinancer)
+library(shiny)
+library(dplyr)
+library(ggplot2)
+library(scales)
+```
+
+---
+
+## 1. Dashboard Anatomy
+
+Every Shiny app has two halves:
+
+| Piece | Role | In this dashboard |
+|:---|:---|:---|
+| `ui` | Declares layout and widgets | Ticker picker, period/interval selects, quote cards, chart area |
+| `server` | Holds the logic that reacts to inputs | Fetches quotes and price history, renders text and plots |
+
+The bridge between them is **reactivity**: when the user changes a widget, expressions that depend on it re-execute automatically. We will use `eventReactive()` so that network calls to Yahoo Finance fire only when the user presses the *Refresh* button—polite to both the user and the API.
+
+---
+
+## 2. Designing the User Interface
+
+The UI below uses `sidebarLayout()`: controls on the left, outputs on the right. Note how named vectors in `choices` display friendly labels (e.g., *"1 Month"*) while passing compact API values (`"1mo"`) to `yf_download_prices()`.
+
+```{r ui-layout}
+ui <- fluidPage(
+  title = "Live Market Dashboard",
+  titlePanel("Live Market Dashboard"),
+
+  sidebarLayout(
+    sidebarPanel(
+      width = 3,
+
+      selectInput(
+        inputId  = "symbol",
+        label    = "Ticker",
+        choices  = c("AAPL", "MSFT", "GOOG", "AMZN", "NVDA", "META")
+      ),
+
+      selectInput(
+        inputId = "period",
+        label   = "History length",
+        choices = c("1 Month" = "1mo", "3 Months" = "3mo",
+                    "6 Months" = "6mo", "1 Year" = "1y",
+                    "2 Years"  = "2y", "5 Years" = "5y"),
+        selected = "6mo"
+      ),
+
+      selectInput(
+        inputId = "interval",
+        label   = "Bar interval",
+        choices = c("Daily" = "1d", "Weekly" = "1wk", "Monthly" = "1mo")
+      ),
+
+      actionButton("refresh", "Refresh data", class = "btn-primary")
+    ),
+
+    mainPanel(
+      width = 9,
+
+      # Quote cards row
+      fluidRow(
+        column(4, wellPanel(
+          h4(textOutput("price_card")),
+          p(uiOutput("change_card"), style = "margin-bottom: 0;")
+        )),
+        column(4, wellPanel(
+          h4("52-Week Range"),
+          p(textOutput("range_card"), style = "margin-bottom: 0;")
+        )),
+        column(4, wellPanel(
+          h4("Volume"),
+          p(textOutput("volume_card"), style = "margin-bottom: 0;")
+        ))
+      ),
+
+      # Price history chart
+      plotOutput("price_chart", height = "360px")
+    )
+  )
+)
+```
+
+---
+
+## 3. Reactive Data Layer
+
+The server fetches two datasets per refresh:
+
+1. A one-row snapshot from `yf_get_market_stats()` feeding the quote cards.
+2. An OHLCV series from `yf_download_prices()` feeding the chart.
+
+Both are wrapped in `eventReactive(input$refresh, ...)`, so each press of the button triggers exactly one pair of requests.
+
+```{r server-reactives}
+server <- function(input, output, session) {
+
+  stats <- eventReactive(input$refresh, {
+    yf_get_market_stats(input$symbol)
+  })
+
+  prices <- eventReactive(input$refresh, {
+    yf_download_prices(
+      tickers  = input$symbol,
+      period   = input$period,
+      interval = input$interval
+    )
+  })
+
+  # ... output renderers added in sections 4 and 5 ...
+}
+```
+
+A snapshot looks like this:
+
+```{r stats-preview}
+yf_get_market_stats("AAPL")
+#> # A tibble: 1 × 7
+#>   symbol regular_market_price fifty_two_week_high fifty_two_week_low
+#>   <chr>                 <dbl>               <dbl>              <dbl>
+#> 1 AAPL                   232.                237.               169.
+#> # i 3 more variables: regular_market_volume <dbl>, previous_close <dbl>,
+#> #   currency <chr>
+```
+
+*(Note: Values are illustrative; live results reflect the latest available session.)*
+
+---
+
+## 4. Quote Cards
+
+The cards read from the `stats()` reactive. `price_card`, `range_card`, and `volume_card` use `renderText()`, while `change_card` uses `renderUI()` to color the percentage move green or red based on direction. The range card places the current price within the 52-week band.
+
+```{r quote-cards}
+  output$price_card <- renderText({
+    req(stats())
+    sprintf("%s · %s", stats()$symbol, dollar(stats()$regular_market_price))
+  })
+
+  output$change_card <- renderUI({
+    s <- req(stats())
+    pct <- 100 * (s$regular_market_price - s$previous_close) / s$previous_close
+    color <- if (pct >= 0) "#2e7d32" else "#c62828"
+    tags$span(style = sprintf("color:%s", color),
+              sprintf("%+.2f%% vs previous close", pct))
+  })
+
+  output$range_card <- renderText({
+    s <- req(stats())
+    pos <- 100 * (s$regular_market_price - s$fifty_two_week_low) /
+      (s$fifty_two_week_high - s$fifty_two_week_low)
+    sprintf(
+      "%s — %s\n(%s of 52-week range)",
+      dollar(s$fifty_two_week_low), dollar(s$fifty_two_week_high),
+      percent(pos / 100, accuracy = 1)
+    )
+  })
+
+  output$volume_card <- renderText({
+    s <- req(stats())
+    label_number(scale_cut = scales::cut_short_scale())(s$regular_market_volume)
+  })
+```
+
+Two defensive details worth keeping:
+
+* `req(stats())` silently suspends rendering until the first successful fetch—no errors flash before data arrives.
+* The percentage uses `scales::percent()` with explicit `accuracy`, so values like `12.34567%` never leak into the UI.
+
+---
+
+## 5. Price History Chart
+
+The chart plots closing prices over time with dashed reference lines at the 52-week extremes. Because `date` arrives as a `POSIXct` datetime, the axis works unchanged for daily, weekly, and monthly bars alike.
+
+```{r price-chart}
+  output$price_chart <- renderPlot({
+    df <- req(prices())
+    s  <- req(stats())
+
+    ggplot(df, aes(x = date, y = close)) +
+      geom_line(color = "#1f77b4", linewidth = 0.9) +
+      geom_hline(yintercept = s$fifty_two_week_high,
+                 linetype = "dashed", color = "#2e7d32") +
+      geom_hline(yintercept = s$fifty_two_week_low,
+                 linetype = "dashed", color = "#c62828") +
+      scale_y_continuous(labels = dollar_format()) +
+      labs(
+        title    = paste(s$symbol, "Price History"),
+        subtitle = "Dashed lines mark 52-week high and low",
+        x        = NULL,
+        y        = "Price (USD)",
+        caption  = "Source: Yahoo Finance via yahoofinancer"
+      ) +
+      theme_minimal(base_size = 12) +
+      theme(plot.title = element_text(face = "bold"))
+  })
+```
+
+---
+
+## 6. Minimal Reproducible Example
+
+Here is the complete, self-contained app in a single copy-pasteable script. Save it as `app.R` and run `shiny::runApp()`.
+
+```{r full-workflow}
+library(yahoofinancer)
+library(shiny)
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+ui <- fluidPage(
+  titlePanel("Live Market Dashboard"),
+  sidebarLayout(
+    sidebarPanel(
+      width = 3,
+      selectInput("symbol", "Ticker",
+                  choices = c("AAPL", "MSFT", "GOOG", "AMZN", "NVDA", "META")),
+      selectInput("period", "History length",
+                  choices = c("1 Month" = "1mo", "3 Months" = "3mo",
+                              "6 Months" = "6mo", "1 Year" = "1y",
+                              "2 Years" = "2y", "5 Years" = "5y"),
+                  selected = "6mo"),
+      selectInput("interval", "Bar interval",
+                  choices = c("Daily" = "1d", "Weekly" = "1wk",
+                              "Monthly" = "1mo")),
+      actionButton("refresh", "Refresh data", class = "btn-primary")
+    ),
+    mainPanel(
+      width = 9,
+      fluidRow(
+        column(4, wellPanel(
+          h4(textOutput("price_card")),
+          p(uiOutput("change_card"), style = "margin-bottom: 0;")
+        )),
+        column(4, wellPanel(
+          h4("52-Week Range"),
+          p(textOutput("range_card"), style = "margin-bottom: 0;")
+        )),
+        column(4, wellPanel(
+          h4("Volume"),
+          p(textOutput("volume_card"), style = "margin-bottom: 0;")
+        ))
+      ),
+      plotOutput("price_chart", height = "360px")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  stats  <- eventReactive(input$refresh, yf_get_market_stats(input$symbol))
+  prices <- eventReactive(input$refresh, {
+    yf_download_prices(input$symbol, period = input$period,
+                       interval = input$interval)
+  })
+
+  output$price_card <- renderText({
+    s <- req(stats())
+    sprintf("%s · %s", s$symbol, dollar(s$regular_market_price))
+  })
+  output$change_card <- renderUI({
+    s <- req(stats())
+    pct <- 100 * (s$regular_market_price - s$previous_close) / s$previous_close
+    color <- if (pct >= 0) "#2e7d32" else "#c62828"
+    tags$span(style = sprintf("color:%s", color),
+              sprintf("%+.2f%% vs previous close", pct))
+  })
+  output$range_card <- renderText({
+    s <- req(stats())
+    pos <- 100 * (s$regular_market_price - s$fifty_two_week_low) /
+      (s$fifty_two_week_high - s$fifty_two_week_low)
+    sprintf("%s — %s\n(%s of range)",
+            dollar(s$fifty_two_week_low),
+            dollar(s$fifty_two_week_high),
+            percent(pos / 100, accuracy = 1))
+  })
+  output$volume_card <- renderText({
+    req(stats())$regular_market_volume |> label_number(scale_cut = cut_short_scale())
+  })
+
+  output$price_chart <- renderPlot({
+    df <- req(prices())
+    s  <- req(stats())
+    ggplot(df, aes(x = date, y = close)) +
+      geom_line(color = "#1f77b4", linewidth = 0.9) +
+      geom_hline(yintercept = s$fifty_two_week_high,
+                 linetype = "dashed", color = "#2e7d32") +
+      geom_hline(yintercept = s$fifty_two_week_low,
+                 linetype = "dashed", color = "#c62828") +
+      scale_y_continuous(labels = dollar_format()) +
+      labs(title = paste(s$symbol, "Price History"), x = NULL, y = "Price (USD)") +
+      theme_minimal(base_size = 12) +
+      theme(plot.title = element_text(face = "bold"))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+*(Note: Remember to press **Refresh data** after launching—the app deliberately makes no network calls until asked.)*
+
+---
+
+## 7. Summary
+
+In this guide, you learned how to:
+
+1. **Structure a Shiny app**: Pair a `fluidPage` UI with a `server` function connected by reactive IDs.
+2. **Fetch on demand**: Use `eventReactive()` so Yahoo Finance is queried only when the user requests new data.
+3. **Render live metrics**: Turn `yf_get_market_stats()` snapshots into formatted quote cards with `scales` labeling.
+4. **Chart interactive history**: Drive `yf_download_prices()` from period/interval widgets and overlay 52-week reference levels.
+
+---
+
+## 8. Going Further
+
+* **Auto-refresh**: Add `observe({ invalidateLater(60000); shinyjs::click("refresh") })` (with the `shinyjs` package) to poll every minute during market hours.
+* **Multi-symbol comparison**: Fan out over several tickers at once with the [`Tickers`](../reference/Tickers.html) class—`Tickers$new(c("AAPL", "MSFT"))$get_history(period = "6mo")` returns one long tibble; sort chronologically inside groups with `arrange(date, .by_group = TRUE)` before plotting one line per `symbol`.
+* **Input validation**: Guard against typos by routing custom tickers through `validate()` before fetching.
+* **More recipes**: For drawdown analysis, technical indicators, and portfolio performance modeling, see `vignette("cookbook", package = "yahoofinancer")`.

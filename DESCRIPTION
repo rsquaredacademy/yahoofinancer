@@ -26,6 +26,7 @@ Suggests:
     knitr,
     rmarkdown,
     scales,
+    shiny,
     testthat (>= 3.0.0),
     tidyr,
     zoo
