@@ -1,0 +1,277 @@
+---
+title: "Event Study: Earnings Announcements and Price Reactions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Event Study: Earnings Announcements and Price Reactions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Overview
+
+In this guide, you will run a miniature **event study**: measure how a stock reacts to its own earnings announcements, after stripping out the market's general drift. The workflow is the standard one from the event-study literature, simplified to the *market-adjusted* model:
+
+1. Pick the announcement dates (the *events*).
+2. Download price history for the stock **and** a benchmark index around each date.
+3. Compute daily returns; the **abnormal return** ($AR_t$) is the stock's return minus the benchmark's return on the same day.
+4. Accumulate $AR_t$ across an event window (here, 2 days before to 5 days after the announcement) to obtain the **cumulative abnormal return** (CAR).
+
+*(Note: A full event study would estimate a stock-specific beta over a pre-event estimation window and test CARs for statistical significance. The market-adjusted shortcut shown here assumes beta ≈ 1—fine for exploration and visualization, but treat any inference with care.)*
+
+### Required Packages
+
+```{r load-libraries, message=FALSE, warning=FALSE}
+# Install required packages if not already installed:
+# install.packages(c("dplyr", "tidyr", "purrr", "ggplot2", "scales"))
+
+library(yahoofinancer)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(ggplot2)
+library(scales)
+```
+
+---
+
+## 1. Define Events and Fetch Windows
+
+We study three recent Apple earnings announcements. For each, we will download two calendar weeks on either side—enough slack that the ±2/+5 trading-day window always fits inside the fetched range:
+
+```{r define-events}
+events <- tibble::tribble(
+  ~label,     ~event_date,
+  "FY25 Q4",  as.Date("2025-10-30"),
+  "FY26 Q1",  as.Date("2026-01-29"),
+  "FY26 Q2",  as.Date("2026-04-30")
+)
+```
+
+*(Note: Announcement dates are public knowledge—check Apple's investor relations page for your period of interest and adjust freely.)*
+
+Fetching both symbols in one call keeps the benchmark perfectly aligned with the stock's calendar:
+
+```{r fetch-single-event}
+aapl_event <- yf_download_prices(
+  tickers  = c("AAPL", "^GSPC"),
+  start    = as.Date("2026-01-15"),
+  end      = as.Date("2026-02-12"),
+  interval = "1d"
+)
+
+head(aapl_event, n = 4)
+#> # A tibble: 4 x 8
+#>   symbol date                 open  high   low close adj_close  volume
+#>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>   <dbl>
+#> 1 ^GSPC  2026-01-15 14:30:00 6890. 6920. 6880. 6905.     6905. 4.90e9
+#> 2 AAPL   2026-01-15 14:30:00  231.  232.  230.  231.      230. 4.51e7
+#> 3 ^GSPC  2026-01-16 14:30:00 6905. 6935. 6899. 6928.     6928. 5.12e9
+#> 4 AAPL   2026-01-16 14:30:00  231.  233.  230.  232.      231. 4.13e7
+```
+
+---
+
+## 2. Compute Abnormal Returns
+
+The helper below pivots each window to one row per day with side-by-side price columns, computes daily returns for both series, aligns every row to the announcement day (`rel_day` 0), and keeps the event window:
+
+```{r compute-ar}
+compute_ar <- function(label, event_date) {
+  raw <- yf_download_prices(
+    tickers  = c("AAPL", "^GSPC"),
+    start    = event_date - 14,
+    end      = event_date + 14,
+    interval = "1d"
+  )
+
+  raw |>
+    mutate(symbol = if_else(symbol == "^GSPC", "index", symbol)) |>
+    select(date, symbol, close) |>
+    pivot_wider(names_from = symbol, values_from = close) |>
+    arrange(date) |>
+    mutate(
+      ret_stock = AAPL / lag(AAPL) - 1,
+      ret_mkt   = index / lag(index) - 1,
+      ar        = ret_stock - ret_mkt
+    ) |>
+    # Locate the first session on/after the announcement (t = 0)
+    mutate(rel_day = row_number() - which(as.Date(date) >= event_date)[1]) |>
+    filter(rel_day %in% -2:5) |>
+    transmute(label, rel_day, ar)
+}
+```
+
+Running it for a single event shows the shape of the result—the announcement reaction lands at `rel_day` 0 or 1 depending on whether the release came before or after the bell:
+
+```{r inspect-ar}
+ar_q1 <- compute_ar("FY26 Q1", as.Date("2026-01-29"))
+
+ar_q1
+#> # A tibble: 8 x 3
+#>   label   rel_day       ar
+#>   <chr>      <int>    <dbl>
+#> 1 FY26 Q1       -2 -0.0042
+#> 2 FY26 Q1       -1  0.0019
+#> 3 FY26 Q1        0  0.0031
+#> 4 FY26 Q1        1  0.0384
+#> 5 FY26 Q1        2  0.0057
+#> # i 3 more rows
+```
+
+---
+
+## 3. Daily Abnormal Returns Around One Announcement
+
+A diverging bar chart makes the announcement-day pop obvious:
+
+```{r plot-daily-ar}
+ggplot(ar_q1, aes(x = rel_day, y = ar, fill = ar >= 0)) +
+  geom_col(width = 0.7, show.legend = FALSE) +
+  scale_fill_manual(values = c("#c62828", "#2e7d32")) +
+  scale_x_continuous(breaks = -2:5) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    title    = "AAPL Abnormal Returns — FY26 Q1 Earnings",
+    subtitle = "Market-adjusted vs. S&P 500; day 0 = announcement",
+    x        = "Trading days relative to announcement",
+    y        = "Abnormal return",
+    caption  = "Source: Yahoo Finance via yahoofinancer"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+---
+
+## 4. Average CAR Across All Events
+
+Now run the helper over every event with `map2_dfr()` and accumulate: thin lines show each announcement's CAR path, the thick line their average:
+
+```{r car-across-events}
+car_paths <- map2_dfr(events$label, events$event_date, compute_ar) |>
+  group_by(label) |>
+  arrange(rel_day, .by_group = TRUE) |>
+  mutate(car = cumsum(replace_na(ar, 0))) |>
+  ungroup()
+
+avg_car <- car_paths |>
+  group_by(rel_day) |>
+  summarise(car = mean(car), .groups = "drop")
+```
+
+*(Note: `arrange(rel_day, .by_group = TRUE)` sorts within each event so the running sum never crosses event boundaries; `replace_na()` guards the leading `NA` return.)*
+
+```{r plot-car}
+ggplot() +
+  geom_line(data = car_paths,
+            aes(x = rel_day, y = car, group = label),
+            color = "#9aa5ad", linewidth = 0.5) +
+  geom_line(data = avg_car, aes(x = rel_day, y = car),
+            color = "#1f77b4", linewidth = 1.2) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "#555555") +
+  scale_x_continuous(breaks = -2:5) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    title    = "Average Cumulative Abnormal Return — AAPL Earnings",
+    subtitle = "Grey: individual announcements; blue: average",
+    x        = "Trading days relative to announcement",
+    y        = "Cumulative abnormal return",
+    caption  = "Source: Yahoo Finance via yahoofinancer"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+---
+
+## 5. Reading the Results
+
+* **A steep jump at day 0/1** means the announcement surprised the market relative to the index; a flat path implies results were priced in.
+* **Drift after day 1** (continuation) versus **reversal** speaks to post-earnings-announcement behavior—compare across many quarters before believing either pattern.
+* **Caveats**: single-stock CARs conflate firm news with sector news (the S&P 500 is an imperfect control); without significance testing, treat magnitudes as descriptive only. The cookbook's rolling-correlation recipe (`vignette("cookbook", package = "yahoofinancer")`) is a natural next step toward proper factor controls.
+
+---
+
+## 6. Minimal Reproducible Example
+
+Below is the complete, self-contained workflow in a single copy-pasteable script:
+
+```{r full-workflow}
+library(yahoofinancer)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(ggplot2)
+library(scales)
+
+# 1. Events: three earnings announcements, two weeks of slack each side
+events <- tibble::tribble(
+  ~label,    ~event_date,
+  "FY25 Q4", as.Date("2025-10-30"),
+  "FY26 Q1", as.Date("2026-01-29"),
+  "FY26 Q2", as.Date("2026-04-30")
+)
+
+# 2. Market-adjusted abnormal returns over [-2, +5]
+compute_ar <- function(label, event_date) {
+  yf_download_prices(c("AAPL", "^GSPC"),
+                     start = event_date - 14,
+                     end   = event_date + 14) |>
+    mutate(symbol = if_else(symbol == "^GSPC", "index", symbol)) |>
+    select(date, symbol, close) |>
+    pivot_wider(names_from = symbol, values_from = close) |>
+    arrange(date) |>
+    mutate(ret_stock = AAPL / lag(AAPL) - 1,
+           ret_mkt   = index / lag(index) - 1,
+           ar        = ret_stock - ret_mkt) |>
+    mutate(rel_day = row_number() - which(as.Date(date) >= event_date)[1]) |>
+    filter(rel_day %in% -2:5) |>
+    transmute(label, rel_day, ar)
+}
+
+# 3. Cumulate per event and average across events
+avg_car <- map2_dfr(events$label, events$event_date, compute_ar) |>
+  group_by(label) |>
+  arrange(rel_day, .by_group = TRUE) |>
+  mutate(car = cumsum(replace_na(ar, 0))) |>
+  ungroup() |>
+  group_by(rel_day) |>
+  summarise(car = mean(car), .groups = "drop")
+
+# 4. Plot the average CAR path
+ggplot(avg_car, aes(x = rel_day, y = car)) +
+  geom_line(color = "#1f77b4", linewidth = 1.2) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "#555555") +
+  scale_x_continuous(breaks = -2:5) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(title = "Average CAR — AAPL Earnings Announcements",
+       x = "Trading days relative to announcement",
+       y = "Cumulative abnormal return") +
+  theme_minimal(base_size = 12)
+```
+
+---
+
+## 7. Summary
+
+In this guide, you learned how to:
+
+1. **Frame events**: Turn announcement dates into bounded download windows with `yf_download_prices(start, end)`.
+2. **Align stock and benchmark**: Pivot both series onto a shared calendar and difference their returns.
+3. **Localize reactions**: Anchor each session to the announcement via `rel_day` and slice the [-2, +5] window.
+4. **Accumulate evidence**: Build per-event CAR paths (sorting with `.by_group = TRUE`) and average them into a single readable chart.
+
+---
+
+## 8. Going Further
+
+* **More events**: Loop over a year of announcements—or screen other firms—and facet the CAR plots by ticker with `facet_wrap(~ symbol)`.
+* **Intraday precision**: Refetch the announcement week at `interval = "60m"` (max 730-day lookback applies) to separate the opening-gap reaction from same-day drift.
+* **Portfolio context**: Compare event-day volume against typical turnover using the OHLCV columns already returned.
+* **More recipes**: For drawdown analysis, technical indicators (EMA, RSI, MACD, Bollinger Bands), and portfolio performance modeling, see `vignette("cookbook", package = "yahoofinancer")`.
