@@ -1,0 +1,344 @@
+---
+title: "Related-Symbol Recommendations and Technical Insights"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Related-Symbol Recommendations and Technical Insights}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Overview
+
+In this guide, you will explore the two sentiment-adjacent surfaces that Yahoo Finance exposes through `yahoofinancer`: **related-symbol recommendations** (which securities the market associates most strongly with a ticker, scored by relevance) and **technical insights** (a research snapshot combining Trading Central outlooks, key price levels, a Morningstar-style company scorecard, and an Argus Research rating with target price).
+
+*(A note on scope: classic sell-side consensus ratings—the strong-buy/hold/sell vote distribution—are served by Yahoo's `quoteSummary` modules, which `yahoofinancer` does not currently wrap. Everything shown here comes from endpoints the package already supports.)*
+
+### Required Packages
+
+```{r load-libraries, message=FALSE, warning=FALSE}
+# Install required packages if not already installed:
+# install.packages(c("dplyr", "ggplot2", "scales", "tidyr"))
+
+library(yahoofinancer)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(ggplot2)
+library(scales)
+```
+
+---
+
+## 1. Related-Symbol Recommendations
+
+The `recommendations` active binding on a [`Ticker`](../reference/Ticker-class.html) object queries Yahoo's *recommendations-by-symbol* endpoint and returns a two-column frame: candidate tickers and their relevance `score` (roughly 0–1, higher means more strongly associated).
+
+```{r fetch-recommendations}
+aapl_obj <- Ticker$new("AAPL")
+
+related <- aapl_obj$recommendations
+
+related
+#>   symbol   score
+#> 1   AMZN 0.20319
+#> 2   TSLA 0.19162
+#> 3   GOOG 0.17865
+#> 4   META 0.17095
+#> 5   MSFT 0.15560
+```
+
+Scores arrive pre-sorted, but sorting explicitly makes intent clear and survives any upstream ordering change:
+
+```{r sort-recommendations}
+top_related <- related |>
+  arrange(desc(score))
+
+top_related
+#>   symbol   score
+#> 1   AMZN 0.20319
+#> 2   TSLA 0.19162
+#> ...
+```
+
+Visualize as a horizontal bar chart so long tick labels stay legible:
+
+```{r plot-recommendations}
+ggplot(top_related, aes(x = score, y = reorder(symbol, score))) +
+  geom_col(fill = "#1f77b4", width = 0.65) +
+  scale_x_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    title    = "Securities Most Associated with AAPL",
+    subtitle = "Yahoo Finance related-symbol relevance scores",
+    x        = "Relevance score",
+    y        = NULL,
+    caption  = "Source: Yahoo Finance via yahoofinancer"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.major.y = element_blank())
+```
+
+---
+
+## 2. The Technical Insights Snapshot
+
+`technical_insights` returns a nested list aggregating several research providers. It helps to pull the fields you care about into small tibbles before analyzing them. First, key technical levels from Trading Central:
+
+```{r key-levels}
+ins <- aapl_obj$technical_insights
+
+levels_tbl <- tibble::tibble(
+  level     = c("Support", "Resistance", "Stop loss"),
+  price     = c(
+    ins$instrumentInfo$keyTechnicals$support,
+    ins$instrumentInfo$keyTechnicals$resistance,
+    ins$instrumentInfo$keyTechnicals$stopLoss
+  )
+)
+
+levels_tbl
+#> # A tibble: 3 × 2
+#>   level        price
+#>   <chr>        <dbl>
+#> 1 Support       417.
+#> 2 Resistance    507.
+#> 3 Stop loss     397.
+```
+
+Next, the short-, intermediate-, and long-term outlooks, each scored on Trading Central's evidence scale:
+
+```{r outlooks}
+te <- ins$instrumentInfo$technicalEvents
+
+outlooks_tbl <- tibble::tibble(
+  horizon     = c("Short term", "Intermediate term", "Long term"),
+  direction   = c(te$shortTermOutlook$direction,
+                  te$intermediateTermOutlook$direction,
+                  te$longTermOutlook$direction),
+  score       = c(te$shortTermOutlook$score,
+                  te$intermediateTermOutlook$score,
+                  te$longTermOutlook$score),
+  description = c(te$shortTermOutlook$scoreDescription,
+                  te$intermediateTermOutlook$scoreDescription,
+                  te$longTermOutlook$scoreDescription)
+)
+
+outlooks_tbl
+#> # A tibble: 3 × 4
+#>   horizon           direction score description
+#>   <chr>             <chr>     <dbl> <chr>
+#> 1 Short term        Bullish       3 Strong Bullish Evidence
+#> 2 Intermediate term Bullish       3 Strong Bullish Evidence
+#> 3 Long term         Bearish       1 Weak Bearish Evidence
+```
+
+The valuation block summarizes where price sits relative to fair value:
+
+```{r valuation}
+ins$instrumentInfo$valuation$description
+#> [1] "Near Fair Value"
+
+ins$instrumentInfo$valuation$discount
+#> [1] "8%"
+```
+
+---
+
+## 3. Company Scorecard vs. Sector
+
+The `companySnapshot` block rates the firm on six dimensions (0–1), alongside the sector median for comparison. Pivot to long form and chart both scopes side by side:
+
+```{r company-snapshot}
+snap <- ins$companySnapshot
+
+snapshot_tbl <- tibble::tibble(
+  dimension = names(snap$company),
+  Company   = unlist(snap$company),
+  Sector    = unlist(snap$sector)
+)
+
+snapshot_long <- snapshot_tbl |>
+  pivot_longer(cols = c(Company, Sector),
+               names_to = "scope",
+               values_to = "score")
+
+snapshot_long
+#> # A tibble: 12 × 3
+#>    dimension        scope  score
+#>    <chr>            <chr>  <dbl>
+#>  1 innovativeness   Company 0.977
+#>  2 innovativeness   Sector  0.5
+#>  3 hiring           Company 0.966
+#>  4 hiring           Sector  0.5
+#> # i 8 more rows
+```
+
+```{r plot-snapshot}
+ggplot(snapshot_long, aes(x = score, y = reorder(dimension, score))) +
+  geom_point(aes(color = scope, size = scope), position = position_dodge(width = 0.5)) +
+  scale_color_manual(values = c("Company" = "#1f77b4", "Sector" = "#9aa5ad")) +
+  scale_size_manual(values = c("Company" = 3.4, "Sector" = 2.4), guide = "none") +
+  scale_x_continuous(labels = percent_format(accuracy = 1), limits = c(0, 1)) +
+  labs(
+    title    = "Company Scorecard vs. Sector Median",
+    subtitle = paste("Sector:", snap$sectorInfo),
+    x        = "Score",
+    y        = NULL,
+    color    = NULL,
+    caption  = "Source: Yahoo Finance insights via yahoofinancer"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.major.y = element_blank(),
+        legend.position = "top")
+```
+
+---
+
+## 4. Research Rating and Target Price
+
+The `recommendation` block carries a provider, categorical rating, and 12-month target price—a compact sentiment triple worth logging alongside your own models:
+
+```{r research-call}
+call_tbl <- tibble::tibble(
+  provider     = ins$recommendation$provider,
+  rating       = ins$recommendation$rating,
+  target_price = ins$recommendation$targetPrice
+)
+
+call_tbl
+#> # A tibble: 1 × 3
+#>   provider       rating target_price
+#>   <chr>          <chr>         <dbl>
+#> 1 Argus Research BUY             620
+```
+
+Recent research report headlines are also embedded under `reports`, useful for quick qualitative context:
+
+```{r report-headlines}
+head(map_chr(ins$reports, "title"), n = 3)
+#> [1] "Last week featured another monumental run for the stock market, as the major indices recaptured ..."
+#> [2] "Daily - Vickers Top Buyers & Sellers for 03/10/2026"
+#> ...
+```
+
+---
+
+## 5. Comparing Related Symbols Across a Watchlist
+
+For several symbols at once, the [`Tickers`](../reference/Tickers.html) class fans out over all of them in one call. Because each source ticker contributes its own five candidates, the combined frame uses `recommended_symbol` for the candidates while `symbol` identifies the source:
+
+```{r watchlist-fanout}
+watchlist <- Tickers$new(c("AAPL", "MSFT", "GOOG"))
+
+related_all <- watchlist$recommendations |>
+  as_tibble()
+
+related_all
+#> # A tibble: 15 x 3
+#>    symbol recommended_symbol   score
+#>    <chr>  <chr>               <dbl>
+#>  1 AAPL   AMZN              0.203
+#>  2 AAPL   TSLA              0.192
+#>  3 AAPL   GOOG              0.179
+#>  4 MSFT   AAPL              0.212
+#>  5 MSFT   ORCL              0.187
+#> # i 10 more rows
+```
+
+Keep the top candidate per source ticker, sorting inside groups:
+
+```{r watchlist-top-picks}
+best_per_source <- related_all |>
+  group_by(symbol) |>
+  arrange(desc(score), .by_group = TRUE) |>
+  slice_head(n = 1) |>
+  ungroup()
+
+best_per_source
+#> # A tibble: 3 x 3
+#>   symbol recommended_symbol score
+#>   <chr>  <chr>              <dbl>
+#> 1 AAPL   AMZN               0.203
+#> 2 MSFT   AAPL               0.212
+#> 3 GOOG   META               0.196
+```
+
+---
+
+## 6. Minimal Reproducible Example
+
+Below is the complete, self-contained workflow in a single copy-pasteable script:
+
+```{r full-workflow}
+library(yahoofinancer)
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+# 1. Fetch and plot related-symbol recommendations
+aapl_obj <- Ticker$new("AAPL")
+top_related <- aapl_obj$recommendations |>
+  arrange(desc(score))
+
+ggplot(top_related, aes(x = score, y = reorder(symbol, score))) +
+  geom_col(fill = "#1f77b4", width = 0.65) +
+  scale_x_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    title    = "Securities Most Associated with AAPL",
+    subtitle = "Yahoo Finance related-symbol relevance scores",
+    x        = "Relevance score",
+    y        = NULL,
+    caption  = "Source: Yahoo Finance via yahoofinancer"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.major.y = element_blank())
+
+# 2. Extract technical insights and key support/resistance levels
+ins <- aapl_obj$technical_insights
+
+levels_tbl <- tibble::tibble(
+  level = c("Support", "Resistance", "Stop loss"),
+  price = c(
+    ins$instrumentInfo$keyTechnicals$support,
+    ins$instrumentInfo$keyTechnicals$resistance,
+    ins$instrumentInfo$keyTechnicals$stopLoss
+  )
+)
+levels_tbl
+
+# 3. Extract research recommendation and price target
+call_tbl <- tibble::tibble(
+  provider     = ins$recommendation$provider,
+  rating       = ins$recommendation$rating,
+  target_price = ins$recommendation$targetPrice
+)
+call_tbl
+```
+
+---
+
+## 7. Summary
+
+In this guide, you learned how to:
+
+1. **Rank market associations**: Pull related-symbol scores with `Ticker$recommendations` and visualize them as ranked bars.
+2. **Unpack research snapshots**: Flatten `technical_insights` into tidy tables of key levels, directional outlooks, and valuation posture.
+3. **Compare against the sector**: Chart the six-dimension company scorecard next to its sector median.
+4. **Log the research call**: Capture provider, rating, and target price as structured fields.
+5. **Scale to a watchlist**: Fan out across multiple symbols with `Tickers` and rank within groups using `.by_group = TRUE`.
+
+---
+
+## 8. Going Further
+
+* **Combine with prices**: Overlay `keyTechnicals` support/resistance on a `yf_download_prices()` chart—see `vignette("first-stock-analysis", package = "yahoofinancer")`.
+* **Dashboard integration**: These surfaces slot directly into the reactive layer built in `vignette("shiny-dashboard", package = "yahoofinancer")`.
+* **Failure semantics**: Like every network call in the package, both bindings warn and return `invisible(NULL)` when Yahoo is unreachable—guard with `is.null()` before extracting fields.
+* **More recipes**: For drawdown analysis, technical indicators (EMA, RSI, MACD), and portfolio modeling, see `vignette("cookbook", package = "yahoofinancer")`.
