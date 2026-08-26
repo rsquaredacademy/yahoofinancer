@@ -6,6 +6,12 @@ flatten_list <- function(x) {
   unlist(lapply(x, function(m) if (is.null(m)) NA else m))
 }
 
+to_snake_case <- function(x) {
+  x <- gsub("([a-z0-9])([A-Z])", "\\1_\\2", x)
+  x <- gsub("([A-Z]+)([A-Z][a-z])", "\\1_\\2", x)
+  tolower(x)
+}
+
 parse_chart_data <- function(data, symbol = NA_character_) {
   if (is.null(data) || is.null(data$timestamp) || length(data$timestamp) == 0) {
     return(tibble::tibble(

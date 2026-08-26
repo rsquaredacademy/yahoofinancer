@@ -23,7 +23,51 @@ Ticker <- R6::R6Class(
   inherit = YahooFinanceBase,
 
   public = list(
-    # Inherits symbol, initialize, set_symbol, get_history from YahooFinanceBase
+    #' @description
+    #' Create a new Ticker object.
+    #' @param symbol Symbol (e.g., \code{"AAPL"}).
+    initialize = function(symbol = NA) {
+      private$cached_meta <- NULL
+      super$initialize(symbol)
+    },
+
+    #' @description
+    #' Set a new symbol and clear cached metadata.
+    #' @param symbol New symbol (e.g., \code{"AAPL"}).
+    set_symbol = function(symbol) {
+      private$cached_meta <- NULL
+      super$set_symbol(symbol)
+    },
+
+    #' @description
+    #' Retrieve income statement data.
+    #' @param frequency One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.
+    #' @return A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+    #'   and income statement line items, or \code{invisible(NULL)} on failure.
+    get_income_statement = function(frequency = c("annual", "quarterly")) {
+      frequency <- match.arg(frequency)
+      private$fetch_financial_statement(private$income_statement_codes, frequency)
+    },
+
+    #' @description
+    #' Retrieve balance sheet data.
+    #' @param frequency One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.
+    #' @return A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+    #'   and balance sheet line items, or \code{invisible(NULL)} on failure.
+    get_balance_sheet = function(frequency = c("annual", "quarterly")) {
+      frequency <- match.arg(frequency)
+      private$fetch_financial_statement(private$balance_sheet_codes, frequency)
+    },
+
+    #' @description
+    #' Retrieve cash flow statement data.
+    #' @param frequency One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.
+    #' @return A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+    #'   and cash flow statement line items, or \code{invisible(NULL)} on failure.
+    get_cash_flow = function(frequency = c("annual", "quarterly")) {
+      frequency <- match.arg(frequency)
+      private$fetch_financial_statement(private$cash_flow_codes, frequency)
+    }
   ),
 
   active = list(
@@ -140,6 +184,128 @@ Ticker <- R6::R6Class(
   ),
 
   private = list(
+    cached_meta = NULL,
+
+    income_statement_codes = c(
+      "TotalRevenue", "OperatingRevenue", "CostOfRevenue", "GrossProfit",
+      "OperatingExpense", "OperatingIncome", "NetNonOperatingInterestIncomeExpense",
+      "OtherIncomeExpense", "PretaxIncome", "TaxProvision", "NetIncomeContinuousOperations",
+      "NetIncome", "BasicEPS", "DilutedEPS", "BasicAverageShares", "DilutedAverageShares",
+      "EBITDA", "EBIT", "NormalizedEBITDA", "NormalizedIncome"
+    ),
+
+    balance_sheet_codes = c(
+      "TotalAssets", "CurrentAssets", "CashAndCashEquivalents", "OtherShortTermInvestments",
+      "Receivables", "Inventory", "NonCurrentAssets", "NetPPE", "GoodwillAndOtherIntangibleAssets",
+      "TotalLiabilitiesNetMinorityInterest", "CurrentLiabilities", "PayablesAndAccruedExpenses",
+      "CurrentDebt", "NonCurrentLiabilitiesTotal", "LongTermDebt", "TotalStockholderEquity",
+      "CommonStock", "RetainedEarnings", "WorkingCapital", "InvestedCapital", "NetDebt", "TotalDebt"
+    ),
+
+    cash_flow_codes = c(
+      "OperatingCashFlow", "CashFlowFromContinuingOperatingActivities",
+      "NetIncomeFromContinuingOperations", "DepreciationAndAmortization",
+      "ChangeInWorkingCapital", "ChangeInReceivables", "ChangeInInventory",
+      "InvestingCashFlow", "CashFlowFromContinuingInvestingActivities",
+      "CapitalExpenditure", "NetPPEPurchaseAndSale", "FinancingCashFlow",
+      "CashFlowFromContinuingFinancingActivities", "CommonStockIssuancePayments",
+      "CashDividendsPaid", "FreeCashFlow", "EndCashPosition", "BeginningCashPosition"
+    ),
+
+    fetch_financial_statement = function(metric_codes, frequency = c("annual", "quarterly")) {
+      frequency <- match.arg(frequency)
+      full_types <- paste0(frequency, metric_codes)
+      type_param <- paste(full_types, collapse = ",")
+
+      path <- paste0("ws/fundamentals-timeseries/v1/finance/timeseries/", self$symbol)
+      qlist <- list(
+        type = type_param,
+        period1 = 493590046,
+        period2 = floor(as.numeric(Sys.time())),
+        corsDomain = private$cors_domain
+      )
+
+      parsed <- private$api_request(path, qlist)
+      if (is.null(parsed)) return(invisible(NULL))
+
+      data <- parsed$timeseries$result
+      if (is.null(data) || length(data) == 0) return(invisible(NULL))
+
+      private$parse_timeseries_statements(data, metric_codes, frequency)
+    },
+
+    parse_timeseries_statements = function(data, metric_codes, frequency) {
+      rows <- list()
+      for (item in data) {
+        meta_type <- if (!is.null(item$meta$type)) item$meta$type[[1]] else setdiff(names(item), "meta")[1]
+        if (is.null(meta_type) || !meta_type %in% names(item)) next
+
+        obs_list <- item[[meta_type]]
+        if (is.null(obs_list) || length(obs_list) == 0) next
+
+        clean_metric <- sub(paste0("^", frequency), "", meta_type)
+        snake_metric <- to_snake_case(clean_metric)
+
+        for (obs in obs_list) {
+          if (is.null(obs$asOfDate)) next
+          d <- obs$asOfDate
+          pt <- if (!is.null(obs$periodType)) obs$periodType else NA_character_
+          val <- if (!is.null(obs$reportedValue) && !is.null(obs$reportedValue$raw)) {
+            as.numeric(obs$reportedValue$raw)
+          } else if (!is.null(obs$reportedValue) && is.numeric(obs$reportedValue)) {
+            as.numeric(obs$reportedValue)
+          } else {
+            NA_real_
+          }
+
+          rows[[length(rows) + 1]] <- list(
+            date = d,
+            period_type = pt,
+            metric = snake_metric,
+            value = val
+          )
+        }
+      }
+
+      if (length(rows) == 0) return(invisible(NULL))
+
+      dates <- vapply(rows, function(r) r$date, character(1))
+      period_types <- vapply(rows, function(r) r$period_type, character(1))
+      metrics <- vapply(rows, function(r) r$metric, character(1))
+      values <- vapply(rows, function(r) r$value, numeric(1))
+
+      long_df <- data.frame(
+        date = as.Date(dates),
+        period_type = period_types,
+        metric = metrics,
+        value = values,
+        stringsAsFactors = FALSE
+      )
+
+      periods <- unique(long_df[, c("date", "period_type")])
+      periods <- periods[order(periods$date), , drop = FALSE]
+      row.names(periods) <- NULL
+
+      res <- tibble::tibble(
+        date = periods$date,
+        period_type = periods$period_type
+      )
+
+      expected_snakes <- unique(to_snake_case(metric_codes))
+      returned_metrics <- unique(long_df$metric)
+      ordered_metrics <- expected_snakes[expected_snakes %in% returned_metrics]
+      extra_metrics <- setdiff(returned_metrics, ordered_metrics)
+      all_to_add <- c(ordered_metrics, extra_metrics)
+
+      for (m in all_to_add) {
+        sub_df <- long_df[long_df$metric == m, ]
+        idx <- match(paste(res$date, res$period_type), paste(sub_df$date, sub_df$period_type))
+        res[[m]] <- sub_df$value[idx]
+      }
+
+      return(res)
+    },
+
     extract_valuation = function(data, measure) {
       if (is.null(data) || length(data) == 0) return(numeric(0))
       res <- data %>%
@@ -152,11 +318,15 @@ Ticker <- R6::R6Class(
     },
 
     meta_info = function() {
+      if (!is.null(private$cached_meta)) {
+        return(private$cached_meta)
+      }
       path      <- 'v8/finance/chart/'
       end_point <- paste0(path, self$symbol)
       parsed    <- private$api_request(end_point)
       if (is.null(parsed)) return(NULL)
-      parsed$chart$result[[1]]$meta
+      private$cached_meta <- parsed$chart$result[[1]]$meta
+      private$cached_meta
     }
   )
 )

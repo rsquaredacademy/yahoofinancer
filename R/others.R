@@ -18,56 +18,19 @@
 #' @export
 #'
 get_currencies <- function() {
-  base_url <- 'https://query1.finance.yahoo.com'
-  path     <- 'v1/finance/currencies'
-  url      <- paste0(base_url, "/", path)
+  url <- 'https://query1.finance.yahoo.com/v1/finance/currencies'
+  parsed <- api_request(url)
+  if (is.null(parsed)) return(invisible(NULL))
 
-  if (!has_internet()) {
-    message("No internet connection.")
-    return(invisible(NULL))
-  }
+  data <- parsed$currencies$result
+  if (is.null(data) || length(data) == 0) return(invisible(NULL))
 
-  req <- httr2::request(url)
-  req <- httr2::req_user_agent(req, "yahoofinancer")
-  req <- httr2::req_retry(req, max_tries = 4, backoff = function(re_try) 2^re_try)
-  req <- httr2::req_timeout(req, 15)
-  req <- httr2::req_error(req, is_error = function(resp) FALSE)
-
-  resp <- tryCatch(
-    httr2::req_perform(req),
-    error = function(e) NULL
+  data.frame(
+    short_name      = map_chr(data, 'shortName'),
+    long_name       = map_chr(data, 'longName'),
+    symbol          = map_chr(data, 'symbol'),
+    local_long_name = map_chr(data, 'localLongName')
   )
-
-  if (is.null(resp)) return(invisible(NULL))
-
-  parsed <- tryCatch(
-    httr2::resp_body_json(resp, simplifyVector = FALSE),
-    error = function(e) list()
-  )
-
-  if (httr2::resp_is_error(resp)) {
-    status <- httr2::resp_status(resp)
-    cat(
-      "Yahoo Finance API request failed", '\n',
-      paste('Status:', status), '\n',
-      paste('Type:', if (status >= 400 && status < 500) "Client error" else "Server error"), '\n',
-      paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-      paste('Description:', parsed$quoteSummary$error$description, '\n'),
-      sep = ''
-    )
-    return(invisible(NULL))
-  } else {
-
-    data <- parsed$currencies$result
-
-    data.frame(
-      short_name      = map_chr(data, 'shortName'),
-      long_name       = map_chr(data, 'longName'),
-      symbol          = map_chr(data, 'symbol'),
-      local_long_name = map_chr(data, 'localLongName')
-    )
-
-  }
 }
 
 
@@ -120,85 +83,49 @@ get_market_summary <- function(as_tibble = TRUE) {
     )
   }
 
-  base_url <- 'https://query1.finance.yahoo.com'
-  path     <- 'v6/finance/quote/marketSummary'
-  url      <- paste0(base_url, "/", path)
-  qlist    <- list(region = 'US')
+  url   <- 'https://query1.finance.yahoo.com/v6/finance/quote/marketSummary'
+  qlist <- list(region = 'US')
 
-  if (!has_internet()) {
-    message("No internet connection.")
+  parsed <- api_request(url, qlist)
+  if (is.null(parsed)) {
     if (as_tibble) return(empty_tibble()) else return(invisible(NULL))
   }
 
-  req <- httr2::request(url)
-  req <- httr2::req_user_agent(req, "yahoofinancer")
-  req <- do.call(httr2::req_url_query, c(list(req), qlist))
-  req <- httr2::req_retry(req, max_tries = 4, backoff = function(re_try) 2^re_try)
-  req <- httr2::req_timeout(req, 15)
-  req <- httr2::req_error(req, is_error = function(resp) FALSE)
+  data <- parsed$marketSummaryResponse$result
 
-  resp <- tryCatch(
-    httr2::req_perform(req),
-    error = function(e) NULL
-  )
-
-  if (is.null(resp)) {
-    if (as_tibble) return(empty_tibble()) else return(invisible(NULL))
-  }
-
-  parsed <- tryCatch(
-    httr2::resp_body_json(resp, simplifyVector = FALSE),
-    error = function(e) list()
-  )
-
-  if (httr2::resp_is_error(resp)) {
-    status <- httr2::resp_status(resp)
-    cat(
-      "Yahoo Finance API request failed", '\n',
-      paste('Status:', status), '\n',
-      paste('Type:', if (status >= 400 && status < 500) "Client error" else "Server error"), '\n',
-      paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-      paste('Description:', parsed$quoteSummary$error$description, '\n'),
-      sep = ''
-    )
-    if (as_tibble) return(empty_tibble()) else return(invisible(NULL))
-  } else {
-    data <- parsed$marketSummaryResponse$result
-    
-    if (as_tibble) {
-      if (length(data) == 0) {
-        return(empty_tibble())
-      }
-      
-      safe_extract_scalar_char <- function(x, name, default = NA_character_) {
-        val <- x[[name]]
-        if (is.null(val)) return(default)
-        as.character(val)
-      }
-      
-      safe_extract_raw_numeric <- function(x, name, default = NA_real_) {
-        val <- x[[name]]
-        if (is.null(val) || is.null(val$raw)) return(default)
-        as.numeric(val$raw)
-      }
-      
-      res <- tibble::tibble(
-        symbol = vapply(data, safe_extract_scalar_char, name = "symbol", FUN.VALUE = character(1)),
-        short_name = vapply(data, safe_extract_scalar_char, name = "shortName", FUN.VALUE = character(1)),
-        regular_market_price = vapply(data, safe_extract_raw_numeric, name = "regularMarketPrice", FUN.VALUE = numeric(1)),
-        regular_market_change = vapply(data, safe_extract_raw_numeric, name = "regularMarketChange", FUN.VALUE = numeric(1)),
-        regular_market_change_percent = vapply(data, safe_extract_raw_numeric, name = "regularMarketChangePercent", FUN.VALUE = numeric(1)),
-        regular_market_previous_close = vapply(data, safe_extract_raw_numeric, name = "regularMarketPreviousClose", FUN.VALUE = numeric(1)),
-        market_state = vapply(data, safe_extract_scalar_char, name = "marketState", FUN.VALUE = character(1)),
-        exchange = vapply(data, safe_extract_scalar_char, name = "exchange", FUN.VALUE = character(1)),
-        market_time = as.POSIXct(vapply(data, safe_extract_raw_numeric, name = "regularMarketTime", FUN.VALUE = numeric(1)), origin = "1970-01-01", tz = "UTC")
-      )
-      
-      return(res)
-    } else {
-      if (length(data) == 0) return(list())
-      return(data)
+  if (as_tibble) {
+    if (length(data) == 0) {
+      return(empty_tibble())
     }
+
+    safe_extract_scalar_char <- function(x, name, default = NA_character_) {
+      val <- x[[name]]
+      if (is.null(val)) return(default)
+      as.character(val)
+    }
+
+    safe_extract_raw_numeric <- function(x, name, default = NA_real_) {
+      val <- x[[name]]
+      if (is.null(val) || is.null(val$raw)) return(default)
+      as.numeric(val$raw)
+    }
+
+    res <- tibble::tibble(
+      symbol = vapply(data, safe_extract_scalar_char, name = "symbol", FUN.VALUE = character(1)),
+      short_name = vapply(data, safe_extract_scalar_char, name = "shortName", FUN.VALUE = character(1)),
+      regular_market_price = vapply(data, safe_extract_raw_numeric, name = "regularMarketPrice", FUN.VALUE = numeric(1)),
+      regular_market_change = vapply(data, safe_extract_raw_numeric, name = "regularMarketChange", FUN.VALUE = numeric(1)),
+      regular_market_change_percent = vapply(data, safe_extract_raw_numeric, name = "regularMarketChangePercent", FUN.VALUE = numeric(1)),
+      regular_market_previous_close = vapply(data, safe_extract_raw_numeric, name = "regularMarketPreviousClose", FUN.VALUE = numeric(1)),
+      market_state = vapply(data, safe_extract_scalar_char, name = "marketState", FUN.VALUE = character(1)),
+      exchange = vapply(data, safe_extract_scalar_char, name = "exchange", FUN.VALUE = character(1)),
+      market_time = as.POSIXct(vapply(data, safe_extract_raw_numeric, name = "regularMarketTime", FUN.VALUE = numeric(1)), origin = "1970-01-01", tz = "UTC")
+    )
+
+    return(res)
+  } else {
+    if (length(data) == 0) return(list())
+    return(data)
   }
 }
 
@@ -229,60 +156,24 @@ get_market_summary <- function(as_tibble = TRUE) {
 #'
 get_trending <- function(country = 'US', count = 10) {
 
-  base_url  <- 'https://query1.finance.yahoo.com'
-  path      <- 'v1/finance/trending/'
-  end_point <- paste0(path, country)
-  url       <- paste0(base_url, "/", end_point)
-  qlist     <- list(count = count)
+  url   <- paste0('https://query1.finance.yahoo.com/v1/finance/trending/', country)
+  qlist <- list(count = count)
 
-  if (!has_internet()) {
-    message("No internet connection.")
-    return(invisible(NULL))
-  }
+  parsed <- api_request(url, qlist)
+  if (is.null(parsed)) return(invisible(NULL))
 
-  req <- httr2::request(url)
-  req <- httr2::req_user_agent(req, "yahoofinancer")
-  req <- do.call(httr2::req_url_query, c(list(req), qlist))
-  req <- httr2::req_retry(req, max_tries = 4, backoff = function(re_try) 2^re_try)
-  req <- httr2::req_timeout(req, 15)
-  req <- httr2::req_error(req, is_error = function(resp) FALSE)
+  data <- parsed$finance$result
 
-  resp <- tryCatch(
-    httr2::req_perform(req),
-    error = function(e) NULL
-  )
-
-  if (is.null(resp)) return(invisible(NULL))
-
-  parsed <- tryCatch(
-    httr2::resp_body_json(resp, simplifyVector = FALSE),
-    error = function(e) list()
-  )
-
-  if (httr2::resp_is_error(resp)) {
-    status <- httr2::resp_status(resp)
-    cat(
-      "Yahoo Finance API request failed", '\n',
-      paste('Status:', status), '\n',
-      paste('Type:', if (status >= 400 && status < 500) "Client error" else "Server error"), '\n',
-      paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-      paste('Description:', parsed$quoteSummary$error$description, '\n'),
-      sep = ''
-    )
-    return(invisible(NULL))
+  if (length(data) > 0 && !is.null(data[[1]]$quotes)) {
+    vapply(data[[1]]$quotes, function(x) x$symbol, character(1))
+  } else if (length(data) > 0 && !is.null(data[[1]]$quote)) {
+    data %>%
+      extract2(1) %>%
+      use_series(quote) %>%
+      map_chr('symbol')
   } else {
-
-    data <- parsed$finance$result
-
-    if (length(data) > 0) {
-      data %>%
-        extract2(1) %>%
-        use_series(quote) %>%
-        map_chr('symbol')
-    } else {
-      message('No trending securities.')
-    }
-
+    message('No trending securities.')
+    return(invisible(NULL))
   }
 
 }
@@ -344,70 +235,40 @@ get_trending <- function(country = 'US', count = 10) {
 currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NULL, period = 'ytd', interval = '1d') {
 
   if (!is.null(start)) {
-    start_date <- as.numeric(as.POSIXct(ymd(start, tz = "UTC"), tz = "UTC"))
+    start_dt <- lubridate::ymd(start, tz = "UTC", quiet = TRUE)
+    if (is.na(start_dt)) {
+      stop("Invalid 'start' date format. Please use 'YYYY-MM-DD'.", call. = FALSE)
+    }
+    start_date <- as.numeric(as.POSIXct(start_dt, tz = "UTC"))
   }
 
   if (!is.null(end)) {
-    end_date <- as.numeric(as.POSIXct(ymd(end, tz = "UTC"), tz = "UTC"))
+    end_dt <- lubridate::ymd(end, tz = "UTC", quiet = TRUE)
+    if (is.na(end_dt)) {
+      stop("Invalid 'end' date format. Please use 'YYYY-MM-DD'.", call. = FALSE)
+    }
+    end_date <- as.numeric(as.POSIXct(end_dt, tz = "UTC"))
   }
 
-  base_url    <- 'https://query1.finance.yahoo.com'
-  path        <- 'v8/finance/chart/'
   cors_domain <- 'finance.yahoo.com'
-  end_point   <- paste0(path, from, to, '=X')
-  url         <- paste0(base_url, "/", end_point)
+  url         <- paste0('https://query1.finance.yahoo.com/v8/finance/chart/', from, to, '=X')
 
   if (!is.null(start) && !is.null(end)) {
     qlist <- list(period1 = start_date, period2 = end_date, interval = interval, corsDomain = cors_domain)
   } else if (!is.null(start) && is.null(end)) {
-    qlist <- list(period1 = start_date, period2 = round(as.numeric(as.POSIXct(now("UTC")))), interval = interval, corsDomain = cors_domain)
+    qlist <- list(period1 = start_date, period2 = round(as.numeric(as.POSIXct(lubridate::now("UTC")))), interval = interval, corsDomain = cors_domain)
   } else {
     qlist <- list(range = period, interval = interval, corsDomain = cors_domain)
   }
 
-  if (!has_internet()) {
-    message("No internet connection.")
-    return(invisible(NULL))
-  }
-
-  req <- httr2::request(url)
-  req <- httr2::req_user_agent(req, "yahoofinancer")
-  req <- do.call(httr2::req_url_query, c(list(req), qlist))
-  req <- httr2::req_retry(req, max_tries = 4, backoff = function(re_try) 2^re_try)
-  req <- httr2::req_timeout(req, 15)
-  req <- httr2::req_error(req, is_error = function(resp) FALSE)
-
-  resp <- tryCatch(
-    httr2::req_perform(req),
-    error = function(e) NULL
-  )
-
-  if (is.null(resp)) return(invisible(NULL))
-
-  parsed <- tryCatch(
-    httr2::resp_body_json(resp, simplifyVector = FALSE),
-    error = function(e) list()
-  )
-
-  if (httr2::resp_is_error(resp)) {
-    status <- httr2::resp_status(resp)
-    cat(
-      "Yahoo Finance API request failed", '\n',
-      paste('Status:', status), '\n',
-      paste('Type:', if (status >= 400 && status < 500) "Client error" else "Server error"), '\n',
-      paste('Mesage:', parsed$quoteSummary$error$code), '\n',
-      paste('Description:', parsed$quoteSummary$error$description, '\n'),
-      sep = ''
-    )
-    return(invisible(NULL))
-  } else {
+  parsed <- api_request(url, qlist)
+  if (is.null(parsed)) return(invisible(NULL))
 
   data <- parsed$chart$result[[1]]
-
   indicators <- data$indicators$quote[[1]]
 
   result <- data.frame(
-    date   = as_datetime(unlist(data$timestamp)),
+    date   = lubridate::as_datetime(unlist(data$timestamp)),
     high   = flatten_list(indicators$high),
     low    = flatten_list(indicators$low),
     open   = flatten_list(indicators$open),
@@ -427,9 +288,4 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
   }
 
   return(subset(result, !is.na(volume)))
-
-  }
-
 }
-
-
