@@ -11,9 +11,8 @@ Source:
 [`DESCRIPTION`](https://github.com/rsquaredacademy/yahoofinancer/blob/HEAD/DESCRIPTION)
 
 Hebbali A (2026). *yahoofinancer: Fetch Data from Yahoo Finance API*. R
-package version 0.5.0.9000,
-<https://yahoofinancer.rsquaredacademy.com/>.
+package version 0.6.1, <https://yahoofinancer.rsquaredacademy.com/>.
 
 @Manual{, title = {yahoofinancer: Fetch Data from Yahoo Finance API},
 author = {Aravind Hebbali}, year = {2026}, note = {R package version
-0.5.0.9000}, url = {https://yahoofinancer.rsquaredacademy.com/}, }
+0.6.1}, url = {https://yahoofinancer.rsquaredacademy.com/}, }

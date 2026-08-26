@@ -95,13 +95,119 @@ Other historical data:
 
 ### Public methods
 
+- [`Ticker$new()`](#method-Ticker-new)
+
+- [`Ticker$set_symbol()`](#method-Ticker-set_symbol)
+
+- [`Ticker$get_income_statement()`](#method-Ticker-get_income_statement)
+
+- [`Ticker$get_balance_sheet()`](#method-Ticker-get_balance_sheet)
+
+- [`Ticker$get_cash_flow()`](#method-Ticker-get_cash_flow)
+
 - [`Ticker$clone()`](#method-Ticker-clone)
 
 Inherited methods
 
 - [`yahoofinancer::YahooFinanceBase$get_history()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-get_history)
-- [`yahoofinancer::YahooFinanceBase$initialize()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-initialize)
-- [`yahoofinancer::YahooFinanceBase$set_symbol()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-set_symbol)
+
+------------------------------------------------------------------------
+
+### Method `new()`
+
+Create a new Ticker object.
+
+#### Usage
+
+    Ticker$new(symbol = NA)
+
+#### Arguments
+
+- `symbol`:
+
+  Symbol (e.g., `"AAPL"`).
+
+------------------------------------------------------------------------
+
+### Method `set_symbol()`
+
+Set a new symbol and clear cached metadata.
+
+#### Usage
+
+    Ticker$set_symbol(symbol)
+
+#### Arguments
+
+- `symbol`:
+
+  New symbol (e.g., `"AAPL"`).
+
+------------------------------------------------------------------------
+
+### Method `get_income_statement()`
+
+Retrieve income statement data.
+
+#### Usage
+
+    Ticker$get_income_statement(frequency = c("annual", "quarterly"))
+
+#### Arguments
+
+- `frequency`:
+
+  One of `"annual"` or `"quarterly"`. Defaults to `"annual"`.
+
+#### Returns
+
+A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with
+columns `date`, `period_type`, and income statement line items, or
+`invisible(NULL)` on failure.
+
+------------------------------------------------------------------------
+
+### Method `get_balance_sheet()`
+
+Retrieve balance sheet data.
+
+#### Usage
+
+    Ticker$get_balance_sheet(frequency = c("annual", "quarterly"))
+
+#### Arguments
+
+- `frequency`:
+
+  One of `"annual"` or `"quarterly"`. Defaults to `"annual"`.
+
+#### Returns
+
+A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with
+columns `date`, `period_type`, and balance sheet line items, or
+`invisible(NULL)` on failure.
+
+------------------------------------------------------------------------
+
+### Method `get_cash_flow()`
+
+Retrieve cash flow statement data.
+
+#### Usage
+
+    Ticker$get_cash_flow(frequency = c("annual", "quarterly"))
+
+#### Arguments
+
+- `frequency`:
+
+  One of `"annual"` or `"quarterly"`. Defaults to `"annual"`.
+
+#### Returns
+
+A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with
+columns `date`, `period_type`, and cash flow statement line items, or
+`invisible(NULL)` on failure.
 
 ------------------------------------------------------------------------
 

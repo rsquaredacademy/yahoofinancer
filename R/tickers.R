@@ -88,9 +88,16 @@ Tickers <- R6::R6Class("Tickers",
       results <- lapply(self$ticker_objs, function(t) {
         tryCatch({
           data <- fn(t)
-          if (is.null(data) || length(data) == 0) return(NULL)
+          if (is.null(data) || length(data) == 0) {
+            warning(paste0("Failed to fetch data for ticker: ", t$symbol), call. = FALSE)
+            return(NULL)
+          }
 
           if (is.data.frame(data)) {
+            if (nrow(data) == 0) {
+              warning(paste0("Failed to fetch data for ticker: ", t$symbol), call. = FALSE)
+              return(NULL)
+            }
             # Handle recommendation column collision
             if ("symbol" %in% names(data) && !"date" %in% names(data)) {
               names(data)[names(data) == "symbol"] <- "recommended_symbol"
@@ -108,7 +115,10 @@ Tickers <- R6::R6Class("Tickers",
             value = data,
             stringsAsFactors = FALSE
           ))
-        }, error = function(e) return(NULL))
+        }, error = function(e) {
+          warning(paste0("Failed to fetch data for ticker: ", t$symbol), call. = FALSE)
+          return(NULL)
+        })
       })
 
       # Filter out NULLs (failed API calls or errors)

@@ -43,9 +43,8 @@ validate <- function(symbol = NULL, index = NA, return_logical = FALSE) {
     return(if (return_logical) logical(0) else character(0))
   }
 
-  # Filter out NAs but keep original order and length for logical return
   orig_symbol <- symbol
-  
+
   if (!has_internet()) {
     message("No internet connection.")
     res <- rep(FALSE, length(orig_symbol))
@@ -53,46 +52,57 @@ validate <- function(symbol = NULL, index = NA, return_logical = FALSE) {
     return(if (return_logical) res else character(0))
   }
 
-  validate_single <- function(sym) {
-    if (is.na(sym)) return(FALSE)
-    if (nchar(trimws(sym)) == 0) return(FALSE)
-    
-    base_url <- 'https://query2.finance.yahoo.com'
-    path     <- 'v6/finance/quote/validate'
-    url      <- paste0(base_url, "/", path)
-    qlist    <- list(symbols = sym)
+  symbols_to_query <- unique(orig_symbol[!is.na(orig_symbol) & nchar(trimws(orig_symbol)) > 0])
 
-    req <- httr2::request(url)
-    req <- httr2::req_user_agent(req, "yahoofinancer")
-    req <- do.call(httr2::req_url_query, c(list(req), qlist))
-    req <- httr2::req_retry(req, max_tries = 4, backoff = function(re_try) 2^re_try)
-    req <- httr2::req_timeout(req, 15)
-    req <- httr2::req_error(req, is_error = function(resp) FALSE)
-
-    resp <- tryCatch(
-      httr2::req_perform(req),
-      error = function(e) NULL
-    )
-
-    if (is.null(resp) || httr2::resp_is_error(resp)) return(FALSE)
-
-    parsed <- tryCatch(
-      httr2::resp_body_json(resp, simplifyVector = FALSE),
-      error = function(e) list()
-    )
-
-    tryCatch({
-      val <- parsed$symbolsValidation$result[[1]][[1]]
-      if (is.null(val)) FALSE else as.logical(val)
-    }, error = function(e) FALSE)
+  if (length(symbols_to_query) == 0) {
+    res <- rep(FALSE, length(orig_symbol))
+    names(res) <- orig_symbol
+    return(if (return_logical) res else character(0))
   }
 
-  results <- vapply(orig_symbol, validate_single, FUN.VALUE = logical(1), USE.NAMES = TRUE)
+  url   <- 'https://query2.finance.yahoo.com/v6/finance/quote/validate'
+  qlist <- list(symbols = paste(symbols_to_query, collapse = ","))
+
+  parsed <- api_request(url, qlist)
+  if (is.null(parsed)) {
+    res <- rep(FALSE, length(orig_symbol))
+    names(res) <- orig_symbol
+    return(if (return_logical) res else character(0))
+  }
+
+  valid_map <- list()
+  raw_res <- parsed$symbolsValidation$result
+
+  if (!is.null(raw_res)) {
+    vals <- unlist(raw_res)
+    clean_names <- sub("^.*\\.", "", names(vals))
+    matching_names <- intersect(symbols_to_query, clean_names)
+    if (length(matching_names) > 0) {
+      for (i in seq_along(vals)) {
+        nm <- clean_names[i]
+        valid_map[[nm]] <- isTRUE(as.logical(vals[i]))
+      }
+    } else if (length(vals) == length(symbols_to_query)) {
+      for (i in seq_along(symbols_to_query)) {
+        valid_map[[symbols_to_query[i]]] <- isTRUE(as.logical(vals[i]))
+      }
+    }
+  }
+
+  res <- rep(FALSE, length(orig_symbol))
+  names(res) <- orig_symbol
+
+  for (i in seq_along(orig_symbol)) {
+    s <- orig_symbol[i]
+    if (!is.na(s) && isTRUE(valid_map[[s]])) {
+      res[i] <- TRUE
+    }
+  }
 
   if (return_logical) {
-    return(results)
+    return(res)
   } else {
-    valid_symbols <- names(results)[results & !is.na(names(results))]
+    valid_symbols <- orig_symbol[res & !is.na(orig_symbol)]
     return(unname(valid_symbols))
   }
 }

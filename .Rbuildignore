@@ -35,4 +35,5 @@
 ^roadmap/
 ^cookb.*review.*\.md$
 ^daily-logs\.md$
-
+^\.lintr$
+^CONTRIBUTING\.md$

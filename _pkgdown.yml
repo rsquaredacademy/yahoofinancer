@@ -21,6 +21,8 @@ navbar:
           href: articles/comparing-portfolios.html
         - text: 'Currency Conversion and Forex Data'
           href: articles/currency-conversion.html
+        - text: 'Fundamental Analysis and Stock Screening'
+          href: articles/fundamental-screening.html
         - text: 'Building a Live Market Dashboard'
           href: articles/shiny-dashboard.html
         - text: 'Related-Symbol Recommendations and Technical Insights'
@@ -47,6 +49,7 @@ articles:
       - first-stock-analysis
       - comparing-portfolios
       - currency-conversion
+      - fundamental-screening
       - shiny-dashboard
       - analyst-sentiment
       - event-study

@@ -6,7 +6,8 @@
 \usage{
 yf_get_financials(
   tickers,
-  statement_type = c("income", "balance-sheet", "cash-flow")
+  statement_type = c("income", "balance-sheet", "cash-flow"),
+  frequency = c("annual", "quarterly")
 )
 }
 \arguments{
@@ -14,6 +15,8 @@ yf_get_financials(
 
 \item{statement_type}{The type of financial statement to retrieve.
 One of \code{"income"}, \code{"balance-sheet"}, or \code{"cash-flow"}.}
+
+\item{frequency}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
 }
 \value{
 A \code{\link[tibble]{tibble}} with \code{symbol} as the first
@@ -22,13 +25,13 @@ A \code{\link[tibble]{tibble}} with \code{symbol} as the first
   Returns an empty tibble if all tickers fail.
 }
 \description{
-Retrieves quarterly/annual financial statements (income statement,
+Retrieves quarterly or annual financial statements (income statement,
 balance sheet, or cash flow) for one or more tickers.
 }
 \examples{
 \dontrun{
 yf_get_financials("AAPL", statement_type = "income")
-yf_get_financials(c("AAPL", "MSFT"), statement_type = "balance-sheet")
+yf_get_financials(c("AAPL", "MSFT"), statement_type = "balance-sheet", frequency = "quarterly")
 }
 
 }

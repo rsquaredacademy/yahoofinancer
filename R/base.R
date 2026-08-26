@@ -94,6 +94,50 @@ YahooFinanceBase <- R6::R6Class(
           stop("Invalid 'end' date format. Please use 'YYYY-MM-DD'.", call. = FALSE)
         }
         end_date <- as.numeric(as.POSIXct(end_dt, tz = "UTC"))
+        if (!is.null(start) && start_dt > end_dt) {
+          stop("'start' date must be before or equal to 'end' date.", call. = FALSE)
+        }
+      }
+
+      if (!is.null(end) && is.null(start)) {
+        warning("'end' was provided without 'start'. Ignoring 'end' and using 'period'.", call. = FALSE)
+        end <- NULL
+      }
+
+      intraday_intervals <- c("1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h")
+      if (interval %in% intraday_intervals) {
+        max_days <- if (interval == "1m") {
+          7
+        } else if (interval %in% c("2m", "5m", "15m", "30m", "60m", "90m")) {
+          60
+        } else {
+          730
+        }
+
+        if (!is.null(start)) {
+          days_diff <- as.numeric(difftime(Sys.Date(), lubridate::as_date(start_dt), units = "days"))
+          if (days_diff > max_days) {
+            stop(sprintf("Interval '%s' is limited to a maximum lookback of %d days.", interval, max_days), call. = FALSE)
+          }
+        } else {
+          period_days <- switch(period,
+            "1d" = 1,
+            "5d" = 5,
+            "1mo" = 31,
+            "3mo" = 92,
+            "6mo" = 183,
+            "1y" = 365,
+            "2y" = 730,
+            "5y" = 1825,
+            "10y" = 3650,
+            "ytd" = as.numeric(difftime(Sys.Date(), lubridate::as_date(paste0(lubridate::year(Sys.Date()), "-01-01")), units = "days")),
+            "max" = Inf,
+            Inf
+          )
+          if (period_days > max_days) {
+            stop(sprintf("Interval '%s' is limited to a maximum lookback of %d days.", interval, max_days), call. = FALSE)
+          }
+        }
       }
 
       path      <- 'v8/finance/chart/'
@@ -122,53 +166,7 @@ YahooFinanceBase <- R6::R6Class(
 
     api_request = function(path, query = list(), headers = list()) {
       url <- paste0(private$base_url, "/", sub("^/", "", path))
-
-      if (!has_internet()) {
-        message("No internet connection.")
-        return(NULL)
-      }
-
-      req <- httr2::request(url)
-      req <- httr2::req_user_agent(req, "yahoofinancer")
-
-      if (length(headers) > 0) {
-        req <- do.call(httr2::req_headers, c(list(req), headers))
-      }
-
-      if (length(query) > 0) {
-        req <- do.call(httr2::req_url_query, c(list(req), query))
-      }
-
-      req <- httr2::req_retry(req, max_tries = 4, backoff = function(re_try) 2^re_try)
-      req <- httr2::req_timeout(req, 15)
-      req <- httr2::req_error(req, is_error = function(resp) FALSE)
-
-      resp <- tryCatch(
-        httr2::req_perform(req),
-        error = function(e) NULL
-      )
-
-      if (is.null(resp)) return(NULL)
-
-      parsed <- tryCatch(
-        httr2::resp_body_json(resp, simplifyVector = FALSE),
-        error = function(e) list()
-      )
-
-      if (httr2::resp_is_error(resp)) {
-        # Standardize error reporting
-        err_msg <- if (!is.null(parsed$chart$error$description)) {
-          parsed$chart$error$description
-        } else if (!is.null(parsed$quoteSummary$error$description)) {
-          parsed$quoteSummary$error$description
-        } else {
-          "Unknown Error"
-        }
-        warning(sprintf("Yahoo Finance API failed [%s]: %s", httr2::resp_status(resp), err_msg), call. = FALSE)
-        return(NULL)
-      }
-
-      return(parsed)
+      api_request(url, query = query, headers = headers)
     }
   )
 )

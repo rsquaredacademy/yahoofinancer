@@ -66,6 +66,11 @@ Other historical data:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-Ticker-new}{\code{Ticker$new()}}
+\item \href{#method-Ticker-set_symbol}{\code{Ticker$set_symbol()}}
+\item \href{#method-Ticker-get_income_statement}{\code{Ticker$get_income_statement()}}
+\item \href{#method-Ticker-get_balance_sheet}{\code{Ticker$get_balance_sheet()}}
+\item \href{#method-Ticker-get_cash_flow}{\code{Ticker$get_cash_flow()}}
 \item \href{#method-Ticker-clone}{\code{Ticker$clone()}}
 }
 }
@@ -73,11 +78,106 @@ Other historical data:
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-get_history'><code>yahoofinancer::YahooFinanceBase$get_history()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="initialize"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-initialize'><code>yahoofinancer::YahooFinanceBase$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="set_symbol"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-set_symbol'><code>yahoofinancer::YahooFinanceBase$set_symbol()</code></a></span></li>
 </ul>
 </details>
 }}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Ticker-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-new}{}}}
+\subsection{Method \code{new()}}{
+Create a new Ticker object.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$new(symbol = NA)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{symbol}}{Symbol (e.g., \code{"AAPL"}).}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Ticker-set_symbol"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-set_symbol}{}}}
+\subsection{Method \code{set_symbol()}}{
+Set a new symbol and clear cached metadata.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$set_symbol(symbol)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{symbol}}{New symbol (e.g., \code{"AAPL"}).}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Ticker-get_income_statement"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-get_income_statement}{}}}
+\subsection{Method \code{get_income_statement()}}{
+Retrieve income statement data.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_income_statement(frequency = c("annual", "quarterly"))}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+  and income statement line items, or \code{invisible(NULL)} on failure.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Ticker-get_balance_sheet"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-get_balance_sheet}{}}}
+\subsection{Method \code{get_balance_sheet()}}{
+Retrieve balance sheet data.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_balance_sheet(frequency = c("annual", "quarterly"))}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+  and balance sheet line items, or \code{invisible(NULL)} on failure.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Ticker-get_cash_flow"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-get_cash_flow}{}}}
+\subsection{Method \code{get_cash_flow()}}{
+Retrieve cash flow statement data.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_cash_flow(frequency = c("annual", "quarterly"))}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+  and cash flow statement line items, or \code{invisible(NULL)} on failure.
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Ticker-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Ticker-clone}{}}}

@@ -1,4 +1,21 @@
-# yahoofinancer (development version)
+# yahoofinancer 0.6.1
+
+## Bug Fixes & Architectural Improvements
+
+* **Financial Statements Restoration**: Added working `$get_income_statement()`, `$get_balance_sheet()`, and `$get_cash_flow()` methods on `Ticker` backed by Yahoo's `fundamentals-timeseries` endpoint with support for `frequency = c("annual", "quarterly")`. Updated `yf_get_financials()` to return tidy tibbles with line items. ([#48](https://github.com/rsquaredacademy/yahoofinancer/issues/48))
+* **Unified HTTP Request Engine**: Centralized all API communication into a unified internal `api_request()` helper with automatic retry, timeout, user agent header, and structured error reporting across all endpoints. ([#49](https://github.com/rsquaredacademy/yahoofinancer/issues/49))
+* **Standardized Failure Contracts**: Multi-symbol routines (`Tickers$aggregate_data()`, `yf_download_prices()`, `yf_get_financials()`, `yf_get_market_stats()`, `yf_get_index_quotes()`) consistently warn on failed symbols and return empty tibbles matching documented schemas on full failure. ([#50](https://github.com/rsquaredacademy/yahoofinancer/issues/50))
+* **Batch Symbol Validation & Metadata Caching**: `validate()` vectorizes symbol queries into a single HTTP request. `Ticker` caches instance metadata, invalidating on `set_symbol()`. ([#51](https://github.com/rsquaredacademy/yahoofinancer/issues/51))
+* **Date Hygiene & Lookback Limit Enforcement**: `get_history()` validates dates client-side and enforces intraday lookback boundaries (1m <= 7d, 5m/15m/30m <= 60d, 1h <= 730d). `currency_converter()` guards against NA date inputs. ([#52](https://github.com/rsquaredacademy/yahoofinancer/issues/52))
+* **Hermetic Testing**: Expanded offline mock coverage for the financial statement methods and sanitized test mock surfaces. ([#53](https://github.com/rsquaredacademy/yahoofinancer/issues/53))
+* **Package Hygiene**: Declared `R (>= 4.1)` floor, configured `.lintr`, updated User-Agent to include package version. ([#54](https://github.com/rsquaredacademy/yahoofinancer/issues/54))
+
+# yahoofinancer 0.6.0
+
+## Enhancements
+
+* **Functional API**: Introduced `yf_download_prices()`, `yf_get_market_stats()`, `yf_get_financials()`, and `yf_get_index_quotes()` for pipe-friendly, tidy data analysis workflows.
+* **Migration to httr2**: Migrated package networking from `httr` to `httr2` for modern, resilient HTTP operations.
 
 # yahoofinancer 0.5.0
 

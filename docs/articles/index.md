@@ -8,6 +8,8 @@
   Stocks](https://yahoofinancer.rsquaredacademy.com/articles/comparing-portfolios.md):
 - [Currency Conversion and Forex
   Data](https://yahoofinancer.rsquaredacademy.com/articles/currency-conversion.md):
+- [Fundamental Analysis and Stock
+  Screening](https://yahoofinancer.rsquaredacademy.com/articles/fundamental-screening.md):
 - [Building a Live Market Dashboard with
   Shiny](https://yahoofinancer.rsquaredacademy.com/articles/shiny-dashboard.md):
 - [Related-Symbol Recommendations and Technical
