@@ -39,7 +39,7 @@ library(scales)
 
 ## 1. Related-Symbol Recommendations
 
-The `recommendations` active binding on a [`Ticker`](../reference/Ticker-class.html) object queries Yahoo's *recommendations-by-symbol* endpoint and returns a two-column frame: candidate tickers and their relevance `score` (roughly 0–1, higher means more strongly associated).
+The `recommendations` active binding on a `Ticker` object queries Yahoo's *recommendations-by-symbol* endpoint and returns a two-column frame: candidate tickers and their relevance `score` (roughly 0–1, higher means more strongly associated).
 
 ```{r fetch-recommendations}
 aapl_obj <- Ticker$new("AAPL")
@@ -232,7 +232,7 @@ head(map_chr(ins$reports, "title"), n = 3)
 
 ## 5. Comparing Related Symbols Across a Watchlist
 
-For several symbols at once, the [`Tickers`](../reference/Tickers.html) class fans out over all of them in one call. Because each source ticker contributes its own five candidates, the combined frame uses `recommended_symbol` for the candidates while `symbol` identifies the source:
+For several symbols at once, the `Tickers` class fans out over all of them in one call. Because each source ticker contributes its own five candidates, the combined frame uses `recommended_symbol` for the candidates while `symbol` identifies the source:
 
 ```{r watchlist-fanout}
 watchlist <- Tickers$new(c("AAPL", "MSFT", "GOOG"))

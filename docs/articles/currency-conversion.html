@@ -259,23 +259,104 @@ currencies from step 1 (e.g., <code>"JPY"</code>, <code>"INR"</code>,
 <p>You now have a reusable recipe for fetching and visualizing
 foreign-exchange data, from quick spot checks to multi-pair
 comparisons.</p>
+<hr>
 </div>
 <div class="section level2">
-<h2 id="going-further">Going Further<a class="anchor" aria-label="anchor" href="#going-further"></a>
+<h2 id="minimal-reproducible-example">5. Minimal Reproducible Example<a class="anchor" aria-label="anchor" href="#minimal-reproducible-example"></a>
+</h2>
+<p>Below is the complete, self-contained workflow in a single
+copy-pasteable script:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yahoofinancer.rsquaredacademy.com/">yahoofinancer</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 1. Fetch historical exchange rates for two currency pairs</span></span>
+<span><span class="va">gbp_usd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/currency_converter.html">currency_converter</a></span><span class="op">(</span></span>
+<span>  from  <span class="op">=</span> <span class="st">"GBP"</span>,</span>
+<span>  to    <span class="op">=</span> <span class="st">"USD"</span>,</span>
+<span>  start <span class="op">=</span> <span class="st">"2024-01-01"</span>,</span>
+<span>  end   <span class="op">=</span> <span class="st">"2024-12-31"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">eur_usd</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/currency_converter.html">currency_converter</a></span><span class="op">(</span></span>
+<span>  from  <span class="op">=</span> <span class="st">"EUR"</span>,</span>
+<span>  to    <span class="op">=</span> <span class="st">"USD"</span>,</span>
+<span>  start <span class="op">=</span> <span class="st">"2024-01-01"</span>,</span>
+<span>  end   <span class="op">=</span> <span class="st">"2024-12-31"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 2. Combine and normalize to base = 100</span></span>
+<span><span class="va">fx_performance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
+<span>  <span class="va">gbp_usd</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pair <span class="op">=</span> <span class="st">"GBP/USD"</span><span class="op">)</span>,</span>
+<span>  <span class="va">eur_usd</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>pair <span class="op">=</span> <span class="st">"EUR/USD"</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">pair</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,</span>
+<span>    normalized_rate <span class="op">=</span> <span class="op">(</span><span class="va">close</span> <span class="op">/</span> <span class="va">close</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 3. Plot normalized exchange rates side-by-side</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">fx_performance</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">normalized_rate</span>, color <span class="op">=</span> <span class="va">pair</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">100</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Pound vs Euro: Performance Against the US Dollar"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Daily closing rates in 2024, normalized to 100 at the start of the year"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Date"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Normalized Rate (Base = 100)"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"Pair"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="summary">6. Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>In this guide, you learned how to:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Discover supported currencies</strong>: Access Yahoo
+Finance’s FX catalog with <code><a href="../reference/get_currencies.html">get_currencies()</a></code>.</li>
+<li>
+<strong>Fetch exchange rates</strong>: Query historical FX pairs
+using <code><a href="../reference/currency_converter.html">currency_converter()</a></code> with custom date windows or
+rolling periods.</li>
+<li>
+<strong>Normalize and visualize</strong>: Stack currency series with
+<code><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows()</a></code> and compare multi-pair relative movements with
+<code>ggplot2</code>.</li>
+</ol>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="going-further">7. Going Further<a class="anchor" aria-label="anchor" href="#going-further"></a>
 </h2>
 <p>Now that you can work with exchange rates, explore related features
 <code>yahoofinancer</code> offers:</p>
 <ul>
-<li>The normalization technique used here is the same one covered in <a href="comparing-portfolios.html">Comparing a Portfolio of
-Stocks</a>.</li>
-<li>To see more practical workflows and advanced charts, browse the <a href="cookbook.html">yahoofinancer Cookbook</a>.</li>
-<li>Working with equities priced outside the US? Check the quoting
-currency of any ticker with the <code>currency</code> field of the
-<code>Ticker</code> class (e.g.,
+<li>
+<strong>Portfolio Comparisons</strong>: The normalization technique
+used here is identical to the one covered in
+<code><a href="../articles/comparing-portfolios.html">vignette("comparing-portfolios", package = "yahoofinancer")</a></code>.</li>
+<li>
+<strong>Multi-Currency Valuations</strong>: Convert foreign stock
+prices into your home currency—see Recipe 6 in
+<code><a href="../articles/cookbook.html">vignette("cookbook", package = "yahoofinancer")</a></code>.</li>
+<li>
+<strong>Check Quoting Currencies</strong>: For equities outside the
+US, check quoting currencies with the <code>currency</code> field on
+<code>Ticker</code> (e.g.,
 <code>Ticker$new("RELIANCE.NS")$currency</code> returns
-<code>"INR"</code>) before mixing prices across markets.</li>
-<li>For full argument details and valid parameter values, see the
-documentation pages for <code><a href="../reference/currency_converter.html">currency_converter()</a></code> and
+<code>"INR"</code>).</li>
+<li>
+<strong>Reference Documentation</strong>: For complete argument
+details and valid parameter values, see the documentation for
+<code><a href="../reference/currency_converter.html">currency_converter()</a></code> and
 <code><a href="../reference/get_currencies.html">get_currencies()</a></code>.</li>
 </ul>
 </div>

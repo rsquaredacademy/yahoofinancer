@@ -208,7 +208,7 @@ Now that you have fetched your first dataset and built a chart, here are several
   ```
 * **Different Frequencies**: Query weekly (`interval = "1wk"`) or monthly (`interval = "1mo"`) bars for multi-year trend analysis.
 * **Global Equities & Indices**: Fetch international securities using standard exchange suffixes (e.g., `"RELIANCE.NS"` for NSE India or `"AZN.L"` for London) or market indices (e.g., `Index$new("^GSPC")` for the S&P 500).
-* **Object-Oriented R6 Interface**: For stateful workflows, market metadata, and fundamental valuation metrics, use the [`Ticker`](../reference/Ticker-class.html) class:
+* **Object-Oriented R6 Interface**: For stateful workflows, market metadata, and fundamental valuation metrics, use the `Ticker` class:
   ```{r r6-demo}
   aapl_obj <- Ticker$new("AAPL")
 

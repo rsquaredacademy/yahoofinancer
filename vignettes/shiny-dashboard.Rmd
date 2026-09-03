@@ -162,12 +162,14 @@ The cards read from the `stats()` reactive. `price_card`, `range_card`, and `vol
 
 ```{r quote-cards}
   output$price_card <- renderText({
-    req(stats())
-    sprintf("%s · %s", stats()$symbol, dollar(stats()$regular_market_price))
+    s <- req(stats())
+    req(nrow(s) > 0)
+    sprintf("%s · %s", s$symbol, dollar(s$regular_market_price))
   })
 
   output$change_card <- renderUI({
     s <- req(stats())
+    req(nrow(s) > 0)
     pct <- 100 * (s$regular_market_price - s$previous_close) / s$previous_close
     color <- if (pct >= 0) "#2e7d32" else "#c62828"
     tags$span(style = sprintf("color:%s", color),
@@ -176,6 +178,7 @@ The cards read from the `stats()` reactive. `price_card`, `range_card`, and `vol
 
   output$range_card <- renderText({
     s <- req(stats())
+    req(nrow(s) > 0)
     pos <- 100 * (s$regular_market_price - s$fifty_two_week_low) /
       (s$fifty_two_week_high - s$fifty_two_week_low)
     sprintf(
@@ -187,13 +190,14 @@ The cards read from the `stats()` reactive. `price_card`, `range_card`, and `vol
 
   output$volume_card <- renderText({
     s <- req(stats())
+    req(nrow(s) > 0)
     label_number(scale_cut = scales::cut_short_scale())(s$regular_market_volume)
   })
 ```
 
 Two defensive details worth keeping:
 
-* `req(stats())` silently suspends rendering until the first successful fetch—no errors flash before data arrives.
+* `req(nrow(s) > 0)` silently suspends rendering until a valid dataset arrives—since `yf_get_market_stats()` returns an empty tibble on network failure or invalid ticker, this check prevents empty rows from flashing errors into the UI.
 * The percentage uses `scales::percent()` with explicit `accuracy`, so values like `12.34567%` never leak into the UI.
 
 ---
@@ -205,7 +209,9 @@ The chart plots closing prices over time with dashed reference lines at the 52-w
 ```{r price-chart}
   output$price_chart <- renderPlot({
     df <- req(prices())
+    req(nrow(df) > 0)
     s  <- req(stats())
+    req(nrow(s) > 0)
 
     ggplot(df, aes(x = date, y = close)) +
       geom_line(color = "#1f77b4", linewidth = 0.9) +
@@ -286,10 +292,12 @@ server <- function(input, output, session) {
 
   output$price_card <- renderText({
     s <- req(stats())
+    req(nrow(s) > 0)
     sprintf("%s · %s", s$symbol, dollar(s$regular_market_price))
   })
   output$change_card <- renderUI({
     s <- req(stats())
+    req(nrow(s) > 0)
     pct <- 100 * (s$regular_market_price - s$previous_close) / s$previous_close
     color <- if (pct >= 0) "#2e7d32" else "#c62828"
     tags$span(style = sprintf("color:%s", color),
@@ -297,6 +305,7 @@ server <- function(input, output, session) {
   })
   output$range_card <- renderText({
     s <- req(stats())
+    req(nrow(s) > 0)
     pos <- 100 * (s$regular_market_price - s$fifty_two_week_low) /
       (s$fifty_two_week_high - s$fifty_two_week_low)
     sprintf("%s — %s\n(%s of range)",
@@ -305,12 +314,16 @@ server <- function(input, output, session) {
             percent(pos / 100, accuracy = 1))
   })
   output$volume_card <- renderText({
-    req(stats())$regular_market_volume |> label_number(scale_cut = cut_short_scale())
+    s <- req(stats())
+    req(nrow(s) > 0)
+    s$regular_market_volume |> label_number(scale_cut = cut_short_scale())
   })
 
   output$price_chart <- renderPlot({
     df <- req(prices())
+    req(nrow(df) > 0)
     s  <- req(stats())
+    req(nrow(s) > 0)
     ggplot(df, aes(x = date, y = close)) +
       geom_line(color = "#1f77b4", linewidth = 0.9) +
       geom_hline(yintercept = s$fifty_two_week_high,
@@ -344,7 +357,8 @@ In this guide, you learned how to:
 
 ## 8. Going Further
 
+* **Trending Tickers**: Automatically seed or update dropdown choices with currently trending securities via `get_trending("US")` or `get_trending("GB")`.
 * **Auto-refresh**: Add `observe({ invalidateLater(60000); shinyjs::click("refresh") })` (with the `shinyjs` package) to poll every minute during market hours.
-* **Multi-symbol comparison**: Fan out over several tickers at once with the [`Tickers`](../reference/Tickers.html) class—`Tickers$new(c("AAPL", "MSFT"))$get_history(period = "6mo")` returns one long tibble; sort chronologically inside groups with `arrange(date, .by_group = TRUE)` before plotting one line per `symbol`.
+* **Multi-symbol comparison**: Fan out over several tickers at once with the `Tickers` class (`?Tickers`)—`Tickers$new(c("AAPL", "MSFT"))$get_history(period = "6mo")` returns one long tibble; sort chronologically inside groups with `arrange(date, .by_group = TRUE)` before plotting one line per `symbol`.
 * **Input validation**: Guard against typos by routing custom tickers through `validate()` before fetching.
 * **More recipes**: For drawdown analysis, technical indicators, and portfolio performance modeling, see `vignette("cookbook", package = "yahoofinancer")`.

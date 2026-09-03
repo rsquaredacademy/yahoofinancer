@@ -237,6 +237,14 @@ european_market <- market_overview |>
   filter(grepl("DAX|FTSE|CAC|ESTX", short_name, ignore.case = TRUE))
 ```
 
+* **Discover Trending Securities**: Retrieve real-time trending symbols for a target country:
+
+``` r
+trending_us <- get_trending("US", count = 5)
+print(trending_us)
+#> [1] "AVGO" "SNOW" "HPE"  "NTAP" "PLTR"
+```
+
 ---
 
 ## 5. Download Benchmark Index History

@@ -197,28 +197,93 @@ of the selected stocks over the given time horizon.</p>
 <p>You now have a reusable workflow for comparing any set of tickers.
 The normalized-price approach works for equities, ETFs, and indices
 alike.</p>
+<hr>
 </div>
 <div class="section level2">
-<h2 id="going-further">Going Further<a class="anchor" aria-label="anchor" href="#going-further"></a>
+<h2 id="minimal-reproducible-example">4. Minimal Reproducible Example<a class="anchor" aria-label="anchor" href="#minimal-reproducible-example"></a>
+</h2>
+<p>Below is the complete, self-contained workflow in a single
+copy-pasteable script:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yahoofinancer.rsquaredacademy.com/">yahoofinancer</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 1. Fetch prices for a portfolio of symbols</span></span>
+<span><span class="va">symbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAPL"</span>, <span class="st">"MSFT"</span>, <span class="st">"GOOGL"</span>, <span class="st">"AMZN"</span><span class="op">)</span></span>
+<span><span class="va">portfolio_prices</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yf_download_prices.html">yf_download_prices</a></span><span class="op">(</span>tickers <span class="op">=</span> <span class="va">symbols</span>, interval <span class="op">=</span> <span class="st">"1d"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 2. Normalize prices to base = 100</span></span>
+<span><span class="va">portfolio_performance</span> <span class="op">&lt;-</span> <span class="va">portfolio_prices</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">date</span>, .by_group <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span>,</span>
+<span>    normalized_price <span class="op">=</span> <span class="op">(</span><span class="va">close</span> <span class="op">/</span> <span class="va">close</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 3. Plot normalized performance side-by-side</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">portfolio_performance</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date</span>, y <span class="op">=</span> <span class="va">normalized_price</span>, color <span class="op">=</span> <span class="va">symbol</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Portfolio Performance Comparison"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Normalized to 100 at the start of the period"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Date"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Normalized Price (Base = 100)"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"Ticker"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="summary">5. Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<p>In this guide, you learned how to:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Batch download prices</strong>: Retrieve historical series
+for multiple tickers simultaneously using
+<code><a href="../reference/yf_download_prices.html">yf_download_prices()</a></code>.</li>
+<li>
+<strong>Normalize performance</strong>: Rebase different share
+prices to 100 on day one using grouped <code>dplyr</code>
+transformations with <code>.by_group = TRUE</code>.</li>
+<li>
+<strong>Compare trajectories</strong>: Visualize relative percentage
+gains and volatility across a multi-asset portfolio with
+<code>ggplot2</code>.</li>
+</ol>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="going-further">6. Going Further<a class="anchor" aria-label="anchor" href="#going-further"></a>
 </h2>
 <p>Now that you can track the performance of a portfolio, explore other
 data features <code>yahoofinancer</code> offers:</p>
 <ul>
-<li><p>To see more practical workflows and advanced charts, browse the
-<a href="cookbook.html">yahoofinancer Cookbook</a>.</p></li>
-<li><p>Need fundamentals to screen stocks before analyzing their prices?
-Learn how to extract financials in the documentation for the
-<code>Ticker</code> class.</p></li>
+<li><p><strong>Discover Trending Stocks</strong>: Automatically seed or
+expand your portfolio watchlist using
+<code>get_trending("US")</code>.</p></li>
 <li>
-<p>For very large lists of stocks, consider using the
-<code><a href="../reference/validate.html">validate()</a></code> helper to clean up your symbols vector prior to
-making bulk API calls:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p><strong>Clean Large Universes</strong>: Use
+<code><a href="../reference/validate.html">validate()</a></code> to filter out invalid or delisted symbols prior
+to bulk downloading:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Keep only symbols that Yahoo recognizes</span></span>
 <span><span class="va">clean_symbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/validate.html">validate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAPL"</span>, <span class="st">"NOTREAL"</span>, <span class="st">"MSFT"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">clean_symbols</span></span>
 <span><span class="co">#&gt; [1] "AAPL" "MSFT"</span></span></code></pre></div>
 </li>
+<li><p><strong>Fundamental Screening</strong>: Learn how to extract
+financial statements and valuation ratios across peers before analyzing
+prices—see
+<code><a href="../articles/fundamental-screening.html">vignette("fundamental-screening", package = "yahoofinancer")</a></code>.</p></li>
+<li><p><strong>Cookbook Recipes</strong>: For 15 in-depth quantitative
+recipes including drawdown analysis, correlation heatmaps, CAPM beta
+regressions, and Sharpe ratios, see
+<code><a href="../articles/cookbook.html">vignette("cookbook", package = "yahoofinancer")</a></code>.</p></li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

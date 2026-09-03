@@ -159,11 +159,77 @@ In 2024 both European currencies lost ground against the dollar, but the chart m
 
 You now have a reusable recipe for fetching and visualizing foreign-exchange data, from quick spot checks to multi-pair comparisons.
 
-## Going Further
+---
+
+## 5. Minimal Reproducible Example
+
+Below is the complete, self-contained workflow in a single copy-pasteable script:
+
+```{r full-workflow}
+library(yahoofinancer)
+library(dplyr)
+library(ggplot2)
+
+# 1. Fetch historical exchange rates for two currency pairs
+gbp_usd <- currency_converter(
+  from  = "GBP",
+  to    = "USD",
+  start = "2024-01-01",
+  end   = "2024-12-31"
+)
+
+eur_usd <- currency_converter(
+  from  = "EUR",
+  to    = "USD",
+  start = "2024-01-01",
+  end   = "2024-12-31"
+)
+
+# 2. Combine and normalize to base = 100
+fx_performance <- bind_rows(
+  gbp_usd |> mutate(pair = "GBP/USD"),
+  eur_usd |> mutate(pair = "EUR/USD")
+) |>
+  group_by(pair) |>
+  arrange(date, .by_group = TRUE) |>
+  mutate(
+    date = as.Date(date),
+    normalized_rate = (close / close[1]) * 100
+  ) |>
+  ungroup()
+
+# 3. Plot normalized exchange rates side-by-side
+ggplot(fx_performance, aes(x = date, y = normalized_rate, color = pair)) +
+  geom_line(linewidth = 0.8) +
+  geom_hline(yintercept = 100, linetype = "dashed", color = "grey50") +
+  theme_minimal() +
+  labs(
+    title = "Pound vs Euro: Performance Against the US Dollar",
+    subtitle = "Daily closing rates in 2024, normalized to 100 at the start of the year",
+    x = "Date",
+    y = "Normalized Rate (Base = 100)",
+    color = "Pair"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+---
+
+## 6. Summary
+
+In this guide, you learned how to:
+
+1. **Discover supported currencies**: Access Yahoo Finance's FX catalog with `get_currencies()`.
+2. **Fetch exchange rates**: Query historical FX pairs using `currency_converter()` with custom date windows or rolling periods.
+3. **Normalize and visualize**: Stack currency series with `bind_rows()` and compare multi-pair relative movements with `ggplot2`.
+
+---
+
+## 7. Going Further
 
 Now that you can work with exchange rates, explore related features `yahoofinancer` offers:
 
-* The normalization technique used here is the same one covered in [Comparing a Portfolio of Stocks](comparing-portfolios.html).
-* To see more practical workflows and advanced charts, browse the [yahoofinancer Cookbook](cookbook.html).
-* Working with equities priced outside the US? Check the quoting currency of any ticker with the `currency` field of the `Ticker` class (e.g., `Ticker$new("RELIANCE.NS")$currency` returns `"INR"`) before mixing prices across markets.
-* For full argument details and valid parameter values, see the documentation pages for `currency_converter()` and `get_currencies()`.
+* **Portfolio Comparisons**: The normalization technique used here is identical to the one covered in `vignette("comparing-portfolios", package = "yahoofinancer")`.
+* **Multi-Currency Valuations**: Convert foreign stock prices into your home currency—see Recipe 6 in `vignette("cookbook", package = "yahoofinancer")`.
+* **Check Quoting Currencies**: For equities outside the US, check quoting currencies with the `currency` field on `Ticker` (e.g., `Ticker$new("RELIANCE.NS")$currency` returns `"INR"`).
+* **Reference Documentation**: For complete argument details and valid parameter values, see the documentation for `currency_converter()` and `get_currencies()`.

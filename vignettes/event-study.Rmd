@@ -152,10 +152,11 @@ ggplot(ar_q1, aes(x = rel_day, y = ar, fill = ar >= 0)) +
 
 ## 4. Average CAR Across All Events
 
-Now run the helper over every event with `map2_dfr()` and accumulate: thin lines show each announcement's CAR path, the thick line their average:
+Now run the helper over every event with `map2()` and `list_rbind()`, then accumulate: thin lines show each announcement's CAR path, the thick line their average:
 
 ```{r car-across-events}
-car_paths <- map2_dfr(events$label, events$event_date, compute_ar) |>
+car_paths <- map2(events$label, events$event_date, compute_ar) |>
+  list_rbind() |>
   group_by(label) |>
   arrange(rel_day, .by_group = TRUE) |>
   mutate(car = cumsum(replace_na(ar, 0))) |>
@@ -236,7 +237,8 @@ compute_ar <- function(label, event_date) {
 }
 
 # 3. Cumulate per event and average across events
-avg_car <- map2_dfr(events$label, events$event_date, compute_ar) |>
+avg_car <- map2(events$label, events$event_date, compute_ar) |>
+  list_rbind() |>
   group_by(label) |>
   arrange(rel_day, .by_group = TRUE) |>
   mutate(car = cumsum(replace_na(ar, 0))) |>
