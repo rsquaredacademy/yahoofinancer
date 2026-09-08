@@ -25,7 +25,7 @@ In this guide, you will explore the two sentiment-adjacent surfaces that Yahoo F
 
 ```{r load-libraries, message=FALSE, warning=FALSE}
 # Install required packages if not already installed:
-# install.packages(c("dplyr", "ggplot2", "scales", "tidyr"))
+# install.packages(c("yahoofinancer", "dplyr", "tidyr", "purrr", "ggplot2", "scales"))
 
 library(yahoofinancer)
 library(dplyr)

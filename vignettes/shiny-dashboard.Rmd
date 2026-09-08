@@ -316,7 +316,7 @@ server <- function(input, output, session) {
   output$volume_card <- renderText({
     s <- req(stats())
     req(nrow(s) > 0)
-    s$regular_market_volume |> label_number(scale_cut = cut_short_scale())
+    label_number(scale_cut = cut_short_scale())(s$regular_market_volume)
   })
 
   output$price_chart <- renderPlot({

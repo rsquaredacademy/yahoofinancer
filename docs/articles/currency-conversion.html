@@ -152,11 +152,12 @@ window with <code>start</code> and <code>end</code> dates:</p>
 <span><span class="co">#&gt; 4 2024-01-05 00:00:00 1.2721 1.2614 1.2705 1.2717      0    1.2717</span></span>
 <span><span class="co">#&gt; 5 2024-01-08 00:00:00 1.2741 1.2698 1.2718 1.2720      0    1.2720</span></span>
 <span><span class="co">#&gt; 6 2024-01-09 00:00:00 1.2743 1.2688 1.2694 1.2694      0    1.2694</span></span></code></pre></div>
-<p>The result mirrors the package’s price-history schema: a data frame
+<p>The result provides the familiar OHLCV price series: a data frame
 with <code>date</code> (POSIXct), <code>high</code>, <code>low</code>,
 <code>open</code>, <code>close</code>, and <code>volume</code> columns,
-plus <code>adj_close</code> for daily or longer intervals. A few things
-worth knowing:</p>
+plus <code>adj_close</code> for daily or longer intervals (unlike equity
+price queries, currency pairs omit a <code>symbol</code> column). A few
+things worth knowing:</p>
 <ul>
 <li>Instead of explicit dates, you can pass a rolling window via
 <code>period</code> (e.g., <code>period = "1mo"</code>); valid values

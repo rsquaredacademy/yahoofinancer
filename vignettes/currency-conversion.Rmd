@@ -73,7 +73,7 @@ head(gbp_usd)
 #> 6 2024-01-09 00:00:00 1.2743 1.2688 1.2694 1.2694      0    1.2694
 ```
 
-The result mirrors the package's price-history schema: a data frame with `date` (POSIXct), `high`, `low`, `open`, `close`, and `volume` columns, plus `adj_close` for daily or longer intervals. A few things worth knowing:
+The result provides the familiar OHLCV price series: a data frame with `date` (POSIXct), `high`, `low`, `open`, `close`, and `volume` columns, plus `adj_close` for daily or longer intervals (unlike equity price queries, currency pairs omit a `symbol` column). A few things worth knowing:
 
 * Instead of explicit dates, you can pass a rolling window via `period` (e.g., `period = "1mo"`); valid values range from `"1d"` to `"max"`, with `"ytd"` as the default.
 * `interval` controls granularity (`"1h"`, `"1d"`, `"5d"`, `"1wk"`, `"1mo"`, `"3mo"`; default `"1d"`). Intraday intervals omit `adj_close`.

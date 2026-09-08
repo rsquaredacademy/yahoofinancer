@@ -30,7 +30,7 @@ In this guide, you will run a miniature **event study**: measure how a stock rea
 
 ```{r load-libraries, message=FALSE, warning=FALSE}
 # Install required packages if not already installed:
-# install.packages(c("dplyr", "tidyr", "purrr", "ggplot2", "scales"))
+# install.packages(c("yahoofinancer", "dplyr", "tidyr", "purrr", "ggplot2", "scales"))
 
 library(yahoofinancer)
 library(dplyr)

@@ -65,7 +65,7 @@ head(aapl)
 | Column | Type | Description |
 |:---|:---|:---|
 | `symbol` | `character` | Ticker symbol representing the asset (e.g., `"AAPL"`). |
-| `date` | `POSIXct` / `Date` | Timestamp representing the trading session. |
+| `date` | `POSIXct` (`<dttm>`) | Timestamp representing the trading session. |
 | `open` | `numeric` | Price at the opening bell. |
 | `high` | `numeric` | Highest price reached during the session. |
 | `low` | `numeric` | Lowest price reached during the session. |

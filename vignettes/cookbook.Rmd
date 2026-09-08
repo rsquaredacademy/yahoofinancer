@@ -311,11 +311,11 @@ Convert foreign asset valuations into a local base currency by retrieving spot a
 ``` r
 # 1. Fetch Apple USD prices
 aapl <- yf_download_prices("AAPL", period = "6mo") |>
-  mutate(date_day = as.Date(date))
+  mutate(date_day = as.Date(date, tz = "UTC"))
 
 # 2. Fetch USD/INR exchange rates
 usd_inr <- currency_converter("USD", "INR", period = "6mo") |>
-  mutate(date_day = as.Date(date)) |>
+  mutate(date_day = as.Date(date, tz = "UTC")) |>
   select(date_day, fx_rate = close)
 
 # 3. Join and compute share price in INR
