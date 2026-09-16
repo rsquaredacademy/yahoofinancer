@@ -221,7 +221,7 @@ Ticker <- R6::R6Class(
       qlist <- list(
         type = type_param,
         period1 = 493590046,
-        period2 = floor(as.numeric(Sys.time())),
+        period2 = 2000000000,
         corsDomain = private$cors_domain
       )
 

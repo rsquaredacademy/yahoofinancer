@@ -370,3 +370,25 @@ test_that("Ticker financial statement methods return tidy tibbles with line item
     }
   )
 })
+
+if (requireNamespace("httptest2", quietly = TRUE)) {
+  httptest2::with_mock_api({
+    test_that("Ticker financial statement methods work with recorded httptest2 fixtures", {
+      aapl <- Ticker$new("AAPL", validate = FALSE)
+      inc <- aapl$get_income_statement(frequency = "annual")
+      expect_s3_class(inc, "tbl_df")
+      expect_gt(nrow(inc), 0)
+      expect_true(all(c("date", "period_type", "total_revenue", "operating_income") %in% names(inc)))
+
+      bs <- aapl$get_balance_sheet(frequency = "quarterly")
+      expect_s3_class(bs, "tbl_df")
+      expect_gt(nrow(bs), 0)
+      expect_true(all(c("date", "period_type", "total_assets") %in% names(bs)))
+
+      cf <- aapl$get_cash_flow(frequency = "annual")
+      expect_s3_class(cf, "tbl_df")
+      expect_gt(nrow(cf), 0)
+      expect_true(all(c("date", "period_type", "free_cash_flow") %in% names(cf)))
+    })
+  })
+}

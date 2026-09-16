@@ -1,0 +1,993 @@
+{
+    "timeseries": {
+        "result": [
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualFinancingCashFlow"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualFinancingCashFlow": [
+                    {
+                        "dataId": 26012,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.10749E11,
+                            "fmt": "-110.75B"
+                        }
+                    },
+                    {
+                        "dataId": 26012,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.08488E11,
+                            "fmt": "-108.49B"
+                        }
+                    },
+                    {
+                        "dataId": 26012,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.21983E11,
+                            "fmt": "-121.98B"
+                        }
+                    },
+                    {
+                        "dataId": 26012,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.20686E11,
+                            "fmt": "-120.69B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualFreeCashFlow"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualFreeCashFlow": [
+                    {
+                        "dataId": 26185,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.11443E11,
+                            "fmt": "111.44B"
+                        }
+                    },
+                    {
+                        "dataId": 26185,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 9.9584E10,
+                            "fmt": "99.58B"
+                        }
+                    },
+                    {
+                        "dataId": 26185,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.08807E11,
+                            "fmt": "108.81B"
+                        }
+                    },
+                    {
+                        "dataId": 26185,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 9.8767E10,
+                            "fmt": "98.77B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualOperatingCashFlow"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualOperatingCashFlow": [
+                    {
+                        "dataId": 26014,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.22151E11,
+                            "fmt": "122.15B"
+                        }
+                    },
+                    {
+                        "dataId": 26014,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.10543E11,
+                            "fmt": "110.54B"
+                        }
+                    },
+                    {
+                        "dataId": 26014,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.18254E11,
+                            "fmt": "118.25B"
+                        }
+                    },
+                    {
+                        "dataId": 26014,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.11482E11,
+                            "fmt": "111.48B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualBeginningCashPosition"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualBeginningCashPosition": [
+                    {
+                        "dataId": 26015,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 3.5929E10,
+                            "fmt": "35.93B"
+                        }
+                    },
+                    {
+                        "dataId": 26015,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 2.4977E10,
+                            "fmt": "24.98B"
+                        }
+                    },
+                    {
+                        "dataId": 26015,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 3.0737E10,
+                            "fmt": "30.74B"
+                        }
+                    },
+                    {
+                        "dataId": 26015,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 2.9943E10,
+                            "fmt": "29.94B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualCashDividendsPaid"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualCashDividendsPaid": [
+                    {
+                        "dataId": 26007,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.4841E10,
+                            "fmt": "-14.84B"
+                        }
+                    },
+                    {
+                        "dataId": 26007,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.5025E10,
+                            "fmt": "-15.03B"
+                        }
+                    },
+                    {
+                        "dataId": 26007,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.5234E10,
+                            "fmt": "-15.23B"
+                        }
+                    },
+                    {
+                        "dataId": 26007,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.5421E10,
+                            "fmt": "-15.42B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualNetIncomeFromContinuingOperations"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualNetIncomeFromContinuingOperations": [
+                    {
+                        "dataId": 26080,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 9.9803E10,
+                            "fmt": "99.80B"
+                        }
+                    },
+                    {
+                        "dataId": 26080,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 9.6995E10,
+                            "fmt": "97.00B"
+                        }
+                    },
+                    {
+                        "dataId": 26080,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 9.3736E10,
+                            "fmt": "93.74B"
+                        }
+                    },
+                    {
+                        "dataId": 26080,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.1201E11,
+                            "fmt": "112.01B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualCashFlowFromContinuingInvestingActivities"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualCashFlowFromContinuingInvestingActivities": [
+                    {
+                        "dataId": 26009,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -2.2354E10,
+                            "fmt": "-22.35B"
+                        }
+                    },
+                    {
+                        "dataId": 26009,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 3.705E9,
+                            "fmt": "3.71B"
+                        }
+                    },
+                    {
+                        "dataId": 26009,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 2.935E9,
+                            "fmt": "2.94B"
+                        }
+                    },
+                    {
+                        "dataId": 26009,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.5195E10,
+                            "fmt": "15.20B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualInvestingCashFlow"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualInvestingCashFlow": [
+                    {
+                        "dataId": 26013,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -2.2354E10,
+                            "fmt": "-22.35B"
+                        }
+                    },
+                    {
+                        "dataId": 26013,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 3.705E9,
+                            "fmt": "3.71B"
+                        }
+                    },
+                    {
+                        "dataId": 26013,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 2.935E9,
+                            "fmt": "2.94B"
+                        }
+                    },
+                    {
+                        "dataId": 26013,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.5195E10,
+                            "fmt": "15.20B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualCapitalExpenditure"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualCapitalExpenditure": [
+                    {
+                        "dataId": 26005,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.0708E10,
+                            "fmt": "-10.71B"
+                        }
+                    },
+                    {
+                        "dataId": 26005,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.0959E10,
+                            "fmt": "-10.96B"
+                        }
+                    },
+                    {
+                        "dataId": 26005,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -9.447E9,
+                            "fmt": "-9.45B"
+                        }
+                    },
+                    {
+                        "dataId": 26005,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.2715E10,
+                            "fmt": "-12.71B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualChangeInReceivables"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualChangeInReceivables": [
+                    {
+                        "dataId": 26045,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -9.343E9,
+                            "fmt": "-9.34B"
+                        }
+                    },
+                    {
+                        "dataId": 26045,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -4.17E8,
+                            "fmt": "-417.00M"
+                        }
+                    },
+                    {
+                        "dataId": 26045,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -5.144E9,
+                            "fmt": "-5.14B"
+                        }
+                    },
+                    {
+                        "dataId": 26045,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -7.029E9,
+                            "fmt": "-7.03B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualEndCashPosition"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualEndCashPosition": [
+                    {
+                        "dataId": 26016,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 2.4977E10,
+                            "fmt": "24.98B"
+                        }
+                    },
+                    {
+                        "dataId": 26016,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 3.0737E10,
+                            "fmt": "30.74B"
+                        }
+                    },
+                    {
+                        "dataId": 26016,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 2.9943E10,
+                            "fmt": "29.94B"
+                        }
+                    },
+                    {
+                        "dataId": 26016,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 3.5934E10,
+                            "fmt": "35.93B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualDepreciationAndAmortization"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualDepreciationAndAmortization": [
+                    {
+                        "dataId": 26060,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.1104E10,
+                            "fmt": "11.10B"
+                        }
+                    },
+                    {
+                        "dataId": 26060,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.1519E10,
+                            "fmt": "11.52B"
+                        }
+                    },
+                    {
+                        "dataId": 26060,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.1445E10,
+                            "fmt": "11.45B"
+                        }
+                    },
+                    {
+                        "dataId": 26060,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.1698E10,
+                            "fmt": "11.70B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualChangeInWorkingCapital"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualChangeInWorkingCapital": [
+                    {
+                        "dataId": 26053,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.2E9,
+                            "fmt": "1.20B"
+                        }
+                    },
+                    {
+                        "dataId": 26053,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -6.577E9,
+                            "fmt": "-6.58B"
+                        }
+                    },
+                    {
+                        "dataId": 26053,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 3.651E9,
+                            "fmt": "3.65B"
+                        }
+                    },
+                    {
+                        "dataId": 26053,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -2.5E10,
+                            "fmt": "-25.00B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualChangeInInventory"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualChangeInInventory": [
+                    {
+                        "dataId": 26034,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.484E9,
+                            "fmt": "1.48B"
+                        }
+                    },
+                    {
+                        "dataId": 26034,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.618E9,
+                            "fmt": "-1.62B"
+                        }
+                    },
+                    {
+                        "dataId": 26034,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.046E9,
+                            "fmt": "-1.05B"
+                        }
+                    },
+                    {
+                        "dataId": 26034,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.4E9,
+                            "fmt": "1.40B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualCashFlowFromContinuingFinancingActivities"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualCashFlowFromContinuingFinancingActivities": [
+                    {
+                        "dataId": 26008,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.10749E11,
+                            "fmt": "-110.75B"
+                        }
+                    },
+                    {
+                        "dataId": 26008,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.08488E11,
+                            "fmt": "-108.49B"
+                        }
+                    },
+                    {
+                        "dataId": 26008,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.21983E11,
+                            "fmt": "-121.98B"
+                        }
+                    },
+                    {
+                        "dataId": 26008,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.20686E11,
+                            "fmt": "-120.69B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualCashFlowFromContinuingOperatingActivities"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualCashFlowFromContinuingOperatingActivities": [
+                    {
+                        "dataId": 26010,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.22151E11,
+                            "fmt": "122.15B"
+                        }
+                    },
+                    {
+                        "dataId": 26010,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.10543E11,
+                            "fmt": "110.54B"
+                        }
+                    },
+                    {
+                        "dataId": 26010,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.18254E11,
+                            "fmt": "118.25B"
+                        }
+                    },
+                    {
+                        "dataId": 26010,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": 1.11482E11,
+                            "fmt": "111.48B"
+                        }
+                    }
+                ]
+            },
+            {
+                "meta": {
+                    "symbol": [
+                        "AAPL"
+                    ],
+                    "type": [
+                        "annualNetPPEPurchaseAndSale"
+                    ]
+                },
+                "timestamp": [
+                    1664496000,
+                    1696032000,
+                    1727654400,
+                    1759190400
+                ],
+                "annualNetPPEPurchaseAndSale": [
+                    {
+                        "dataId": 26119,
+                        "asOfDate": "2022-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.0708E10,
+                            "fmt": "-10.71B"
+                        }
+                    },
+                    {
+                        "dataId": 26119,
+                        "asOfDate": "2023-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.0959E10,
+                            "fmt": "-10.96B"
+                        }
+                    },
+                    {
+                        "dataId": 26119,
+                        "asOfDate": "2024-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -9.447E9,
+                            "fmt": "-9.45B"
+                        }
+                    },
+                    {
+                        "dataId": 26119,
+                        "asOfDate": "2025-09-30",
+                        "periodType": "12M",
+                        "currencyCode": "USD",
+                        "reportedValue": {
+                            "raw": -1.2715E10,
+                            "fmt": "-12.71B"
+                        }
+                    }
+                ]
+            }
+        ],
+        "error": null
+    }
+}

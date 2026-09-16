@@ -3,6 +3,7 @@ if (requireNamespace("httptest2", quietly = TRUE)) {
   httptest2::set_redactor(function(resp) {
     if (!is.null(resp$url)) {
       resp$url <- gsub("query[12]\\.finance\\.yahoo\\.com/v[0-9]+/finance/", "api/", resp$url)
+      resp$url <- gsub("query[12]\\.finance\\.yahoo\\.com/ws/fundamentals-timeseries/v[0-9]+/finance/timeseries/", "api/ts/", resp$url)
       resp$url <- gsub("query[12]\\.finance\\.yahoo\\.com/ws/insights/v[0-9]+/finance/", "api/ins/", resp$url)
       resp$url <- gsub("quote/marketSummary", "mkt", resp$url)
       resp$url <- gsub("quoteSummary", "qs", resp$url)
