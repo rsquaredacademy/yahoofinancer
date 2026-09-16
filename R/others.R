@@ -248,6 +248,14 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
       stop("Invalid 'end' date format. Please use 'YYYY-MM-DD'.", call. = FALSE)
     }
     end_date <- as.numeric(as.POSIXct(end_dt, tz = "UTC"))
+    if (!is.null(start) && start_dt > end_dt) {
+      stop("'start' date must be before or equal to 'end' date.", call. = FALSE)
+    }
+  }
+
+  if (!is.null(end) && is.null(start)) {
+    warning("'end' was provided without 'start'. Ignoring 'end' and using 'period'.", call. = FALSE)
+    end <- NULL
   }
 
   cors_domain <- 'finance.yahoo.com'
@@ -287,5 +295,5 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
     }
   }
 
-  return(subset(result, !is.na(volume)))
+  return(tibble::as_tibble(subset(result, !is.na(volume))))
 }

@@ -59,7 +59,7 @@ test_that("currency_converter handles success path", {
     ),
     code = {
       res <- currency_converter("EUR", "USD", period = "1d")
-      expect_s3_class(res, "data.frame")
+      expect_s3_class(res, "tbl_df")
     }
   )
 })
@@ -67,6 +67,24 @@ test_that("currency_converter handles success path", {
 test_that('currency_converter validates date inputs', {
   expect_error(currency_converter("EUR", "USD", start = "invalid-date"), "Invalid 'start' date format")
   expect_error(currency_converter("EUR", "USD", start = "2021-01-01", end = "invalid-date"), "Invalid 'end' date format")
+  expect_error(currency_converter("EUR", "USD", start = "2021-07-10", end = "2021-07-01"), "'start' date must be before or equal to 'end' date.")
+  with_mock_api(
+    response_mock = mock_response(body_json = list(chart = list(result = list(list(
+      timestamp = list(1625059200),
+      indicators = list(
+        quote = list(list(open = list(1.18), high = list(1.19),
+                          low = list(1.17), close = list(1.185), volume = list(0))),
+        adjclose = list(list(adjclose = list(1.185)))
+      )
+    ))))),
+    code = {
+      expect_warning(
+        res <- currency_converter("EUR", "USD", end = "2021-07-01"),
+        "'end' was provided without 'start'"
+      )
+      expect_s3_class(res, "tbl_df")
+    }
+  )
 })
 
 test_that('get_currencies handles offline gracefully', {
