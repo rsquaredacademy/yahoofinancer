@@ -17,11 +17,10 @@ mock_response <- function(status_code = 200, body_json = list(), is_error = FALS
 #' @param response_mock Mocked response data (from mock_response)
 #' @param internet_mock Function to mock curl::has_internet
 with_mock_api <- function(code, response_mock = NULL, internet_mock = NULL) {
-  
   if (is.null(response_mock)) {
     response_mock <- mock_response()
   }
-  
+
   mock_req_perform <- function(req, ...) {
     if (is.list(response_mock) && !is.null(response_mock$status_code)) {
       status_code <- response_mock$status_code
@@ -30,7 +29,7 @@ with_mock_api <- function(code, response_mock = NULL, internet_mock = NULL) {
       status_code <- 200
       content_val <- list()
     }
-    
+
     resp <- httr2::response(
       status_code = status_code,
       url = req$url,

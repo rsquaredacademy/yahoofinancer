@@ -254,11 +254,11 @@ library(scales)
 tickers <- c("AAPL", "MSFT", "GOOG")
 
 # 2. Fetch income statement and cash flow statements
-income_df   <- yf_get_financials(tickers, statement_type = "income", frequency = "annual")
+income_df <- yf_get_financials(tickers, statement_type = "income", frequency = "annual")
 cashflow_df <- yf_get_financials(tickers, statement_type = "cash-flow", frequency = "annual")
 
 # 3. Retrieve quarterly valuation measures
-stocks       <- Tickers$new(tickers)
+stocks <- Tickers$new(tickers)
 val_measures <- stocks$valuation_measures
 
 # 4. Join and calculate key metrics

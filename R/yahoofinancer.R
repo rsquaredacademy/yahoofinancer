@@ -12,6 +12,8 @@
 "_PACKAGE"
 
 if (getRversion() >= "2.15.1") {
-  utils::globalVariables(c(".", "adjclose", "chart", "currencies", "finance",
-   "marketSummaryResponse", "quoteResponse", "result", "volume", "symbolsValidation"))
+  utils::globalVariables(c(
+    ".", "adjclose", "chart", "currencies", "finance",
+    "marketSummaryResponse", "quoteResponse", "result", "volume", "symbolsValidation"
+  ))
 }

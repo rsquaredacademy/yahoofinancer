@@ -94,45 +94,50 @@ Tickers <- R6::R6Class("Tickers",
     #' @keywords internal
     aggregate_data = function(fn) {
       results <- lapply(self$ticker_objs, function(t) {
-        tryCatch({
-          data <- fn(t)
-          if (is.null(data) || length(data) == 0) {
-            warning(paste0("Failed to fetch data for ticker: ", t$symbol), call. = FALSE)
-            return(NULL)
-          }
-
-          if (is.data.frame(data)) {
-            if (nrow(data) == 0) {
+        tryCatch(
+          {
+            data <- fn(t)
+            if (is.null(data) || length(data) == 0) {
               warning(paste0("Failed to fetch data for ticker: ", t$symbol), call. = FALSE)
               return(NULL)
             }
-            # Handle recommendation column collision
-            if ("symbol" %in% names(data) && !"date" %in% names(data)) {
-              names(data)[names(data) == "symbol"] <- "recommended_symbol"
+
+            if (is.data.frame(data)) {
+              if (nrow(data) == 0) {
+                warning(paste0("Failed to fetch data for ticker: ", t$symbol), call. = FALSE)
+                return(NULL)
+              }
+              # Handle recommendation column collision
+              if ("symbol" %in% names(data) && !"date" %in% names(data)) {
+                names(data)[names(data) == "symbol"] <- "recommended_symbol"
+              }
+
+              data$symbol <- t$symbol
+              # Move symbol to the first column
+              cols <- c("symbol", setdiff(names(data), "symbol"))
+              return(data[, cols, drop = FALSE])
             }
 
-            data$symbol <- t$symbol
-            # Move symbol to the first column
-            cols <- c("symbol", setdiff(names(data), "symbol"))
-            return(data[, cols, drop = FALSE])
+            # Return a simple data frame for single values
+            return(data.frame(
+              symbol = t$symbol,
+              value = data,
+              stringsAsFactors = FALSE
+            ))
+          },
+          error = function(e) {
+            warning(paste0("Failed to fetch data for ticker: ", t$symbol), call. = FALSE)
+            NULL
           }
-
-          # Return a simple data frame for single values
-          return(data.frame(
-            symbol = t$symbol,
-            value = data,
-            stringsAsFactors = FALSE
-          ))
-        }, error = function(e) {
-          warning(paste0("Failed to fetch data for ticker: ", t$symbol), call. = FALSE)
-          return(NULL)
-        })
+        )
       })
 
       # Filter out NULLs (failed API calls or errors)
       results <- results[!vapply(results, is.null, logical(1))]
 
-      if (length(results) == 0) return(tibble::tibble())
+      if (length(results) == 0) {
+        return(tibble::tibble())
+      }
 
       # Use dplyr to safely bind rows even if columns mismatch
       combined <- dplyr::bind_rows(results)
@@ -140,10 +145,9 @@ Tickers <- R6::R6Class("Tickers",
       # Clean up row names (dplyr usually handles this, but good for safety)
       row.names(combined) <- NULL
 
-      return(combined)
+      combined
     }
   ),
-
   active = list(
     #' @field recommendations Related symbols suggested by Yahoo Finance and their relevance scores.
     recommendations         = function() self$aggregate_data(function(t) t$recommendations),

@@ -192,48 +192,66 @@ test_that("get_history enforces intraday lookback constraints", {
   aapl <- Ticker$new("AAPL")
 
   # 1m <= 7d
-  expect_error(aapl$get_history(interval = "1m", period = "1mo"), "Interval '1m' is limited to a maximum lookback of 7 days.")
-  expect_error(aapl$get_history(interval = "1m", start = as.character(Sys.Date() - 10)), "Interval '1m' is limited to a maximum lookback of 7 days.")
+  expect_error(
+    aapl$get_history(interval = "1m", period = "1mo"),
+    "Interval '1m' is limited to a maximum lookback of 7 days."
+  )
+  expect_error(
+    aapl$get_history(interval = "1m", start = as.character(Sys.Date() - 10)),
+    "Interval '1m' is limited to a maximum lookback of 7 days."
+  )
 
   # 5m/15m/30m <= 60d
-  expect_error(aapl$get_history(interval = "5m", period = "1y"), "Interval '5m' is limited to a maximum lookback of 60 days.")
-  expect_error(aapl$get_history(interval = "15m", period = "6mo"), "Interval '15m' is limited to a maximum lookback of 60 days.")
-  expect_error(aapl$get_history(interval = "30m", start = as.character(Sys.Date() - 100)), "Interval '30m' is limited to a maximum lookback of 60 days.")
+  expect_error(
+    aapl$get_history(interval = "5m", period = "1y"),
+    "Interval '5m' is limited to a maximum lookback of 60 days."
+  )
+  expect_error(
+    aapl$get_history(interval = "15m", period = "6mo"),
+    "Interval '15m' is limited to a maximum lookback of 60 days."
+  )
+  expect_error(
+    aapl$get_history(interval = "30m", start = as.character(Sys.Date() - 100)),
+    "Interval '30m' is limited to a maximum lookback of 60 days."
+  )
 
   # 1h <= 730d
-  expect_error(aapl$get_history(interval = "1h", period = "5y"), "Interval '1h' is limited to a maximum lookback of 730 days.")
+  expect_error(
+    aapl$get_history(interval = "1h", period = "5y"),
+    "Interval '1h' is limited to a maximum lookback of 730 days."
+  )
 })
 
-test_that('extract_valuation returns numeric(0) for NULL data', {
-  aapl <- Ticker$new('AAPL')
+test_that("extract_valuation returns numeric(0) for NULL data", {
+  aapl <- Ticker$new("AAPL")
   private_env <- aapl$.__enclos_env__$private
-  expect_equal(private_env$extract_valuation(NULL, 'quarterlyMarketCap'), numeric(0))
-  expect_equal(private_env$extract_valuation(list(), 'quarterlyMarketCap'), numeric(0))
+  expect_equal(private_env$extract_valuation(NULL, "quarterlyMarketCap"), numeric(0))
+  expect_equal(private_env$extract_valuation(list(), "quarterlyMarketCap"), numeric(0))
 })
 
-test_that('get_history surfaces quoteSummary error description', {
-  aapl <- Ticker$new('AAPL')
+test_that("get_history surfaces quoteSummary error description", {
+  aapl <- Ticker$new("AAPL")
   with_mock_api(
     response_mock = mock_response(
       status_code = 403,
-      body_json = list(quoteSummary = list(error = list(description = 'Forbidden'))),
+      body_json = list(quoteSummary = list(error = list(description = "Forbidden"))),
       is_error = TRUE
     ),
     code = {
-      expect_warning(aapl$get_history(), 'Yahoo Finance API failed \\[403\\]: Forbidden')
+      expect_warning(aapl$get_history(), "Yahoo Finance API failed \\[403\\]: Forbidden")
     }
   )
 })
 
-test_that('recommendations returns empty tibble when no recommendations', {
-  aapl <- Ticker$new('AAPL')
+test_that("recommendations returns empty tibble when no recommendations", {
+  aapl <- Ticker$new("AAPL")
   with_mock_api(
     response_mock = mock_response(
       body_json = list(finance = list(result = list(list(recommendedSymbols = list()))))
     ),
     code = {
       res <- aapl$recommendations
-      expect_s3_class(res, 'tbl_df')
+      expect_s3_class(res, "tbl_df")
       expect_equal(nrow(res), 0)
     }
   )

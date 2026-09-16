@@ -8,7 +8,10 @@
 #'
 #' @param symbol A character vector of one or more ticker strings, index or fund names (e.g., \code{c("AAPL", "MSFT")}).
 #' @param index Deprecated. Use \code{symbol} instead.
-#' @param return_logical A logical value indicating whether to return a named logical vector. If \code{FALSE} (default), returns a character vector containing only the valid symbols. If \code{TRUE}, returns a named logical vector indicating validation status (\code{TRUE}/\code{FALSE}) for each symbol.
+#' @param return_logical A logical value indicating whether to return a named logical vector.
+#'   If \code{FALSE} (default), returns a character vector containing only the valid symbols.
+#'   If \code{TRUE}, returns a named logical vector indicating validation status (\code{TRUE}/\code{FALSE})
+#'   for each symbol.
 #'
 #' @return
 #' If \code{return_logical = FALSE} (the default), a character vector of valid symbols.
@@ -60,7 +63,7 @@ validate <- function(symbol = NULL, index = NA, return_logical = FALSE) {
     return(if (return_logical) res else character(0))
   }
 
-  url   <- 'https://query2.finance.yahoo.com/v6/finance/quote/validate'
+  url <- "https://query2.finance.yahoo.com/v6/finance/quote/validate"
   qlist <- list(symbols = paste(symbols_to_query, collapse = ","))
 
   parsed <- api_request(url, qlist)
@@ -100,9 +103,9 @@ validate <- function(symbol = NULL, index = NA, return_logical = FALSE) {
   }
 
   if (return_logical) {
-    return(res)
+    res
   } else {
     valid_symbols <- orig_symbol[res & !is.na(orig_symbol)]
-    return(unname(valid_symbols))
+    unname(valid_symbols)
   }
 }

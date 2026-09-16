@@ -204,19 +204,19 @@ Now that you have fetched your first dataset and built a chart, here are several
 
 * **Custom Date Ranges**: Specify exact date boundaries instead of relative periods:
   ```{r custom-dates}
-  aapl_custom <- yf_download_prices("AAPL", start = "2024-01-01", end = "2024-12-31")
+aapl_custom <- yf_download_prices("AAPL", start = "2024-01-01", end = "2024-12-31")
   ```
 * **Different Frequencies**: Query weekly (`interval = "1wk"`) or monthly (`interval = "1mo"`) bars for multi-year trend analysis.
 * **Global Equities & Indices**: Fetch international securities using standard exchange suffixes (e.g., `"RELIANCE.NS"` for NSE India or `"AZN.L"` for London) or market indices (e.g., `Index$new("^GSPC")` for the S&P 500).
 * **Object-Oriented R6 Interface**: For stateful workflows, market metadata, and fundamental valuation metrics, use the `Ticker` class:
   ```{r r6-demo}
-  aapl_obj <- Ticker$new("AAPL")
+aapl_obj <- Ticker$new("AAPL")
 
-  # Inspect security metadata and valuation measures
-  aapl_obj$currency
-  aapl_obj$valuation_measures
+# Inspect security metadata and valuation measures
+aapl_obj$currency
+aapl_obj$valuation_measures
 
-  # Historical prices via R6
-  aapl_obj$get_history(period = "1y", interval = "1d")
+# Historical prices via R6
+aapl_obj$get_history(period = "1y", interval = "1d")
   ```
 * **Cookbook Recipes**: For 15 in-depth quantitative recipes including drawdown analysis, technical indicators (EMA, RSI, MACD, Bollinger Bands), and portfolio performance modeling, see `vignette("cookbook", package = "yahoofinancer")`.

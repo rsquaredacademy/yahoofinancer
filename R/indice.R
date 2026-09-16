@@ -16,12 +16,9 @@
 #'
 #' @export
 Index <- R6::R6Class(
-
   "Index",
   inherit = YahooFinanceBase,
-
   public = list(
-
     #' @description
     #' Create a new Index object.
     #' @param symbol Symbol (e.g., \code{"^NSEI"}).
@@ -58,13 +55,12 @@ Index <- R6::R6Class(
       self$set_symbol(symbol, validate = validate)
     }
   ),
-
   active = list(
     #' @field index Deprecated. Returns \code{self$symbol}.
     index = function(value) {
       if (missing(value)) {
         warning("The 'index' field is deprecated. Please use 'symbol' instead.", call. = FALSE)
-        return(self$symbol)
+        self$symbol
       } else {
         warning("The 'index' field is deprecated. Please use 'symbol' instead.", call. = FALSE)
         self$set_symbol(value)

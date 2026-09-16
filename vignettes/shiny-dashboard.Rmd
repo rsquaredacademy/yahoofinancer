@@ -55,35 +55,31 @@ The UI below uses `sidebarLayout()`: controls on the left, outputs on the right.
 ui <- fluidPage(
   title = "Live Market Dashboard",
   titlePanel("Live Market Dashboard"),
-
   sidebarLayout(
     sidebarPanel(
       width = 3,
-
       selectInput(
         inputId  = "symbol",
         label    = "Ticker",
         choices  = c("AAPL", "MSFT", "GOOG", "AMZN", "NVDA", "META")
       ),
-
       selectInput(
         inputId = "period",
-        label   = "History length",
-        choices = c("1 Month" = "1mo", "3 Months" = "3mo",
-                    "6 Months" = "6mo", "1 Year" = "1y",
-                    "2 Years"  = "2y", "5 Years" = "5y"),
+        label = "History length",
+        choices = c(
+          "1 Month" = "1mo", "3 Months" = "3mo",
+          "6 Months" = "6mo", "1 Year" = "1y",
+          "2 Years" = "2y", "5 Years" = "5y"
+        ),
         selected = "6mo"
       ),
-
       selectInput(
         inputId = "interval",
         label   = "Bar interval",
         choices = c("Daily" = "1d", "Weekly" = "1wk", "Monthly" = "1mo")
       ),
-
       actionButton("refresh", "Refresh data", class = "btn-primary")
     ),
-
     mainPanel(
       width = 9,
 
@@ -123,7 +119,6 @@ Both are wrapped in `eventReactive(input$refresh, ...)`, so each press of the bu
 
 ```{r server-reactives}
 server <- function(input, output, session) {
-
   stats <- eventReactive(input$refresh, {
     yf_get_market_stats(input$symbol)
   })
@@ -161,38 +156,40 @@ yf_get_market_stats("AAPL")
 The cards read from the `stats()` reactive. `price_card`, `range_card`, and `volume_card` use `renderText()`, while `change_card` uses `renderUI()` to color the percentage move green or red based on direction. The range card places the current price within the 52-week band.
 
 ```{r quote-cards}
-  output$price_card <- renderText({
-    s <- req(stats())
-    req(nrow(s) > 0)
-    sprintf("%s · %s", s$symbol, dollar(s$regular_market_price))
-  })
+output$price_card <- renderText({
+  s <- req(stats())
+  req(nrow(s) > 0)
+  sprintf("%s · %s", s$symbol, dollar(s$regular_market_price))
+})
 
-  output$change_card <- renderUI({
-    s <- req(stats())
-    req(nrow(s) > 0)
-    pct <- 100 * (s$regular_market_price - s$previous_close) / s$previous_close
-    color <- if (pct >= 0) "#2e7d32" else "#c62828"
-    tags$span(style = sprintf("color:%s", color),
-              sprintf("%+.2f%% vs previous close", pct))
-  })
+output$change_card <- renderUI({
+  s <- req(stats())
+  req(nrow(s) > 0)
+  pct <- 100 * (s$regular_market_price - s$previous_close) / s$previous_close
+  color <- if (pct >= 0) "#2e7d32" else "#c62828"
+  tags$span(
+    style = sprintf("color:%s", color),
+    sprintf("%+.2f%% vs previous close", pct)
+  )
+})
 
-  output$range_card <- renderText({
-    s <- req(stats())
-    req(nrow(s) > 0)
-    pos <- 100 * (s$regular_market_price - s$fifty_two_week_low) /
-      (s$fifty_two_week_high - s$fifty_two_week_low)
-    sprintf(
-      "%s — %s\n(%s of 52-week range)",
-      dollar(s$fifty_two_week_low), dollar(s$fifty_two_week_high),
-      percent(pos / 100, accuracy = 1)
-    )
-  })
+output$range_card <- renderText({
+  s <- req(stats())
+  req(nrow(s) > 0)
+  pos <- 100 * (s$regular_market_price - s$fifty_two_week_low) /
+    (s$fifty_two_week_high - s$fifty_two_week_low)
+  sprintf(
+    "%s — %s\n(%s of 52-week range)",
+    dollar(s$fifty_two_week_low), dollar(s$fifty_two_week_high),
+    percent(pos / 100, accuracy = 1)
+  )
+})
 
-  output$volume_card <- renderText({
-    s <- req(stats())
-    req(nrow(s) > 0)
-    label_number(scale_cut = scales::cut_short_scale())(s$regular_market_volume)
-  })
+output$volume_card <- renderText({
+  s <- req(stats())
+  req(nrow(s) > 0)
+  label_number(scale_cut = scales::cut_short_scale())(s$regular_market_volume)
+})
 ```
 
 Two defensive details worth keeping:
@@ -207,29 +204,33 @@ Two defensive details worth keeping:
 The chart plots closing prices over time with dashed reference lines at the 52-week extremes. Because `date` arrives as a `POSIXct` datetime, the axis works unchanged for daily, weekly, and monthly bars alike.
 
 ```{r price-chart}
-  output$price_chart <- renderPlot({
-    df <- req(prices())
-    req(nrow(df) > 0)
-    s  <- req(stats())
-    req(nrow(s) > 0)
+output$price_chart <- renderPlot({
+  df <- req(prices())
+  req(nrow(df) > 0)
+  s <- req(stats())
+  req(nrow(s) > 0)
 
-    ggplot(df, aes(x = date, y = close)) +
-      geom_line(color = "#1f77b4", linewidth = 0.9) +
-      geom_hline(yintercept = s$fifty_two_week_high,
-                 linetype = "dashed", color = "#2e7d32") +
-      geom_hline(yintercept = s$fifty_two_week_low,
-                 linetype = "dashed", color = "#c62828") +
-      scale_y_continuous(labels = dollar_format()) +
-      labs(
-        title    = paste(s$symbol, "Price History"),
-        subtitle = "Dashed lines mark 52-week high and low",
-        x        = NULL,
-        y        = "Price (USD)",
-        caption  = "Source: Yahoo Finance via yahoofinancer"
-      ) +
-      theme_minimal(base_size = 12) +
-      theme(plot.title = element_text(face = "bold"))
-  })
+  ggplot(df, aes(x = date, y = close)) +
+    geom_line(color = "#1f77b4", linewidth = 0.9) +
+    geom_hline(
+      yintercept = s$fifty_two_week_high,
+      linetype = "dashed", color = "#2e7d32"
+    ) +
+    geom_hline(
+      yintercept = s$fifty_two_week_low,
+      linetype = "dashed", color = "#c62828"
+    ) +
+    scale_y_continuous(labels = dollar_format()) +
+    labs(
+      title    = paste(s$symbol, "Price History"),
+      subtitle = "Dashed lines mark 52-week high and low",
+      x        = NULL,
+      y        = "Price (USD)",
+      caption  = "Source: Yahoo Finance via yahoofinancer"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(plot.title = element_text(face = "bold"))
+})
 ```
 
 ---
@@ -251,15 +252,22 @@ ui <- fluidPage(
     sidebarPanel(
       width = 3,
       selectInput("symbol", "Ticker",
-                  choices = c("AAPL", "MSFT", "GOOG", "AMZN", "NVDA", "META")),
+        choices = c("AAPL", "MSFT", "GOOG", "AMZN", "NVDA", "META")
+      ),
       selectInput("period", "History length",
-                  choices = c("1 Month" = "1mo", "3 Months" = "3mo",
-                              "6 Months" = "6mo", "1 Year" = "1y",
-                              "2 Years" = "2y", "5 Years" = "5y"),
-                  selected = "6mo"),
+        choices = c(
+          "1 Month" = "1mo", "3 Months" = "3mo",
+          "6 Months" = "6mo", "1 Year" = "1y",
+          "2 Years" = "2y", "5 Years" = "5y"
+        ),
+        selected = "6mo"
+      ),
       selectInput("interval", "Bar interval",
-                  choices = c("Daily" = "1d", "Weekly" = "1wk",
-                              "Monthly" = "1mo")),
+        choices = c(
+          "Daily" = "1d", "Weekly" = "1wk",
+          "Monthly" = "1mo"
+        )
+      ),
       actionButton("refresh", "Refresh data", class = "btn-primary")
     ),
     mainPanel(
@@ -284,10 +292,12 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  stats  <- eventReactive(input$refresh, yf_get_market_stats(input$symbol))
+  stats <- eventReactive(input$refresh, yf_get_market_stats(input$symbol))
   prices <- eventReactive(input$refresh, {
-    yf_download_prices(input$symbol, period = input$period,
-                       interval = input$interval)
+    yf_download_prices(input$symbol,
+      period = input$period,
+      interval = input$interval
+    )
   })
 
   output$price_card <- renderText({
@@ -300,18 +310,22 @@ server <- function(input, output, session) {
     req(nrow(s) > 0)
     pct <- 100 * (s$regular_market_price - s$previous_close) / s$previous_close
     color <- if (pct >= 0) "#2e7d32" else "#c62828"
-    tags$span(style = sprintf("color:%s", color),
-              sprintf("%+.2f%% vs previous close", pct))
+    tags$span(
+      style = sprintf("color:%s", color),
+      sprintf("%+.2f%% vs previous close", pct)
+    )
   })
   output$range_card <- renderText({
     s <- req(stats())
     req(nrow(s) > 0)
     pos <- 100 * (s$regular_market_price - s$fifty_two_week_low) /
       (s$fifty_two_week_high - s$fifty_two_week_low)
-    sprintf("%s — %s\n(%s of range)",
-            dollar(s$fifty_two_week_low),
-            dollar(s$fifty_two_week_high),
-            percent(pos / 100, accuracy = 1))
+    sprintf(
+      "%s — %s\n(%s of range)",
+      dollar(s$fifty_two_week_low),
+      dollar(s$fifty_two_week_high),
+      percent(pos / 100, accuracy = 1)
+    )
   })
   output$volume_card <- renderText({
     s <- req(stats())
@@ -322,14 +336,18 @@ server <- function(input, output, session) {
   output$price_chart <- renderPlot({
     df <- req(prices())
     req(nrow(df) > 0)
-    s  <- req(stats())
+    s <- req(stats())
     req(nrow(s) > 0)
     ggplot(df, aes(x = date, y = close)) +
       geom_line(color = "#1f77b4", linewidth = 0.9) +
-      geom_hline(yintercept = s$fifty_two_week_high,
-                 linetype = "dashed", color = "#2e7d32") +
-      geom_hline(yintercept = s$fifty_two_week_low,
-                 linetype = "dashed", color = "#c62828") +
+      geom_hline(
+        yintercept = s$fifty_two_week_high,
+        linetype = "dashed", color = "#2e7d32"
+      ) +
+      geom_hline(
+        yintercept = s$fifty_two_week_low,
+        linetype = "dashed", color = "#c62828"
+      ) +
       scale_y_continuous(labels = dollar_format()) +
       labs(title = paste(s$symbol, "Price History"), x = NULL, y = "Price (USD)") +
       theme_minimal(base_size = 12) +

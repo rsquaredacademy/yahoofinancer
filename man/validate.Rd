@@ -11,7 +11,10 @@ validate(symbol = NULL, index = NA, return_logical = FALSE)
 
 \item{index}{Deprecated. Use \code{symbol} instead.}
 
-\item{return_logical}{A logical value indicating whether to return a named logical vector. If \code{FALSE} (default), returns a character vector containing only the valid symbols. If \code{TRUE}, returns a named logical vector indicating validation status (\code{TRUE}/\code{FALSE}) for each symbol.}
+\item{return_logical}{A logical value indicating whether to return a named logical vector.
+If \code{FALSE} (default), returns a character vector containing only the valid symbols.
+If \code{TRUE}, returns a named logical vector indicating validation status (\code{TRUE}/\code{FALSE})
+for each symbol.}
 }
 \value{
 If \code{return_logical = FALSE} (the default), a character vector of valid symbols.

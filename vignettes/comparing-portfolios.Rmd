@@ -173,10 +173,10 @@ Now that you can track the performance of a portfolio, explore other data featur
 * **Discover Trending Stocks**: Automatically seed or expand your portfolio watchlist using `get_trending("US")`.
 * **Clean Large Universes**: Use `validate()` to filter out invalid or delisted symbols prior to bulk downloading:
   ```{r validate-example}
-  # Keep only symbols that Yahoo recognizes
-  clean_symbols <- validate(c("AAPL", "NOTREAL", "MSFT"))
-  clean_symbols
-  #> [1] "AAPL" "MSFT"
+# Keep only symbols that Yahoo recognizes
+clean_symbols <- validate(c("AAPL", "NOTREAL", "MSFT"))
+clean_symbols
+#> [1] "AAPL" "MSFT"
   ```
 * **Fundamental Screening**: Learn how to extract financial statements and valuation ratios across peers before analyzing prices—see `vignette("fundamental-screening", package = "yahoofinancer")`.
 * **Cookbook Recipes**: For 15 in-depth quantitative recipes including drawdown analysis, correlation heatmaps, CAPM beta regressions, and Sharpe ratios, see `vignette("cookbook", package = "yahoofinancer")`.

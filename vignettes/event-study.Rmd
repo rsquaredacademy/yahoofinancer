@@ -171,11 +171,15 @@ avg_car <- car_paths |>
 
 ```{r plot-car}
 ggplot() +
-  geom_line(data = car_paths,
-            aes(x = rel_day, y = car, group = label),
-            color = "#9aa5ad", linewidth = 0.5) +
-  geom_line(data = avg_car, aes(x = rel_day, y = car),
-            color = "#1f77b4", linewidth = 1.2) +
+  geom_line(
+    data = car_paths,
+    aes(x = rel_day, y = car, group = label),
+    color = "#9aa5ad", linewidth = 0.5
+  ) +
+  geom_line(
+    data = avg_car, aes(x = rel_day, y = car),
+    color = "#1f77b4", linewidth = 1.2
+  ) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "#555555") +
   scale_x_continuous(breaks = -2:5) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
@@ -222,15 +226,18 @@ events <- tibble::tribble(
 # 2. Market-adjusted abnormal returns over [-2, +5]
 compute_ar <- function(label, event_date) {
   yf_download_prices(c("AAPL", "^GSPC"),
-                     start = event_date - 14,
-                     end   = event_date + 14) |>
+    start = event_date - 14,
+    end   = event_date + 14
+  ) |>
     mutate(symbol = if_else(symbol == "^GSPC", "index", symbol)) |>
     select(date, symbol, close) |>
     pivot_wider(names_from = symbol, values_from = close) |>
     arrange(date) |>
-    mutate(ret_stock = AAPL / lag(AAPL) - 1,
-           ret_mkt   = index / lag(index) - 1,
-           ar        = ret_stock - ret_mkt) |>
+    mutate(
+      ret_stock = AAPL / lag(AAPL) - 1,
+      ret_mkt = index / lag(index) - 1,
+      ar = ret_stock - ret_mkt
+    ) |>
     mutate(rel_day = row_number() - which(as.Date(date) >= event_date)[1]) |>
     filter(rel_day %in% -2:5) |>
     transmute(label, rel_day, ar)
@@ -252,9 +259,11 @@ ggplot(avg_car, aes(x = rel_day, y = car)) +
   geom_vline(xintercept = 0, linetype = "dashed", color = "#555555") +
   scale_x_continuous(breaks = -2:5) +
   scale_y_continuous(labels = percent_format(accuracy = 1)) +
-  labs(title = "Average CAR — AAPL Earnings Announcements",
-       x = "Trading days relative to announcement",
-       y = "Cumulative abnormal return") +
+  labs(
+    title = "Average CAR — AAPL Earnings Announcements",
+    x = "Trading days relative to announcement",
+    y = "Cumulative abnormal return"
+  ) +
   theme_minimal(base_size = 12)
 ```
 

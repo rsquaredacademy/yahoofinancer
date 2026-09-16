@@ -25,9 +25,9 @@ test_that("aggregate_data handles various data shapes and mismatches", {
       # Test Path: Column Mismatch
       mock_mismatch <- function(t) {
         if (t$symbol == "AAPL") {
-          return(data.frame(price = 150, unique_col = "special"))
+          data.frame(price = 150, unique_col = "special")
         } else {
-          return(data.frame(price = 160))
+          data.frame(price = 160)
         }
       }
       res_mismatch <- tks$aggregate_data(mock_mismatch)
@@ -50,7 +50,7 @@ test_that("Tickers is resilient to partial API failures and emits warning", {
 
       mock_partial_fail <- function(t) {
         if (t$symbol == "FAIL") stop("Internal API Error")
-        return(data.frame(val = 1))
+        data.frame(val = 1)
       }
 
       expect_warning(res <- tks$aggregate_data(mock_partial_fail), "Failed to fetch data for ticker: FAIL")
@@ -85,8 +85,10 @@ test_that("Tickers handle NULL or empty result from symbols", {
       tks <- Tickers$new(c("EMPTY", "NULL"))
 
       mock_empty <- function(t) {
-        if (t$symbol == "EMPTY") return(data.frame())
-        return(NULL)
+        if (t$symbol == "EMPTY") {
+          return(data.frame())
+        }
+        NULL
       }
 
       expect_warning(
@@ -106,7 +108,9 @@ test_that("Active bindings route correctly through aggregate_data", {
       tks <- Tickers$new(c("AAPL", "MSFT"))
 
       with_mock_api(
-        response_mock = mock_response(body_json = list(chart = list(result = list(list(meta = list(currency = "USD", regularMarketPrice = 150.0)))))),
+        response_mock = mock_response(body_json = list(chart = list(result = list(list(
+          meta = list(currency = "USD", regularMarketPrice = 150.0)
+        ))))),
         code = {
           res <- tks$currency
           expect_s3_class(res, "data.frame")
@@ -131,7 +135,9 @@ test_that("Active bindings route correctly through aggregate_data", {
       )
 
       with_mock_api(
-        response_mock = mock_response(body_json = jsonlite::fromJSON("samples/insights_2.json", simplifyVector = FALSE)),
+        response_mock = mock_response(
+          body_json = jsonlite::fromJSON("samples/insights_2.json", simplifyVector = FALSE)
+        ),
         code = {
           res <- tks$technical_insights
           expect_s3_class(res, "data.frame")

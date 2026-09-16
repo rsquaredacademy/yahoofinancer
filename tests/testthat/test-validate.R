@@ -78,7 +78,9 @@ test_that("validate handles edge cases", {
   expect_equal(res_num, character(0))
 
   with_mock_api(
-    response_mock = mock_response(body_json = list(symbolsValidation = list(result = list(list(AAPL = TRUE), list(MSFT = TRUE))))),
+    response_mock = mock_response(body_json = list(
+      symbolsValidation = list(result = list(list(AAPL = TRUE), list(MSFT = TRUE)))
+    )),
     code = {
       # NA handling
       res_na <- validate(c("AAPL", NA, "MSFT"), return_logical = TRUE)

@@ -10,7 +10,10 @@ test_that("yf_download_prices handles single and multi-ticker success", {
         self$symbol <- symbol
       },
       get_history = function(start = NULL, end = NULL, interval = "1d", period = NULL) {
-        tibble::tibble(symbol = self$symbol, date = as.POSIXct("2023-01-01"), open = 150, high = 150, low = 150, close = 150, adj_close = 150, volume = 1000)
+        tibble::tibble(
+          symbol = self$symbol, date = as.POSIXct("2023-01-01"),
+          open = 150, high = 150, low = 150, close = 150, adj_close = 150, volume = 1000
+        )
       }
     )
   )
@@ -127,13 +130,25 @@ test_that("yf_get_financials works with frequencies and statements", {
         self$symbol <- symbol
       },
       get_income_statement = function(frequency = "annual") {
-        tibble::tibble(date = as.Date("2023-09-30"), period_type = if (frequency == "annual") "12M" else "3M", total_revenue = 1000)
+        tibble::tibble(
+          date = as.Date("2023-09-30"),
+          period_type = if (frequency == "annual") "12M" else "3M",
+          total_revenue = 1000
+        )
       },
       get_balance_sheet = function(frequency = "annual") {
-        tibble::tibble(date = as.Date("2023-09-30"), period_type = if (frequency == "annual") "12M" else "3M", total_assets = 5000)
+        tibble::tibble(
+          date = as.Date("2023-09-30"),
+          period_type = if (frequency == "annual") "12M" else "3M",
+          total_assets = 5000
+        )
       },
       get_cash_flow = function(frequency = "annual") {
-        tibble::tibble(date = as.Date("2023-09-30"), period_type = if (frequency == "annual") "12M" else "3M", free_cash_flow = 200)
+        tibble::tibble(
+          date = as.Date("2023-09-30"),
+          period_type = if (frequency == "annual") "12M" else "3M",
+          free_cash_flow = 200
+        )
       }
     )
   )
@@ -171,7 +186,10 @@ test_that("yf_get_index_quotes works", {
         self$symbol <- symbol
       },
       get_history = function(start = NULL, end = NULL, interval = "1d", period = "1d") {
-        tibble::tibble(symbol = self$symbol, date = as.POSIXct("2023-01-01"), open = 4000, high = 4000, low = 4000, close = 4000, adj_close = 4000, volume = 1000)
+        tibble::tibble(
+          symbol = self$symbol, date = as.POSIXct("2023-01-01"),
+          open = 4000, high = 4000, low = 4000, close = 4000, adj_close = 4000, volume = 1000
+        )
       }
     )
   )
@@ -187,6 +205,6 @@ test_that("yf_get_index_quotes works", {
   expect_equal(nrow(res2), 0)
 })
 
-test_that('yf_get_financials rejects invalid statement_type', {
-  expect_error(yf_get_financials('AAPL', 'invalid'), "'arg' should be one of")
+test_that("yf_get_financials rejects invalid statement_type", {
+  expect_error(yf_get_financials("AAPL", "invalid"), "'arg' should be one of")
 })

@@ -63,16 +63,24 @@ test_that("currency_converter handles success path", {
   )
 })
 
-test_that('currency_converter validates date inputs', {
+test_that("currency_converter validates date inputs", {
   expect_error(currency_converter("EUR", "USD", start = "invalid-date"), "Invalid 'start' date format")
-  expect_error(currency_converter("EUR", "USD", start = "2021-01-01", end = "invalid-date"), "Invalid 'end' date format")
-  expect_error(currency_converter("EUR", "USD", start = "2021-07-10", end = "2021-07-01"), "'start' date must be before or equal to 'end' date.")
+  expect_error(
+    currency_converter("EUR", "USD", start = "2021-01-01", end = "invalid-date"),
+    "Invalid 'end' date format"
+  )
+  expect_error(
+    currency_converter("EUR", "USD", start = "2021-07-10", end = "2021-07-01"),
+    "'start' date must be before or equal to 'end' date."
+  )
   with_mock_api(
     response_mock = mock_response(body_json = list(chart = list(result = list(list(
       timestamp = list(1625059200),
       indicators = list(
-        quote = list(list(open = list(1.18), high = list(1.19),
-                          low = list(1.17), close = list(1.185), volume = list(0))),
+        quote = list(list(
+          open = list(1.18), high = list(1.19),
+          low = list(1.17), close = list(1.185), volume = list(0)
+        )),
         adjclose = list(list(adjclose = list(1.185)))
       )
     ))))),
@@ -86,73 +94,77 @@ test_that('currency_converter validates date inputs', {
   )
 })
 
-test_that('get_currencies handles offline gracefully', {
+test_that("get_currencies handles offline gracefully", {
   with_mock_api(internet_mock = function() FALSE, code = {
-    expect_message(res <- get_currencies(), 'No internet connection.')
+    expect_message(res <- get_currencies(), "No internet connection.")
     expect_null(res)
   })
 })
 
-test_that('get_currencies handles API error', {
+test_that("get_currencies handles API error", {
   with_mock_api(
     response_mock = mock_response(status_code = 500, is_error = TRUE),
     code = {
-      expect_warning(res <- get_currencies(), 'Yahoo Finance API failed \\[500\\]: Unknown Error')
+      expect_warning(res <- get_currencies(), "Yahoo Finance API failed \\[500\\]: Unknown Error")
       expect_null(res)
     }
   )
 })
 
-test_that('get_currencies returns correct schema on success', {
+test_that("get_currencies returns correct schema on success", {
   with_mock_api(
     response_mock = mock_response(body_json = list(currencies = list(result = list(
-      list(shortName = 'USD', longName = 'US Dollar', symbol = 'USD', localLongName = 'US Dollar'),
-      list(shortName = 'EUR', longName = 'Euro', symbol = 'EUR', localLongName = 'Euro')
+      list(shortName = "USD", longName = "US Dollar", symbol = "USD", localLongName = "US Dollar"),
+      list(shortName = "EUR", longName = "Euro", symbol = "EUR", localLongName = "Euro")
     )))),
     code = {
       res <- get_currencies()
-      expect_s3_class(res, 'data.frame')
-      expect_equal(names(res), c('short_name', 'long_name', 'symbol', 'local_long_name'))
+      expect_s3_class(res, "data.frame")
+      expect_equal(names(res), c("short_name", "long_name", "symbol", "local_long_name"))
       expect_equal(nrow(res), 2)
     }
   )
 })
 
-test_that('currency_converter handles start+end date path', {
+test_that("currency_converter handles start+end date path", {
   with_mock_api(
     response_mock = mock_response(body_json = list(chart = list(result = list(list(
       timestamp = list(1625059200),
       indicators = list(
-        quote = list(list(open = list(1.18), high = list(1.19),
-                          low = list(1.17), close = list(1.185), volume = list(100))),
+        quote = list(list(
+          open = list(1.18), high = list(1.19),
+          low = list(1.17), close = list(1.185), volume = list(100)
+        )),
         adjclose = list(list(adjclose = list(1.185)))
       )
     ))))),
     code = {
-      res <- currency_converter('EUR', 'USD', start = '2021-07-01', end = '2021-07-02', interval = '1d')
-      expect_s3_class(res, 'data.frame')
-      expect_true('adj_close' %in% names(res))
+      res <- currency_converter("EUR", "USD", start = "2021-07-01", end = "2021-07-02", interval = "1d")
+      expect_s3_class(res, "data.frame")
+      expect_true("adj_close" %in% names(res))
     }
   )
 })
 
-test_that('currency_converter excludes adj_close for intraday intervals', {
+test_that("currency_converter excludes adj_close for intraday intervals", {
   with_mock_api(
     response_mock = mock_response(body_json = list(chart = list(result = list(list(
       timestamp = list(1625059200),
       indicators = list(
-        quote = list(list(open = list(1.18), high = list(1.19),
-                          low = list(1.17), close = list(1.185), volume = list(100)))
+        quote = list(list(
+          open = list(1.18), high = list(1.19),
+          low = list(1.17), close = list(1.185), volume = list(100)
+        ))
       )
     ))))),
     code = {
-      res <- currency_converter('EUR', 'USD', period = '1d', interval = '1h')
-      expect_false('adj_close' %in% names(res))
+      res <- currency_converter("EUR", "USD", period = "1d", interval = "1h")
+      expect_false("adj_close" %in% names(res))
     }
   )
 })
 
-test_that('currency_converter filters out NA volumes', {
+test_that("currency_converter filters out NA volumes", {
   with_mock_api(
     response_mock = mock_response(body_json = list(chart = list(result = list(list(
       timestamp = list(1625059200, 1625145600),
@@ -165,7 +177,7 @@ test_that('currency_converter filters out NA volumes', {
       )
     ))))),
     code = {
-      res <- currency_converter('EUR', 'USD', period = '5d', interval = '1d')
+      res <- currency_converter("EUR", "USD", period = "5d", interval = "1d")
       expect_equal(nrow(res), 1)
     }
   )

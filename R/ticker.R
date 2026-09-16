@@ -18,10 +18,8 @@
 #'
 #' @export
 Ticker <- R6::R6Class(
-
   "Ticker",
   inherit = YahooFinanceBase,
-
   public = list(
     #' @description
     #' Create a new Ticker object.
@@ -71,50 +69,60 @@ Ticker <- R6::R6Class(
       private$fetch_financial_statement(private$cash_flow_codes, frequency)
     }
   ),
-
   active = list(
-
     #' @field valuation_measures Retrieves valuation measures
     valuation_measures = function() {
-      path      <- 'ws/fundamentals-timeseries/v1/finance/timeseries/'
+      path <- "ws/fundamentals-timeseries/v1/finance/timeseries/"
       end_point <- paste0(path, self$symbol)
-      measure   <- paste0('quarterly', c('MarketCap', 'EnterpriseValue', 'PeRatio', 'ForwardPeRatio',
-                                         'PegRatio', 'PsRatio', 'PbRatio', 'EnterprisesValueRevenueRatio',
-                                         'EnterprisesValueEBITDARatio'), collapse = ',')
+      measure <- paste0("quarterly", c(
+        "MarketCap", "EnterpriseValue", "PeRatio", "ForwardPeRatio",
+        "PegRatio", "PsRatio", "PbRatio", "EnterprisesValueRevenueRatio",
+        "EnterprisesValueEBITDARatio"
+      ), collapse = ",")
 
-      qlist <- list(type = measure, period1 = 493590046, period2 = floor(as.numeric(Sys.time())),
-                    corsDomain = private$cors_domain)
+      qlist <- list(
+        type = measure, period1 = 493590046, period2 = floor(as.numeric(Sys.time())),
+        corsDomain = private$cors_domain
+      )
 
       parsed <- private$api_request(end_point, qlist)
-      if (is.null(parsed)) return(invisible(NULL))
+      if (is.null(parsed)) {
+        return(invisible(NULL))
+      }
 
       data <- parsed$timeseries$result
-      if (length(data) == 0) return(invisible(NULL))
+      if (length(data) == 0) {
+        return(invisible(NULL))
+      }
 
       tibble::tibble(
         date = lubridate::date(lubridate::as_datetime(unlist(data[[1]]$timestamp))),
-        enterprise_value = private$extract_valuation(data, 'quarterlyEnterpriseValue'),
-        enterprise_value_ebitda_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueEBITDARatio'),
-        enterprise_value_revenue_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueRevenueRatio'),
-        forward_pe_ratio = private$extract_valuation(data, 'quarterlyForwardPeRatio'),
-        market_cap = private$extract_valuation(data, 'quarterlyMarketCap'),
-        pb_ratio = private$extract_valuation(data, 'quarterlyPbRatio'),
-        pe_ratio = private$extract_valuation(data, 'quarterlyPeRatio'),
-        peg_ratio = private$extract_valuation(data, 'quarterlyPegRatio'),
-        ps_ratio = private$extract_valuation(data, 'quarterlyPsRatio')
+        enterprise_value = private$extract_valuation(data, "quarterlyEnterpriseValue"),
+        enterprise_value_ebitda_ratio = private$extract_valuation(data, "quarterlyEnterprisesValueEBITDARatio"),
+        enterprise_value_revenue_ratio = private$extract_valuation(data, "quarterlyEnterprisesValueRevenueRatio"),
+        forward_pe_ratio = private$extract_valuation(data, "quarterlyForwardPeRatio"),
+        market_cap = private$extract_valuation(data, "quarterlyMarketCap"),
+        pb_ratio = private$extract_valuation(data, "quarterlyPbRatio"),
+        pe_ratio = private$extract_valuation(data, "quarterlyPeRatio"),
+        peg_ratio = private$extract_valuation(data, "quarterlyPegRatio"),
+        ps_ratio = private$extract_valuation(data, "quarterlyPsRatio")
       )
     },
 
     #' @field recommendations Related symbols recommended by Yahoo Finance and their scores.
     recommendations = function() {
-      path      <- 'v6/finance/recommendationsbysymbol/'
+      path <- "v6/finance/recommendationsbysymbol/"
       end_point <- paste0(path, self$symbol)
 
       parsed <- private$api_request(end_point, list(corsDomain = private$cors_domain))
-      if (is.null(parsed)) return(invisible(NULL))
+      if (is.null(parsed)) {
+        return(invisible(NULL))
+      }
 
       data <- parsed$finance$result[[1]]$recommendedSymbols
-      if (length(data) == 0) return(tibble::tibble(symbol = character(), score = numeric()))
+      if (length(data) == 0) {
+        return(tibble::tibble(symbol = character(), score = numeric()))
+      }
 
       tibble::tibble(
         symbol = vapply(data, function(x) x$symbol, character(1)),
@@ -124,11 +132,13 @@ Ticker <- R6::R6Class(
 
     #' @field technical_insights Technical insights and indicators snapshot.
     technical_insights = function() {
-      path  <- 'ws/insights/v2/finance/insights'
+      path <- "ws/insights/v2/finance/insights"
       qlist <- list(symbol = self$symbol, corsDomain = private$cors_domain)
 
       parsed <- private$api_request(path, qlist)
-      if (is.null(parsed)) return(invisible(NULL))
+      if (is.null(parsed)) {
+        return(invisible(NULL))
+      }
       parsed$finance$result
     },
 
@@ -144,14 +154,18 @@ Ticker <- R6::R6Class(
     #' @field first_trade_date Timestamp of the first recorded trade.
     first_trade_date = function() {
       val <- private$meta_info()$firstTradeDate
-      if (is.null(val)) return(NULL)
+      if (is.null(val)) {
+        return(NULL)
+      }
       lubridate::as_datetime(val)
     },
 
     #' @field regular_market_time Timestamp of the last market trade.
     regular_market_time = function() {
       val <- private$meta_info()$regularMarketTime
-      if (is.null(val)) return(NULL)
+      if (is.null(val)) {
+        return(NULL)
+      }
       lubridate::as_datetime(val)
     },
 
@@ -182,10 +196,8 @@ Ticker <- R6::R6Class(
     #' @field previous_close Closing price of the previous trading day.
     previous_close = function() private$meta_info()$previousClose
   ),
-
   private = list(
     cached_meta = NULL,
-
     income_statement_codes = c(
       "TotalRevenue", "OperatingRevenue", "CostOfRevenue", "GrossProfit",
       "OperatingExpense", "OperatingIncome", "NetNonOperatingInterestIncomeExpense",
@@ -193,7 +205,6 @@ Ticker <- R6::R6Class(
       "NetIncome", "BasicEPS", "DilutedEPS", "BasicAverageShares", "DilutedAverageShares",
       "EBITDA", "EBIT", "NormalizedEBITDA", "NormalizedIncome"
     ),
-
     balance_sheet_codes = c(
       "TotalAssets", "CurrentAssets", "CashAndCashEquivalents", "OtherShortTermInvestments",
       "Receivables", "Inventory", "NonCurrentAssets", "NetPPE", "GoodwillAndOtherIntangibleAssets",
@@ -201,7 +212,6 @@ Ticker <- R6::R6Class(
       "CurrentDebt", "NonCurrentLiabilitiesTotal", "LongTermDebt", "TotalStockholderEquity",
       "CommonStock", "RetainedEarnings", "WorkingCapital", "InvestedCapital", "NetDebt", "TotalDebt"
     ),
-
     cash_flow_codes = c(
       "OperatingCashFlow", "CashFlowFromContinuingOperatingActivities",
       "NetIncomeFromContinuingOperations", "DepreciationAndAmortization",
@@ -211,7 +221,6 @@ Ticker <- R6::R6Class(
       "CashFlowFromContinuingFinancingActivities", "CommonStockIssuancePayments",
       "CashDividendsPaid", "FreeCashFlow", "EndCashPosition", "BeginningCashPosition"
     ),
-
     fetch_financial_statement = function(metric_codes, frequency = c("annual", "quarterly")) {
       frequency <- match.arg(frequency)
       full_types <- paste0(frequency, metric_codes)
@@ -226,14 +235,17 @@ Ticker <- R6::R6Class(
       )
 
       parsed <- private$api_request(path, qlist)
-      if (is.null(parsed)) return(invisible(NULL))
+      if (is.null(parsed)) {
+        return(invisible(NULL))
+      }
 
       data <- parsed$timeseries$result
-      if (is.null(data) || length(data) == 0) return(invisible(NULL))
+      if (is.null(data) || length(data) == 0) {
+        return(invisible(NULL))
+      }
 
       private$parse_timeseries_statements(data, metric_codes, frequency)
     },
-
     parse_timeseries_statements = function(data, metric_codes, frequency) {
       rows <- list()
       for (item in data) {
@@ -267,7 +279,9 @@ Ticker <- R6::R6Class(
         }
       }
 
-      if (length(rows) == 0) return(invisible(NULL))
+      if (length(rows) == 0) {
+        return(invisible(NULL))
+      }
 
       dates <- vapply(rows, function(r) r$date, character(1))
       period_types <- vapply(rows, function(r) r$period_type, character(1))
@@ -303,28 +317,32 @@ Ticker <- R6::R6Class(
         res[[m]] <- sub_df$value[idx]
       }
 
-      return(res)
+      res
     },
-
     extract_valuation = function(data, measure) {
-      if (is.null(data) || length(data) == 0) return(numeric(0))
+      if (is.null(data) || length(data) == 0) {
+        return(numeric(0))
+      }
       res <- data %>%
-        purrr::map_if(~measure %in% names(.x), measure) %>%
-        purrr::map_depth(2, 'reportedValue') %>%
-        purrr::map_depth(2, 'raw') %>%
+        purrr::map_if(~ measure %in% names(.x), measure) %>%
+        purrr::map_depth(2, "reportedValue") %>%
+        purrr::map_depth(2, "raw") %>%
         unlist()
-      if (is.null(res)) return(numeric(0))
-      return(res)
+      if (is.null(res)) {
+        return(numeric(0))
+      }
+      res
     },
-
     meta_info = function() {
       if (!is.null(private$cached_meta)) {
         return(private$cached_meta)
       }
-      path      <- 'v8/finance/chart/'
+      path <- "v8/finance/chart/"
       end_point <- paste0(path, self$symbol)
-      parsed    <- private$api_request(end_point)
-      if (is.null(parsed)) return(NULL)
+      parsed <- private$api_request(end_point)
+      if (is.null(parsed)) {
+        return(NULL)
+      }
       private$cached_meta <- parsed$chart$result[[1]]$meta
       private$cached_meta
     }

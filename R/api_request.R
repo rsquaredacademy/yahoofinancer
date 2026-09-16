@@ -41,7 +41,9 @@ api_request <- function(url, query = list(), headers = list()) {
     }
   )
 
-  if (is.null(resp)) return(NULL)
+  if (is.null(resp)) {
+    return(NULL)
+  }
 
   parsed <- tryCatch(
     httr2::resp_body_json(resp, simplifyVector = FALSE),
@@ -51,7 +53,9 @@ api_request <- function(url, query = list(), headers = list()) {
     }
   )
 
-  if (is.null(parsed)) return(NULL)
+  if (is.null(parsed)) {
+    return(NULL)
+  }
 
   if (httr2::resp_is_error(resp)) {
     status <- httr2::resp_status(resp)
@@ -74,5 +78,5 @@ api_request <- function(url, query = list(), headers = list()) {
     return(NULL)
   }
 
-  return(parsed)
+  parsed
 }

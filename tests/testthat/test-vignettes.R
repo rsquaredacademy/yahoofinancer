@@ -10,15 +10,21 @@ find_vignette_rmd <- function(name) {
   # 1. Source tree: check for .Rmd.orig first (for pre-computed vignettes like cookbook)
   root <- testthat::test_path("..", "..")
   orig <- file.path(root, "vignettes", paste0(name, ".Rmd.orig"))
-  if (file.exists(orig)) return(orig)
+  if (file.exists(orig)) {
+    return(orig)
+  }
 
   # 2. Installed location (R CMD check / R CMD build)
   installed <- system.file("doc", paste0(name, ".Rmd"), package = "yahoofinancer")
-  if (nzchar(installed)) return(installed)
+  if (nzchar(installed)) {
+    return(installed)
+  }
 
   # 3. Source tree standard .Rmd
   src <- file.path(root, "vignettes", paste0(name, ".Rmd"))
-  if (file.exists(src)) return(src)
+  if (file.exists(src)) {
+    return(src)
+  }
 
   NA_character_
 }

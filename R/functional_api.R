@@ -47,9 +47,11 @@
 #'
 #' @export
 yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d", period = NULL) {
-
   if (!is.null(start) && !is.null(period)) {
-    warning("Both 'start' and 'period' were provided. Using explicit 'start' and 'end' dates and ignoring 'period'.", call. = FALSE)
+    warning(
+      "Both 'start' and 'period' were provided. Using explicit 'start' and 'end' dates and ignoring 'period'.",
+      call. = FALSE
+    )
     period <- NULL
   }
 
@@ -60,31 +62,39 @@ yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d
   if (!is.null(period)) {
     valid_periods <- c("1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max")
     if (!(period %in% valid_periods)) {
-      stop(paste0("Invalid period: '", period, "'. Valid periods are: ", paste(valid_periods, collapse = ", ")), call. = FALSE)
+      stop(
+        paste0("Invalid period: '", period, "'. Valid periods are: ", paste(valid_periods, collapse = ", ")),
+        call. = FALSE
+      )
     }
   }
 
   results <- lapply(tickers, function(ticker) {
-    tryCatch({
-      obj <- Ticker$new(ticker)
-      res <- obj$get_history(start = start, end = end, interval = interval, period = period)
-      if (is.null(res) || nrow(res) == 0) {
-        warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
-        return(NULL)
-      }
+    tryCatch(
+      {
+        obj <- Ticker$new(ticker)
+        res <- obj$get_history(start = start, end = end, interval = interval, period = period)
+        if (is.null(res) || nrow(res) == 0) {
+          warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
+          return(NULL)
+        }
 
-      return(res)
-    }, error = function(e) {
-      warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
-      return(NULL)
-    })
+        res
+      },
+      error = function(e) {
+        warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
+        NULL
+      }
+    )
   })
 
   results <- results[!vapply(results, is.null, logical(1))]
-  if (length(results) == 0) return(tibble::tibble())
+  if (length(results) == 0) {
+    return(tibble::tibble())
+  }
 
   combined <- dplyr::bind_rows(results)
-  return(tibble::as_tibble(combined))
+  tibble::as_tibble(combined)
 }
 
 
@@ -114,33 +124,38 @@ yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d
 #' @export
 yf_get_market_stats <- function(tickers) {
   results <- lapply(tickers, function(ticker) {
-    tryCatch({
-      obj <- Ticker$new(ticker)
+    tryCatch(
+      {
+        obj <- Ticker$new(ticker)
 
-      safe_extract <- function(x) if (is.null(x) || length(x) == 0) NA else x
+        safe_extract <- function(x) if (is.null(x) || length(x) == 0) NA else x
 
-      res <- data.frame(
-        symbol = ticker,
-        regular_market_price = safe_extract(obj$regular_market_price),
-        fifty_two_week_high = safe_extract(obj$fifty_two_week_high),
-        fifty_two_week_low = safe_extract(obj$fifty_two_week_low),
-        regular_market_volume = safe_extract(obj$regular_market_volume),
-        previous_close = safe_extract(obj$previous_close),
-        currency = safe_extract(obj$currency),
-        stringsAsFactors = FALSE
-      )
-      return(res)
-    }, error = function(e) {
-      warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
-      return(NULL)
-    })
+        res <- data.frame(
+          symbol = ticker,
+          regular_market_price = safe_extract(obj$regular_market_price),
+          fifty_two_week_high = safe_extract(obj$fifty_two_week_high),
+          fifty_two_week_low = safe_extract(obj$fifty_two_week_low),
+          regular_market_volume = safe_extract(obj$regular_market_volume),
+          previous_close = safe_extract(obj$previous_close),
+          currency = safe_extract(obj$currency),
+          stringsAsFactors = FALSE
+        )
+        res
+      },
+      error = function(e) {
+        warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
+        NULL
+      }
+    )
   })
 
   results <- results[!vapply(results, is.null, logical(1))]
-  if (length(results) == 0) return(tibble::tibble())
+  if (length(results) == 0) {
+    return(tibble::tibble())
+  }
 
   combined <- dplyr::bind_rows(results)
-  return(tibble::as_tibble(combined))
+  tibble::as_tibble(combined)
 }
 
 
@@ -169,40 +184,48 @@ yf_get_market_stats <- function(tickers) {
 #' }
 #'
 #' @export
-yf_get_financials <- function(tickers, statement_type = c("income", "balance-sheet", "cash-flow"), frequency = c("annual", "quarterly")) {
+yf_get_financials <- function(
+    tickers,
+    statement_type = c("income", "balance-sheet", "cash-flow"),
+    frequency = c("annual", "quarterly")) {
   statement_type <- match.arg(statement_type)
   frequency <- match.arg(frequency)
 
   results <- lapply(tickers, function(ticker) {
-    tryCatch({
-      obj <- Ticker$new(ticker)
+    tryCatch(
+      {
+        obj <- Ticker$new(ticker)
 
-      res <- switch(statement_type,
-        "income" = obj$get_income_statement(frequency = frequency),
-        "balance-sheet" = obj$get_balance_sheet(frequency = frequency),
-        "cash-flow" = obj$get_cash_flow(frequency = frequency)
-      )
+        res <- switch(statement_type,
+          "income" = obj$get_income_statement(frequency = frequency),
+          "balance-sheet" = obj$get_balance_sheet(frequency = frequency),
+          "cash-flow" = obj$get_cash_flow(frequency = frequency)
+        )
 
-      if (is.null(res) || nrow(res) == 0) {
+        if (is.null(res) || nrow(res) == 0) {
+          warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
+          return(NULL)
+        }
+
+        res$symbol <- ticker
+        cols <- c("symbol", setdiff(names(res), "symbol"))
+        res <- res[, cols, drop = FALSE]
+        res
+      },
+      error = function(e) {
         warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
-        return(NULL)
+        NULL
       }
-
-      res$symbol <- ticker
-      cols <- c("symbol", setdiff(names(res), "symbol"))
-      res <- res[, cols, drop = FALSE]
-      return(res)
-    }, error = function(e) {
-      warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
-      return(NULL)
-    })
+    )
   })
 
   results <- results[!vapply(results, is.null, logical(1))]
-  if (length(results) == 0) return(tibble::tibble())
+  if (length(results) == 0) {
+    return(tibble::tibble())
+  }
 
   combined <- dplyr::bind_rows(results)
-  return(tibble::as_tibble(combined))
+  tibble::as_tibble(combined)
 }
 
 
@@ -229,18 +252,21 @@ yf_get_financials <- function(tickers, statement_type = c("income", "balance-she
 #'
 #' @export
 yf_get_index_quotes <- function(index_symbol) {
-  tryCatch({
-    obj <- Index$new(index_symbol)
-    res <- obj$get_history(period = "1d", interval = "1d")
+  tryCatch(
+    {
+      obj <- Index$new(index_symbol)
+      res <- obj$get_history(period = "1d", interval = "1d")
 
-    if (is.null(res) || nrow(res) == 0) {
+      if (is.null(res) || nrow(res) == 0) {
+        warning(paste0("Failed to fetch data for index: ", index_symbol), call. = FALSE)
+        return(tibble::tibble())
+      }
+
+      res
+    },
+    error = function(e) {
       warning(paste0("Failed to fetch data for index: ", index_symbol), call. = FALSE)
-      return(tibble::tibble())
+      tibble::tibble()
     }
-
-    return(res)
-  }, error = function(e) {
-    warning(paste0("Failed to fetch data for index: ", index_symbol), call. = FALSE)
-    return(tibble::tibble())
-  })
+  )
 }

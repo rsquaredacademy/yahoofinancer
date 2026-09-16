@@ -18,18 +18,22 @@
 #' @export
 #'
 get_currencies <- function() {
-  url <- 'https://query1.finance.yahoo.com/v1/finance/currencies'
+  url <- "https://query1.finance.yahoo.com/v1/finance/currencies"
   parsed <- api_request(url)
-  if (is.null(parsed)) return(invisible(NULL))
+  if (is.null(parsed)) {
+    return(invisible(NULL))
+  }
 
   data <- parsed$currencies$result
-  if (is.null(data) || length(data) == 0) return(invisible(NULL))
+  if (is.null(data) || length(data) == 0) {
+    return(invisible(NULL))
+  }
 
   data.frame(
-    short_name      = map_chr(data, 'shortName'),
-    long_name       = map_chr(data, 'longName'),
-    symbol          = map_chr(data, 'symbol'),
-    local_long_name = map_chr(data, 'localLongName')
+    short_name      = map_chr(data, "shortName"),
+    long_name       = map_chr(data, "longName"),
+    symbol          = map_chr(data, "symbol"),
+    local_long_name = map_chr(data, "localLongName")
   )
 }
 
@@ -64,7 +68,6 @@ get_currencies <- function() {
 #'
 #' @export
 get_market_summary <- function(as_tibble = TRUE) {
-
   if (!is.logical(as_tibble) || length(as_tibble) != 1 || is.na(as_tibble)) {
     stop("`as_tibble` must be a single logical value (TRUE or FALSE).", call. = FALSE)
   }
@@ -83,12 +86,16 @@ get_market_summary <- function(as_tibble = TRUE) {
     )
   }
 
-  url   <- 'https://query1.finance.yahoo.com/v6/finance/quote/marketSummary'
-  qlist <- list(region = 'US')
+  url <- "https://query1.finance.yahoo.com/v6/finance/quote/marketSummary"
+  qlist <- list(region = "US")
 
   parsed <- api_request(url, qlist)
   if (is.null(parsed)) {
-    if (as_tibble) return(empty_tibble()) else return(invisible(NULL))
+    if (as_tibble) {
+      return(empty_tibble())
+    } else {
+      return(invisible(NULL))
+    }
   }
 
   data <- parsed$marketSummaryResponse$result
@@ -100,32 +107,54 @@ get_market_summary <- function(as_tibble = TRUE) {
 
     safe_extract_scalar_char <- function(x, name, default = NA_character_) {
       val <- x[[name]]
-      if (is.null(val)) return(default)
+      if (is.null(val)) {
+        return(default)
+      }
       as.character(val)
     }
 
     safe_extract_raw_numeric <- function(x, name, default = NA_real_) {
       val <- x[[name]]
-      if (is.null(val) || is.null(val$raw)) return(default)
+      if (is.null(val) || is.null(val$raw)) {
+        return(default)
+      }
       as.numeric(val$raw)
     }
 
     res <- tibble::tibble(
       symbol = vapply(data, safe_extract_scalar_char, name = "symbol", FUN.VALUE = character(1)),
       short_name = vapply(data, safe_extract_scalar_char, name = "shortName", FUN.VALUE = character(1)),
-      regular_market_price = vapply(data, safe_extract_raw_numeric, name = "regularMarketPrice", FUN.VALUE = numeric(1)),
-      regular_market_change = vapply(data, safe_extract_raw_numeric, name = "regularMarketChange", FUN.VALUE = numeric(1)),
-      regular_market_change_percent = vapply(data, safe_extract_raw_numeric, name = "regularMarketChangePercent", FUN.VALUE = numeric(1)),
-      regular_market_previous_close = vapply(data, safe_extract_raw_numeric, name = "regularMarketPreviousClose", FUN.VALUE = numeric(1)),
+      regular_market_price = vapply(
+        data, safe_extract_raw_numeric,
+        name = "regularMarketPrice", FUN.VALUE = numeric(1)
+      ),
+      regular_market_change = vapply(
+        data, safe_extract_raw_numeric,
+        name = "regularMarketChange", FUN.VALUE = numeric(1)
+      ),
+      regular_market_change_percent = vapply(
+        data, safe_extract_raw_numeric,
+        name = "regularMarketChangePercent", FUN.VALUE = numeric(1)
+      ),
+      regular_market_previous_close = vapply(
+        data, safe_extract_raw_numeric,
+        name = "regularMarketPreviousClose", FUN.VALUE = numeric(1)
+      ),
       market_state = vapply(data, safe_extract_scalar_char, name = "marketState", FUN.VALUE = character(1)),
       exchange = vapply(data, safe_extract_scalar_char, name = "exchange", FUN.VALUE = character(1)),
-      market_time = as.POSIXct(vapply(data, safe_extract_raw_numeric, name = "regularMarketTime", FUN.VALUE = numeric(1)), origin = "1970-01-01", tz = "UTC")
+      market_time = as.POSIXct(
+        vapply(data, safe_extract_raw_numeric, name = "regularMarketTime", FUN.VALUE = numeric(1)),
+        origin = "1970-01-01",
+        tz = "UTC"
+      )
     )
 
-    return(res)
+    res
   } else {
-    if (length(data) == 0) return(list())
-    return(data)
+    if (length(data) == 0) {
+      return(list())
+    }
+    data
   }
 }
 
@@ -154,13 +183,14 @@ get_market_summary <- function(as_tibble = TRUE) {
 #'
 #' @export
 #'
-get_trending <- function(country = 'US', count = 10) {
-
-  url   <- paste0('https://query1.finance.yahoo.com/v1/finance/trending/', country)
+get_trending <- function(country = "US", count = 10) {
+  url <- paste0("https://query1.finance.yahoo.com/v1/finance/trending/", country)
   qlist <- list(count = count)
 
   parsed <- api_request(url, qlist)
-  if (is.null(parsed)) return(invisible(NULL))
+  if (is.null(parsed)) {
+    return(invisible(NULL))
+  }
 
   data <- parsed$finance$result
 
@@ -170,12 +200,11 @@ get_trending <- function(country = 'US', count = 10) {
     data %>%
       extract2(1) %>%
       use_series(quote) %>%
-      map_chr('symbol')
+      map_chr("symbol")
   } else {
-    message('No trending securities.')
-    return(invisible(NULL))
+    message("No trending securities.")
+    invisible(NULL)
   }
-
 }
 
 #' Currency Converter
@@ -226,14 +255,13 @@ get_trending <- function(country = 'US', count = 10) {
 #'
 #' @examples
 #' \dontrun{
-#' currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
-#' currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
+#' currency_converter("GBP", "USD", "2022-07-01", "2022-07-10")
+#' currency_converter("GBP", "USD", period = "1mo", interval = "1d")
 #' }
 #'
 #' @export
 #'
-currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NULL, period = 'ytd', interval = '1d') {
-
+currency_converter <- function(from = "EUR", to = "USD", start = NULL, end = NULL, period = "ytd", interval = "1d") {
   if (!is.null(start)) {
     start_dt <- lubridate::ymd(start, tz = "UTC", quiet = TRUE)
     if (is.na(start_dt)) {
@@ -258,19 +286,26 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
     end <- NULL
   }
 
-  cors_domain <- 'finance.yahoo.com'
-  url         <- paste0('https://query1.finance.yahoo.com/v8/finance/chart/', from, to, '=X')
+  cors_domain <- "finance.yahoo.com"
+  url <- paste0("https://query1.finance.yahoo.com/v8/finance/chart/", from, to, "=X")
 
   if (!is.null(start) && !is.null(end)) {
     qlist <- list(period1 = start_date, period2 = end_date, interval = interval, corsDomain = cors_domain)
   } else if (!is.null(start) && is.null(end)) {
-    qlist <- list(period1 = start_date, period2 = round(as.numeric(as.POSIXct(lubridate::now("UTC")))), interval = interval, corsDomain = cors_domain)
+    qlist <- list(
+      period1 = start_date,
+      period2 = round(as.numeric(as.POSIXct(lubridate::now("UTC")))),
+      interval = interval,
+      corsDomain = cors_domain
+    )
   } else {
     qlist <- list(range = period, interval = interval, corsDomain = cors_domain)
   }
 
   parsed <- api_request(url, qlist)
-  if (is.null(parsed)) return(tibble::tibble())
+  if (is.null(parsed)) {
+    return(tibble::tibble())
+  }
 
   data <- parsed$chart$result[[1]]
   indicators <- data$indicators$quote[[1]]
@@ -284,7 +319,7 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
     volume = flatten_list(indicators$volume)
   )
 
-  intervals <- c('1d', '5d', '1wk', '1mo', '3mo')
+  intervals <- c("1d", "5d", "1wk", "1mo", "3mo")
 
   if (interval %in% intervals) {
     adj_close <- data$indicators$adjclose[[1]]$adjclose
@@ -295,5 +330,5 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
     }
   }
 
-  return(tibble::as_tibble(subset(result, !is.na(volume))))
+  tibble::as_tibble(subset(result, !is.na(volume)))
 }

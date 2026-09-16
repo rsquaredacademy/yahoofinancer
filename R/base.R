@@ -12,11 +12,8 @@
 #'
 #' @keywords internal
 YahooFinanceBase <- R6::R6Class(
-
   "YahooFinanceBase",
-
   public = list(
-
     #' @field symbol Symbol for which data is retrieved.
     symbol = NULL,
 
@@ -82,8 +79,7 @@ YahooFinanceBase <- R6::R6Class(
     #'   \item{\code{volume}}{Numeric. Trading volume.}
     #' }
     #' Returns \code{invisible(NULL)} on network failure or invalid symbol.
-    get_history = function(period = 'ytd', interval = '1d', start = NULL, end = NULL) {
-
+    get_history = function(period = "ytd", interval = "1d", start = NULL, end = NULL) {
       if (!is.null(start)) {
         start_dt <- lubridate::ymd(start, tz = "UTC", quiet = TRUE)
         if (is.na(start_dt)) {
@@ -125,7 +121,10 @@ YahooFinanceBase <- R6::R6Class(
         if (!is.null(start)) {
           days_diff <- as.numeric(difftime(Sys.Date(), lubridate::as_date(start_dt), units = "days"))
           if (days_diff > max_days) {
-            stop(sprintf("Interval '%s' is limited to a maximum lookback of %d days.", interval, max_days), call. = FALSE)
+            stop(
+              sprintf("Interval '%s' is limited to a maximum lookback of %d days.", interval, max_days),
+              call. = FALSE
+            )
           }
         } else if (!is.null(period)) {
           period_days <- switch(period,
@@ -138,17 +137,24 @@ YahooFinanceBase <- R6::R6Class(
             "2y" = 730,
             "5y" = 1825,
             "10y" = 3650,
-            "ytd" = as.numeric(difftime(Sys.Date(), lubridate::as_date(paste0(lubridate::year(Sys.Date()), "-01-01")), units = "days")),
+            "ytd" = as.numeric(difftime(
+              Sys.Date(),
+              lubridate::as_date(paste0(lubridate::year(Sys.Date()), "-01-01")),
+              units = "days"
+            )),
             "max" = Inf,
             Inf
           )
           if (period_days > max_days) {
-            stop(sprintf("Interval '%s' is limited to a maximum lookback of %d days.", interval, max_days), call. = FALSE)
+            stop(
+              sprintf("Interval '%s' is limited to a maximum lookback of %d days.", interval, max_days),
+              call. = FALSE
+            )
           }
         }
       }
 
-      path      <- 'v8/finance/chart/'
+      path <- "v8/finance/chart/"
       end_point <- paste0(path, self$symbol)
 
       if (!is.null(start) && !is.null(end)) {
@@ -161,17 +167,17 @@ YahooFinanceBase <- R6::R6Class(
 
       parsed <- private$api_request(end_point, qlist)
 
-      if (is.null(parsed)) return(invisible(NULL))
+      if (is.null(parsed)) {
+        return(invisible(NULL))
+      }
 
       data <- parsed$chart$result[[1]]
-      return(parse_chart_data(data, self$symbol))
+      parse_chart_data(data, self$symbol)
     }
   ),
-
   private = list(
-    base_url = 'https://query2.finance.yahoo.com',
-    cors_domain = 'finance.yahoo.com',
-
+    base_url = "https://query2.finance.yahoo.com",
+    cors_domain = "finance.yahoo.com",
     api_request = function(path, query = list(), headers = list()) {
       url <- paste0(private$base_url, "/", sub("^/", "", path))
       api_request(url, query = query, headers = headers)

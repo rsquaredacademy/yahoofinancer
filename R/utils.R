@@ -2,7 +2,9 @@ has_internet <- function() curl::has_internet()
 
 
 flatten_list <- function(x) {
-  if (is.null(x)) return(NULL)
+  if (is.null(x)) {
+    return(NULL)
+  }
   unlist(lapply(x, function(m) if (is.null(m)) NA else m))
 }
 
@@ -47,10 +49,10 @@ parse_chart_data <- function(data, symbol = NA_character_) {
   }
 
   volume <- pad_or_flatten(indicators$volume, n_obs)
-  high   <- pad_or_flatten(indicators$high, n_obs)
-  low    <- pad_or_flatten(indicators$low, n_obs)
-  open   <- pad_or_flatten(indicators$open, n_obs)
-  close  <- pad_or_flatten(indicators$close, n_obs)
+  high <- pad_or_flatten(indicators$high, n_obs)
+  low <- pad_or_flatten(indicators$low, n_obs)
+  open <- pad_or_flatten(indicators$open, n_obs)
+  close <- pad_or_flatten(indicators$close, n_obs)
 
   adj_close <- if (!is.null(data$indicators$adjclose) && length(data$indicators$adjclose) > 0) {
     data$indicators$adjclose[[1]]$adjclose
@@ -81,5 +83,5 @@ parse_chart_data <- function(data, symbol = NA_character_) {
     volume = volume
   )
 
-  return(res)
+  res
 }

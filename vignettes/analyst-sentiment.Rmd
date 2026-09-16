@@ -95,8 +95,8 @@ ggplot(top_related, aes(x = score, y = reorder(symbol, score))) +
 ins <- aapl_obj$technical_insights
 
 levels_tbl <- tibble::tibble(
-  level     = c("Support", "Resistance", "Stop loss"),
-  price     = c(
+  level = c("Support", "Resistance", "Stop loss"),
+  price = c(
     ins$instrumentInfo$keyTechnicals$support,
     ins$instrumentInfo$keyTechnicals$resistance,
     ins$instrumentInfo$keyTechnicals$stopLoss
@@ -118,16 +118,22 @@ Next, the short-, intermediate-, and long-term outlooks, each scored on Trading 
 te <- ins$instrumentInfo$technicalEvents
 
 outlooks_tbl <- tibble::tibble(
-  horizon     = c("Short term", "Intermediate term", "Long term"),
-  direction   = c(te$shortTermOutlook$direction,
-                  te$intermediateTermOutlook$direction,
-                  te$longTermOutlook$direction),
-  score       = c(te$shortTermOutlook$score,
-                  te$intermediateTermOutlook$score,
-                  te$longTermOutlook$score),
-  description = c(te$shortTermOutlook$scoreDescription,
-                  te$intermediateTermOutlook$scoreDescription,
-                  te$longTermOutlook$scoreDescription)
+  horizon = c("Short term", "Intermediate term", "Long term"),
+  direction = c(
+    te$shortTermOutlook$direction,
+    te$intermediateTermOutlook$direction,
+    te$longTermOutlook$direction
+  ),
+  score = c(
+    te$shortTermOutlook$score,
+    te$intermediateTermOutlook$score,
+    te$longTermOutlook$score
+  ),
+  description = c(
+    te$shortTermOutlook$scoreDescription,
+    te$intermediateTermOutlook$scoreDescription,
+    te$longTermOutlook$scoreDescription
+  )
 )
 
 outlooks_tbl
@@ -165,9 +171,11 @@ snapshot_tbl <- tibble::tibble(
 )
 
 snapshot_long <- snapshot_tbl |>
-  pivot_longer(cols = c(Company, Sector),
-               names_to = "scope",
-               values_to = "score")
+  pivot_longer(
+    cols = c(Company, Sector),
+    names_to = "scope",
+    values_to = "score"
+  )
 
 snapshot_long
 #> # A tibble: 12 × 3
@@ -195,8 +203,10 @@ ggplot(snapshot_long, aes(x = score, y = reorder(dimension, score))) +
     caption  = "Source: Yahoo Finance insights via yahoofinancer"
   ) +
   theme_minimal(base_size = 12) +
-  theme(panel.grid.major.y = element_blank(),
-        legend.position = "top")
+  theme(
+    panel.grid.major.y = element_blank(),
+    legend.position = "top"
+  )
 ```
 
 ---

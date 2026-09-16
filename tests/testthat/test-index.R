@@ -3,7 +3,7 @@ library(yahoofinancer)
 
 test_that("Index handles missing internet connection gracefully", {
   nifty <- Index$new("^NSEI")
-  
+
   with_mock_api(
     internet_mock = function() FALSE,
     code = {
@@ -15,7 +15,7 @@ test_that("Index handles missing internet connection gracefully", {
 
 test_that("Index$get_history handles API failure", {
   nifty <- Index$new("^NSEI")
-  
+
   with_mock_api(
     response_mock = mock_response(
       status_code = 404,
@@ -34,7 +34,7 @@ test_that("Index initialization and set_index handle invalid symbol", {
   nse <- Index$new(symbol = test_idx)
   expect_equal(nse$symbol, test_idx)
   expect_warning(expect_equal(nse$index, test_idx), "The 'index' field is deprecated")
-  
+
   testthat::with_mocked_bindings(
     {
       expect_error(Index$new("INVALID"), "Not a valid symbol.")
@@ -48,12 +48,12 @@ test_that("Index initialization and set_index handle invalid symbol", {
 test_that("Index supports deprecation of index parameter", {
   # Warning on initialize with index
   expect_warning(Index$new(index = "^NSEI"), "The 'index' parameter is deprecated")
-  
+
   # Warning on set_index with index
   nifty <- Index$new("^NSEI")
   expect_warning(nifty$set_index(index = "^NDX"), "The 'index' parameter is deprecated")
   expect_equal(nifty$symbol, "^NDX")
-  
+
   # Warning on index setter
   expect_warning(nifty$index <- "^NSEI", "The 'index' field is deprecated")
   expect_equal(nifty$symbol, "^NSEI")
