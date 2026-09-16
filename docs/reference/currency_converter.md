@@ -97,7 +97,7 @@ Other currency:
 
 ``` r
 if (FALSE) { # \dontrun{
-currency_converter('GBP', 'USD', '2022-07-01', '2022-07-10')
-currency_converter('GBP', 'USD', period = '1mo', interval = '1d')
+currency_converter("GBP", "USD", "2022-07-01", "2022-07-10")
+currency_converter("GBP", "USD", period = "1mo", interval = "1d")
 } # }
 ```

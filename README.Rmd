@@ -70,10 +70,10 @@ prices <- yf_download_prices(c("AAPL", "MSFT", "GOOGL"), period = "6mo")
 To retrieve data from Yahoo Finance for a single stock, create an instance of the `Ticker` class by passing the company's ticker symbol as an argument:
 
 ```{r ticker}
-aapl <- Ticker$new('aapl')
+aapl <- Ticker$new("aapl")
 
 # get historical market data
-head(aapl$get_history(start = '2024-10-20', interval = '1d'))
+head(aapl$get_history(start = "2024-10-20", interval = "1d"))
 
 # meta info
 # regular market price
@@ -111,10 +111,10 @@ income <- yf_get_financials(c("AAPL", "MSFT"), statement_type = "income")
 To retrieve data from Yahoo Finance for an index, create an instance of the `Index` class by passing the index symbol as an argument:
 
 ```{r index}
-nifty_50 <- Index$new('^NSEI')
+nifty_50 <- Index$new("^NSEI")
 
 # get historical data
-head(nifty_50$get_history(start = '2024-01-20', interval = '1d'))
+head(nifty_50$get_history(start = "2024-01-20", interval = "1d"))
 ```
 
 ### Market Overview
@@ -134,7 +134,7 @@ trending <- get_trending(country = "US")
 Retrieve current and historical exchange rates between two currencies:
 
 ```{r currency}
-head(currency_converter('GBP', 'USD', '2024-01-20', '2024-01-30'))
+head(currency_converter("GBP", "USD", "2024-01-20", "2024-01-30"))
 ```
 
 ## Learning More

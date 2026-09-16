@@ -11,7 +11,8 @@
   `frequency = c("annual", "quarterly")`. Updated
   [`yf_get_financials()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_financials.md)
   to return tidy tibbles with line items.
-  ([\#48](https://github.com/rsquaredacademy/yahoofinancer/issues/48))
+  ([\#48](https://github.com/rsquaredacademy/yahoofinancer/issues/48),
+  [\#2](https://github.com/rsquaredacademy/yahoofinancer/issues/2))
 - **Unified HTTP Request Engine**: Centralized all API communication
   into a unified internal `api_request()` helper with automatic retry,
   timeout, user agent header, and structured error reporting across all
@@ -25,24 +26,45 @@
   [`yf_get_index_quotes()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_get_index_quotes.md))
   consistently warn on failed symbols and return empty tibbles matching
   documented schemas on full failure.
-  ([\#50](https://github.com/rsquaredacademy/yahoofinancer/issues/50))
-- **Batch Symbol Validation & Metadata Caching**:
+  [`currency_converter()`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md),
+  `Ticker$recommendations`, and `Ticker$valuation_measures` unified to
+  standard failure returns.
+  ([\#50](https://github.com/rsquaredacademy/yahoofinancer/issues/50),
+  [\#61](https://github.com/rsquaredacademy/yahoofinancer/issues/61))
+- **Batch Symbol Validation & Offline Construction**:
   [`validate()`](https://yahoofinancer.rsquaredacademy.com/reference/validate.md)
-  vectorizes symbol queries into a single HTTP request. `Ticker` caches
-  instance metadata, invalidating on `set_symbol()`.
-  ([\#51](https://github.com/rsquaredacademy/yahoofinancer/issues/51))
+  vectorizes symbol queries into a single HTTP request. Added
+  `validate = TRUE` option on `Tickers$new()`, `Index$new()`, and
+  `Index$set_index()` to permit offline instantiation.
+  ([\#51](https://github.com/rsquaredacademy/yahoofinancer/issues/51),
+  [\#5](https://github.com/rsquaredacademy/yahoofinancer/issues/5),
+  [\#61](https://github.com/rsquaredacademy/yahoofinancer/issues/61))
 - **Date Hygiene & Lookback Limit Enforcement**: `get_history()`
   validates dates client-side and enforces intraday lookback boundaries
-  (1m \<= 7d, 5m/15m/30m \<= 60d, 1h \<= 730d).
+  (1m \<= 7d, 5m/15m/30m \<= 60d, 1h \<= 730d). Fixed `period = NULL`
+  lookback crash.
   [`currency_converter()`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)
   guards against NA date inputs.
-  ([\#52](https://github.com/rsquaredacademy/yahoofinancer/issues/52))
-- **Hermetic Testing**: Expanded offline mock coverage for the financial
-  statement methods and sanitized test mock surfaces.
-  ([\#53](https://github.com/rsquaredacademy/yahoofinancer/issues/53))
-- **Package Hygiene**: Declared `R (>= 4.1)` floor, configured `.lintr`,
-  updated User-Agent to include package version.
-  ([\#54](https://github.com/rsquaredacademy/yahoofinancer/issues/54))
+  ([\#52](https://github.com/rsquaredacademy/yahoofinancer/issues/52),
+  [\#60](https://github.com/rsquaredacademy/yahoofinancer/issues/60))
+- **Robust Parsing & Transport Resilience**: Handled transport-level
+  network errors gracefully with informative warnings. Guarded against
+  missing or mismatched `adj_close` series and invalid JSON payloads.
+  ([\#60](https://github.com/rsquaredacademy/yahoofinancer/issues/60),
+  [\#17](https://github.com/rsquaredacademy/yahoofinancer/issues/17))
+- **Hermetic & Live Smoke Testing**: Expanded offline mock coverage with
+  recorded `httptest2` fixtures for `fundamentals-timeseries`
+  statements, migrated mock fixtures to short paths, and added an
+  offline-guarded live smoke test suite.
+  ([\#53](https://github.com/rsquaredacademy/yahoofinancer/issues/53),
+  [\#62](https://github.com/rsquaredacademy/yahoofinancer/issues/62))
+- **Package Hygiene & Code Style**: Declared `R (>= 4.1)` floor, removed
+  unused `httptest` Suggests, configured `.lintr` with zero remaining
+  lints, added GitHub Actions lint workflow, updated User-Agent to
+  `yahoofinancer/<version>`, and drafted the fundamental screening
+  vignette.
+  ([\#54](https://github.com/rsquaredacademy/yahoofinancer/issues/54),
+  [\#57](https://github.com/rsquaredacademy/yahoofinancer/issues/57))
 
 ## yahoofinancer 0.6.0
 

@@ -125,10 +125,10 @@
 </h3>
 <p>To retrieve data from Yahoo Finance for a single stock, create an instance of the <code>Ticker</code> class by passing the company’s ticker symbol as an argument:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">aapl</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ticker-class.html">Ticker</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'aapl'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">aapl</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ticker-class.html">Ticker</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"aapl"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get historical market data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aapl</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-10-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aapl</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">"2024-10-20"</span>, interval <span class="op">=</span> <span class="st">"1d"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
 <span><span class="co">#&gt;   symbol date                 open  high   low close adj_close   volume</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
@@ -175,10 +175,10 @@
 </h3>
 <p>To retrieve data from Yahoo Finance for an index, create an instance of the <code>Index</code> class by passing the index symbol as an argument:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Indice-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">'^NSEI'</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nifty_50</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Indice-class.html">Index</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"^NSEI"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># get historical data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nifty_50</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">'2024-01-20'</span>, interval <span class="op">=</span> <span class="st">'1d'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nifty_50</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>start <span class="op">=</span> <span class="st">"2024-01-20"</span>, interval <span class="op">=</span> <span class="st">"1d"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 8</span></span>
 <span><span class="co">#&gt;   symbol date                  open   high    low  close adj_close volume</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;dttm&gt;               &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;</span></span>
@@ -205,7 +205,7 @@
 </h3>
 <p>Retrieve current and historical exchange rates between two currencies:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="reference/currency_converter.html">currency_converter</a></span><span class="op">(</span><span class="st">'GBP'</span>, <span class="st">'USD'</span>, <span class="st">'2024-01-20'</span>, <span class="st">'2024-01-30'</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="reference/currency_converter.html">currency_converter</a></span><span class="op">(</span><span class="st">"GBP"</span>, <span class="st">"USD"</span>, <span class="st">"2024-01-20"</span>, <span class="st">"2024-01-30"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         date     high      low     open    close volume adj_close</span></span>
 <span><span class="co">#&gt; 1 2024-01-22 1.273075 1.268826 1.270083 1.269986      0  1.269986</span></span>
 <span><span class="co">#&gt; 2 2024-01-23 1.274714 1.265534 1.270826 1.270696      0  1.270696</span></span>

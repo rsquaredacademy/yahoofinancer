@@ -64,10 +64,10 @@ To retrieve data from Yahoo Finance for a single stock, create an instance of th
 
 
 ``` r
-aapl <- Ticker$new('aapl')
+aapl <- Ticker$new("aapl")
 
 # get historical market data
-head(aapl$get_history(start = '2024-10-20', interval = '1d'))
+head(aapl$get_history(start = "2024-10-20", interval = "1d"))
 #> # A tibble: 6 × 8
 #>   symbol date                 open  high   low close adj_close   volume
 #>   <chr>  <dttm>              <dbl> <dbl> <dbl> <dbl>     <dbl>    <dbl>
@@ -120,10 +120,10 @@ To retrieve data from Yahoo Finance for an index, create an instance of the `Ind
 
 
 ``` r
-nifty_50 <- Index$new('^NSEI')
+nifty_50 <- Index$new("^NSEI")
 
 # get historical data
-head(nifty_50$get_history(start = '2024-01-20', interval = '1d'))
+head(nifty_50$get_history(start = "2024-01-20", interval = "1d"))
 #> # A tibble: 6 × 8
 #>   symbol date                  open   high    low  close adj_close volume
 #>   <chr>  <dttm>               <dbl>  <dbl>  <dbl>  <dbl>     <dbl>  <dbl>
@@ -154,7 +154,7 @@ Retrieve current and historical exchange rates between two currencies:
 
 
 ``` r
-head(currency_converter('GBP', 'USD', '2024-01-20', '2024-01-30'))
+head(currency_converter("GBP", "USD", "2024-01-20", "2024-01-30"))
 #>         date     high      low     open    close volume adj_close
 #> 1 2024-01-22 1.273075 1.268826 1.270083 1.269986      0  1.269986
 #> 2 2024-01-23 1.274714 1.265534 1.270826 1.270696      0  1.270696
