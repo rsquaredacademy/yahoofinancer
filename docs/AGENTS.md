@@ -72,7 +72,9 @@ execute it.
   “top-level files” NOTEs. Existing exclusions cover `specs/`,
   `.specify/`, `.gemini/`, `lib/`, `audits/`, `coverage.html`.
 - `docs/` is the committed pkgdown site (GitHub Pages); rebuild with
+  `source("tools/build_site.R")` (do not run plain
   [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html)
-  when reference structure changes (`_pkgdown.yml`).
+  directly, because macOS/Windows case-insensitivity overwrites
+  `docs/reference/index.html` with `Index.html`).
 - `specs/` holds per-feature spec/plan/tasks documents used by the
   speckit workflow; `GEMINI.md` points at the current plan there.

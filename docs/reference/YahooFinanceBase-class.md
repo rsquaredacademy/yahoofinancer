@@ -32,13 +32,18 @@ Create a new YahooFinanceBase object.
 
 #### Usage
 
-    YahooFinanceBase$new(symbol = NA)
+    YahooFinanceBase$new(symbol = NA, validate = TRUE)
 
 #### Arguments
 
 - `symbol`:
 
   Symbol.
+
+- `validate`:
+
+  Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to
+  TRUE.
 
 ------------------------------------------------------------------------
 
@@ -48,13 +53,18 @@ Set a new symbol.
 
 #### Usage
 
-    YahooFinanceBase$set_symbol(symbol)
+    YahooFinanceBase$set_symbol(symbol, validate = TRUE)
 
 #### Arguments
 
 - `symbol`:
 
   New symbol
+
+- `validate`:
+
+  Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to
+  TRUE.
 
 ------------------------------------------------------------------------
 
@@ -66,7 +76,7 @@ Retrieves historical pricing data from the Yahoo Finance chart API.
 
 - `"1m"`: max 7 days
 
-- `"5m"`, `"15m"`, `"30m"`: max 60 days
+- `"2m"`, `"5m"`, `"15m"`, `"30m"`, `"60m"`, `"90m"`: max 60 days
 
 - `"1h"`: max 730 days
 

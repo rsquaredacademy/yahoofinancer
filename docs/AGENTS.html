@@ -89,7 +89,7 @@
 <h2 id="packaging-constraints">Packaging constraints<a class="anchor" aria-label="anchor" href="#packaging-constraints"></a></h2>
 <ul><li>New root-level tooling/artifact files (agent logs, coverage output, local libs) must be added to <code>.Rbuildignore</code> or they trigger CRAN “top-level files” NOTEs. Existing exclusions cover <code>specs/</code>, <code>.specify/</code>, <code>.gemini/</code>, <code>lib/</code>, <code>audits/</code>, <code>coverage.html</code>.</li>
 <li>
-<code>docs/</code> is the committed pkgdown site (GitHub Pages); rebuild with <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code> when reference structure changes (<code>_pkgdown.yml</code>).</li>
+<code>docs/</code> is the committed pkgdown site (GitHub Pages); rebuild with <code>source("tools/build_site.R")</code> (do not run plain <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code> directly, because macOS/Windows case-insensitivity overwrites <code>docs/reference/index.html</code> with <code>Index.html</code>).</li>
 <li>
 <code>specs/</code> holds per-feature spec/plan/tasks documents used by the speckit workflow; <code>GEMINI.md</code> points at the current plan there.</li>
 </ul></div>

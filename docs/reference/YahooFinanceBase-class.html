@@ -77,13 +77,17 @@
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Create a new YahooFinanceBase object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/YahooFinanceBase-class.html">YahooFinanceBase</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>symbol <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/YahooFinanceBase-class.html">YahooFinanceBase</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>symbol <span class="op">=</span> <span class="cn">NA</span>, validate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>symbol</code></dt>
 <dd><p>Symbol.</p></dd>
+
+
+<dt><code>validate</code></dt>
+<dd><p>Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.</p></dd>
 
 
 </dl><p></p></div>
@@ -93,13 +97,17 @@
 <h3 id="method-set-symbol-">Method <code>set_symbol()</code><a class="anchor" aria-label="anchor" href="#method-set-symbol-"></a></h3>
 <p>Set a new symbol.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">YahooFinanceBase</span><span class="op">$</span><span class="fu">set_symbol</span><span class="op">(</span><span class="va">symbol</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">YahooFinanceBase</span><span class="op">$</span><span class="fu">set_symbol</span><span class="op">(</span><span class="va">symbol</span>, validate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>symbol</code></dt>
 <dd><p>New symbol</p></dd>
+
+
+<dt><code>validate</code></dt>
+<dd><p>Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.</p></dd>
 
 
 </dl><p></p></div>
@@ -109,7 +117,7 @@
 <h3 id="method-get-history-">Method <code>get_history()</code><a class="anchor" aria-label="anchor" href="#method-get-history-"></a></h3>
 <p>Retrieves historical pricing data from the Yahoo Finance chart API.</p>
 <p>**Intraday lookback limits** (imposed by Yahoo Finance):</p><ul><li><p><code>"1m"</code>: max 7 days</p></li>
-<li><p><code>"5m"</code>, <code>"15m"</code>, <code>"30m"</code>: max 60 days</p></li>
+<li><p><code>"2m"</code>, <code>"5m"</code>, <code>"15m"</code>, <code>"30m"</code>, <code>"60m"</code>, <code>"90m"</code>: max 60 days</p></li>
 <li><p><code>"1h"</code>: max 730 days</p></li>
 </ul><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>

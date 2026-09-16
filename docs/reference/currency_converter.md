@@ -82,10 +82,11 @@ currency_converter(
 
 ## Value
 
-A `data.frame` with columns: `date` (POSIXct), `high`, `low`, `open`,
-`close`, `volume` (all numeric), and conditionally `adj_close` (numeric,
-present for daily and longer intervals). Rows with `NA` volume are
-excluded. Returns `invisible(NULL)` on network failure.
+A tidy [`tibble`](https://tibble.tidyverse.org/reference/tibble.html)
+with columns: `date` (POSIXct), `high`, `low`, `open`, `close`, `volume`
+(all numeric), and conditionally `adj_close` (numeric, present for daily
+and longer intervals). Rows with `NA` volume are excluded. Returns an
+empty `tibble` on network failure.
 
 ## See also
 

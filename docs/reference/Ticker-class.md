@@ -119,13 +119,18 @@ Create a new Ticker object.
 
 #### Usage
 
-    Ticker$new(symbol = NA)
+    Ticker$new(symbol = NA, validate = TRUE)
 
 #### Arguments
 
 - `symbol`:
 
   Symbol (e.g., `"AAPL"`).
+
+- `validate`:
+
+  Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to
+  TRUE.
 
 ------------------------------------------------------------------------
 
@@ -135,13 +140,18 @@ Set a new symbol and clear cached metadata.
 
 #### Usage
 
-    Ticker$set_symbol(symbol)
+    Ticker$set_symbol(symbol, validate = TRUE)
 
 #### Arguments
 
 - `symbol`:
 
   New symbol (e.g., `"AAPL"`).
+
+- `validate`:
+
+  Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to
+  TRUE.
 
 ------------------------------------------------------------------------
 

@@ -123,13 +123,18 @@ Create a new Tickers object.
 
 #### Usage
 
-    Tickers$new(symbols)
+    Tickers$new(symbols, validate = TRUE)
 
 #### Arguments
 
 - `symbols`:
 
   A character vector of Yahoo Finance ticker symbols.
+
+- `validate`:
+
+  Logical; if TRUE, validate symbols against Yahoo Finance. Defaults to
+  TRUE.
 
 #### Returns
 
@@ -174,7 +179,8 @@ Retrieve historical market data for all symbols.
 
 A tidy [`tibble`](https://tibble.tidyverse.org/reference/tibble.html)
 containing historical prices and volumes. Columns: `symbol`, `date`,
-`open`, `high`, `low`, `close`, `adj_close`, `volume`.
+`open`, `high`, `low`, `close`, `adj_close`, `volume`. Returns an empty
+tibble if all tickers fail.
 
 ------------------------------------------------------------------------
 
@@ -195,7 +201,9 @@ results. Not intended for direct end-user use.
 
 #### Returns
 
-A combined `data.frame` or `NULL`.
+A combined
+[`tibble`](https://tibble.tidyverse.org/reference/tibble.html), or an
+empty `tibble` if all tickers fail.
 
 ------------------------------------------------------------------------
 

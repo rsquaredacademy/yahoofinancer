@@ -116,11 +116,11 @@ in <code>"YYYY-MM-DD"</code> format.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>data.frame</code> with columns: <code>date</code> (POSIXct),
+    <p>A tidy <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></code> with columns: <code>date</code> (POSIXct),
   <code>high</code>, <code>low</code>, <code>open</code>, <code>close</code>, <code>volume</code>
   (all numeric), and conditionally <code>adj_close</code> (numeric, present
   for daily and longer intervals). Rows with <code>NA</code> volume are
-  excluded. Returns <code>invisible(NULL)</code> on network failure.</p>
+  excluded. Returns an empty <code>tibble</code> on network failure.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

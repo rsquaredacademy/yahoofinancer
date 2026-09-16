@@ -50,7 +50,7 @@ Create a new Index object.
 
 #### Usage
 
-    Index$new(symbol = NA, index = NA)
+    Index$new(symbol = NA, index = NA, validate = TRUE)
 
 #### Arguments
 
@@ -61,6 +61,11 @@ Create a new Index object.
 - `index`:
 
   Deprecated. Use `symbol` instead.
+
+- `validate`:
+
+  Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to
+  TRUE.
 
 #### Returns
 
@@ -80,7 +85,7 @@ Set a new index symbol.
 
 #### Usage
 
-    Index$set_index(symbol = NA, index = NA)
+    Index$set_index(symbol = NA, index = NA, validate = TRUE)
 
 #### Arguments
 
@@ -91,6 +96,11 @@ Set a new index symbol.
 - `index`:
 
   Deprecated. Use `symbol` instead.
+
+- `validate`:
+
+  Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to
+  TRUE.
 
 #### Examples
 

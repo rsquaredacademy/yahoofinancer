@@ -46,9 +46,10 @@ currencies. You can request a fixed window with `start` and `end` dates:
 
 `gbp_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"GBP"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` `[`head`](https://rdrr.io/r/utils/head.html)`(``gbp_usd``)`` ``#> date high low open close volume adj_close`` ``#> 1 2024-01-02 00:00:00 1.2734 1.2577 1.2732 1.2602 0 1.2602`` ``#> 2 2024-01-03 00:00:00 1.2716 1.2595 1.2678 1.2631 0 1.2631`` ``#> 3 2024-01-04 00:00:00 1.2709 1.2602 1.2689 1.2677 0 1.2677`` ``#> 4 2024-01-05 00:00:00 1.2721 1.2614 1.2705 1.2717 0 1.2717`` ``#> 5 2024-01-08 00:00:00 1.2741 1.2698 1.2718 1.2720 0 1.2720`` ``#> 6 2024-01-09 00:00:00 1.2743 1.2688 1.2694 1.2694 0 1.2694`
 
-The result mirrors the package’s price-history schema: a data frame with
+The result provides the familiar OHLCV price series: a data frame with
 `date` (POSIXct), `high`, `low`, `open`, `close`, and `volume` columns,
-plus `adj_close` for daily or longer intervals. A few things worth
+plus `adj_close` for daily or longer intervals (unlike equity price
+queries, currency pairs omit a `symbol` column). A few things worth
 knowing:
 
 - Instead of explicit dates, you can pass a rolling window via `period`
@@ -105,23 +106,49 @@ exact same workflow.
 You now have a reusable recipe for fetching and visualizing
 foreign-exchange data, from quick spot checks to multi-pair comparisons.
 
-## Going Further
+------------------------------------------------------------------------
+
+## 5. Minimal Reproducible Example
+
+Below is the complete, self-contained workflow in a single
+copy-pasteable script:
+
+[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`` `` ``# 1. Fetch historical exchange rates for two currency pairs`` ``gbp_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"GBP"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` ``eur_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"EUR"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` ``# 2. Combine and normalize to base = 100`` ``fx_performance`` ``<-`` `[`bind_rows`](https://dplyr.tidyverse.org/reference/bind_rows.html)`(`` `` ``gbp_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"GBP/USD"``)``,`` `` ``eur_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"EUR/USD"``)`` ``)`` ``|>`` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``, .by_group ``=`` ``TRUE``)`` ``|>`` `` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`` `` date ``=`` `[`as.Date`](https://rdrr.io/pkg/zoo/man/yearmon.html)`(``date``)``,`` `` normalized_rate ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`` `` ``)`` ``|>`` `` `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`` `` ``# 3. Plot normalized exchange rates side-by-side`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``fx_performance``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``date``, y ``=`` ``normalized_rate``, color ``=`` ``pair``)``)`` ``+`` `` `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``linewidth ``=`` ``0.8``)`` ``+`` `` `[`geom_hline`](https://ggplot2.tidyverse.org/reference/geom_abline.html)`(``yintercept ``=`` ``100``, linetype ``=`` ``"dashed"``, color ``=`` ``"grey50"``)`` ``+`` `` `[`theme_minimal`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`` ``+`` `` `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(`` `` title ``=`` ``"Pound vs Euro: Performance Against the US Dollar"``,`` `` subtitle ``=`` ``"Daily closing rates in 2024, normalized to 100 at the start of the year"``,`` `` x ``=`` ``"Date"``,`` `` y ``=`` ``"Normalized Rate (Base = 100)"``,`` `` color ``=`` ``"Pair"`` `` ``)`` ``+`` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"bottom"``)`
+
+------------------------------------------------------------------------
+
+## 6. Summary
+
+In this guide, you learned how to:
+
+1.  **Discover supported currencies**: Access Yahoo Finance’s FX catalog
+    with
+    [`get_currencies()`](https://yahoofinancer.rsquaredacademy.com/reference/get_currencies.md).
+2.  **Fetch exchange rates**: Query historical FX pairs using
+    [`currency_converter()`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)
+    with custom date windows or rolling periods.
+3.  **Normalize and visualize**: Stack currency series with
+    [`bind_rows()`](https://dplyr.tidyverse.org/reference/bind_rows.html)
+    and compare multi-pair relative movements with `ggplot2`.
+
+------------------------------------------------------------------------
+
+## 7. Going Further
 
 Now that you can work with exchange rates, explore related features
 `yahoofinancer` offers:
 
-- The normalization technique used here is the same one covered in
-  [Comparing a Portfolio of
-  Stocks](https://yahoofinancer.rsquaredacademy.com/articles/comparing-portfolios.md).
-- To see more practical workflows and advanced charts, browse the
-  [yahoofinancer
-  Cookbook](https://yahoofinancer.rsquaredacademy.com/articles/cookbook.md).
-- Working with equities priced outside the US? Check the quoting
-  currency of any ticker with the `currency` field of the `Ticker` class
-  (e.g., `Ticker$new("RELIANCE.NS")$currency` returns `"INR"`) before
-  mixing prices across markets.
-- For full argument details and valid parameter values, see the
-  documentation pages for
+- **Portfolio Comparisons**: The normalization technique used here is
+  identical to the one covered in
+  [`vignette("comparing-portfolios", package = "yahoofinancer")`](https://yahoofinancer.rsquaredacademy.com/articles/comparing-portfolios.md).
+- **Multi-Currency Valuations**: Convert foreign stock prices into your
+  home currency—see Recipe 6 in
+  [`vignette("cookbook", package = "yahoofinancer")`](https://yahoofinancer.rsquaredacademy.com/articles/cookbook.md).
+- **Check Quoting Currencies**: For equities outside the US, check
+  quoting currencies with the `currency` field on `Ticker` (e.g.,
+  `Ticker$new("RELIANCE.NS")$currency` returns `"INR"`).
+- **Reference Documentation**: For complete argument details and valid
+  parameter values, see the documentation for
   [`currency_converter()`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)
   and
   [`get_currencies()`](https://yahoofinancer.rsquaredacademy.com/reference/get_currencies.md).

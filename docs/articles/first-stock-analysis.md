@@ -32,7 +32,7 @@ results will reflect the latest available market trading sessions.)*
 | Column | Type | Description |
 |:---|:---|:---|
 | `symbol` | `character` | Ticker symbol representing the asset (e.g., `"AAPL"`). |
-| `date` | `POSIXct` / `Date` | Timestamp representing the trading session. |
+| `date` | `POSIXct` (`<dttm>`) | Timestamp representing the trading session. |
 | `open` | `numeric` | Price at the opening bell. |
 | `high` | `numeric` | Highest price reached during the session. |
 | `low` | `numeric` | Lowest price reached during the session. |
@@ -114,9 +114,7 @@ several next steps and related features to explore:
   for the S&P 500).
 
 - **Object-Oriented R6 Interface**: For stateful workflows, market
-  metadata, and fundamental valuation metrics, use the
-  [`Ticker`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md)
-  class:
+  metadata, and fundamental valuation metrics, use the `Ticker` class:
 
   `aapl_obj`` ``<-`` `[`Ticker`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md)`$``new``(``"AAPL"``)`` `` ``# Inspect security metadata and valuation measures`` ``aapl_obj``$``currency`` ``aapl_obj``$``valuation_measures`` `` ``# Historical prices via R6`` ``aapl_obj``$``get_history``(``period ``=`` ``"1y"``, interval ``=`` ``"1d"``)`
 

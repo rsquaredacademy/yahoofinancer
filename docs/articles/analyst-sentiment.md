@@ -18,17 +18,16 @@ supports.)*
 
 ### Required Packages
 
-`# Install required packages if not already installed:`` ``# install.packages(c("dplyr", "ggplot2", "scales", "tidyr"))`` `` `[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`tidyr`](https://tidyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`purrr`](https://purrr.tidyverse.org/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`scales`](https://scales.r-lib.org)`)`
+`# Install required packages if not already installed:`` ``# install.packages(c("yahoofinancer", "dplyr", "tidyr", "purrr", "ggplot2", "scales"))`` `` `[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`tidyr`](https://tidyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`purrr`](https://purrr.tidyverse.org/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`scales`](https://scales.r-lib.org)`)`
 
 ------------------------------------------------------------------------
 
 ## 1. Related-Symbol Recommendations
 
-The `recommendations` active binding on a
-[`Ticker`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md)
-object queries Yahoo’s *recommendations-by-symbol* endpoint and returns
-a two-column frame: candidate tickers and their relevance `score`
-(roughly 0–1, higher means more strongly associated).
+The `recommendations` active binding on a `Ticker` object queries
+Yahoo’s *recommendations-by-symbol* endpoint and returns a two-column
+frame: candidate tickers and their relevance `score` (roughly 0–1,
+higher means more strongly associated).
 
 `aapl_obj`` ``<-`` `[`Ticker`](https://yahoofinancer.rsquaredacademy.com/reference/Ticker-class.md)`$``new``(``"AAPL"``)`` `` ``related`` ``<-`` ``aapl_obj``$``recommendations`` `` ``related`` ``#> symbol score`` ``#> 1 AMZN 0.20319`` ``#> 2 TSLA 0.19162`` ``#> 3 GOOG 0.17865`` ``#> 4 META 0.17095`` ``#> 5 MSFT 0.15560`
 
@@ -91,12 +90,10 @@ useful for quick qualitative context:
 
 ## 5. Comparing Related Symbols Across a Watchlist
 
-For several symbols at once, the
-[`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md)
-class fans out over all of them in one call. Because each source ticker
-contributes its own five candidates, the combined frame uses
-`recommended_symbol` for the candidates while `symbol` identifies the
-source:
+For several symbols at once, the `Tickers` class fans out over all of
+them in one call. Because each source ticker contributes its own five
+candidates, the combined frame uses `recommended_symbol` for the
+candidates while `symbol` identifies the source:
 
 `watchlist`` ``<-`` `[`Tickers`](https://yahoofinancer.rsquaredacademy.com/reference/Tickers.md)`$``new``(`[`c`](https://rdrr.io/r/base/c.html)`(``"AAPL"``, ``"MSFT"``, ``"GOOG"``)``)`` `` ``related_all`` ``<-`` ``watchlist``$``recommendations`` ``|>`` `` `[`as_tibble`](https://tibble.tidyverse.org/reference/as_tibble.html)`(``)`` `` ``related_all`` ``#> # A tibble: 15 x 3`` ``#> symbol recommended_symbol score`` ``#> <chr> <chr> <dbl>`` ``#> 1 AAPL AMZN 0.203`` ``#> 2 AAPL TSLA 0.192`` ``#> 3 AAPL GOOG 0.179`` ``#> 4 MSFT AAPL 0.212`` ``#> 5 MSFT ORCL 0.187`` ``#> # i 10 more rows`
 

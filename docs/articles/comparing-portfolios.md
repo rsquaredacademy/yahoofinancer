@@ -63,21 +63,51 @@ the selected stocks over the given time horizon.
 You now have a reusable workflow for comparing any set of tickers. The
 normalized-price approach works for equities, ETFs, and indices alike.
 
-## Going Further
+------------------------------------------------------------------------
+
+## 4. Minimal Reproducible Example
+
+Below is the complete, self-contained workflow in a single
+copy-pasteable script:
+
+[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`` `` ``# 1. Fetch prices for a portfolio of symbols`` ``symbols`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``"AAPL"``, ``"MSFT"``, ``"GOOGL"``, ``"AMZN"``)`` ``portfolio_prices`` ``<-`` `[`yf_download_prices`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md)`(``tickers ``=`` ``symbols``, interval ``=`` ``"1d"``)`` `` ``# 2. Normalize prices to base = 100`` ``portfolio_performance`` ``<-`` ``portfolio_prices`` ``|>`` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``symbol``)`` ``|>`` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``, .by_group ``=`` ``TRUE``)`` ``|>`` `` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`` `` date ``=`` `[`as.Date`](https://rdrr.io/r/base/as.Date.html)`(``date``)``,`` `` normalized_price ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`` `` ``)`` ``|>`` `` `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`` `` ``# 3. Plot normalized performance side-by-side`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``portfolio_performance``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``date``, y ``=`` ``normalized_price``, color ``=`` ``symbol``)``)`` ``+`` `` `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``linewidth ``=`` ``0.8``)`` ``+`` `` `[`theme_minimal`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`` ``+`` `` `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(`` `` title ``=`` ``"Portfolio Performance Comparison"``,`` `` subtitle ``=`` ``"Normalized to 100 at the start of the period"``,`` `` x ``=`` ``"Date"``,`` `` y ``=`` ``"Normalized Price (Base = 100)"``,`` `` color ``=`` ``"Ticker"`` `` ``)`` ``+`` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"bottom"``)`
+
+------------------------------------------------------------------------
+
+## 5. Summary
+
+In this guide, you learned how to:
+
+1.  **Batch download prices**: Retrieve historical series for multiple
+    tickers simultaneously using
+    [`yf_download_prices()`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md).
+2.  **Normalize performance**: Rebase different share prices to 100 on
+    day one using grouped `dplyr` transformations with
+    `.by_group = TRUE`.
+3.  **Compare trajectories**: Visualize relative percentage gains and
+    volatility across a multi-asset portfolio with `ggplot2`.
+
+------------------------------------------------------------------------
+
+## 6. Going Further
 
 Now that you can track the performance of a portfolio, explore other
 data features `yahoofinancer` offers:
 
-- To see more practical workflows and advanced charts, browse the
-  [yahoofinancer
-  Cookbook](https://yahoofinancer.rsquaredacademy.com/articles/cookbook.md).
+- **Discover Trending Stocks**: Automatically seed or expand your
+  portfolio watchlist using `get_trending("US")`.
 
-- Need fundamentals to screen stocks before analyzing their prices?
-  Learn how to extract financials in the documentation for the `Ticker`
-  class.
-
-- For very large lists of stocks, consider using the
+- **Clean Large Universes**: Use
   [`validate()`](https://yahoofinancer.rsquaredacademy.com/reference/validate.md)
-  helper to clean up your symbols vector prior to making bulk API calls:
+  to filter out invalid or delisted symbols prior to bulk downloading:
 
   `# Keep only symbols that Yahoo recognizes`` ``clean_symbols`` ``<-`` `[`validate`](https://yahoofinancer.rsquaredacademy.com/reference/validate.md)`(`[`c`](https://rdrr.io/r/base/c.html)`(``"AAPL"``, ``"NOTREAL"``, ``"MSFT"``)``)`` ``clean_symbols`` ``#> [1] "AAPL" "MSFT"`
+
+- **Fundamental Screening**: Learn how to extract financial statements
+  and valuation ratios across peers before analyzing prices—see
+  [`vignette("fundamental-screening", package = "yahoofinancer")`](https://yahoofinancer.rsquaredacademy.com/articles/fundamental-screening.md).
+
+- **Cookbook Recipes**: For 15 in-depth quantitative recipes including
+  drawdown analysis, correlation heatmaps, CAPM beta regressions, and
+  Sharpe ratios, see
+  [`vignette("cookbook", package = "yahoofinancer")`](https://yahoofinancer.rsquaredacademy.com/articles/cookbook.md).

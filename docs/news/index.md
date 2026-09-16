@@ -37,8 +37,8 @@
   [`currency_converter()`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)
   guards against NA date inputs.
   ([\#52](https://github.com/rsquaredacademy/yahoofinancer/issues/52))
-- **Hermetic Testing & Fixtures**: Redacted `httptest2` fixtures for
-  financial statements and sanitized test mock surfaces.
+- **Hermetic Testing**: Expanded offline mock coverage for the financial
+  statement methods and sanitized test mock surfaces.
   ([\#53](https://github.com/rsquaredacademy/yahoofinancer/issues/53))
 - **Package Hygiene**: Declared `R (>= 4.1)` floor, configured `.lintr`,
   updated User-Agent to include package version.
