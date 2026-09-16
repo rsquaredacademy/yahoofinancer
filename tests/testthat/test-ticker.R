@@ -260,3 +260,44 @@ test_that("Ticker financial statement methods handle failure gracefully", {
     }
   )
 })
+
+test_that("get_history handles period = NULL safely without length-zero errors", {
+  aapl <- Ticker$new("AAPL")
+
+  # When period is NULL and interval is intraday, defaults to 1y lookback and throws lookback limit error cleanly
+  expect_error(
+    aapl$get_history(period = NULL, interval = "1m"),
+    "Interval '1m' is limited to a maximum lookback of 7 days."
+  )
+
+  # When period is NULL and start is provided, validates start lookback without error
+  expect_error(
+    aapl$get_history(start = as.character(Sys.Date() - 10), period = NULL, interval = "1m"),
+    "Interval '1m' is limited to a maximum lookback of 7 days."
+  )
+})
+
+test_that("api_request warns on transport failure and bad JSON response", {
+  aapl <- Ticker$new("AAPL")
+
+  # Transport failure (req_perform throws an error)
+  testthat::with_mocked_bindings(
+    req_perform = function(...) stop("Connection timed out"),
+    .package = "httr2",
+    code = {
+      expect_warning(res <- aapl$get_history(), "Network request failed: Connection timed out")
+      expect_null(res)
+    }
+  )
+
+  # Bad JSON parsing failure
+  testthat::with_mocked_bindings(
+    req_perform = function(...) httr2::response(status_code = 200, url = "https://example.com"),
+    resp_body_json = function(...) stop("lexical error: invalid char in json text"),
+    .package = "httr2",
+    code = {
+      expect_warning(res <- aapl$get_history(), "Failed to parse Yahoo Finance API response as JSON")
+      expect_null(res)
+    }
+  )
+})

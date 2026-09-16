@@ -35,15 +35,23 @@ api_request <- function(url, query = list(), headers = list()) {
 
   resp <- tryCatch(
     httr2::req_perform(req),
-    error = function(e) NULL
+    error = function(e) {
+      warning(sprintf("Network request failed: %s", e$message), call. = FALSE)
+      NULL
+    }
   )
 
   if (is.null(resp)) return(NULL)
 
   parsed <- tryCatch(
     httr2::resp_body_json(resp, simplifyVector = FALSE),
-    error = function(e) list()
+    error = function(e) {
+      warning(sprintf("Failed to parse Yahoo Finance API response as JSON: %s", e$message), call. = FALSE)
+      NULL
+    }
   )
+
+  if (is.null(parsed)) return(NULL)
 
   if (httr2::resp_is_error(resp)) {
     status <- httr2::resp_status(resp)

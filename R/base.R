@@ -106,6 +106,10 @@ YahooFinanceBase <- R6::R6Class(
         end <- NULL
       }
 
+      if (is.null(start) && is.null(period)) {
+        period <- "1y"
+      }
+
       intraday_intervals <- c("1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h")
       if (interval %in% intraday_intervals) {
         max_days <- if (interval == "1m") {
@@ -121,7 +125,7 @@ YahooFinanceBase <- R6::R6Class(
           if (days_diff > max_days) {
             stop(sprintf("Interval '%s' is limited to a maximum lookback of %d days.", interval, max_days), call. = FALSE)
           }
-        } else {
+        } else if (!is.null(period)) {
           period_days <- switch(period,
             "1d" = 1,
             "5d" = 5,
