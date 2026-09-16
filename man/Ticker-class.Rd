@@ -87,13 +87,15 @@ Other historical data:
 \subsection{Method \code{new()}}{
 Create a new Ticker object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$new(symbol = NA)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$new(symbol = NA, validate = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{symbol}}{Symbol (e.g., \code{"AAPL"}).}
+
+\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
 }
 \if{html}{\out{</div>}}
 }

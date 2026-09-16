@@ -23,12 +23,14 @@ YahooFinanceBase <- R6::R6Class(
     #' @description
     #' Create a new YahooFinanceBase object.
     #' @param symbol Symbol.
-    initialize = function(symbol = NA) {
-      if (isTRUE(unname(validate(symbol, return_logical = TRUE)[1]))) {
-        self$symbol <- symbol
-      } else {
-        stop("Not a valid symbol.", call. = FALSE)
+    #' @param validate Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.
+    initialize = function(symbol = NA, validate = TRUE) {
+      if (isTRUE(validate)) {
+        if (!isTRUE(unname(validate(symbol, return_logical = TRUE)[1]))) {
+          stop("Not a valid symbol.", call. = FALSE)
+        }
       }
+      self$symbol <- symbol
     },
 
     #' @description

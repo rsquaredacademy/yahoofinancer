@@ -157,7 +157,7 @@ provided but \code{end} is \code{NULL}.}
 \subsection{Returns}{
 A tidy \code{\link[tibble]{tibble}} containing historical prices and volumes.
   Columns: \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
-  \code{close}, \code{adj_close}, \code{volume}.
+  \code{close}, \code{adj_close}, \code{volume}. Returns an empty tibble if all tickers fail.
 }
 }
 \if{html}{\out{<hr>}}
@@ -177,7 +177,7 @@ Internal helper to execute a method across all symbols and combine results. Not 
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A combined \code{data.frame} or \code{NULL}.
+A combined \code{\link[tibble]{tibble}}, or an empty \code{tibble} if all tickers fail.
 }
 }
 \if{html}{\out{<hr>}}

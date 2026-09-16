@@ -34,13 +34,15 @@ Base class for Ticker and Index classes.
 \subsection{Method \code{new()}}{
 Create a new YahooFinanceBase object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$new(symbol = NA)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$new(symbol = NA, validate = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{symbol}}{Symbol.}
+
+\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
 }
 \if{html}{\out{</div>}}
 }

@@ -72,7 +72,8 @@ test_that("Tickers is resilient to total API failure and emits warnings", {
         expect_warning(res <- tks$aggregate_data(mock_total_fail), "Failed to fetch data for ticker: FAIL1"),
         "Failed to fetch data for ticker: FAIL2"
       )
-      expect_null(res)
+      expect_s3_class(res, "tbl_df")
+      expect_equal(nrow(res), 0)
     }
   )
 })
@@ -92,7 +93,8 @@ test_that("Tickers handle NULL or empty result from symbols", {
         expect_warning(res <- tks$aggregate_data(mock_empty), "Failed to fetch data for ticker: EMPTY"),
         "Failed to fetch data for ticker: NULL"
       )
-      expect_null(res)
+      expect_s3_class(res, "tbl_df")
+      expect_equal(nrow(res), 0)
     }
   )
 })
@@ -144,9 +146,41 @@ test_that("Active bindings route correctly through aggregate_data", {
             expect_warning(res <- tks$valuation_measures, "Failed to fetch data for ticker: AAPL"),
             "Failed to fetch data for ticker: MSFT"
           )
-          expect_null(res)
+          expect_s3_class(res, "tbl_df")
+          expect_equal(nrow(res), 0)
         }
       )
+    }
+  )
+})
+
+test_that("Tickers initializes with batched validation", {
+  val_calls <- 0
+  mock_validate <- function(symbols, return_logical = TRUE) {
+    val_calls <<- val_calls + 1
+    res <- rep(TRUE, length(symbols))
+    names(res) <- symbols
+    res
+  }
+
+  testthat::with_mocked_bindings(
+    validate = mock_validate,
+    code = {
+      tks <- Tickers$new(c("AAPL", "MSFT", "GOOG"))
+      expect_equal(val_calls, 1)
+      expect_length(tks$symbols, 3)
+      expect_equal(tks$symbols, c("AAPL", "MSFT", "GOOG"))
+    }
+  )
+
+  testthat::with_mocked_bindings(
+    validate = function(symbols, return_logical = TRUE) {
+      res <- c(TRUE, FALSE)
+      names(res) <- symbols
+      res
+    },
+    code = {
+      expect_error(Tickers$new(c("GOOD", "BAD")), "Not a valid symbol.")
     }
   )
 })

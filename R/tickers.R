@@ -53,7 +53,15 @@ Tickers <- R6::R6Class("Tickers",
     #' @return A new \code{Tickers} object.
     initialize = function(symbols) {
       self$symbols <- unique(symbols)
-      self$ticker_objs <- lapply(self$symbols, Ticker$new)
+      valid_flags <- validate(self$symbols, return_logical = TRUE)
+      if (is.logical(valid_flags) && length(valid_flags) == 1 && length(self$symbols) > 1) {
+        valid_flags <- rep(valid_flags, length(self$symbols))
+      }
+      invalid_symbols <- self$symbols[!valid_flags]
+      if (length(invalid_symbols) > 0) {
+        stop("Not a valid symbol.", call. = FALSE)
+      }
+      self$ticker_objs <- lapply(self$symbols, function(s) Ticker$new(s, validate = FALSE))
       names(self$ticker_objs) <- self$symbols
     },
 
@@ -74,7 +82,7 @@ Tickers <- R6::R6Class("Tickers",
     #'   provided but \code{end} is \code{NULL}.
     #' @return A tidy \code{\link[tibble]{tibble}} containing historical prices and volumes.
     #'   Columns: \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
-    #'   \code{close}, \code{adj_close}, \code{volume}.
+    #'   \code{close}, \code{adj_close}, \code{volume}. Returns an empty tibble if all tickers fail.
     get_history = function(period = "1y", interval = "1d", start = NULL, end = NULL) {
       self$aggregate_data(function(t) t$get_history(period, interval, start, end))
     },
@@ -82,7 +90,7 @@ Tickers <- R6::R6Class("Tickers",
     #' @description
     #' Internal helper to execute a method across all symbols and combine results. Not intended for direct end-user use.
     #' @param fn A function or anonymous function that takes a \code{Ticker} object.
-    #' @return A combined \code{data.frame} or \code{NULL}.
+    #' @return A combined \code{\link[tibble]{tibble}}, or an empty \code{tibble} if all tickers fail.
     #' @keywords internal
     aggregate_data = function(fn) {
       results <- lapply(self$ticker_objs, function(t) {
@@ -124,7 +132,7 @@ Tickers <- R6::R6Class("Tickers",
       # Filter out NULLs (failed API calls or errors)
       results <- results[!vapply(results, is.null, logical(1))]
 
-      if (length(results) == 0) return(NULL)
+      if (length(results) == 0) return(tibble::tibble())
 
       # Use dplyr to safely bind rows even if columns mismatch
       combined <- dplyr::bind_rows(results)

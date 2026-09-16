@@ -26,9 +26,10 @@ Ticker <- R6::R6Class(
     #' @description
     #' Create a new Ticker object.
     #' @param symbol Symbol (e.g., \code{"AAPL"}).
-    initialize = function(symbol = NA) {
+    #' @param validate Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.
+    initialize = function(symbol = NA, validate = TRUE) {
       private$cached_meta <- NULL
-      super$initialize(symbol)
+      super$initialize(symbol, validate = validate)
     },
 
     #' @description
