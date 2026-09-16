@@ -42,5 +42,5 @@ Vignette tests (`test-vignettes.R`) only parse vignette code via `knitr::purl`; 
 ## Packaging constraints
 
 - New root-level tooling/artifact files (agent logs, coverage output, local libs) must be added to `.Rbuildignore` or they trigger CRAN "top-level files" NOTEs. Existing exclusions cover `specs/`, `.specify/`, `.gemini/`, `lib/`, `audits/`, `coverage.html`.
-- `docs/` is the committed pkgdown site (GitHub Pages); rebuild with `pkgdown::build_site()` when reference structure changes (`_pkgdown.yml`).
+- `docs/` is the committed pkgdown site (GitHub Pages); rebuild with `source("tools/build_site.R")` (do not run plain `pkgdown::build_site()` directly, because macOS/Windows case-insensitivity overwrites `docs/reference/index.html` with `Index.html`).
 - `specs/` holds per-feature spec/plan/tasks documents used by the speckit workflow; `GEMINI.md` points at the current plan there.

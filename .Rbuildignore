@@ -38,3 +38,4 @@
 ^\.lintr$
 ^CONTRIBUTING\.md$
 ^mental_model\.md$
+^\.Rprofile$
