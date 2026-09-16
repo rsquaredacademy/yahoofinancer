@@ -7,8 +7,9 @@ test_that("currency_converter handles missing internet connection gracefully", {
   with_mock_api(
     internet_mock = function() FALSE,
     code = {
-      expect_message(currency_converter("EUR", "USD"), "No internet connection.")
-      expect_null(currency_converter("EUR", "USD"))
+      expect_message(res <- currency_converter("EUR", "USD"), "No internet connection.")
+      expect_s3_class(res, "tbl_df")
+      expect_equal(nrow(res), 0)
     }
   )
 })
@@ -21,11 +22,9 @@ test_that("currency_converter handles API failure with message", {
       is_error = TRUE
     ),
     code = {
-      expect_warning(currency_converter("XYZ", "ABC"), "Yahoo Finance API failed \\[404\\]: Invalid pairs")
-      expect_warning(
-        expect_null(currency_converter("XYZ", "ABC")),
-        "Yahoo Finance API failed \\[404\\]: Invalid pairs"
-      )
+      expect_warning(res <- currency_converter("XYZ", "ABC"), "Yahoo Finance API failed \\[404\\]: Invalid pairs")
+      expect_s3_class(res, "tbl_df")
+      expect_equal(nrow(res), 0)
     }
   )
 })

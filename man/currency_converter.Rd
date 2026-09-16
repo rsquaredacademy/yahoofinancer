@@ -52,11 +52,11 @@ in \code{"YYYY-MM-DD"} format.}
 }}
 }
 \value{
-A \code{data.frame} with columns: \code{date} (POSIXct),
+A tidy \code{\link[tibble]{tibble}} with columns: \code{date} (POSIXct),
   \code{high}, \code{low}, \code{open}, \code{close}, \code{volume}
   (all numeric), and conditionally \code{adj_close} (numeric, present
   for daily and longer intervals). Rows with \code{NA} volume are
-  excluded. Returns \code{invisible(NULL)} on network failure.
+  excluded. Returns an empty \code{tibble} on network failure.
 }
 \description{
 Retrieve current and historical exchange rates between two currencies

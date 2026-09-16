@@ -36,12 +36,14 @@ YahooFinanceBase <- R6::R6Class(
     #' @description
     #' Set a new symbol.
     #' @param symbol New symbol
-    set_symbol = function(symbol) {
-      if (isTRUE(unname(validate(symbol, return_logical = TRUE)[1]))) {
-        self$symbol <- symbol
-      } else {
-        stop("Not a valid symbol.", call. = FALSE)
+    #' @param validate Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.
+    set_symbol = function(symbol, validate = TRUE) {
+      if (isTRUE(validate)) {
+        if (!isTRUE(unname(validate(symbol, return_logical = TRUE)[1]))) {
+          stop("Not a valid symbol.", call. = FALSE)
+        }
       }
+      self$symbol <- symbol
     },
 
     #' @description
@@ -50,7 +52,7 @@ YahooFinanceBase <- R6::R6Class(
     #' **Intraday lookback limits** (imposed by Yahoo Finance):
     #' \itemize{
     #'   \item \code{"1m"}: max 7 days
-    #'   \item \code{"5m"}, \code{"15m"}, \code{"30m"}: max 60 days
+    #'   \item \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"}, \code{"60m"}, \code{"90m"}: max 60 days
     #'   \item \code{"1h"}: max 730 days
     #' }
     #'

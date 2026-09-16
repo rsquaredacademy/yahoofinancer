@@ -53,13 +53,15 @@ Create a new YahooFinanceBase object.
 \subsection{Method \code{set_symbol()}}{
 Set a new symbol.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$set_symbol(symbol)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$set_symbol(symbol, validate = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{symbol}}{New symbol}
+
+\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
 }
 \if{html}{\out{</div>}}
 }
@@ -73,7 +75,7 @@ Retrieves historical pricing data from the Yahoo Finance chart API.
 **Intraday lookback limits** (imposed by Yahoo Finance):
 \itemize{
   \item \code{"1m"}: max 7 days
-  \item \code{"5m"}, \code{"15m"}, \code{"30m"}: max 60 days
+  \item \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"}, \code{"60m"}, \code{"90m"}: max 60 days
   \item \code{"1h"}: max 730 days
 }
 \subsection{Usage}{

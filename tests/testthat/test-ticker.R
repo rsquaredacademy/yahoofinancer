@@ -225,7 +225,7 @@ test_that('get_history surfaces quoteSummary error description', {
   )
 })
 
-test_that('recommendations returns empty data.frame when no recommendations', {
+test_that('recommendations returns empty tibble when no recommendations', {
   aapl <- Ticker$new('AAPL')
   with_mock_api(
     response_mock = mock_response(
@@ -233,7 +233,7 @@ test_that('recommendations returns empty data.frame when no recommendations', {
     ),
     code = {
       res <- aapl$recommendations
-      expect_s3_class(res, 'data.frame')
+      expect_s3_class(res, 'tbl_df')
       expect_equal(nrow(res), 0)
     }
   )

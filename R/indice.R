@@ -26,34 +26,36 @@ Index <- R6::R6Class(
     #' Create a new Index object.
     #' @param symbol Symbol (e.g., \code{"^NSEI"}).
     #' @param index Deprecated. Use \code{symbol} instead.
+    #' @param validate Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.
     #' @return A new \code{Index} object.
     #' @examples
     #' \dontrun{
     #' nifty_50 <- Index$new('^NSEI')
     #' }
-    initialize = function(symbol = NA, index = NA) {
+    initialize = function(symbol = NA, index = NA, validate = TRUE) {
       if (!is.na(index)) {
         warning("The 'index' parameter is deprecated. Please use 'symbol' instead.", call. = FALSE)
         if (is.na(symbol)) symbol <- index
       }
-      super$initialize(symbol)
+      super$initialize(symbol, validate = validate)
     },
 
     #' @description
     #' Set a new index symbol.
     #' @param symbol New symbol.
     #' @param index Deprecated. Use \code{symbol} instead.
+    #' @param validate Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.
     #' @examples
     #' \dontrun{
     #' indice <- Index$new('^NSEI')
     #' indice$set_index('^NDX')
     #' }
-    set_index = function(symbol = NA, index = NA) {
+    set_index = function(symbol = NA, index = NA, validate = TRUE) {
       if (!is.na(index)) {
         warning("The 'index' parameter is deprecated. Please use 'symbol' instead.", call. = FALSE)
         if (is.na(symbol)) symbol <- index
       }
-      self$set_symbol(symbol)
+      self$set_symbol(symbol, validate = validate)
     }
   ),
 

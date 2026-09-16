@@ -35,9 +35,10 @@ Ticker <- R6::R6Class(
     #' @description
     #' Set a new symbol and clear cached metadata.
     #' @param symbol New symbol (e.g., \code{"AAPL"}).
-    set_symbol = function(symbol) {
+    #' @param validate Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.
+    set_symbol = function(symbol, validate = TRUE) {
       private$cached_meta <- NULL
-      super$set_symbol(symbol)
+      super$set_symbol(symbol, validate = validate)
     },
 
     #' @description
@@ -88,9 +89,9 @@ Ticker <- R6::R6Class(
       if (is.null(parsed)) return(invisible(NULL))
 
       data <- parsed$timeseries$result
-      if (length(data) == 0) return(NULL)
+      if (length(data) == 0) return(invisible(NULL))
 
-      data.frame(
+      tibble::tibble(
         date = lubridate::date(lubridate::as_datetime(unlist(data[[1]]$timestamp))),
         enterprise_value = private$extract_valuation(data, 'quarterlyEnterpriseValue'),
         enterprise_value_ebitda_ratio = private$extract_valuation(data, 'quarterlyEnterprisesValueEBITDARatio'),
@@ -100,8 +101,7 @@ Ticker <- R6::R6Class(
         pb_ratio = private$extract_valuation(data, 'quarterlyPbRatio'),
         pe_ratio = private$extract_valuation(data, 'quarterlyPeRatio'),
         peg_ratio = private$extract_valuation(data, 'quarterlyPegRatio'),
-        ps_ratio = private$extract_valuation(data, 'quarterlyPsRatio'),
-        stringsAsFactors = FALSE
+        ps_ratio = private$extract_valuation(data, 'quarterlyPsRatio')
       )
     },
 
@@ -114,12 +114,11 @@ Ticker <- R6::R6Class(
       if (is.null(parsed)) return(invisible(NULL))
 
       data <- parsed$finance$result[[1]]$recommendedSymbols
-      if (length(data) == 0) return(data.frame())
+      if (length(data) == 0) return(tibble::tibble(symbol = character(), score = numeric()))
 
-      data.frame(
+      tibble::tibble(
         symbol = vapply(data, function(x) x$symbol, character(1)),
-        score = vapply(data, function(x) x$score, numeric(1)),
-        stringsAsFactors = FALSE
+        score = vapply(data, function(x) x$score, numeric(1))
       )
     },
 

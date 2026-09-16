@@ -184,3 +184,20 @@ test_that("Tickers initializes with batched validation", {
     }
   )
 })
+
+test_that("Tickers initializes with validate = FALSE without calling validate", {
+  val_calls <- 0
+  mock_validate <- function(symbols, return_logical = TRUE) {
+    val_calls <<- val_calls + 1
+    rep(TRUE, length(symbols))
+  }
+
+  testthat::with_mocked_bindings(
+    validate = mock_validate,
+    code = {
+      tks <- Tickers$new(c("AAPL", "MSFT"), validate = FALSE)
+      expect_equal(val_calls, 0)
+      expect_length(tks$symbols, 2)
+    }
+  )
+})

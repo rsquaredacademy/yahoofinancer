@@ -59,6 +59,27 @@ test_that("Index supports deprecation of index parameter", {
   expect_equal(nifty$symbol, "^NSEI")
 })
 
+test_that("Index supports validate = FALSE without calling validate", {
+  val_calls <- 0
+  mock_val <- function(...) {
+    val_calls <<- val_calls + 1
+    TRUE
+  }
+
+  testthat::with_mocked_bindings(
+    {
+      idx <- Index$new("^NSEI", validate = FALSE)
+      expect_equal(idx$symbol, "^NSEI")
+      expect_equal(val_calls, 0)
+      idx$set_index("^GSPC", validate = FALSE)
+      expect_equal(idx$symbol, "^GSPC")
+      expect_equal(val_calls, 0)
+    },
+    validate = mock_val,
+    .package = "yahoofinancer"
+  )
+})
+
 test_that("get_history handles invalid date strings", {
   nifty <- Index$new("^NSEI")
   expect_error(nifty$get_history(start = "invalid"), "Invalid 'start' date format")

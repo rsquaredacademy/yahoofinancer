@@ -216,11 +216,11 @@ get_trending <- function(country = 'US', count = 10) {
 #' \item \code{'3mo'}
 #' }
 #'
-#' @return A \code{data.frame} with columns: \code{date} (POSIXct),
+#' @return A tidy \code{\link[tibble]{tibble}} with columns: \code{date} (POSIXct),
 #'   \code{high}, \code{low}, \code{open}, \code{close}, \code{volume}
 #'   (all numeric), and conditionally \code{adj_close} (numeric, present
 #'   for daily and longer intervals). Rows with \code{NA} volume are
-#'   excluded. Returns \code{invisible(NULL)} on network failure.
+#'   excluded. Returns an empty \code{tibble} on network failure.
 #'
 #' @family currency
 #'
@@ -270,7 +270,7 @@ currency_converter <- function(from = 'EUR', to = 'USD', start = NULL, end = NUL
   }
 
   parsed <- api_request(url, qlist)
-  if (is.null(parsed)) return(invisible(NULL))
+  if (is.null(parsed)) return(tibble::tibble())
 
   data <- parsed$chart$result[[1]]
   indicators <- data$indicators$quote[[1]]

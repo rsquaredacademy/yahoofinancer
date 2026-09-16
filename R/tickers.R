@@ -50,16 +50,16 @@ Tickers <- R6::R6Class("Tickers",
     #' @description
     #' Create a new Tickers object.
     #' @param symbols A character vector of Yahoo Finance ticker symbols.
+    #' @param validate Logical; if TRUE, validate symbols against Yahoo Finance. Defaults to TRUE.
     #' @return A new \code{Tickers} object.
-    initialize = function(symbols) {
+    initialize = function(symbols, validate = TRUE) {
       self$symbols <- unique(symbols)
-      valid_flags <- validate(self$symbols, return_logical = TRUE)
-      if (is.logical(valid_flags) && length(valid_flags) == 1 && length(self$symbols) > 1) {
-        valid_flags <- rep(valid_flags, length(self$symbols))
-      }
-      invalid_symbols <- self$symbols[!valid_flags]
-      if (length(invalid_symbols) > 0) {
-        stop("Not a valid symbol.", call. = FALSE)
+      if (isTRUE(validate)) {
+        valid_flags <- validate(self$symbols, return_logical = TRUE)
+        invalid_symbols <- self$symbols[!valid_flags]
+        if (length(invalid_symbols) > 0) {
+          stop("Not a valid symbol.", call. = FALSE)
+        }
       }
       self$ticker_objs <- lapply(self$symbols, function(s) Ticker$new(s, validate = FALSE))
       names(self$ticker_objs) <- self$symbols

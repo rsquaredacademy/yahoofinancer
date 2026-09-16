@@ -72,7 +72,7 @@ Other historical data:
 \subsection{Method \code{new()}}{
 Create a new Index object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Index$new(symbol = NA, index = NA)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Index$new(symbol = NA, index = NA, validate = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -81,6 +81,8 @@ Create a new Index object.
 \item{\code{symbol}}{Symbol (e.g., \code{"^NSEI"}).}
 
 \item{\code{index}}{Deprecated. Use \code{symbol} instead.}
+
+\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
 }
 \if{html}{\out{</div>}}
 }
@@ -104,7 +106,7 @@ nifty_50 <- Index$new('^NSEI')
 \subsection{Method \code{set_index()}}{
 Set a new index symbol.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Index$set_index(symbol = NA, index = NA)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Index$set_index(symbol = NA, index = NA, validate = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -113,6 +115,8 @@ Set a new index symbol.
 \item{\code{symbol}}{New symbol.}
 
 \item{\code{index}}{Deprecated. Use \code{symbol} instead.}
+
+\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
 }
 \if{html}{\out{</div>}}
 }

@@ -109,13 +109,15 @@ Other historical data:
 \subsection{Method \code{new()}}{
 Create a new Tickers object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Tickers$new(symbols)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Tickers$new(symbols, validate = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{symbols}}{A character vector of Yahoo Finance ticker symbols.}
+
+\item{\code{validate}}{Logical; if TRUE, validate symbols against Yahoo Finance. Defaults to TRUE.}
 }
 \if{html}{\out{</div>}}
 }

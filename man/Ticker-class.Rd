@@ -106,13 +106,15 @@ Create a new Ticker object.
 \subsection{Method \code{set_symbol()}}{
 Set a new symbol and clear cached metadata.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$set_symbol(symbol)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Ticker$set_symbol(symbol, validate = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{symbol}}{New symbol (e.g., \code{"AAPL"}).}
+
+\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
 }
 \if{html}{\out{</div>}}
 }
