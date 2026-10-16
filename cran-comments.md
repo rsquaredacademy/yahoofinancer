@@ -8,18 +8,23 @@ This is a patch release addressing:
 * Intraday lookback constraint enforcement and client-side date guards
 * Code hygiene, styler formatting, and zero lintr findings
 
+## Test environments
+
+* local Windows 10 x64, R 4.5.2 (ucrt): `R CMD check --as-cran` on the built tarball
+* win-builder (R-devel, 2026-10-16): 1 NOTE (see below)
+
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
 
-(Note: local offline check on Windows may report 1 NOTE "unable to verify current time" which resolves on connected CI runners).
+* Possibly invalid URL: https://finance.yahoo.com/ (DESCRIPTION), status 429 Too Many Requests.
+  The URL is valid and opens normally in a browser; Yahoo rate-limits automated requests from
+  check servers. It names the data source, so we would like to keep it.
 
-## Test Environments
+## Reverse dependencies
 
-* local Windows 10 x64, R 4.5.2
-* GitHub Actions: macOS (release), Windows (release), Ubuntu (devel, release, oldrel-1)
+There are no reverse dependencies on CRAN.
 
-## Downstream Dependencies
+## Notes
 
-* Checked reverse dependencies with 0 errors, 0 warnings, 0 notes.
-
+Tests that call the Yahoo Finance web service are skipped on CRAN (`skip_on_cran()`); examples that need the network are wrapped in `\donttest{}`; offline tests use recorded fixtures.
