@@ -11,11 +11,15 @@ This is a patch release addressing:
 ## Test environments
 
 * local Windows 10 x64, R 4.5.2 (ucrt): `R CMD check --as-cran` on the built tarball
-* win-builder (R-devel): to be run by the maintainer before submission
+* win-builder (R-devel, 2026-10-16): 1 NOTE (see below)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
+
+* Possibly invalid URL: https://finance.yahoo.com/ (DESCRIPTION), status 429 Too Many Requests.
+  The URL is valid and opens normally in a browser; Yahoo rate-limits automated requests from
+  check servers. It names the data source, so we would like to keep it.
 
 ## Reverse dependencies
 
