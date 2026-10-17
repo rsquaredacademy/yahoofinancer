@@ -2,6 +2,8 @@
 
 ## yahoofinancer 0.6.1
 
+CRAN release: 2026-10-16
+
 ### Bug Fixes & Architectural Improvements
 
 - **Financial Statements Restoration**: Added working
