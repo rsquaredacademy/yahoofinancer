@@ -180,3 +180,5 @@ You should refer to Yahoo!'s terms of use ([here](https://policies.yahoo.com/us/
 ## Code of Conduct
 
 Please note that the yahoofinancer project is released with a [Contributor Code of Conduct](https://yahoofinancer.rsquaredacademy.com/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+<div data-rsa-signup data-site="yahoofinancer.rsquaredacademy.com" data-privacy-url="https://www.rsquaredacademy.com/privacy-policy.html"></div>
