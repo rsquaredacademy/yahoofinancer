@@ -36,6 +36,5 @@
 ^cookb.*review.*\.md$
 ^daily-logs\.md$
 ^\.lintr$
-^CONTRIBUTING\.md$
 ^mental_model\.md$
 ^\.Rprofile$
