@@ -143,7 +143,7 @@ test_that("validate handles API failure gracefully without aborting", {
 
 test_that("validate supports deprecation of index parameter", {
   with_mock_api(
-    response_mock = mock_response(body_json = list(symbolsValidation = list(result = list(list(result = TRUE))))),
+    response_mock = mock_response(body_json = list(symbolsValidation = list(result = list(setNames(list(TRUE), "^NSEI"))))),
     code = {
       expect_warning(res <- validate(index = "^NSEI"), "The 'index' parameter is deprecated")
       expect_equal(res, "^NSEI")
