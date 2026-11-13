@@ -5,6 +5,14 @@
 #' Yahoo Finance API. Inherits \code{get_history()} from
 #' \code{\link{YahooFinanceBase-class}}.
 #'
+#' @details
+#' Market metadata fields (\code{currency}, \code{regular_market_price},
+#' \code{previous_close}, and so on) are fetched once per symbol and cached on
+#' the object; the cache has no time expiry. It is keyed by symbol, so changing
+#' the symbol (with \code{set_symbol()} or by assigning to \code{symbol})
+#' always fetches fresh metadata. To refresh the values for the same symbol,
+#' create a new \code{Ticker} or call \code{set_symbol()} again.
+#'
 #' @param symbol Symbol for which data has to be retrieved (e.g., \code{"AAPL"}).
 #'
 #' @importFrom magrittr %>% use_series extract2 extract
@@ -36,6 +44,7 @@ Ticker <- R6::R6Class(
     #' @param validate Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.
     set_symbol = function(symbol, validate = TRUE) {
       private$cached_meta <- NULL
+      private$cached_meta_symbol <- NULL
       super$set_symbol(symbol, validate = validate)
     },
 
@@ -187,6 +196,7 @@ Ticker <- R6::R6Class(
   ),
   private = list(
     cached_meta = NULL,
+    cached_meta_symbol = NULL,
     income_statement_codes = c(
       "TotalRevenue", "OperatingRevenue", "CostOfRevenue", "GrossProfit",
       "OperatingExpense", "OperatingIncome", "NetNonOperatingInterestIncomeExpense",
@@ -365,7 +375,9 @@ Ticker <- R6::R6Class(
       res
     },
     meta_info = function() {
-      if (!is.null(private$cached_meta)) {
+      # The cache is keyed by symbol, so assigning the public `symbol` field
+      # directly (not only via set_symbol()) never returns another ticker's data.
+      if (!is.null(private$cached_meta) && identical(private$cached_meta_symbol, self$symbol)) {
         return(private$cached_meta)
       }
       path <- "v8/finance/chart/"
@@ -375,6 +387,7 @@ Ticker <- R6::R6Class(
         return(NULL)
       }
       private$cached_meta <- parsed$chart$result[[1]]$meta
+      private$cached_meta_symbol <- self$symbol
       private$cached_meta
     }
   )
