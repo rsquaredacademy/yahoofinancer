@@ -302,33 +302,52 @@ currency_converter <- function(from = "EUR", to = "USD", start = NULL, end = NUL
     qlist <- list(range = period, interval = interval, corsDomain = cors_domain)
   }
 
+  daily_intervals <- c("1d", "5d", "1wk", "1mo", "3mo")
+  has_adj <- interval %in% daily_intervals
+
   parsed <- api_request(url, qlist)
   if (is.null(parsed)) {
-    return(tibble::tibble())
+    return(empty_currency_tibble(has_adj))
   }
 
   data <- parsed$chart$result[[1]]
-  indicators <- data$indicators$quote[[1]]
+  if (is.null(data) || length(data$timestamp) == 0) {
+    return(empty_currency_tibble(has_adj))
+  }
+
+  # Share the guarded chart parser: missing quote fields become NA and a
+  # mismatched adjusted-close series falls back to close with a warning,
+  # never recycled.
+  chart <- parse_chart_data(data, NA_character_)
 
   result <- data.frame(
-    date   = lubridate::as_datetime(unlist(data$timestamp)),
-    high   = flatten_list(indicators$high),
-    low    = flatten_list(indicators$low),
-    open   = flatten_list(indicators$open),
-    close  = flatten_list(indicators$close),
-    volume = flatten_list(indicators$volume)
+    date   = chart$date,
+    high   = chart$high,
+    low    = chart$low,
+    open   = chart$open,
+    close  = chart$close,
+    volume = chart$volume
   )
 
-  intervals <- c("1d", "5d", "1wk", "1mo", "3mo")
-
-  if (interval %in% intervals) {
-    adj_close <- data$indicators$adjclose[[1]]$adjclose
-    if (!is.null(adj_close) && length(adj_close) > 0) {
-      null_adj <- vapply(adj_close, is.null, logical(1))
-      adj_close[null_adj] <- NA
-      result$adj_close <- unlist(adj_close)
-    }
+  adj_series <- data$indicators$adjclose[[1]]$adjclose
+  if (has_adj && !is.null(adj_series) && length(adj_series) > 0) {
+    result$adj_close <- chart$adj_close
   }
 
   tibble::as_tibble(subset(result, !is.na(volume)))
+}
+
+empty_currency_tibble <- function(with_adj = TRUE) {
+  res <- tibble::tibble(
+    date = as.POSIXct(integer(), origin = "1970-01-01", tz = "UTC"),
+    high = numeric(),
+    low = numeric(),
+    open = numeric(),
+    close = numeric(),
+    volume = numeric()
+  )
+  if (with_adj) {
+    res$adj_close <- numeric()
+  }
+  res
 }
