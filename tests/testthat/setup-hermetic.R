@@ -11,13 +11,12 @@ block_transport <- function(...) {
   stop("Unmocked network request blocked in tests.", call. = FALSE)
 }
 
-# Block at the curl transport (below httr2's mocking hooks), so httptest2 and
-# with_mock_api() still intercept requests first.
+# Block at httr2's single-request transport (req_perform1), which sits below
+# httr2's mock hook: httptest2 fixtures and with_mock_api() still intercept
+# requests first, while anything that would reach the network fails here.
 testthat::local_mocked_bindings(
-  curl_fetch_memory = block_transport,
-  curl_fetch_disk = block_transport,
-  curl_fetch_stream = block_transport,
-  .package = "curl",
+  req_perform1 = block_transport,
+  .package = "httr2",
   .env = testthat::teardown_env()
 )
 testthat::local_mocked_bindings(
