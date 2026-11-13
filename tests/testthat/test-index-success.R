@@ -2,7 +2,7 @@ library(testthat)
 library(yahoofinancer)
 
 test_that("Index$get_history handles success path", {
-  nifty <- Index$new("^NSEI")
+  nifty <- Index$new("^NSEI", validate = FALSE)
 
   with_mock_api(
     response_mock = mock_response(
