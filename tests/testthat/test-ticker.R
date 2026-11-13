@@ -226,11 +226,15 @@ test_that("get_history enforces intraday lookback constraints", {
   )
 })
 
-test_that("extract_valuation returns numeric(0) for NULL data", {
+test_that("parse_valuation returns a zero-row typed tibble for empty data", {
   aapl <- Ticker$new("AAPL", validate = FALSE)
   private_env <- aapl$.__enclos_env__$private
-  expect_equal(private_env$extract_valuation(NULL, "quarterlyMarketCap"), numeric(0))
-  expect_equal(private_env$extract_valuation(list(), "quarterlyMarketCap"), numeric(0))
+  for (empty in list(NULL, list())) {
+    res <- private_env$parse_valuation(empty)
+    expect_equal(nrow(res), 0)
+    expect_s3_class(res$date, "Date")
+    expect_type(res$market_cap, "double")
+  }
 })
 
 test_that("get_history surfaces quoteSummary error description", {

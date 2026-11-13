@@ -84,7 +84,11 @@ Tickers <- R6::R6Class("Tickers",
     #'   Columns: \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
     #'   \code{close}, \code{adj_close}, \code{volume}. Returns an empty tibble if all tickers fail.
     get_history = function(period = "1y", interval = "1d", start = NULL, end = NULL) {
-      self$aggregate_data(function(t) t$get_history(period, interval, start, end))
+      res <- self$aggregate_data(function(t) t$get_history(period, interval, start, end))
+      if (ncol(res) == 0) {
+        return(empty_prices_tibble())
+      }
+      res
     },
 
     #' @description
