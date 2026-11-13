@@ -98,3 +98,15 @@ with_mock_api <- function(code, response_mock = NULL, internet_mock = NULL) {
     inner_code()
   }
 }
+
+# Replace the parsed-JSON result of every internal api_request() call with `body`
+# (a list), or with whatever `body(url, ...)` returns when it is a function.
+with_api <- function(body, code) {
+  stub <- if (is.function(body)) body else function(...) body
+  testthat::with_mocked_bindings(
+    force(code),
+    api_request = stub,
+    has_internet = function() TRUE,
+    .package = "yahoofinancer"
+  )
+}

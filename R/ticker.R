@@ -95,18 +95,7 @@ Ticker <- R6::R6Class(
         return(invisible(NULL))
       }
 
-      tibble::tibble(
-        date = lubridate::date(lubridate::as_datetime(unlist(data[[1]]$timestamp))),
-        enterprise_value = private$extract_valuation(data, "quarterlyEnterpriseValue"),
-        enterprise_value_ebitda_ratio = private$extract_valuation(data, "quarterlyEnterprisesValueEBITDARatio"),
-        enterprise_value_revenue_ratio = private$extract_valuation(data, "quarterlyEnterprisesValueRevenueRatio"),
-        forward_pe_ratio = private$extract_valuation(data, "quarterlyForwardPeRatio"),
-        market_cap = private$extract_valuation(data, "quarterlyMarketCap"),
-        pb_ratio = private$extract_valuation(data, "quarterlyPbRatio"),
-        pe_ratio = private$extract_valuation(data, "quarterlyPeRatio"),
-        peg_ratio = private$extract_valuation(data, "quarterlyPegRatio"),
-        ps_ratio = private$extract_valuation(data, "quarterlyPsRatio")
-      )
+      private$parse_valuation(data)
     },
 
     #' @field recommendations Related symbols recommended by Yahoo Finance and their scores.
@@ -319,17 +308,59 @@ Ticker <- R6::R6Class(
 
       res
     },
-    extract_valuation = function(data, measure) {
-      if (is.null(data) || length(data) == 0) {
-        return(numeric(0))
+    valuation_map = c(
+      enterprise_value = "quarterlyEnterpriseValue",
+      enterprise_value_ebitda_ratio = "quarterlyEnterprisesValueEBITDARatio",
+      enterprise_value_revenue_ratio = "quarterlyEnterprisesValueRevenueRatio",
+      forward_pe_ratio = "quarterlyForwardPeRatio",
+      market_cap = "quarterlyMarketCap",
+      pb_ratio = "quarterlyPbRatio",
+      pe_ratio = "quarterlyPeRatio",
+      peg_ratio = "quarterlyPegRatio",
+      ps_ratio = "quarterlyPsRatio"
+    ),
+    # Build the valuation tibble by observation date: every metric's values are
+    # keyed on their own asOfDate (falling back to the item's timestamp), joined
+    # on the union of dates, and absent metrics or dates become typed NA.
+    parse_valuation = function(data) {
+      measures <- private$valuation_map
+      per_measure <- lapply(measures, function(x) list(dates = character(), values = numeric()))
+      names(per_measure) <- names(measures)
+      for (item in data) {
+        if (!is.list(item)) next
+        for (col in names(measures)) {
+          key <- measures[[col]]
+          obs_list <- item[[key]]
+          if (is.null(obs_list) || length(obs_list) == 0) next
+          ts <- unlist(item$timestamp)
+          for (i in seq_along(obs_list)) {
+            obs <- obs_list[[i]]
+            if (!is.list(obs)) next
+            d <- if (!is.null(obs$asOfDate)) {
+              as.character(as.Date(obs$asOfDate))
+            } else if (length(ts) >= i) {
+              as.character(as.Date(lubridate::as_datetime(ts[[i]])))
+            } else {
+              next
+            }
+            rv <- obs$reportedValue
+            v <- if (is.list(rv) && !is.null(rv$raw)) {
+              suppressWarnings(as.numeric(rv$raw))
+            } else if (is.numeric(rv)) {
+              as.numeric(rv)
+            } else {
+              NA_real_
+            }
+            per_measure[[col]]$dates <- c(per_measure[[col]]$dates, d)
+            per_measure[[col]]$values <- c(per_measure[[col]]$values, v)
+          }
+        }
       }
-      res <- data %>%
-        purrr::map_if(~ measure %in% names(.x), measure) %>%
-        purrr::map_depth(2, "reportedValue") %>%
-        purrr::map_depth(2, "raw") %>%
-        unlist()
-      if (is.null(res)) {
-        return(numeric(0))
+      all_dates <- sort(unique(unlist(lapply(per_measure, function(m) m$dates))))
+      res <- tibble::tibble(date = as.Date(all_dates))
+      for (col in names(measures)) {
+        m <- per_measure[[col]]
+        res[[col]] <- as.numeric(m$values[match(all_dates, m$dates)])
       }
       res
     },
