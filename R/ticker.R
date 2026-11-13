@@ -16,7 +16,6 @@
 #' @param symbol Symbol for which data has to be retrieved (e.g., \code{"AAPL"}).
 #'
 #' @importFrom magrittr %>% use_series extract2 extract
-#' @importFrom jsonlite fromJSON
 #' @import R6 httr2 purrr lubridate
 #' @docType class
 #' @format An R6 class object
@@ -261,10 +260,10 @@ Ticker <- R6::R6Class(
           if (is.null(obs$asOfDate)) next
           d <- obs$asOfDate
           pt <- if (!is.null(obs$periodType)) obs$periodType else NA_character_
-          val <- if (!is.null(obs$reportedValue) && !is.null(obs$reportedValue$raw)) {
-            as.numeric(obs$reportedValue$raw)
-          } else if (!is.null(obs$reportedValue) && is.numeric(obs$reportedValue)) {
+          val <- if (is.numeric(obs$reportedValue)) {
             as.numeric(obs$reportedValue)
+          } else if (is.list(obs$reportedValue) && !is.null(obs$reportedValue$raw)) {
+            as.numeric(obs$reportedValue$raw)
           } else {
             NA_real_
           }

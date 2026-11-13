@@ -29,8 +29,8 @@ yf_get_market_stats(c("AAPL", "MSFT"))
 
 }
 \seealso{
-Other market data: 
-\code{\link{get_market_summary}()},
-\code{\link{get_trending}()}
+Other market data:
+\code{\link[=get_market_summary]{get_market_summary()}},
+\code{\link[=get_trending]{get_trending()}}
 }
 \concept{market data}

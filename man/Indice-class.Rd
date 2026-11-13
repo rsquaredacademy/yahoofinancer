@@ -16,7 +16,7 @@ Inherits \code{get_history()} from \code{\link{YahooFinanceBase-class}}.
 \examples{
 
 ## ------------------------------------------------
-## Method `Index$new`
+## Method `Index$new()`
 ## ------------------------------------------------
 
 \dontrun{
@@ -24,7 +24,7 @@ nifty_50 <- Index$new('^NSEI')
 }
 
 ## ------------------------------------------------
-## Method `Index$set_index`
+## Method `Index$set_index()`
 ## ------------------------------------------------
 
 \dontrun{
@@ -33,120 +33,112 @@ indice$set_index('^NDX')
 }
 }
 \seealso{
-Other historical data: 
+Other historical data:
 \code{\link{Ticker-class}},
 \code{\link{Tickers}},
-\code{\link{yf_download_prices}()},
-\code{\link{yf_get_index_quotes}()}
+\code{\link[=yf_download_prices]{yf_download_prices()}},
+\code{\link[=yf_get_index_quotes]{yf_get_index_quotes()}}
 }
 \concept{historical data}
 \section{Super class}{
-\code{\link[yahoofinancer:YahooFinanceBase]{yahoofinancer::YahooFinanceBase}} -> \code{Index}
+\code{\link[yahoofinancer:YahooFinanceBase]{YahooFinanceBase}} -> \code{Index}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{index}}{Deprecated. Returns \code{self$symbol}.}
-}
-\if{html}{\out{</div>}}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{index}}{Deprecated. Returns \code{self$symbol}.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Index-new}{\code{Index$new()}}
-\item \href{#method-Index-set_index}{\code{Index$set_index()}}
-\item \href{#method-Index-clone}{\code{Index$clone()}}
+  \itemize{
+    \item \href{#method-Index-initialize}{\code{Index$new()}}
+    \item \href{#method-Index-set_index}{\code{Index$set_index()}}
+    \item \href{#method-Index-clone}{\code{Index$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-get_history'><code>yahoofinancer::YahooFinanceBase$get_history()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="set_symbol"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-set_symbol'><code>yahoofinancer::YahooFinanceBase$set_symbol()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-get_history'><code>YahooFinanceBase$get_history()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="set_symbol"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-set_symbol'><code>YahooFinanceBase$set_symbol()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Index-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Index-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new Index object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Index$new(symbol = NA, index = NA, validate = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Index-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Index-initialize}{}}}
+\subsection{\code{Index$new()}}{
+  Create a new Index object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Index$new(symbol = NA, index = NA, validate = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{symbol}}{Symbol (e.g., \code{"^NSEI"}).}
+      \item{\code{index}}{Deprecated. Use \code{symbol} instead.}
+      \item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new \code{Index} object.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{nifty_50 <- Index$new('^NSEI')
+}
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbol}}{Symbol (e.g., \code{"^NSEI"}).}
-
-\item{\code{index}}{Deprecated. Use \code{symbol} instead.}
-
-\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new \code{Index} object.
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{\dontrun{
-nifty_50 <- Index$new('^NSEI')
-}
-}
-\if{html}{\out{</div>}}
-
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Index-set_index"></a>}}
 \if{latex}{\out{\hypertarget{method-Index-set_index}{}}}
-\subsection{Method \code{set_index()}}{
-Set a new index symbol.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Index$set_index(symbol = NA, index = NA, validate = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbol}}{New symbol.}
-
-\item{\code{index}}{Deprecated. Use \code{symbol} instead.}
-
-\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{\dontrun{
-indice <- Index$new('^NSEI')
+\subsection{\code{Index$set_index()}}{
+  Set a new index symbol.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Index$set_index(symbol = NA, index = NA, validate = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{symbol}}{New symbol.}
+      \item{\code{index}}{Deprecated. Use \code{symbol} instead.}
+      \item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{indice <- Index$new('^NSEI')
 indice$set_index('^NDX')
 }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
 
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Index-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Index-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Index$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Index$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Index$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

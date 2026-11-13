@@ -38,3 +38,7 @@
 ^\.lintr$
 ^mental_model\.md$
 ^\.Rprofile$
+^docs-dev$
+^docs-dev/
+^tools/test-site-kit\.js$
+^run-tests\.R$

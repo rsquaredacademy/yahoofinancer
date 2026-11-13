@@ -57,6 +57,12 @@ api_request <- function(url, query = list(), headers = list()) {
     return(NULL)
   }
 
+  # A JSON scalar or array of scalars (e.g. `true`, `1`) is not a Yahoo envelope.
+  if (!is.list(parsed)) {
+    warning("Unexpected Yahoo Finance API response: expected a JSON object.", call. = FALSE)
+    return(NULL)
+  }
+
   if (httr2::resp_is_error(resp)) {
     status <- httr2::resp_status(resp)
     err_msg <- if (!is.null(parsed$chart$error$description)) {

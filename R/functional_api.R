@@ -32,7 +32,7 @@
 #' @return A \code{\link[tibble]{tibble}} with 8 columns:
 #'   \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
 #'   \code{close}, \code{adj_close}, \code{volume}.
-#'   Returns an empty tibble if all tickers fail.
+#'   Returns a zero-row tibble with these columns if all tickers fail.
 #'
 #' @family historical data
 #'
@@ -111,7 +111,7 @@ yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d
 #'   \code{fifty_two_week_high} (numeric), \code{fifty_two_week_low} (numeric),
 #'   \code{regular_market_volume} (numeric), \code{previous_close} (numeric),
 #'   \code{currency} (character).
-#'   Returns an empty tibble if all tickers fail.
+#'   Returns a zero-row tibble with these columns if all tickers fail.
 #'
 #' @family market data
 #'
@@ -179,7 +179,8 @@ yf_get_market_stats <- function(tickers) {
 #' @return A \code{\link[tibble]{tibble}} with \code{symbol} as the first
 #'   column. Remaining columns vary by \code{statement_type} and reflect the
 #'   line items returned by the Yahoo Finance API.
-#'   Returns an empty tibble if all tickers fail.
+#'   If all tickers fail, returns a zero-row tibble with the columns
+#'   \code{symbol}, \code{date} and \code{period_type}.
 #'
 #' @family fundamental data
 #'
@@ -247,7 +248,7 @@ yf_get_financials <- function(
 #'   \code{\link{yf_download_prices}}: \code{symbol}, \code{date},
 #'   \code{open}, \code{high}, \code{low}, \code{close}, \code{adj_close},
 #'   \code{volume}.
-#'   Returns an empty tibble on failure.
+#'   Returns a zero-row tibble with these columns on failure.
 #'
 #' @family historical data
 #'

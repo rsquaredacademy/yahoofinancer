@@ -28,7 +28,10 @@ function isEuropeanTimeZone(timeZone) {
   if (
     timeZone === 'Atlantic/Canary' ||
     timeZone === 'Atlantic/Madeira' ||
-    timeZone === 'Atlantic/Reykjavik'
+    timeZone === 'Atlantic/Azores' ||
+    timeZone === 'Atlantic/Reykjavik' ||
+    timeZone === 'Asia/Nicosia' ||
+    timeZone === 'Asia/Famagusta'
   ) {
     return true;
   }

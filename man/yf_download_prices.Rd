@@ -63,10 +63,10 @@ yf_download_prices(c("AAPL", "MSFT"), period = "6mo", interval = "1mo")
 
 }
 \seealso{
-Other historical data: 
+Other historical data:
 \code{\link{Indice-class}},
 \code{\link{Ticker-class}},
 \code{\link{Tickers}},
-\code{\link{yf_get_index_quotes}()}
+\code{\link[=yf_get_index_quotes]{yf_get_index_quotes()}}
 }
 \concept{historical data}

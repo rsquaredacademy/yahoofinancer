@@ -1,8 +1,8 @@
 Package: yahoofinancer
 Type: Package
 Title: Fetch Data from Yahoo Finance API
-Version: 0.6.1
-Authors@R: person("Aravind", "Hebbali", email = "hebbali.aravind@gmail.com", role = c("aut", "cre"))
+Version: 0.6.2
+Authors@R: person("Aravind", "Hebbali", email = "aravindhebbali@rsquaredacademy.com", role = c("aut", "cre"))
 Description: Obtain historical and near real time data related to stocks, index 
     and currencies from the Yahoo Finance API. This package is community maintained 
     and is not officially supported by 'Yahoo'. The accuracy of data is only as 
@@ -13,7 +13,6 @@ Imports:
     curl,
     dplyr,
     httr2 (>= 1.0.0),
-    jsonlite,
     lubridate,
     magrittr,
     purrr,
@@ -23,11 +22,12 @@ Suggests:
     covr,
     ggplot2,
     httptest2,
+    jsonlite,
     knitr,
     rmarkdown,
     scales,
     shiny,
-    testthat (>= 3.0.0),
+    testthat (>= 3.2.1),
     tidyr,
     zoo
 VignetteBuilder: knitr
@@ -36,4 +36,4 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://yahoofinancer.rsquaredacademy.com/, https://github.com/rsquaredacademy/yahoofinancer
 BugReports: https://github.com/rsquaredacademy/yahoofinancer/issues
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.1.1

@@ -70,7 +70,7 @@ currency_converter("GBP", "USD", period = "1mo", interval = "1d")
 
 }
 \seealso{
-Other currency: 
-\code{\link{get_currencies}()}
+Other currency:
+\code{\link[=get_currencies]{get_currencies()}}
 }
 \concept{currency}
