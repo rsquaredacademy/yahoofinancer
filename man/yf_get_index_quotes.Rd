@@ -15,7 +15,7 @@ A \code{\link[tibble]{tibble}} with the same 8-column schema as
   \code{\link{yf_download_prices}}: \code{symbol}, \code{date},
   \code{open}, \code{high}, \code{low}, \code{close}, \code{adj_close},
   \code{volume}.
-  Returns an empty tibble on failure.
+  Returns a zero-row tibble with these columns on failure.
 }
 \description{
 Retrieves the most recent 1-day price snapshot for a given market index.

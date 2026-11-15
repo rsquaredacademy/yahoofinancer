@@ -22,7 +22,8 @@ One of \code{"income"}, \code{"balance-sheet"}, or \code{"cash-flow"}.}
 A \code{\link[tibble]{tibble}} with \code{symbol} as the first
   column. Remaining columns vary by \code{statement_type} and reflect the
   line items returned by the Yahoo Finance API.
-  Returns an empty tibble if all tickers fail.
+  If all tickers fail, returns a zero-row tibble with the columns
+  \code{symbol}, \code{date} and \code{period_type}.
 }
 \description{
 Retrieves quarterly or annual financial statements (income statement,

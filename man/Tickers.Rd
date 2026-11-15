@@ -158,7 +158,7 @@ provided but \code{end} is \code{NULL}.}
   \subsection{Returns}{
     A tidy \code{\link[tibble]{tibble}} containing historical prices and volumes.
   Columns: \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
-  \code{close}, \code{adj_close}, \code{volume}. Returns an empty tibble if all tickers fail.
+  \code{close}, \code{adj_close}, \code{volume}. Returns a zero-row tibble with these columns if all tickers fail.
   }
 }
 
