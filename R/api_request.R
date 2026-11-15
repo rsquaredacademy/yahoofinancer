@@ -46,7 +46,11 @@ api_request <- function(url, query = list(), headers = list()) {
   }
 
   parsed <- tryCatch(
-    httr2::resp_body_json(resp, simplifyVector = FALSE),
+    {
+      # httr2 only Suggests jsonlite; our API requires its JSON parser.
+      loadNamespace("jsonlite")
+      httr2::resp_body_json(resp, simplifyVector = FALSE)
+    },
     error = function(e) {
       warning(sprintf("Failed to parse Yahoo Finance API response as JSON: %s", conditionMessage(e)), call. = FALSE)
       NULL
