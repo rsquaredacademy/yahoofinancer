@@ -4,7 +4,7 @@
 #' @param status_code HTTP status code to return
 #' @param body_json List to return as JSON body
 #' @param is_error Boolean, whether to return TRUE for http_error
-mock_response <- function(status_code = 200, body_json = list(), is_error = FALSE) {
+mock_response <- function(status_code = 200, body_json = structure(list(), names = character()), is_error = FALSE) {
   list(
     status_code = status_code,
     content = body_json,
