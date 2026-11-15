@@ -6,7 +6,7 @@ Authors@R: person("Aravind", "Hebbali", email = "aravindhebbali@rsquaredacademy.
 Description: Obtain historical and near real time data related to stocks, index 
     and currencies from the Yahoo Finance API. This package is community maintained 
     and is not officially supported by 'Yahoo'. The accuracy of data is only as 
-    correct as provided on <https://finance.yahoo.com/>.
+    correct as provided by Yahoo Finance.
 Depends: 
     R (>= 4.1)
 Imports: 
