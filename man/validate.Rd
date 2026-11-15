@@ -19,6 +19,8 @@ for each symbol.}
 \value{
 If \code{return_logical = FALSE} (the default), a character vector of valid symbols.
 If \code{return_logical = TRUE}, a named logical vector indicating validation status for each symbol.
+Matching is case-insensitive; returned symbols and names retain the caller's
+spelling and order, including dots.
 }
 \description{
 Validate symbols before retrieving data. This function checks whether
