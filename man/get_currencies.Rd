@@ -22,7 +22,7 @@ get_currencies()
 
 }
 \seealso{
-Other currency: 
-\code{\link{currency_converter}()}
+Other currency:
+\code{\link[=currency_converter]{currency_converter()}}
 }
 \concept{currency}

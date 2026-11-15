@@ -13,190 +13,206 @@ Class for retrieving all data related to a single ticker from the
 Yahoo Finance API. Inherits \code{get_history()} from
 \code{\link{YahooFinanceBase-class}}.
 }
+\details{
+Market metadata fields (\code{currency}, \code{regular_market_price},
+\code{previous_close}, and so on) are fetched once per symbol and cached on
+the object; the cache has no time expiry. It is keyed by symbol, so changing
+the symbol (with \code{set_symbol()} or by assigning to \code{symbol})
+always fetches fresh metadata. To refresh the values for the same symbol,
+create a new \code{Ticker} or call \code{set_symbol()} again.
+}
 \seealso{
-Other historical data: 
+Other historical data:
 \code{\link{Indice-class}},
 \code{\link{Tickers}},
-\code{\link{yf_download_prices}()},
-\code{\link{yf_get_index_quotes}()}
+\code{\link[=yf_download_prices]{yf_download_prices()}},
+\code{\link[=yf_get_index_quotes]{yf_get_index_quotes()}}
 }
 \concept{historical data}
 \section{Super class}{
-\code{\link[yahoofinancer:YahooFinanceBase]{yahoofinancer::YahooFinanceBase}} -> \code{Ticker}
+\code{\link[yahoofinancer:YahooFinanceBase]{YahooFinanceBase}} -> \code{Ticker}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{valuation_measures}}{Retrieves valuation measures}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{valuation_measures}}{Retrieves valuation measures}
 
-\item{\code{recommendations}}{Related symbols recommended by Yahoo Finance and their scores.}
+    \item{\code{recommendations}}{Related symbols recommended by Yahoo Finance and their scores.}
 
-\item{\code{technical_insights}}{Technical insights and indicators snapshot.}
+    \item{\code{technical_insights}}{Technical insights and indicators snapshot.}
 
-\item{\code{currency}}{Currency code for the symbol.}
+    \item{\code{currency}}{Currency code for the symbol.}
 
-\item{\code{exchange_name}}{Short name of the stock exchange.}
+    \item{\code{exchange_name}}{Short name of the stock exchange.}
 
-\item{\code{full_exchange_name}}{Full name of the stock exchange.}
+    \item{\code{full_exchange_name}}{Full name of the stock exchange.}
 
-\item{\code{first_trade_date}}{Timestamp of the first recorded trade.}
+    \item{\code{first_trade_date}}{Timestamp of the first recorded trade.}
 
-\item{\code{regular_market_time}}{Timestamp of the last market trade.}
+    \item{\code{regular_market_time}}{Timestamp of the last market trade.}
 
-\item{\code{timezone}}{Timezone code of the exchange.}
+    \item{\code{timezone}}{Timezone code of the exchange.}
 
-\item{\code{exchange_timezone_name}}{Full timezone name of the exchange.}
+    \item{\code{exchange_timezone_name}}{Full timezone name of the exchange.}
 
-\item{\code{regular_market_price}}{Current regular market price.}
+    \item{\code{regular_market_price}}{Current regular market price.}
 
-\item{\code{fifty_two_week_high}}{52-week high price.}
+    \item{\code{fifty_two_week_high}}{52-week high price.}
 
-\item{\code{fifty_two_week_low}}{52-week low price.}
+    \item{\code{fifty_two_week_low}}{52-week low price.}
 
-\item{\code{regular_market_day_high}}{Highest price during the current trading session.}
+    \item{\code{regular_market_day_high}}{Highest price during the current trading session.}
 
-\item{\code{regular_market_day_low}}{Lowest price during the current trading session.}
+    \item{\code{regular_market_day_low}}{Lowest price during the current trading session.}
 
-\item{\code{regular_market_volume}}{Current trading volume.}
+    \item{\code{regular_market_volume}}{Current trading volume.}
 
-\item{\code{previous_close}}{Closing price of the previous trading day.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{previous_close}}{Closing price of the previous trading day.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Ticker-new}{\code{Ticker$new()}}
-\item \href{#method-Ticker-set_symbol}{\code{Ticker$set_symbol()}}
-\item \href{#method-Ticker-get_income_statement}{\code{Ticker$get_income_statement()}}
-\item \href{#method-Ticker-get_balance_sheet}{\code{Ticker$get_balance_sheet()}}
-\item \href{#method-Ticker-get_cash_flow}{\code{Ticker$get_cash_flow()}}
-\item \href{#method-Ticker-clone}{\code{Ticker$clone()}}
+  \itemize{
+    \item \href{#method-Ticker-initialize}{\code{Ticker$new()}}
+    \item \href{#method-Ticker-set_symbol}{\code{Ticker$set_symbol()}}
+    \item \href{#method-Ticker-get_income_statement}{\code{Ticker$get_income_statement()}}
+    \item \href{#method-Ticker-get_balance_sheet}{\code{Ticker$get_balance_sheet()}}
+    \item \href{#method-Ticker-get_cash_flow}{\code{Ticker$get_cash_flow()}}
+    \item \href{#method-Ticker-clone}{\code{Ticker$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-get_history'><code>yahoofinancer::YahooFinanceBase$get_history()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href='../../yahoofinancer/html/YahooFinanceBase.html#method-YahooFinanceBase-get_history'><code>YahooFinanceBase$get_history()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Ticker-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Ticker-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new Ticker object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$new(symbol = NA, validate = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Ticker-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Ticker-initialize}{}}}
+\subsection{\code{Ticker$new()}}{
+  Create a new Ticker object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Ticker$new(symbol = NA, validate = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{symbol}}{Symbol (e.g., \code{"AAPL"}).}
+      \item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbol}}{Symbol (e.g., \code{"AAPL"}).}
-
-\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Ticker-set_symbol"></a>}}
 \if{latex}{\out{\hypertarget{method-Ticker-set_symbol}{}}}
-\subsection{Method \code{set_symbol()}}{
-Set a new symbol and clear cached metadata.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$set_symbol(symbol, validate = TRUE)}\if{html}{\out{</div>}}
+\subsection{\code{Ticker$set_symbol()}}{
+  Set a new symbol and clear cached metadata.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Ticker$set_symbol(symbol, validate = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{symbol}}{New symbol (e.g., \code{"AAPL"}).}
+      \item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbol}}{New symbol (e.g., \code{"AAPL"}).}
-
-\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Ticker-get_income_statement"></a>}}
 \if{latex}{\out{\hypertarget{method-Ticker-get_income_statement}{}}}
-\subsection{Method \code{get_income_statement()}}{
-Retrieve income statement data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_income_statement(frequency = c("annual", "quarterly"))}\if{html}{\out{</div>}}
+\subsection{\code{Ticker$get_income_statement()}}{
+  Retrieve income statement data.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Ticker$get_income_statement(frequency = c("annual", "quarterly"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+  and income statement line items, or \code{invisible(NULL)} on failure.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
-  and income statement line items, or \code{invisible(NULL)} on failure.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Ticker-get_balance_sheet"></a>}}
 \if{latex}{\out{\hypertarget{method-Ticker-get_balance_sheet}{}}}
-\subsection{Method \code{get_balance_sheet()}}{
-Retrieve balance sheet data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_balance_sheet(frequency = c("annual", "quarterly"))}\if{html}{\out{</div>}}
+\subsection{\code{Ticker$get_balance_sheet()}}{
+  Retrieve balance sheet data.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Ticker$get_balance_sheet(frequency = c("annual", "quarterly"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+  and balance sheet line items, or \code{invisible(NULL)} on failure.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
-  and balance sheet line items, or \code{invisible(NULL)} on failure.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Ticker-get_cash_flow"></a>}}
 \if{latex}{\out{\hypertarget{method-Ticker-get_cash_flow}{}}}
-\subsection{Method \code{get_cash_flow()}}{
-Retrieve cash flow statement data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$get_cash_flow(frequency = c("annual", "quarterly"))}\if{html}{\out{</div>}}
+\subsection{\code{Ticker$get_cash_flow()}}{
+  Retrieve cash flow statement data.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Ticker$get_cash_flow(frequency = c("annual", "quarterly"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
+  and cash flow statement line items, or \code{invisible(NULL)} on failure.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{frequency}}{One of \code{"annual"} or \code{"quarterly"}. Defaults to \code{"annual"}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{\link[tibble]{tibble}} with columns \code{date}, \code{period_type},
-  and cash flow statement line items, or \code{invisible(NULL)} on failure.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Ticker-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Ticker-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ticker$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Ticker$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Ticker$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

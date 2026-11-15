@@ -1,3 +1,8 @@
+# Opt-in only: set YF_LIVE_TESTS=true to contact Yahoo Finance. By default this
+# file is skipped, so the suite never makes live requests.
+if (!identical(Sys.getenv("YF_LIVE_TESTS"), "true")) {
+  testthat::skip("Live tests are opt-in: set YF_LIVE_TESTS=true to run them.")
+}
 testthat::skip_on_cran()
 testthat::skip_if_offline()
 

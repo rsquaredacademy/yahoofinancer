@@ -4,7 +4,6 @@
 #' Base class for Ticker and Index classes.
 #'
 #' @importFrom magrittr %>%
-#' @importFrom jsonlite fromJSON
 #' @import R6 httr2 purrr lubridate
 #' @docType class
 #' @format An R6 class object

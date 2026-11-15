@@ -47,7 +47,10 @@ test_that("parse_chart_data falls back to close when adj_close length mismatches
       adjclose = list(list(adjclose = list(103.5)))
     )
   )
-  res <- yahoofinancer:::parse_chart_data(data, "TEST")
+  expect_warning(
+    res <- yahoofinancer:::parse_chart_data(data, "TEST"),
+    "Adjusted close length"
+  )
   expect_equal(res$adj_close, res$close)
 })
 

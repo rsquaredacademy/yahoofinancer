@@ -34,8 +34,8 @@ market_list <- get_market_summary(as_tibble = FALSE)
 
 }
 \seealso{
-Other market data: 
-\code{\link{get_trending}()},
-\code{\link{yf_get_market_stats}()}
+Other market data:
+\code{\link[=get_trending]{get_trending()}},
+\code{\link[=yf_get_market_stats]{yf_get_market_stats()}}
 }
 \concept{market data}
