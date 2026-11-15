@@ -42,3 +42,4 @@
 ^docs-dev/
 ^tools/test-site-kit\.js$
 ^run-tests\.R$
+^\.yfx2-tmp$

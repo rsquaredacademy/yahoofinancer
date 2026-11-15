@@ -3,11 +3,12 @@
 This is a patch release that fixes wrong results found in a pre-release audit of 0.6.1:
 
 * `Ticker$valuation_measures` joins each metric by its own observation date (values could previously attach to the wrong quarter)
-* `validate()` keeps symbols that contain dots (e.g. `VOD.L`) and matches the response by name
+* `validate()` keeps symbols that contain dots (e.g. `VOD.L`) and matches the response by name case-insensitively, preserving the caller's spelling and order
 * `currency_converter()` no longer recycles a truncated adjusted-close series
 * `Ticker` metadata cache is keyed by symbol
 * Full-failure results of the functional API are typed zero-row tibbles with the documented columns
-* The maintainer address is now aravindhebbali@rsquaredacademy.com; `jsonlite` moved from Imports to Suggests (package code does not use it)
+* The maintainer address is now aravindhebbali@rsquaredacademy.com; `jsonlite` remains in Imports because `httr2::resp_body_json()` requires it at runtime (no NAMESPACE import is needed)
+* Non-object JSON bodies and malformed endpoint envelopes warn and return NULL; error diagnostics preserve the full condition message
 
 ## Test environments
 
@@ -25,4 +26,4 @@ There are no reverse dependencies on CRAN.
 
 ## Notes
 
-The test suite is hermetic: a suite-wide setup file blocks the HTTP transport, so any request that is not mocked fails locally. The live smoke test (`test-smoke-live.R`) runs only when `YF_LIVE_TESTS=true`, so it never runs on CRAN. Examples that need the network are wrapped in `\dontrun{}`; offline tests use mocks and recorded httptest2 fixtures.
+The default test suite is hermetic: a suite-wide setup file blocks the HTTP transport, so any request that is not mocked fails locally. Explicitly setting `YF_LIVE_TESTS=true` bypasses both the transport blocker and the forced connectivity binding and enables the live smoke test (`test-smoke-live.R`); CRAN does not opt in. Examples that need the network are wrapped in `\dontrun{}`; offline tests use mocks and recorded httptest2 fixtures.

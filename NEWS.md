@@ -3,17 +3,17 @@
 ## Bug Fixes
 
 * `Ticker$valuation_measures` now joins every metric by its own observation date. Previously values were combined by position, so reordered or missing quarters attached the wrong figure to a date (or recycled a single value across all dates); absent metrics are now `NA` columns.
-* `validate()` (and so `Tickers$new()`) keeps symbols that contain dots, such as `VOD.L` or `BRK.B`, and matches the response to symbols by name instead of by position.
+* `validate()` (and so ticker constructors) matches response keys case-insensitively by name, preserving dots such as `VOD.L` or `BRK.B` and returning the caller's spelling and order.
 * `currency_converter()` no longer recycles a truncated adjusted-close series: it warns and falls back to `close`, as `get_history()` does. Missing quote fields give `NA`, and an empty chart gives an empty tibble instead of an error.
 * Assigning to `Ticker$symbol` no longer returns the previous symbol's cached prices; cached metadata is keyed by symbol. The documentation now states that the cache has no time expiry.
 * `yf_get_market_stats()` fetches metadata once per symbol and warns when it cannot be retrieved, instead of returning a row of `NA`; numeric and character columns are always typed.
 * Full-failure results of `yf_download_prices()`, `yf_get_index_quotes()`, `yf_get_market_stats()`, `yf_get_financials()` and `Tickers$get_history()` are zero-row tibbles with the documented columns.
-* Unexpected non-object JSON responses now give a warning and `NULL`, and financial statements accept a plain numeric `reportedValue`.
+* Unexpected non-object JSON responses and malformed endpoint envelopes now give a warning and `NULL`; missing error descriptions use a clear fallback, and financial statements accept a plain numeric `reportedValue` or use `NA` for missing values.
 
 ## Maintenance
 
-* The test suite is hermetic: a suite-wide blocker fails any unmocked request, and the live smoke test runs only when `YF_LIVE_TESTS=true`.
-* Requires `testthat (>= 3.2.1)` for tests; `jsonlite` moves from Imports to Suggests (it was not used by package code).
+* The default test suite is hermetic: a suite-wide blocker fails any unmocked request. Setting `YF_LIVE_TESTS=true` disables the blocker and enables the opt-in live smoke test.
+* Requires `testthat (>= 3.2.1)` for tests; `jsonlite` remains in Imports because `httr2::resp_body_json()` requires it at runtime. Parser and transport diagnostics retain the full condition message.
 * The package maintainer address is now aravindhebbali@rsquaredacademy.com.
 
 # yahoofinancer 0.6.1

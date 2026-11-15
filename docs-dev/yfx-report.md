@@ -18,7 +18,7 @@ Every wrong-result fix has a value-asserting test that was run against the pre-f
 | M5 consent banner timezones | `tools/test-site-kit.js` (`node tools/test-site-kit.js`; fails before) | `pkgdown/assets/site-kit/rsa-analytics.js` adds Asia/Nicosia, Asia/Famagusta, Atlantic/Azores; copied byte-identically to `docs/site-kit/` | node test | Fixed (full site rebuild deferred) |
 | L1 unasserted warning | `test-parse_chart_data.R` now `expect_warning(..., "Adjusted close length")` | test only | no warnings in the suite | Fixed |
 | L2 cran-comments | n/a | Rewritten for 0.6.2 (actual environment, check result, hermetic and opt-in live wording, `\dontrun`) | read | Fixed |
-| L3 unused jsonlite import | n/a | Removed from Imports and roxygen; moved to Suggests (tests use it); NAMESPACE regenerated | check: dependencies OK | Fixed |
+| L3 unused direct jsonlite import | `test-yfx2-parser.R` in round 2 parses a recorded body through the real parser and asserts price 155.81 | Round 1 incorrectly moved jsonlite to Suggests: httr2 only Suggests it, but `resp_body_json()` requires it at runtime. RX1 restores Imports; the unused NAMESPACE import stays removed | Round 1's dependency check was insufficient; round 2 verifies the required dependency declaration and real parsing | Corrected by RX1 (yfx2) |
 | L4 odd response shapes | `test-yfx-hardening.R` (JSON `true`, `1`, `"x"` give warning and NULL; numeric `reportedValue` = 100; `raw` and `raw = NULL` still work) | `R/api_request.R` shape guard; `R/ticker.R` numeric check before `$raw` | 2 failed before | Fixed |
 
 ## Deferred
