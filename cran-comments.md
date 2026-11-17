@@ -13,6 +13,8 @@ This is a patch release that fixes wrong results found in a pre-release audit of
 ## Test environments
 
 * local Windows 11 x64, R 4.6.1 (ucrt): `R CMD check --as-cran --no-manual` on the built tarball
+* win-builder: R-release and R-devel
+* R-hub: 4 platforms
 
 ## R CMD check results
 
@@ -22,7 +24,7 @@ This is a patch release that fixes wrong results found in a pre-release audit of
 
 ## Reverse dependencies
 
-There are no reverse dependencies on CRAN.
+We checked the 1 reverse dependency (FinNet): 0 new problems.
 
 ## Notes
 
