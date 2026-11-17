@@ -36,7 +36,7 @@ api_request <- function(url, query = list(), headers = list()) {
   resp <- tryCatch(
     httr2::req_perform(req),
     error = function(e) {
-      warning(sprintf("Network request failed: %s", e$message), call. = FALSE)
+      warning(sprintf("Network request failed: %s", conditionMessage(e)), call. = FALSE)
       NULL
     }
   )
@@ -46,9 +46,13 @@ api_request <- function(url, query = list(), headers = list()) {
   }
 
   parsed <- tryCatch(
-    httr2::resp_body_json(resp, simplifyVector = FALSE),
+    {
+      # httr2 only Suggests jsonlite; our API requires its JSON parser.
+      loadNamespace("jsonlite")
+      httr2::resp_body_json(resp, simplifyVector = FALSE)
+    },
     error = function(e) {
-      warning(sprintf("Failed to parse Yahoo Finance API response as JSON: %s", e$message), call. = FALSE)
+      warning(sprintf("Failed to parse Yahoo Finance API response as JSON: %s", conditionMessage(e)), call. = FALSE)
       NULL
     }
   )
@@ -57,22 +61,49 @@ api_request <- function(url, query = list(), headers = list()) {
     return(NULL)
   }
 
+  # With simplifyVector = FALSE both JSON arrays and objects are lists;
+  # only objects have names (including character(0) for an empty object).
+  is_object <- function(x) is.list(x) && !is.null(names(x))
+  if (!is_object(parsed)) {
+    warning("Unexpected Yahoo Finance API response: expected a JSON object.", call. = FALSE)
+    return(NULL)
+  }
+
+  envelopes <- c("chart", "quoteSummary", "timeseries", "finance",
+                 "symbolsValidation", "currencies", "marketSummaryResponse",
+                 "quoteResponse", "optionChain")
+  for (key in intersect(names(parsed), c(envelopes, "error"))) {
+    container <- parsed[[key]]
+    if (is.null(container)) next
+    valid <- is_object(container)
+    if (valid && key != "error") {
+      result <- container$result
+      error <- container$error
+      valid <- (is.null(result) ||
+        (key == "finance" && is_object(result)) ||
+        (is.list(result) && all(vapply(result, function(x) is.null(x) || is_object(x), logical(1))))) &&
+        (is.null(error) || is_object(error))
+    }
+    if (!valid) {
+      warning(sprintf("Unexpected Yahoo Finance API response: malformed '%s' envelope.", key), call. = FALSE)
+      return(NULL)
+    }
+  }
+
   if (httr2::resp_is_error(resp)) {
     status <- httr2::resp_status(resp)
-    err_msg <- if (!is.null(parsed$chart$error$description)) {
-      parsed$chart$error$description
-    } else if (!is.null(parsed$quoteSummary$error$description)) {
-      parsed$quoteSummary$error$description
-    } else if (!is.null(parsed$timeseries$error$description)) {
-      parsed$timeseries$error$description
-    } else if (!is.null(parsed$finance$error$description)) {
-      parsed$finance$error$description
-    } else if (!is.null(parsed$error$description)) {
-      parsed$error$description
-    } else if (!is.null(parsed$error$message)) {
-      parsed$error$message
-    } else {
-      "Unknown Error"
+    err_msg <- "Unknown Error"
+    errors <- c(lapply(parsed[intersect(envelopes, names(parsed))], function(x) x$error),
+                list(parsed$error))
+    for (error in errors) {
+      for (field in c("description", "message")) {
+        msg <- error[[field]]
+        if (is.character(msg) && length(msg) == 1L && !is.na(msg) && nzchar(msg)) {
+          err_msg <- msg
+          break
+        }
+      }
+      if (err_msg != "Unknown Error") break
     }
     warning(sprintf("Yahoo Finance API failed [%s]: %s", status, err_msg), call. = FALSE)
     return(NULL)

@@ -32,7 +32,7 @@
 #' @return A \code{\link[tibble]{tibble}} with 8 columns:
 #'   \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
 #'   \code{close}, \code{adj_close}, \code{volume}.
-#'   Returns an empty tibble if all tickers fail.
+#'   Returns a zero-row tibble with these columns if all tickers fail.
 #'
 #' @family historical data
 #'
@@ -90,7 +90,7 @@ yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d
 
   results <- results[!vapply(results, is.null, logical(1))]
   if (length(results) == 0) {
-    return(tibble::tibble())
+    return(empty_prices_tibble())
   }
 
   combined <- dplyr::bind_rows(results)
@@ -111,7 +111,7 @@ yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d
 #'   \code{fifty_two_week_high} (numeric), \code{fifty_two_week_low} (numeric),
 #'   \code{regular_market_volume} (numeric), \code{previous_close} (numeric),
 #'   \code{currency} (character).
-#'   Returns an empty tibble if all tickers fail.
+#'   Returns a zero-row tibble with these columns if all tickers fail.
 #'
 #' @family market data
 #'
@@ -123,24 +123,30 @@ yf_download_prices <- function(tickers, start = NULL, end = NULL, interval = "1d
 #'
 #' @export
 yf_get_market_stats <- function(tickers) {
+  num <- function(x) if (is.null(x) || length(x) == 0) NA_real_ else as.numeric(x[[1]])
+  chr <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else as.character(x[[1]])
+
   results <- lapply(tickers, function(ticker) {
     tryCatch(
       {
         obj <- Ticker$new(ticker)
 
-        safe_extract <- function(x) if (is.null(x) || length(x) == 0) NA else x
+        # One metadata request per symbol; absent metadata is a failed symbol,
+        # not a row of NAs.
+        if (!ticker_meta_available(obj)) {
+          warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
+          return(NULL)
+        }
 
-        res <- data.frame(
+        tibble::tibble(
           symbol = ticker,
-          regular_market_price = safe_extract(obj$regular_market_price),
-          fifty_two_week_high = safe_extract(obj$fifty_two_week_high),
-          fifty_two_week_low = safe_extract(obj$fifty_two_week_low),
-          regular_market_volume = safe_extract(obj$regular_market_volume),
-          previous_close = safe_extract(obj$previous_close),
-          currency = safe_extract(obj$currency),
-          stringsAsFactors = FALSE
+          regular_market_price = num(obj$regular_market_price),
+          fifty_two_week_high = num(obj$fifty_two_week_high),
+          fifty_two_week_low = num(obj$fifty_two_week_low),
+          regular_market_volume = num(obj$regular_market_volume),
+          previous_close = num(obj$previous_close),
+          currency = chr(obj$currency)
         )
-        res
       },
       error = function(e) {
         warning(paste0("Failed to fetch data for ticker: ", ticker), call. = FALSE)
@@ -151,7 +157,7 @@ yf_get_market_stats <- function(tickers) {
 
   results <- results[!vapply(results, is.null, logical(1))]
   if (length(results) == 0) {
-    return(tibble::tibble())
+    return(empty_market_stats_tibble())
   }
 
   combined <- dplyr::bind_rows(results)
@@ -173,7 +179,8 @@ yf_get_market_stats <- function(tickers) {
 #' @return A \code{\link[tibble]{tibble}} with \code{symbol} as the first
 #'   column. Remaining columns vary by \code{statement_type} and reflect the
 #'   line items returned by the Yahoo Finance API.
-#'   Returns an empty tibble if all tickers fail.
+#'   If all tickers fail, returns a zero-row tibble with the columns
+#'   \code{symbol}, \code{date} and \code{period_type}.
 #'
 #' @family fundamental data
 #'
@@ -221,7 +228,7 @@ yf_get_financials <- function(
 
   results <- results[!vapply(results, is.null, logical(1))]
   if (length(results) == 0) {
-    return(tibble::tibble())
+    return(empty_financials_tibble())
   }
 
   combined <- dplyr::bind_rows(results)
@@ -241,7 +248,7 @@ yf_get_financials <- function(
 #'   \code{\link{yf_download_prices}}: \code{symbol}, \code{date},
 #'   \code{open}, \code{high}, \code{low}, \code{close}, \code{adj_close},
 #'   \code{volume}.
-#'   Returns an empty tibble on failure.
+#'   Returns a zero-row tibble with these columns on failure.
 #'
 #' @family historical data
 #'
@@ -259,14 +266,14 @@ yf_get_index_quotes <- function(index_symbol) {
 
       if (is.null(res) || nrow(res) == 0) {
         warning(paste0("Failed to fetch data for index: ", index_symbol), call. = FALSE)
-        return(tibble::tibble())
+        return(empty_prices_tibble())
       }
 
       res
     },
     error = function(e) {
       warning(paste0("Failed to fetch data for index: ", index_symbol), call. = FALSE)
-      tibble::tibble()
+      empty_prices_tibble()
     }
   )
 }

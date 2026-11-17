@@ -15,7 +15,7 @@ A \code{\link[tibble]{tibble}} with 7 columns:
   \code{fifty_two_week_high} (numeric), \code{fifty_two_week_low} (numeric),
   \code{regular_market_volume} (numeric), \code{previous_close} (numeric),
   \code{currency} (character).
-  Returns an empty tibble if all tickers fail.
+  Returns a zero-row tibble with these columns if all tickers fail.
 }
 \description{
 Retrieves key real-time valuation and summary fields for one or more
@@ -29,8 +29,8 @@ yf_get_market_stats(c("AAPL", "MSFT"))
 
 }
 \seealso{
-Other market data: 
-\code{\link{get_market_summary}()},
-\code{\link{get_trending}()}
+Other market data:
+\code{\link[=get_market_summary]{get_market_summary()}},
+\code{\link[=get_trending]{get_trending()}}
 }
 \concept{market data}

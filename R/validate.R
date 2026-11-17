@@ -16,6 +16,8 @@
 #' @return
 #' If \code{return_logical = FALSE} (the default), a character vector of valid symbols.
 #' If \code{return_logical = TRUE}, a named logical vector indicating validation status for each symbol.
+#' Matching is case-insensitive; returned symbols and names retain the caller's
+#' spelling and order, including dots.
 #'
 #' @examples
 #' \dontrun{
@@ -77,17 +79,17 @@ validate <- function(symbol = NULL, index = NA, return_logical = FALSE) {
   raw_res <- parsed$symbolsValidation$result
 
   if (!is.null(raw_res)) {
-    vals <- unlist(raw_res)
-    clean_names <- sub("^.*\\.", "", names(vals))
-    matching_names <- intersect(symbols_to_query, clean_names)
-    if (length(matching_names) > 0) {
-      for (i in seq_along(vals)) {
-        nm <- clean_names[i]
-        valid_map[[nm]] <- isTRUE(as.logical(vals[i]))
-      }
-    } else if (length(vals) == length(symbols_to_query)) {
-      for (i in seq_along(symbols_to_query)) {
-        valid_map[[symbols_to_query[i]]] <- isTRUE(as.logical(vals[i]))
+    # Each result element is an object keyed by the exact symbol Yahoo
+    # validated (symbols may contain dots, e.g. "VOD.L"). Canonicalize case
+    # only; never infer identity from flattened names or response order.
+    for (entry in raw_res) {
+      if (!is.list(entry) && !is.logical(entry)) next
+      keys <- names(entry)
+      if (is.null(keys)) next
+      for (k in keys) {
+        if (nzchar(k)) {
+          valid_map[[toupper(k)]] <- isTRUE(as.logical(entry[[k]]))
+        }
       }
     }
   }
@@ -97,7 +99,7 @@ validate <- function(symbol = NULL, index = NA, return_logical = FALSE) {
 
   for (i in seq_along(orig_symbol)) {
     s <- orig_symbol[i]
-    if (!is.na(s) && isTRUE(valid_map[[s]])) {
+    if (!is.na(s) && isTRUE(valid_map[[toupper(s)]])) {
       res[i] <- TRUE
     }
   }

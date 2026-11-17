@@ -30,8 +30,8 @@ get_trending(country = "GB", count = 5)
 
 }
 \seealso{
-Other market data: 
-\code{\link{get_market_summary}()},
-\code{\link{yf_get_market_stats}()}
+Other market data:
+\code{\link[=get_market_summary]{get_market_summary()}},
+\code{\link[=yf_get_market_stats]{yf_get_market_stats()}}
 }
 \concept{market data}

@@ -13,64 +13,66 @@ Base class for Ticker and Index classes.
 }
 \keyword{internal}
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{symbol}}{Symbol for which data is retrieved.}
-}
-\if{html}{\out{</div>}}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{symbol}}{Symbol for which data is retrieved.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-YahooFinanceBase-new}{\code{YahooFinanceBase$new()}}
-\item \href{#method-YahooFinanceBase-set_symbol}{\code{YahooFinanceBase$set_symbol()}}
-\item \href{#method-YahooFinanceBase-get_history}{\code{YahooFinanceBase$get_history()}}
-\item \href{#method-YahooFinanceBase-clone}{\code{YahooFinanceBase$clone()}}
-}
+  \itemize{
+    \item \href{#method-YahooFinanceBase-initialize}{\code{YahooFinanceBase$new()}}
+    \item \href{#method-YahooFinanceBase-set_symbol}{\code{YahooFinanceBase$set_symbol()}}
+    \item \href{#method-YahooFinanceBase-get_history}{\code{YahooFinanceBase$get_history()}}
+    \item \href{#method-YahooFinanceBase-clone}{\code{YahooFinanceBase$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-YahooFinanceBase-new"></a>}}
-\if{latex}{\out{\hypertarget{method-YahooFinanceBase-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new YahooFinanceBase object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$new(symbol = NA, validate = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-YahooFinanceBase-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-YahooFinanceBase-initialize}{}}}
+\subsection{\code{YahooFinanceBase$new()}}{
+  Create a new YahooFinanceBase object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{YahooFinanceBase$new(symbol = NA, validate = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{symbol}}{Symbol.}
+      \item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbol}}{Symbol.}
-
-\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-YahooFinanceBase-set_symbol"></a>}}
 \if{latex}{\out{\hypertarget{method-YahooFinanceBase-set_symbol}{}}}
-\subsection{Method \code{set_symbol()}}{
-Set a new symbol.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$set_symbol(symbol, validate = TRUE)}\if{html}{\out{</div>}}
+\subsection{\code{YahooFinanceBase$set_symbol()}}{
+  Set a new symbol.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{YahooFinanceBase$set_symbol(symbol, validate = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{symbol}}{New symbol}
+      \item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbol}}{New symbol}
-
-\item{\code{validate}}{Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-YahooFinanceBase-get_history"></a>}}
 \if{latex}{\out{\hypertarget{method-YahooFinanceBase-get_history}{}}}
-\subsection{Method \code{get_history()}}{
-Retrieves historical pricing data from the Yahoo Finance chart API.
+\subsection{\code{YahooFinanceBase$get_history()}}{
+  Retrieves historical pricing data from the Yahoo Finance chart API.
 
 **Intraday lookback limits** (imposed by Yahoo Finance):
 \itemize{
@@ -78,39 +80,37 @@ Retrieves historical pricing data from the Yahoo Finance chart API.
   \item \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"}, \code{"60m"}, \code{"90m"}: max 60 days
   \item \code{"1h"}: max 730 days
 }
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$get_history(
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{YahooFinanceBase$get_history(
   period = "ytd",
   interval = "1d",
   start = NULL,
   end = NULL
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{period}}{Length of time. Defaults to \code{'ytd'}. Valid values:
+)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{period}}{Length of time. Defaults to \code{'ytd'}. Valid values:
 \code{"1d"}, \code{"5d"}, \code{"1mo"}, \code{"3mo"}, \code{"6mo"},
 \code{"1y"}, \code{"2y"}, \code{"5y"}, \code{"10y"}, \code{"ytd"}, \code{"max"}.
 Ignored when \code{start} is provided.}
-
-\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values:
+      \item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values:
 \code{"1m"}, \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"},
 \code{"60m"}, \code{"90m"}, \code{"1h"}, \code{"1d"}, \code{"5d"},
 \code{"1wk"}, \code{"1mo"}, \code{"3mo"}.}
-
-\item{\code{start}}{Specific starting date. \code{String} or \code{Date} object
+      \item{\code{start}}{Specific starting date. \code{String} or \code{Date} object
 in \code{"YYYY-MM-DD"} format.}
-
-\item{\code{end}}{Specific ending date. \code{String} or \code{Date} object
+      \item{\code{end}}{Specific ending date. \code{String} or \code{Date} object
 in \code{"YYYY-MM-DD"} format. Defaults to today when \code{start} is
 provided but \code{end} is \code{NULL}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{\link[tibble]{tibble}} with 8 columns:
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{\link[tibble]{tibble}} with 8 columns:
 \describe{
   \item{\code{symbol}}{Character. Ticker symbol.}
   \item{\code{date}}{POSIXct. Timestamp of the data point (UTC).}
@@ -123,23 +123,26 @@ A \code{\link[tibble]{tibble}} with 8 columns:
   \item{\code{volume}}{Numeric. Trading volume.}
 }
 Returns \code{invisible(NULL)} on network failure or invalid symbol.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-YahooFinanceBase-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-YahooFinanceBase-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{YahooFinanceBase$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{YahooFinanceBase$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{YahooFinanceBase$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

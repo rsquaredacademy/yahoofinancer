@@ -38,7 +38,7 @@ but \code{end} is \code{NULL}.}
 A \code{\link[tibble]{tibble}} with 8 columns:
   \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
   \code{close}, \code{adj_close}, \code{volume}.
-  Returns an empty tibble if all tickers fail.
+  Returns a zero-row tibble with these columns if all tickers fail.
 }
 \description{
 Fetches historical OHLCV price data for one or more tickers using the
@@ -63,10 +63,10 @@ yf_download_prices(c("AAPL", "MSFT"), period = "6mo", interval = "1mo")
 
 }
 \seealso{
-Other historical data: 
+Other historical data:
 \code{\link{Indice-class}},
 \code{\link{Ticker-class}},
 \code{\link{Tickers}},
-\code{\link{yf_get_index_quotes}()}
+\code{\link[=yf_get_index_quotes]{yf_get_index_quotes()}}
 }
 \concept{historical data}

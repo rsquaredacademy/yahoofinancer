@@ -4,7 +4,7 @@
 #' @param status_code HTTP status code to return
 #' @param body_json List to return as JSON body
 #' @param is_error Boolean, whether to return TRUE for http_error
-mock_response <- function(status_code = 200, body_json = list(), is_error = FALSE) {
+mock_response <- function(status_code = 200, body_json = structure(list(), names = character()), is_error = FALSE) {
   list(
     status_code = status_code,
     content = body_json,
@@ -97,4 +97,16 @@ with_mock_api <- function(code, response_mock = NULL, internet_mock = NULL) {
   } else {
     inner_code()
   }
+}
+
+# Replace the parsed-JSON result of every internal api_request() call with `body`
+# (a list), or with whatever `body(url, ...)` returns when it is a function.
+with_api <- function(body, code) {
+  stub <- if (is.function(body)) body else function(...) body
+  testthat::with_mocked_bindings(
+    force(code),
+    api_request = stub,
+    has_internet = function() TRUE,
+    .package = "yahoofinancer"
+  )
 }

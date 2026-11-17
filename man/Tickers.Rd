@@ -38,165 +38,169 @@ tech <- stocks$technical_insights
 
 }
 \seealso{
-Other historical data: 
+Other historical data:
 \code{\link{Indice-class}},
 \code{\link{Ticker-class}},
-\code{\link{yf_download_prices}()},
-\code{\link{yf_get_index_quotes}()}
+\code{\link[=yf_download_prices]{yf_download_prices()}},
+\code{\link[=yf_get_index_quotes]{yf_get_index_quotes()}}
 }
 \concept{historical data}
 \keyword{internal}
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{symbols}}{A unique character vector of symbols being tracked.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{symbols}}{A unique character vector of symbols being tracked.}
 
-\item{\code{ticker_objs}}{A named list of underlying \code{Ticker} R6 objects.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{ticker_objs}}{A named list of underlying \code{Ticker} R6 objects.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{recommendations}}{Related symbols suggested by Yahoo Finance and their relevance scores.}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{recommendations}}{Related symbols suggested by Yahoo Finance and their relevance scores.}
 
-\item{\code{valuation_measures}}{Quarterly valuation statistics including PE and Enterprise Value.}
+    \item{\code{valuation_measures}}{Quarterly valuation statistics including PE and Enterprise Value.}
 
-\item{\code{technical_insights}}{Technical indicator snapshots (e.g., RSI, Moving Averages).}
+    \item{\code{technical_insights}}{Technical indicator snapshots (e.g., RSI, Moving Averages).}
 
-\item{\code{regular_market_price}}{The current market price for each symbol.}
+    \item{\code{regular_market_price}}{The current market price for each symbol.}
 
-\item{\code{regular_market_time}}{The timestamp of the last market trade.}
+    \item{\code{regular_market_time}}{The timestamp of the last market trade.}
 
-\item{\code{regular_market_volume}}{The current trading volume.}
+    \item{\code{regular_market_volume}}{The current trading volume.}
 
-\item{\code{regular_market_day_high}}{The highest price during the current trading session.}
+    \item{\code{regular_market_day_high}}{The highest price during the current trading session.}
 
-\item{\code{regular_market_day_low}}{The lowest price during the current trading session.}
+    \item{\code{regular_market_day_low}}{The lowest price during the current trading session.}
 
-\item{\code{previous_close}}{The closing price of the previous trading day.}
+    \item{\code{previous_close}}{The closing price of the previous trading day.}
 
-\item{\code{fifty_two_week_high}}{The highest price over the last 52 weeks.}
+    \item{\code{fifty_two_week_high}}{The highest price over the last 52 weeks.}
 
-\item{\code{fifty_two_week_low}}{The lowest price over the last 52 weeks.}
+    \item{\code{fifty_two_week_low}}{The lowest price over the last 52 weeks.}
 
-\item{\code{currency}}{The currency code (e.g., "USD") for the symbols.}
+    \item{\code{currency}}{The currency code (e.g., "USD") for the symbols.}
 
-\item{\code{exchange_name}}{The short name of the stock exchange.}
+    \item{\code{exchange_name}}{The short name of the stock exchange.}
 
-\item{\code{full_exchange_name}}{The full name of the stock exchange.}
+    \item{\code{full_exchange_name}}{The full name of the stock exchange.}
 
-\item{\code{first_trade_date}}{The Unix timestamp of the first recorded trade.}
+    \item{\code{first_trade_date}}{The Unix timestamp of the first recorded trade.}
 
-\item{\code{timezone}}{The timezone code (e.g., "EDT").}
+    \item{\code{timezone}}{The timezone code (e.g., "EDT").}
 
-\item{\code{exchange_timezone_name}}{The full name of the exchange's timezone.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{exchange_timezone_name}}{The full name of the exchange's timezone.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Tickers-new}{\code{Tickers$new()}}
-\item \href{#method-Tickers-get_history}{\code{Tickers$get_history()}}
-\item \href{#method-Tickers-aggregate_data}{\code{Tickers$aggregate_data()}}
-\item \href{#method-Tickers-clone}{\code{Tickers$clone()}}
-}
+  \itemize{
+    \item \href{#method-Tickers-initialize}{\code{Tickers$new()}}
+    \item \href{#method-Tickers-get_history}{\code{Tickers$get_history()}}
+    \item \href{#method-Tickers-aggregate_data}{\code{Tickers$aggregate_data()}}
+    \item \href{#method-Tickers-clone}{\code{Tickers$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Tickers-new"></a>}}
-\if{latex}{\out{\hypertarget{method-Tickers-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new Tickers object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Tickers$new(symbols, validate = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-Tickers-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-Tickers-initialize}{}}}
+\subsection{\code{Tickers$new()}}{
+  Create a new Tickers object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Tickers$new(symbols, validate = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{symbols}}{A character vector of Yahoo Finance ticker symbols.}
+      \item{\code{validate}}{Logical; if TRUE, validate symbols against Yahoo Finance. Defaults to TRUE.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new \code{Tickers} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{symbols}}{A character vector of Yahoo Finance ticker symbols.}
-
-\item{\code{validate}}{Logical; if TRUE, validate symbols against Yahoo Finance. Defaults to TRUE.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new \code{Tickers} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Tickers-get_history"></a>}}
 \if{latex}{\out{\hypertarget{method-Tickers-get_history}{}}}
-\subsection{Method \code{get_history()}}{
-Retrieve historical market data for all symbols.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Tickers$get_history(period = "1y", interval = "1d", start = NULL, end = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{period}}{Length of time. Defaults to \code{'1y'}. Valid values:
+\subsection{\code{Tickers$get_history()}}{
+  Retrieve historical market data for all symbols.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Tickers$get_history(period = "1y", interval = "1d", start = NULL, end = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{period}}{Length of time. Defaults to \code{'1y'}. Valid values:
 \code{"1d"}, \code{"5d"}, \code{"1mo"}, \code{"3mo"}, \code{"6mo"},
 \code{"1y"}, \code{"2y"}, \code{"5y"}, \code{"10y"}, \code{"ytd"}, \code{"max"}.
 Ignored when \code{start} is provided.}
-
-\item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values:
+      \item{\code{interval}}{Time between data points. Defaults to \code{'1d'}. Valid values:
 \code{"1m"}, \code{"2m"}, \code{"5m"}, \code{"15m"}, \code{"30m"},
 \code{"60m"}, \code{"90m"}, \code{"1h"}, \code{"1d"}, \code{"5d"},
 \code{"1wk"}, \code{"1mo"}, \code{"3mo"}.}
-
-\item{\code{start}}{Specific starting date. \code{String} or \code{Date} object
+      \item{\code{start}}{Specific starting date. \code{String} or \code{Date} object
 in \code{"YYYY-MM-DD"} format.}
-
-\item{\code{end}}{Specific ending date. \code{String} or \code{Date} object
+      \item{\code{end}}{Specific ending date. \code{String} or \code{Date} object
 in \code{"YYYY-MM-DD"} format. Defaults to today when \code{start} is
 provided but \code{end} is \code{NULL}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A tidy \code{\link[tibble]{tibble}} containing historical prices and volumes.
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A tidy \code{\link[tibble]{tibble}} containing historical prices and volumes.
   Columns: \code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
-  \code{close}, \code{adj_close}, \code{volume}. Returns an empty tibble if all tickers fail.
+  \code{close}, \code{adj_close}, \code{volume}. Returns a zero-row tibble with these columns if all tickers fail.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Tickers-aggregate_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Tickers-aggregate_data}{}}}
-\subsection{Method \code{aggregate_data()}}{
-Internal helper to execute a method across all symbols and combine results. Not intended for direct end-user use.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Tickers$aggregate_data(fn)}\if{html}{\out{</div>}}
+\subsection{\code{Tickers$aggregate_data()}}{
+  Internal helper to execute a method across all symbols and combine results. Not intended for direct end-user use.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Tickers$aggregate_data(fn)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{fn}}{A function or anonymous function that takes a \code{Ticker} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A combined \code{\link[tibble]{tibble}}, or an empty \code{tibble} if all tickers fail.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{fn}}{A function or anonymous function that takes a \code{Ticker} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A combined \code{\link[tibble]{tibble}}, or an empty \code{tibble} if all tickers fail.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Tickers-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Tickers-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Tickers$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Tickers$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Tickers$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

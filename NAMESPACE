@@ -17,8 +17,9 @@ import(httr2)
 import(lubridate)
 import(purrr)
 importFrom(dplyr,bind_rows)
-importFrom(jsonlite,fromJSON)
-importFrom(magrittr,"%>%")
-importFrom(magrittr,extract)
-importFrom(magrittr,extract2)
-importFrom(magrittr,use_series)
+importFrom(magrittr,
+  "%>%",
+  extract,
+  extract2,
+  use_series
+)

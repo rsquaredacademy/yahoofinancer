@@ -16,16 +16,7 @@ to_snake_case <- function(x) {
 
 parse_chart_data <- function(data, symbol = NA_character_) {
   if (is.null(data) || is.null(data$timestamp) || length(data$timestamp) == 0) {
-    return(tibble::tibble(
-      symbol = character(),
-      date = as.POSIXct(integer(), origin = "1970-01-01", tz = "UTC"),
-      open = numeric(),
-      high = numeric(),
-      low = numeric(),
-      close = numeric(),
-      adj_close = numeric(),
-      volume = numeric()
-    ))
+    return(empty_prices_tibble())
   }
 
   date <- lubridate::as_datetime(unlist(data$timestamp))
@@ -84,4 +75,49 @@ parse_chart_data <- function(data, symbol = NA_character_) {
   )
 
   res
+}
+
+# Typed zero-row results used by every full-failure path, so downstream
+# select()/filter() on a failed call still finds the documented columns.
+empty_prices_tibble <- function() {
+  tibble::tibble(
+    symbol = character(),
+    date = as.POSIXct(integer(), origin = "1970-01-01", tz = "UTC"),
+    open = numeric(),
+    high = numeric(),
+    low = numeric(),
+    close = numeric(),
+    adj_close = numeric(),
+    volume = numeric()
+  )
+}
+
+empty_market_stats_tibble <- function() {
+  tibble::tibble(
+    symbol = character(),
+    regular_market_price = numeric(),
+    fifty_two_week_high = numeric(),
+    fifty_two_week_low = numeric(),
+    regular_market_volume = numeric(),
+    previous_close = numeric(),
+    currency = character()
+  )
+}
+
+empty_financials_tibble <- function() {
+  tibble::tibble(
+    symbol = character(),
+    date = as.Date(character()),
+    period_type = character()
+  )
+}
+
+# TRUE when the ticker's metadata can be fetched (one request, then cached).
+# Objects without a metadata cache (e.g. test doubles) are assumed available.
+ticker_meta_available <- function(obj) {
+  fetch <- obj$.__enclos_env__$private$meta_info
+  if (is.null(fetch)) {
+    return(TRUE)
+  }
+  !is.null(fetch())
 }

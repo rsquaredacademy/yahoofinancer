@@ -2,7 +2,7 @@ library(testthat)
 library(yahoofinancer)
 
 test_that("get_history handles success path with period, 8-col schema, and adj_close parsing", {
-  aapl <- Ticker$new("AAPL")
+  aapl <- Ticker$new("AAPL", validate = FALSE)
 
   with_mock_api(
     response_mock = mock_response(
@@ -47,7 +47,7 @@ test_that("get_history handles success path with period, 8-col schema, and adj_c
 })
 
 test_that("get_history enforces adj_close fallback when absent", {
-  aapl <- Ticker$new("AAPL")
+  aapl <- Ticker$new("AAPL", validate = FALSE)
 
   with_mock_api(
     response_mock = mock_response(
@@ -81,7 +81,7 @@ test_that("get_history enforces adj_close fallback when absent", {
 })
 
 test_that("get_history handles success path with start/end", {
-  aapl <- Ticker$new("AAPL")
+  aapl <- Ticker$new("AAPL", validate = FALSE)
 
   with_mock_api(
     response_mock = mock_response(
@@ -115,7 +115,7 @@ test_that("get_history handles success path with start/end", {
 })
 
 test_that("valuation_measures handles success path", {
-  aapl <- Ticker$new("AAPL")
+  aapl <- Ticker$new("AAPL", validate = FALSE)
 
   with_mock_api(
     response_mock = mock_response(
@@ -147,7 +147,7 @@ test_that("valuation_measures handles success path", {
 })
 
 test_that("recommendations handles success path", {
-  aapl <- Ticker$new("AAPL")
+  aapl <- Ticker$new("AAPL", validate = FALSE)
 
   with_mock_api(
     response_mock = mock_response(
@@ -173,7 +173,7 @@ test_that("recommendations handles success path", {
 })
 
 test_that("technical_insights handles success path", {
-  aapl <- Ticker$new("AAPL")
+  aapl <- Ticker$new("AAPL", validate = FALSE)
 
   with_mock_api(
     response_mock = mock_response(
@@ -195,7 +195,7 @@ test_that("technical_insights handles success path", {
 })
 
 test_that("Ticker active bindings for meta info handle success and cache results", {
-  aapl <- Ticker$new("AAPL")
+  aapl <- Ticker$new("AAPL", validate = FALSE)
 
   call_count <- 0
   mock_req_perform <- function(req, ...) {
@@ -258,7 +258,7 @@ test_that("Ticker active bindings for meta info handle success and cache results
       expect_equal(call_count, 1)
 
       # Invalidate cache when changing symbol
-      aapl$set_symbol("MSFT")
+      aapl$set_symbol("MSFT", validate = FALSE)
       expect_equal(aapl$currency, "USD")
       expect_equal(call_count, 2)
     },
@@ -270,7 +270,7 @@ test_that("Ticker active bindings for meta info handle success and cache results
 })
 
 test_that("Ticker financial statement methods return tidy tibbles with line items", {
-  aapl <- Ticker$new("AAPL")
+  aapl <- Ticker$new("AAPL", validate = FALSE)
 
   inc_mock <- list(
     timeseries = list(
