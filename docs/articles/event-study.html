@@ -16,8 +16,9 @@
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Event Study: Earnings Announcements and Price Reactions">
-<!-- Rsquared site-kit v1.0.1: GA4 + region-based consent. Kit files are vendored in pkgdown/assets/site-kit/. --><link rel="stylesheet" href="/site-kit/rsa-consent.css">
-<script src="/site-kit/rsa-analytics.js" data-ga-id="G-2QSPEL5WM6" async></script>
+<!-- Rsquared site-kit v1.2.0: GA4 + region-based consent + email sign-up. Kit files are vendored in pkgdown/assets/site-kit/. --><link rel="stylesheet" href="/site-kit/rsa-consent.css">
+<script src="/site-kit/rsa-analytics.js" data-ga-id="G-2QSPEL5WM6" async></script><link rel="stylesheet" href="/site-kit/rsa-signup.css">
+<script src="/site-kit/rsa-signup.js" defer></script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -27,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">yahoofinancer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,9 +135,9 @@ trading-day window always fits inside the fetched range:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">label</span>,     <span class="op">~</span><span class="va">event_date</span>,</span>
-<span>  <span class="st">"FY25 Q4"</span>,  <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2025-10-30"</span><span class="op">)</span>,</span>
-<span>  <span class="st">"FY26 Q1"</span>,  <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-01-29"</span><span class="op">)</span>,</span>
-<span>  <span class="st">"FY26 Q2"</span>,  <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-04-30"</span><span class="op">)</span></span>
+<span>  <span class="st">"FY25 Q4"</span>,  <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2025-10-30"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"FY26 Q1"</span>,  <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-01-29"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"FY26 Q2"</span>,  <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-04-30"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><em>(Note: Announcement dates are public knowledge—check Apple’s
 investor relations page for your period of interest and adjust
@@ -146,8 +147,8 @@ aligned with the stock’s calendar:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">aapl_event</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/yf_download_prices.html">yf_download_prices</a></span><span class="op">(</span></span>
 <span>  tickers  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AAPL"</span>, <span class="st">"^GSPC"</span><span class="op">)</span>,</span>
-<span>  start    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-01-15"</span><span class="op">)</span>,</span>
-<span>  end      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-02-12"</span><span class="op">)</span>,</span>
+<span>  start    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-01-15"</span><span class="op">)</span>,</span>
+<span>  end      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-02-12"</span><span class="op">)</span>,</span>
 <span>  interval <span class="op">=</span> <span class="st">"1d"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -188,7 +189,7 @@ keeps the event window:</p>
 <span>      ar        <span class="op">=</span> <span class="va">ret_stock</span> <span class="op">-</span> <span class="va">ret_mkt</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="co"># Locate the first session on/after the announcement (t = 0)</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rel_day <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">event_date</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rel_day <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">event_date</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">rel_day</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span><span class="va">label</span>, <span class="va">rel_day</span>, <span class="va">ar</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
@@ -196,7 +197,7 @@ keeps the event window:</p>
 announcement reaction lands at <code>rel_day</code> 0 or 1 depending on
 whether the release came before or after the bell:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ar_q1</span> <span class="op">&lt;-</span> <span class="fu">compute_ar</span><span class="op">(</span><span class="st">"FY26 Q1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-01-29"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ar_q1</span> <span class="op">&lt;-</span> <span class="fu">compute_ar</span><span class="op">(</span><span class="st">"FY26 Q1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-01-29"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ar_q1</span></span>
 <span><span class="co">#&gt; # A tibble: 8 x 3</span></span>
@@ -314,9 +315,9 @@ copy-pasteable script:</p>
 <span><span class="co"># 1. Events: three earnings announcements, two weeks of slack each side</span></span>
 <span><span class="va">events</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span></span>
 <span>  <span class="op">~</span><span class="va">label</span>,    <span class="op">~</span><span class="va">event_date</span>,</span>
-<span>  <span class="st">"FY25 Q4"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2025-10-30"</span><span class="op">)</span>,</span>
-<span>  <span class="st">"FY26 Q1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-01-29"</span><span class="op">)</span>,</span>
-<span>  <span class="st">"FY26 Q2"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-04-30"</span><span class="op">)</span></span>
+<span>  <span class="st">"FY25 Q4"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2025-10-30"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"FY26 Q1"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-01-29"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"FY26 Q2"</span>, <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-04-30"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 2. Market-adjusted abnormal returns over [-2, +5]</span></span>
@@ -334,7 +335,7 @@ copy-pasteable script:</p>
 <span>      ret_mkt <span class="op">=</span> <span class="va">index</span> <span class="op">/</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>,</span>
 <span>      ar <span class="op">=</span> <span class="va">ret_stock</span> <span class="op">-</span> <span class="va">ret_mkt</span></span>
 <span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rel_day <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">event_date</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rel_day <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">event_date</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">rel_day</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/transmute.html" class="external-link">transmute</a></span><span class="op">(</span><span class="va">label</span>, <span class="va">rel_day</span>, <span class="va">ar</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -418,7 +419,7 @@ modeling, see
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0. <a href="https://www.rsquaredacademy.com/privacy-policy.html" class="external-link">Privacy</a> · <a href="#" data-rsa-analytics-optout>Turn off analytics</a></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1. <a href="https://www.rsquaredacademy.com/privacy-policy.html" class="external-link">Privacy</a> · <a href="#" data-rsa-analytics-optout>Turn off analytics</a></p>
 </div>
 
     </footer>

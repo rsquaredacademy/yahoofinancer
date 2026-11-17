@@ -32,8 +32,9 @@ yf_get_financials(
 
 A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with
 `symbol` as the first column. Remaining columns vary by `statement_type`
-and reflect the line items returned by the Yahoo Finance API. Returns an
-empty tibble if all tickers fail.
+and reflect the line items returned by the Yahoo Finance API. If all
+tickers fail, returns a zero-row tibble with the columns `symbol`,
+`date` and `period_type`.
 
 ## Examples
 

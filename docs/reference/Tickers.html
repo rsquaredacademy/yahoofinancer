@@ -3,7 +3,7 @@
 simultaneously. It wraps the Ticker class to provide a unified,
 long-format data interface suitable for bulk analysis and visualization."><meta property="og:description" content="An R6 class to manage and aggregate data from multiple Yahoo Finance tickers
 simultaneously. It wraps the Ticker class to provide a unified,
-long-format data interface suitable for bulk analysis and visualization."><!-- Rsquared site-kit v1.0.1: GA4 + region-based consent. Kit files are vendored in pkgdown/assets/site-kit/. --><link rel="stylesheet" href="/site-kit/rsa-consent.css"><script src="/site-kit/rsa-analytics.js" data-ga-id="G-2QSPEL5WM6" async></script></head><body>
+long-format data interface suitable for bulk analysis and visualization."><!-- Rsquared site-kit v1.2.0: GA4 + region-based consent + email sign-up. Kit files are vendored in pkgdown/assets/site-kit/. --><link rel="stylesheet" href="/site-kit/rsa-consent.css"><script src="/site-kit/rsa-analytics.js" data-ga-id="G-2QSPEL5WM6" async></script><link rel="stylesheet" href="/site-kit/rsa-signup.css"><script src="/site-kit/rsa-signup.js" defer></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -11,7 +11,7 @@ long-format data interface suitable for bulk analysis and visualization."><!-- R
 
     <a class="navbar-brand me-2" href="../index.html">yahoofinancer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@ not prevent the collection of data for others.</p>
 <dd><p>A unique character vector of symbols being tracked.</p></dd>
 
 
-<dt><code>ticker_objs</code></dt>
+    <dt><code>ticker_objs</code></dt>
 <dd><p>A named list of underlying <code>Ticker</code> R6 objects.</p></dd>
 
 
@@ -93,67 +93,67 @@ not prevent the collection of data for others.</p>
 <dd><p>Related symbols suggested by Yahoo Finance and their relevance scores.</p></dd>
 
 
-<dt><code>valuation_measures</code></dt>
+    <dt><code>valuation_measures</code></dt>
 <dd><p>Quarterly valuation statistics including PE and Enterprise Value.</p></dd>
 
 
-<dt><code>technical_insights</code></dt>
+    <dt><code>technical_insights</code></dt>
 <dd><p>Technical indicator snapshots (e.g., RSI, Moving Averages).</p></dd>
 
 
-<dt><code>regular_market_price</code></dt>
+    <dt><code>regular_market_price</code></dt>
 <dd><p>The current market price for each symbol.</p></dd>
 
 
-<dt><code>regular_market_time</code></dt>
+    <dt><code>regular_market_time</code></dt>
 <dd><p>The timestamp of the last market trade.</p></dd>
 
 
-<dt><code>regular_market_volume</code></dt>
+    <dt><code>regular_market_volume</code></dt>
 <dd><p>The current trading volume.</p></dd>
 
 
-<dt><code>regular_market_day_high</code></dt>
+    <dt><code>regular_market_day_high</code></dt>
 <dd><p>The highest price during the current trading session.</p></dd>
 
 
-<dt><code>regular_market_day_low</code></dt>
+    <dt><code>regular_market_day_low</code></dt>
 <dd><p>The lowest price during the current trading session.</p></dd>
 
 
-<dt><code>previous_close</code></dt>
+    <dt><code>previous_close</code></dt>
 <dd><p>The closing price of the previous trading day.</p></dd>
 
 
-<dt><code>fifty_two_week_high</code></dt>
+    <dt><code>fifty_two_week_high</code></dt>
 <dd><p>The highest price over the last 52 weeks.</p></dd>
 
 
-<dt><code>fifty_two_week_low</code></dt>
+    <dt><code>fifty_two_week_low</code></dt>
 <dd><p>The lowest price over the last 52 weeks.</p></dd>
 
 
-<dt><code>currency</code></dt>
+    <dt><code>currency</code></dt>
 <dd><p>The currency code (e.g., "USD") for the symbols.</p></dd>
 
 
-<dt><code>exchange_name</code></dt>
+    <dt><code>exchange_name</code></dt>
 <dd><p>The short name of the stock exchange.</p></dd>
 
 
-<dt><code>full_exchange_name</code></dt>
+    <dt><code>full_exchange_name</code></dt>
 <dd><p>The full name of the stock exchange.</p></dd>
 
 
-<dt><code>first_trade_date</code></dt>
+    <dt><code>first_trade_date</code></dt>
 <dd><p>The Unix timestamp of the first recorded trade.</p></dd>
 
 
-<dt><code>timezone</code></dt>
+    <dt><code>timezone</code></dt>
 <dd><p>The timezone code (e.g., "EDT").</p></dd>
 
 
-<dt><code>exchange_timezone_name</code></dt>
+    <dt><code>exchange_timezone_name</code></dt>
 <dd><p>The full name of the exchange's timezone.</p></dd>
 
 
@@ -164,43 +164,38 @@ not prevent the collection of data for others.</p>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-Tickers-new"><code>Tickers$new()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-Tickers-initialize"><code>Tickers$new()</code></a></p></li>
 <li><p><a href="#method-Tickers-get_history"><code>Tickers$get_history()</code></a></p></li>
 <li><p><a href="#method-Tickers-aggregate_data"><code>Tickers$aggregate_data()</code></a></p></li>
 <li><p><a href="#method-Tickers-clone"><code>Tickers$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-Tickers-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+</ul></div><p></p><hr><a id="method-Tickers-initialize"></a><div class="section">
+<h3 id="tickers-new-"><code>Tickers$new()</code><a class="anchor" aria-label="anchor" href="#tickers-new-"></a></h3>
 <p>Create a new Tickers object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/Tickers.html">Tickers</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">symbols</span>, validate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>symbols</code></dt>
 <dd><p>A character vector of Yahoo Finance ticker symbols.</p></dd>
 
-
-<dt><code>validate</code></dt>
+      <dt><code>validate</code></dt>
 <dd><p>Logical; if TRUE, validate symbols against Yahoo Finance. Defaults to TRUE.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A new <code>Tickers</code> object.</p>
 </div>
 
-</div><p></p><hr><a id="method-Tickers-get_history"></a><div class="section">
-<h3 id="method-get-history-">Method <code>get_history()</code><a class="anchor" aria-label="anchor" href="#method-get-history-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Tickers-get_history"></a><div class="section">
+<h3 id="tickers-get-history-"><code>Tickers$get_history()</code><a class="anchor" aria-label="anchor" href="#tickers-get-history-"></a></h3>
 <p>Retrieve historical market data for all symbols.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Tickers</span><span class="op">$</span><span class="fu">get_history</span><span class="op">(</span>period <span class="op">=</span> <span class="st">"1y"</span>, interval <span class="op">=</span> <span class="st">"1d"</span>, start <span class="op">=</span> <span class="cn">NULL</span>, end <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>period</code></dt>
 <dd><p>Length of time. Defaults to <code>'1y'</code>. Valid values:
@@ -208,62 +203,57 @@ not prevent the collection of data for others.</p>
 <code>"1y"</code>, <code>"2y"</code>, <code>"5y"</code>, <code>"10y"</code>, <code>"ytd"</code>, <code>"max"</code>.
 Ignored when <code>start</code> is provided.</p></dd>
 
-
-<dt><code>interval</code></dt>
+      <dt><code>interval</code></dt>
 <dd><p>Time between data points. Defaults to <code>'1d'</code>. Valid values:
 <code>"1m"</code>, <code>"2m"</code>, <code>"5m"</code>, <code>"15m"</code>, <code>"30m"</code>,
 <code>"60m"</code>, <code>"90m"</code>, <code>"1h"</code>, <code>"1d"</code>, <code>"5d"</code>,
 <code>"1wk"</code>, <code>"1mo"</code>, <code>"3mo"</code>.</p></dd>
 
-
-<dt><code>start</code></dt>
+      <dt><code>start</code></dt>
 <dd><p>Specific starting date. <code>String</code> or <code>Date</code> object
 in <code>"YYYY-MM-DD"</code> format.</p></dd>
 
-
-<dt><code>end</code></dt>
+      <dt><code>end</code></dt>
 <dd><p>Specific ending date. <code>String</code> or <code>Date</code> object
 in <code>"YYYY-MM-DD"</code> format. Defaults to today when <code>start</code> is
 provided but <code>end</code> is <code>NULL</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>A tidy <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></code> containing historical prices and volumes.
   Columns: <code>symbol</code>, <code>date</code>, <code>open</code>, <code>high</code>, <code>low</code>,
-  <code>close</code>, <code>adj_close</code>, <code>volume</code>. Returns an empty tibble if all tickers fail.</p>
+  <code>close</code>, <code>adj_close</code>, <code>volume</code>. Returns a zero-row tibble with these columns if all tickers fail.</p>
 </div>
 
-</div><p></p><hr><a id="method-Tickers-aggregate_data"></a><div class="section">
-<h3 id="method-aggregate-data-">Method <code>aggregate_data()</code><a class="anchor" aria-label="anchor" href="#method-aggregate-data-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Tickers-aggregate_data"></a><div class="section">
+<h3 id="tickers-aggregate-data-"><code>Tickers$aggregate_data()</code><a class="anchor" aria-label="anchor" href="#tickers-aggregate-data-"></a></h3>
 <p>Internal helper to execute a method across all symbols and combine results. Not intended for direct end-user use.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Tickers</span><span class="op">$</span><span class="fu">aggregate_data</span><span class="op">(</span><span class="va">fn</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>fn</code></dt>
 <dd><p>A function or anonymous function that takes a <code>Ticker</code> object.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p>A combined <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></code>, or an empty <code>tibble</code> if all tickers fail.</p>
 </div>
 
-</div><p></p><hr><a id="method-Tickers-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Tickers-clone"></a><div class="section">
+<h3 id="tickers-clone-"><code>Tickers$clone()</code><a class="anchor" aria-label="anchor" href="#tickers-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Tickers</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -273,6 +263,7 @@ provided but <code>end</code> is <code>NULL</code>.</p></dd>
 </div>
 
 </div>
+
 
     </div>
 
@@ -307,7 +298,7 @@ provided but <code>end</code> is <code>NULL</code>.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0. <a href="https://www.rsquaredacademy.com/privacy-policy.html" class="external-link">Privacy</a> · <a href="#" data-rsa-analytics-optout>Turn off analytics</a></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1. <a href="https://www.rsquaredacademy.com/privacy-policy.html" class="external-link">Privacy</a> · <a href="#" data-rsa-analytics-optout>Turn off analytics</a></p>
 </div>
 
     </footer></div>

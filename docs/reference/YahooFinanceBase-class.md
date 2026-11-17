@@ -16,7 +16,7 @@ An R6 class object
 
 ### Public methods
 
-- [`YahooFinanceBase$new()`](#method-YahooFinanceBase-new)
+- [`YahooFinanceBase$new()`](#method-YahooFinanceBase-initialize)
 
 - [`YahooFinanceBase$set_symbol()`](#method-YahooFinanceBase-set_symbol)
 
@@ -26,7 +26,7 @@ An R6 class object
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `YahooFinanceBase$new()`
 
 Create a new YahooFinanceBase object.
 
@@ -47,7 +47,7 @@ Create a new YahooFinanceBase object.
 
 ------------------------------------------------------------------------
 
-### Method `set_symbol()`
+### `YahooFinanceBase$set_symbol()`
 
 Set a new symbol.
 
@@ -68,7 +68,7 @@ Set a new symbol.
 
 ------------------------------------------------------------------------
 
-### Method `get_history()`
+### `YahooFinanceBase$get_history()`
 
 Retrieves historical pricing data from the Yahoo Finance chart API.
 
@@ -156,7 +156,7 @@ Returns `invisible(NULL)` on network failure or invalid symbol.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `YahooFinanceBase$clone()`
 
 The objects of this class are cloneable with this method.
 

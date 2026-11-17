@@ -8,6 +8,15 @@ Finance API. Inherits `get_history()` from
 
 An R6 class object
 
+## Details
+
+Market metadata fields (`currency`, `regular_market_price`,
+`previous_close`, and so on) are fetched once per symbol and cached on
+the object; the cache has no time expiry. It is keyed by symbol, so
+changing the symbol (with `set_symbol()` or by assigning to `symbol`)
+always fetches fresh metadata. To refresh the values for the same
+symbol, create a new `Ticker` or call `set_symbol()` again.
+
 ## See also
 
 Other historical data:
@@ -18,7 +27,7 @@ Other historical data:
 
 ## Super class
 
-[`yahoofinancer::YahooFinanceBase`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase-class.md)
+[`YahooFinanceBase`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase-class.md)
 -\> `Ticker`
 
 ## Active bindings
@@ -95,7 +104,7 @@ Other historical data:
 
 ### Public methods
 
-- [`Ticker$new()`](#method-Ticker-new)
+- [`Ticker$new()`](#method-Ticker-initialize)
 
 - [`Ticker$set_symbol()`](#method-Ticker-set_symbol)
 
@@ -109,11 +118,11 @@ Other historical data:
 
 Inherited methods
 
-- [`yahoofinancer::YahooFinanceBase$get_history()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-get_history)
+- [`YahooFinanceBase$get_history()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-get_history)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Ticker$new()`
 
 Create a new Ticker object.
 
@@ -134,7 +143,7 @@ Create a new Ticker object.
 
 ------------------------------------------------------------------------
 
-### Method `set_symbol()`
+### `Ticker$set_symbol()`
 
 Set a new symbol and clear cached metadata.
 
@@ -155,7 +164,7 @@ Set a new symbol and clear cached metadata.
 
 ------------------------------------------------------------------------
 
-### Method `get_income_statement()`
+### `Ticker$get_income_statement()`
 
 Retrieve income statement data.
 
@@ -177,7 +186,7 @@ columns `date`, `period_type`, and income statement line items, or
 
 ------------------------------------------------------------------------
 
-### Method `get_balance_sheet()`
+### `Ticker$get_balance_sheet()`
 
 Retrieve balance sheet data.
 
@@ -199,7 +208,7 @@ columns `date`, `period_type`, and balance sheet line items, or
 
 ------------------------------------------------------------------------
 
-### Method `get_cash_flow()`
+### `Ticker$get_cash_flow()`
 
 Retrieve cash flow statement data.
 
@@ -221,7 +230,7 @@ columns `date`, `period_type`, and cash flow statement line items, or
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Ticker$clone()`
 
 The objects of this class are cloneable with this method.
 

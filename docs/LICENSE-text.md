@@ -1,3 +1,4 @@
 # License
 
-YEAR: 2022 COPYRIGHT HOLDER: Aravind Hebbali
+YEAR: 2022\
+COPYRIGHT HOLDER: Aravind Hebbali\

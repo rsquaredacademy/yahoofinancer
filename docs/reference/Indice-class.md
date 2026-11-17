@@ -18,7 +18,7 @@ Other historical data:
 
 ## Super class
 
-[`yahoofinancer::YahooFinanceBase`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase-class.md)
+[`YahooFinanceBase`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase-class.md)
 -\> `Index`
 
 ## Active bindings
@@ -31,7 +31,7 @@ Other historical data:
 
 ### Public methods
 
-- [`Index$new()`](#method-Index-new)
+- [`Index$new()`](#method-Index-initialize)
 
 - [`Index$set_index()`](#method-Index-set_index)
 
@@ -39,12 +39,12 @@ Other historical data:
 
 Inherited methods
 
-- [`yahoofinancer::YahooFinanceBase$get_history()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-get_history)
-- [`yahoofinancer::YahooFinanceBase$set_symbol()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-set_symbol)
+- [`YahooFinanceBase$get_history()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-get_history)
+- [`YahooFinanceBase$set_symbol()`](https://yahoofinancer.rsquaredacademy.com/reference/YahooFinanceBase.html#method-set_symbol)
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Index$new()`
 
 Create a new Index object.
 
@@ -73,13 +73,11 @@ A new `Index` object.
 
 #### Examples
 
-    \dontrun{
     nifty_50 <- Index$new('^NSEI')
-    }
 
 ------------------------------------------------------------------------
 
-### Method `set_index()`
+### `Index$set_index()`
 
 Set a new index symbol.
 
@@ -104,14 +102,12 @@ Set a new index symbol.
 
 #### Examples
 
-    \dontrun{
     indice <- Index$new('^NSEI')
     indice$set_index('^NDX')
-    }
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Index$clone()`
 
 The objects of this class are cloneable with this method.
 
@@ -130,7 +126,7 @@ The objects of this class are cloneable with this method.
 ``` r
 
 ## ------------------------------------------------
-## Method `Index$new`
+## Method `Index$new()`
 ## ------------------------------------------------
 
 if (FALSE) { # \dontrun{
@@ -138,7 +134,7 @@ nifty_50 <- Index$new('^NSEI')
 } # }
 
 ## ------------------------------------------------
-## Method `Index$set_index`
+## Method `Index$set_index()`
 ## ------------------------------------------------
 
 if (FALSE) { # \dontrun{

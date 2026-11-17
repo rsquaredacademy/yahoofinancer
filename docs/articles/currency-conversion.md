@@ -12,7 +12,13 @@ runs in under five minutes.
 
 ### Required Packages
 
-`# Install required packages if not already installed:`` ``# install.packages(c("yahoofinancer", "dplyr", "ggplot2"))`` `` `[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`
+\
+`# Install required packages if not already installed:`\
+`# install.packages(c("yahoofinancer", "dplyr", "ggplot2"))`\
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`
 
 ## 1. Discovering Supported Currencies
 
@@ -22,7 +28,17 @@ The
 helper returns the full catalogue of supported currencies — no arguments
 required.
 
-`currencies`` ``<-`` `[`get_currencies`](https://yahoofinancer.rsquaredacademy.com/reference/get_currencies.md)`(``)`` `` `[`head`](https://rdrr.io/r/utils/head.html)`(``currencies``)`` ``#> short_name long_name symbol local_long_name`` ``#> 1 USD US Dollar USD US Dollar`` ``#> 2 EUR Euro EUR Euro`` ``#> 3 GBP Pound Sterling GBP Pound Sterling`` ``#> 4 JPY Japanese Yen JPY Japanese Yen`` ``#> 5 CHF Swiss Franc CHF Swiss Franc`` ``#> 6 AUD Australian Dollar AUD Australian Dollar`
+\
+`currencies`` ``<-`` `[`get_currencies`](https://yahoofinancer.rsquaredacademy.com/reference/get_currencies.md)`(``)`\
+\
+[`head`](https://rdrr.io/r/utils/head.html)`(``currencies``)`\
+`#>   short_name         long_name symbol   local_long_name`\
+`#> 1        USD         US Dollar    USD         US Dollar`\
+`#> 2        EUR              Euro    EUR              Euro`\
+`#> 3        GBP    Pound Sterling    GBP    Pound Sterling`\
+`#> 4        JPY      Japanese Yen    JPY      Japanese Yen`\
+`#> 5        CHF       Swiss Franc    CHF       Swiss Franc`\
+`#> 6        AUD Australian Dollar    AUD Australian Dollar`
 
 Exchange rates on Yahoo Finance are quoted as **pairs**: to convert from
 one currency to another, Yahoo builds the symbol `FROM` + `TO` + `=X`.
@@ -44,7 +60,22 @@ helper shown next assembles them for you.
 retrieves current and historical rates between any two supported
 currencies. You can request a fixed window with `start` and `end` dates:
 
-`gbp_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"GBP"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` `[`head`](https://rdrr.io/r/utils/head.html)`(``gbp_usd``)`` ``#> date high low open close volume adj_close`` ``#> 1 2024-01-02 00:00:00 1.2734 1.2577 1.2732 1.2602 0 1.2602`` ``#> 2 2024-01-03 00:00:00 1.2716 1.2595 1.2678 1.2631 0 1.2631`` ``#> 3 2024-01-04 00:00:00 1.2709 1.2602 1.2689 1.2677 0 1.2677`` ``#> 4 2024-01-05 00:00:00 1.2721 1.2614 1.2705 1.2717 0 1.2717`` ``#> 5 2024-01-08 00:00:00 1.2741 1.2698 1.2718 1.2720 0 1.2720`` ``#> 6 2024-01-09 00:00:00 1.2743 1.2688 1.2694 1.2694 0 1.2694`
+\
+`gbp_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`\
+`  from  ``=`` ``"GBP"``,`\
+`  to    ``=`` ``"USD"``,`\
+`  start ``=`` ``"2024-01-01"``,`\
+`  end   ``=`` ``"2024-12-31"`\
+`)`\
+\
+[`head`](https://rdrr.io/r/utils/head.html)`(``gbp_usd``)`\
+`#>                  date   high    low   open  close volume adj_close`\
+`#> 1 2024-01-02 00:00:00 1.2734 1.2577 1.2732 1.2602      0    1.2602`\
+`#> 2 2024-01-03 00:00:00 1.2716 1.2595 1.2678 1.2631      0    1.2631`\
+`#> 3 2024-01-04 00:00:00 1.2709 1.2602 1.2689 1.2677      0    1.2677`\
+`#> 4 2024-01-05 00:00:00 1.2721 1.2614 1.2705 1.2717      0    1.2717`\
+`#> 5 2024-01-08 00:00:00 1.2741 1.2698 1.2718 1.2720      0    1.2720`\
+`#> 6 2024-01-09 00:00:00 1.2743 1.2688 1.2694 1.2694      0    1.2694`
 
 The result provides the familiar OHLCV price series: a data frame with
 `date` (POSIXct), `high`, `low`, `open`, `close`, and `volume` columns,
@@ -64,7 +95,14 @@ knowing:
   is standalone — unlike most of the package, no `Ticker` object is
   needed.
 
-`# Example: Rolling 1-month window with weekly candle intervals`` ``weekly_rates`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"GBP"``,`` `` to ``=`` ``"USD"``,`` `` period ``=`` ``"1mo"``,`` `` interval ``=`` ``"1wk"`` ``)`
+\
+`# Example: Rolling 1-month window with weekly candle intervals`\
+`weekly_rates`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`\
+`  from     ``=`` ``"GBP"``,`\
+`  to       ``=`` ``"USD"``,`\
+`  period   ``=`` ``"1mo"``,`\
+`  interval ``=`` ``"1wk"`\
+`)`
 
 > **Note:** For intraday analysis, remember FX markets close on weekends
 > — hourly data will show natural gaps.
@@ -75,7 +113,18 @@ The real power comes from comparing pairs side by side. Let’s fetch the
 euro against the dollar over the same window, stack both pairs into one
 long data frame, and label each row with its pair.
 
-`eur_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"EUR"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` ``fx`` ``<-`` `[`bind_rows`](https://dplyr.tidyverse.org/reference/bind_rows.html)`(`` `` ``gbp_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"GBP/USD"``)``,`` `` ``eur_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"EUR/USD"``)`` ``)`
+\
+`eur_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`\
+`  from  ``=`` ``"EUR"``,`\
+`  to    ``=`` ``"USD"``,`\
+`  start ``=`` ``"2024-01-01"``,`\
+`  end   ``=`` ``"2024-12-31"`\
+`)`\
+\
+`fx`` ``<-`` `[`bind_rows`](https://dplyr.tidyverse.org/reference/bind_rows.html)`(`\
+`  ``gbp_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"GBP/USD"``)``,`\
+`  ``eur_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"EUR/USD"``)`\
+`)`
 
 The pound trades near \$1.27 while the euro trades near \$1.08, so
 plotting raw rates would compare *levels*, not *movement*. As in the
@@ -83,7 +132,26 @@ portfolio guide, we normalize each series to 100 at the start of the
 period so the lines show percentage change — a like-for-like view of
 which currency strengthened against the dollar.
 
-`fx_performance`` ``<-`` ``fx`` ``|>`` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``, .by_group ``=`` ``TRUE``)`` ``|>`` `` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`` `` date ``=`` `[`as.Date`](https://rdrr.io/pkg/zoo/man/yearmon.html)`(``date``)``,`` `` normalized_rate ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`` `` ``)`` ``|>`` `` `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`` `` ``# Where did each pair end the year?`` ``fx_performance`` ``|>`` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`` `` `[`slice_tail`](https://dplyr.tidyverse.org/reference/slice.html)`(``n ``=`` ``1``)`` ``|>`` `` `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``pair``, ``date``, ``close``, ``normalized_rate``)`` ``#> # A tibble: 2 × 4`` ``#> pair date close normalized_rate`` ``#> <chr> <date> <dbl> <dbl>`` ``#> 1 EUR/USD 2024-12-31 1.038 96.2`` ``#> 2 GBP/USD 2024-12-31 1.252 98.6`
+\
+`fx_performance`` ``<-`` ``fx`` ``|>`\
+`  `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`\
+`  `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``, .by_group ``=`` ``TRUE``)`` ``|>`\
+`  `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`\
+`    date ``=`` `[`as.Date`](https://rdrr.io/pkg/zoo/man/as.Date.html)`(``date``)``,`\
+`    normalized_rate ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`\
+`  ``)`` ``|>`\
+`  `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`\
+\
+`# Where did each pair end the year?`\
+`fx_performance`` ``|>`\
+`  `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`\
+`  `[`slice_tail`](https://dplyr.tidyverse.org/reference/slice.html)`(``n ``=`` ``1``)`` ``|>`\
+`  `[`select`](https://dplyr.tidyverse.org/reference/select.html)`(``pair``, ``date``, ``close``, ``normalized_rate``)`\
+`#> # A tibble: 2 × 4`\
+`#>   pair    date       close normalized_rate`\
+`#>   <chr>   <date>     <dbl>           <dbl>`\
+`#> 1 EUR/USD 2024-12-31 1.038            96.2`\
+`#> 2 GBP/USD 2024-12-31 1.252            98.6`
 
 *(A normalized value below 100 means the currency weakened against the
 dollar over the window; above 100 means it strengthened.)*
@@ -95,7 +163,19 @@ series takes a single
 [`ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html) call.
 Map `color` to `pair` and `ggplot2` handles the rest.
 
-[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``fx_performance``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``date``, y ``=`` ``normalized_rate``, color ``=`` ``pair``)``)`` ``+`` `` `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``linewidth ``=`` ``0.8``)`` ``+`` `` `[`geom_hline`](https://ggplot2.tidyverse.org/reference/geom_abline.html)`(``yintercept ``=`` ``100``, linetype ``=`` ``"dashed"``, color ``=`` ``"grey50"``)`` ``+`` `` `[`theme_minimal`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`` ``+`` `` `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(`` `` title ``=`` ``"Pound vs Euro: Performance Against the US Dollar"``,`` `` subtitle ``=`` ``"Daily closing rates in 2024, normalized to 100 at the start of the year"``,`` `` x ``=`` ``"Date"``,`` `` y ``=`` ``"Normalized Rate (Base = 100)"``,`` `` color ``=`` ``"Pair"`` `` ``)`` ``+`` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"bottom"``)`
+\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``fx_performance``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``date``, y ``=`` ``normalized_rate``, color ``=`` ``pair``)``)`` ``+`\
+`  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``linewidth ``=`` ``0.8``)`` ``+`\
+`  `[`geom_hline`](https://ggplot2.tidyverse.org/reference/geom_abline.html)`(``yintercept ``=`` ``100``, linetype ``=`` ``"dashed"``, color ``=`` ``"grey50"``)`` ``+`\
+`  `[`theme_minimal`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(`\
+`    title ``=`` ``"Pound vs Euro: Performance Against the US Dollar"``,`\
+`    subtitle ``=`` ``"Daily closing rates in 2024, normalized to 100 at the start of the year"``,`\
+`    x ``=`` ``"Date"``,`\
+`    y ``=`` ``"Normalized Rate (Base = 100)"``,`\
+`    color ``=`` ``"Pair"`\
+`  ``)`` ``+`\
+`  `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"bottom"``)`
 
 In 2024 both European currencies lost ground against the dollar, but the
 chart makes it easy to spot divergences — months where sterling held up
@@ -113,7 +193,52 @@ foreign-exchange data, from quick spot checks to multi-pair comparisons.
 Below is the complete, self-contained workflow in a single
 copy-pasteable script:
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`` `[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`` `` ``# 1. Fetch historical exchange rates for two currency pairs`` ``gbp_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"GBP"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` ``eur_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`` `` from ``=`` ``"EUR"``,`` `` to ``=`` ``"USD"``,`` `` start ``=`` ``"2024-01-01"``,`` `` end ``=`` ``"2024-12-31"`` ``)`` `` ``# 2. Combine and normalize to base = 100`` ``fx_performance`` ``<-`` `[`bind_rows`](https://dplyr.tidyverse.org/reference/bind_rows.html)`(`` `` ``gbp_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"GBP/USD"``)``,`` `` ``eur_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"EUR/USD"``)`` ``)`` ``|>`` `` `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`` `` `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``, .by_group ``=`` ``TRUE``)`` ``|>`` `` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`` `` date ``=`` `[`as.Date`](https://rdrr.io/pkg/zoo/man/yearmon.html)`(``date``)``,`` `` normalized_rate ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`` `` ``)`` ``|>`` `` `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`` `` ``# 3. Plot normalized exchange rates side-by-side`` `[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``fx_performance``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``date``, y ``=`` ``normalized_rate``, color ``=`` ``pair``)``)`` ``+`` `` `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``linewidth ``=`` ``0.8``)`` ``+`` `` `[`geom_hline`](https://ggplot2.tidyverse.org/reference/geom_abline.html)`(``yintercept ``=`` ``100``, linetype ``=`` ``"dashed"``, color ``=`` ``"grey50"``)`` ``+`` `` `[`theme_minimal`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`` ``+`` `` `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(`` `` title ``=`` ``"Pound vs Euro: Performance Against the US Dollar"``,`` `` subtitle ``=`` ``"Daily closing rates in 2024, normalized to 100 at the start of the year"``,`` `` x ``=`` ``"Date"``,`` `` y ``=`` ``"Normalized Rate (Base = 100)"``,`` `` color ``=`` ``"Pair"`` `` ``)`` ``+`` `` `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"bottom"``)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`yahoofinancer`](https://yahoofinancer.rsquaredacademy.com/)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`dplyr`](https://dplyr.tidyverse.org)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`ggplot2`](https://ggplot2.tidyverse.org)`)`\
+\
+`# 1. Fetch historical exchange rates for two currency pairs`\
+`gbp_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`\
+`  from  ``=`` ``"GBP"``,`\
+`  to    ``=`` ``"USD"``,`\
+`  start ``=`` ``"2024-01-01"``,`\
+`  end   ``=`` ``"2024-12-31"`\
+`)`\
+\
+`eur_usd`` ``<-`` `[`currency_converter`](https://yahoofinancer.rsquaredacademy.com/reference/currency_converter.md)`(`\
+`  from  ``=`` ``"EUR"``,`\
+`  to    ``=`` ``"USD"``,`\
+`  start ``=`` ``"2024-01-01"``,`\
+`  end   ``=`` ``"2024-12-31"`\
+`)`\
+\
+`# 2. Combine and normalize to base = 100`\
+`fx_performance`` ``<-`` `[`bind_rows`](https://dplyr.tidyverse.org/reference/bind_rows.html)`(`\
+`  ``gbp_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"GBP/USD"``)``,`\
+`  ``eur_usd`` ``|>`` `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(``pair ``=`` ``"EUR/USD"``)`\
+`)`` ``|>`\
+`  `[`group_by`](https://dplyr.tidyverse.org/reference/group_by.html)`(``pair``)`` ``|>`\
+`  `[`arrange`](https://dplyr.tidyverse.org/reference/arrange.html)`(``date``, .by_group ``=`` ``TRUE``)`` ``|>`\
+`  `[`mutate`](https://dplyr.tidyverse.org/reference/mutate.html)`(`\
+`    date ``=`` `[`as.Date`](https://rdrr.io/pkg/zoo/man/as.Date.html)`(``date``)``,`\
+`    normalized_rate ``=`` ``(``close`` ``/`` ``close``[``1``]``)`` ``*`` ``100`\
+`  ``)`` ``|>`\
+`  `[`ungroup`](https://dplyr.tidyverse.org/reference/group_by.html)`(``)`\
+\
+`# 3. Plot normalized exchange rates side-by-side`\
+[`ggplot`](https://ggplot2.tidyverse.org/reference/ggplot.html)`(``fx_performance``, `[`aes`](https://ggplot2.tidyverse.org/reference/aes.html)`(``x ``=`` ``date``, y ``=`` ``normalized_rate``, color ``=`` ``pair``)``)`` ``+`\
+`  `[`geom_line`](https://ggplot2.tidyverse.org/reference/geom_path.html)`(``linewidth ``=`` ``0.8``)`` ``+`\
+`  `[`geom_hline`](https://ggplot2.tidyverse.org/reference/geom_abline.html)`(``yintercept ``=`` ``100``, linetype ``=`` ``"dashed"``, color ``=`` ``"grey50"``)`` ``+`\
+`  `[`theme_minimal`](https://ggplot2.tidyverse.org/reference/ggtheme.html)`(``)`` ``+`\
+`  `[`labs`](https://ggplot2.tidyverse.org/reference/labs.html)`(`\
+`    title ``=`` ``"Pound vs Euro: Performance Against the US Dollar"``,`\
+`    subtitle ``=`` ``"Daily closing rates in 2024, normalized to 100 at the start of the year"``,`\
+`    x ``=`` ``"Date"``,`\
+`    y ``=`` ``"Normalized Rate (Base = 100)"``,`\
+`    color ``=`` ``"Pair"`\
+`  ``)`` ``+`\
+`  `[`theme`](https://ggplot2.tidyverse.org/reference/theme.html)`(``legend.position ``=`` ``"bottom"``)`
 
 ------------------------------------------------------------------------
 
