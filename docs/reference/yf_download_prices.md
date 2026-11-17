@@ -57,7 +57,8 @@ yf_download_prices(
 
 A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with 8
 columns: `symbol`, `date`, `open`, `high`, `low`, `close`, `adj_close`,
-`volume`. Returns an empty tibble if all tickers fail.
+`volume`. Returns a zero-row tibble with these columns if all tickers
+fail.
 
 ## See also
 

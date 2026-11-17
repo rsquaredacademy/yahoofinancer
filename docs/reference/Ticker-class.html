@@ -3,7 +3,7 @@
 Yahoo Finance API. Inherits get_history() from
 YahooFinanceBase-class."><meta property="og:description" content="Class for retrieving all data related to a single ticker from the
 Yahoo Finance API. Inherits get_history() from
-YahooFinanceBase-class."><!-- Rsquared site-kit v1.0.1: GA4 + region-based consent. Kit files are vendored in pkgdown/assets/site-kit/. --><link rel="stylesheet" href="/site-kit/rsa-consent.css"><script src="/site-kit/rsa-analytics.js" data-ga-id="G-2QSPEL5WM6" async></script></head><body>
+YahooFinanceBase-class."><!-- Rsquared site-kit v1.2.0: GA4 + region-based consent + email sign-up. Kit files are vendored in pkgdown/assets/site-kit/. --><link rel="stylesheet" href="/site-kit/rsa-consent.css"><script src="/site-kit/rsa-analytics.js" data-ga-id="G-2QSPEL5WM6" async></script><link rel="stylesheet" href="/site-kit/rsa-signup.css"><script src="/site-kit/rsa-signup.js" defer></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -11,7 +11,7 @@ YahooFinanceBase-class."><!-- Rsquared site-kit v1.0.1: GA4 + region-based conse
 
     <a class="navbar-brand me-2" href="../index.html">yahoofinancer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,15 @@ Yahoo Finance API. Inherits <code>get_history()</code> from
     <p>An R6 class object</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Market metadata fields (<code>currency</code>, <code>regular_market_price</code>,
+<code>previous_close</code>, and so on) are fetched once per symbol and cached on
+the object; the cache has no time expiry. It is keyed by symbol, so changing
+the symbol (with <code>set_symbol()</code> or by assigning to <code>symbol</code>)
+always fetches fresh metadata. To refresh the values for the same symbol,
+create a new <code>Ticker</code> or call <code>set_symbol()</code> again.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other historical data:
 <code><a href="Indice-class.html">Indice-class</a></code>,
@@ -72,7 +81,7 @@ Yahoo Finance API. Inherits <code>get_history()</code> from
     </div>
     <div class="section level2">
     <h2 id="super-class">Super class<a class="anchor" aria-label="anchor" href="#super-class"></a></h2>
-    <p><code><a href="YahooFinanceBase-class.html">yahoofinancer::YahooFinanceBase</a></code> -&gt; <code>Ticker</code></p>
+    <p><code><a href="YahooFinanceBase-class.html">YahooFinanceBase</a></code> -&gt; <code>Ticker</code></p>
     </div>
     <div class="section level2">
     <h2 id="active-bindings">Active bindings<a class="anchor" aria-label="anchor" href="#active-bindings"></a></h2>
@@ -80,67 +89,67 @@ Yahoo Finance API. Inherits <code>get_history()</code> from
 <dd><p>Retrieves valuation measures</p></dd>
 
 
-<dt><code>recommendations</code></dt>
+    <dt><code>recommendations</code></dt>
 <dd><p>Related symbols recommended by Yahoo Finance and their scores.</p></dd>
 
 
-<dt><code>technical_insights</code></dt>
+    <dt><code>technical_insights</code></dt>
 <dd><p>Technical insights and indicators snapshot.</p></dd>
 
 
-<dt><code>currency</code></dt>
+    <dt><code>currency</code></dt>
 <dd><p>Currency code for the symbol.</p></dd>
 
 
-<dt><code>exchange_name</code></dt>
+    <dt><code>exchange_name</code></dt>
 <dd><p>Short name of the stock exchange.</p></dd>
 
 
-<dt><code>full_exchange_name</code></dt>
+    <dt><code>full_exchange_name</code></dt>
 <dd><p>Full name of the stock exchange.</p></dd>
 
 
-<dt><code>first_trade_date</code></dt>
+    <dt><code>first_trade_date</code></dt>
 <dd><p>Timestamp of the first recorded trade.</p></dd>
 
 
-<dt><code>regular_market_time</code></dt>
+    <dt><code>regular_market_time</code></dt>
 <dd><p>Timestamp of the last market trade.</p></dd>
 
 
-<dt><code>timezone</code></dt>
+    <dt><code>timezone</code></dt>
 <dd><p>Timezone code of the exchange.</p></dd>
 
 
-<dt><code>exchange_timezone_name</code></dt>
+    <dt><code>exchange_timezone_name</code></dt>
 <dd><p>Full timezone name of the exchange.</p></dd>
 
 
-<dt><code>regular_market_price</code></dt>
+    <dt><code>regular_market_price</code></dt>
 <dd><p>Current regular market price.</p></dd>
 
 
-<dt><code>fifty_two_week_high</code></dt>
+    <dt><code>fifty_two_week_high</code></dt>
 <dd><p>52-week high price.</p></dd>
 
 
-<dt><code>fifty_two_week_low</code></dt>
+    <dt><code>fifty_two_week_low</code></dt>
 <dd><p>52-week low price.</p></dd>
 
 
-<dt><code>regular_market_day_high</code></dt>
+    <dt><code>regular_market_day_high</code></dt>
 <dd><p>Highest price during the current trading session.</p></dd>
 
 
-<dt><code>regular_market_day_low</code></dt>
+    <dt><code>regular_market_day_low</code></dt>
 <dd><p>Lowest price during the current trading session.</p></dd>
 
 
-<dt><code>regular_market_volume</code></dt>
+    <dt><code>regular_market_volume</code></dt>
 <dd><p>Current trading volume.</p></dd>
 
 
-<dt><code>previous_close</code></dt>
+    <dt><code>previous_close</code></dt>
 <dd><p>Closing price of the previous trading day.</p></dd>
 
 
@@ -151,125 +160,117 @@ Yahoo Finance API. Inherits <code>get_history()</code> from
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-Ticker-new"><code>Ticker$new()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-Ticker-initialize"><code>Ticker$new()</code></a></p></li>
 <li><p><a href="#method-Ticker-set_symbol"><code>Ticker$set_symbol()</code></a></p></li>
 <li><p><a href="#method-Ticker-get_income_statement"><code>Ticker$get_income_statement()</code></a></p></li>
 <li><p><a href="#method-Ticker-get_balance_sheet"><code>Ticker$get_balance_sheet()</code></a></p></li>
 <li><p><a href="#method-Ticker-get_cash_flow"><code>Ticker$get_cash_flow()</code></a></p></li>
 <li><p><a href="#method-Ticker-clone"><code>Ticker$clone()</code></a></p></li>
-</ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href="YahooFinanceBase.html#method-get_history"><code>yahoofinancer::YahooFinanceBase$get_history()</code></a></span></li>
-</ul></details></p><hr><a id="method-Ticker-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+</ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="yahoofinancer" data-topic="YahooFinanceBase" data-id="get_history"><a href="YahooFinanceBase.html#method-get_history"><code>YahooFinanceBase$get_history()</code></a></span></li>
+</ul></details></p><hr><a id="method-Ticker-initialize"></a><div class="section">
+<h3 id="ticker-new-"><code>Ticker$new()</code><a class="anchor" aria-label="anchor" href="#ticker-new-"></a></h3>
 <p>Create a new Ticker object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/Ticker-class.html">Ticker</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>symbol <span class="op">=</span> <span class="cn">NA</span>, validate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>symbol</code></dt>
 <dd><p>Symbol (e.g., <code>"AAPL"</code>).</p></dd>
 
-
-<dt><code>validate</code></dt>
+      <dt><code>validate</code></dt>
 <dd><p>Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Ticker-set_symbol"></a><div class="section">
-<h3 id="method-set-symbol-">Method <code>set_symbol()</code><a class="anchor" aria-label="anchor" href="#method-set-symbol-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Ticker-set_symbol"></a><div class="section">
+<h3 id="ticker-set-symbol-"><code>Ticker$set_symbol()</code><a class="anchor" aria-label="anchor" href="#ticker-set-symbol-"></a></h3>
 <p>Set a new symbol and clear cached metadata.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Ticker</span><span class="op">$</span><span class="fu">set_symbol</span><span class="op">(</span><span class="va">symbol</span>, validate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>symbol</code></dt>
 <dd><p>New symbol (e.g., <code>"AAPL"</code>).</p></dd>
 
-
-<dt><code>validate</code></dt>
+      <dt><code>validate</code></dt>
 <dd><p>Logical; if TRUE, validate symbol against Yahoo Finance. Defaults to TRUE.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Ticker-get_income_statement"></a><div class="section">
-<h3 id="method-get-income-statement-">Method <code>get_income_statement()</code><a class="anchor" aria-label="anchor" href="#method-get-income-statement-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Ticker-get_income_statement"></a><div class="section">
+<h3 id="ticker-get-income-statement-"><code>Ticker$get_income_statement()</code><a class="anchor" aria-label="anchor" href="#ticker-get-income-statement-"></a></h3>
 <p>Retrieve income statement data.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Ticker</span><span class="op">$</span><span class="fu">get_income_statement</span><span class="op">(</span>frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"annual"</span>, <span class="st">"quarterly"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>frequency</code></dt>
 <dd><p>One of <code>"annual"</code> or <code>"quarterly"</code>. Defaults to <code>"annual"</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></code> with columns <code>date</code>, <code>period_type</code>,
   and income statement line items, or <code>invisible(NULL)</code> on failure.</p>
 </div>
 
-</div><p></p><hr><a id="method-Ticker-get_balance_sheet"></a><div class="section">
-<h3 id="method-get-balance-sheet-">Method <code>get_balance_sheet()</code><a class="anchor" aria-label="anchor" href="#method-get-balance-sheet-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Ticker-get_balance_sheet"></a><div class="section">
+<h3 id="ticker-get-balance-sheet-"><code>Ticker$get_balance_sheet()</code><a class="anchor" aria-label="anchor" href="#ticker-get-balance-sheet-"></a></h3>
 <p>Retrieve balance sheet data.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Ticker</span><span class="op">$</span><span class="fu">get_balance_sheet</span><span class="op">(</span>frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"annual"</span>, <span class="st">"quarterly"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>frequency</code></dt>
 <dd><p>One of <code>"annual"</code> or <code>"quarterly"</code>. Defaults to <code>"annual"</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></code> with columns <code>date</code>, <code>period_type</code>,
   and balance sheet line items, or <code>invisible(NULL)</code> on failure.</p>
 </div>
 
-</div><p></p><hr><a id="method-Ticker-get_cash_flow"></a><div class="section">
-<h3 id="method-get-cash-flow-">Method <code>get_cash_flow()</code><a class="anchor" aria-label="anchor" href="#method-get-cash-flow-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Ticker-get_cash_flow"></a><div class="section">
+<h3 id="ticker-get-cash-flow-"><code>Ticker$get_cash_flow()</code><a class="anchor" aria-label="anchor" href="#ticker-get-cash-flow-"></a></h3>
 <p>Retrieve cash flow statement data.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Ticker</span><span class="op">$</span><span class="fu">get_cash_flow</span><span class="op">(</span>frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"annual"</span>, <span class="st">"quarterly"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>frequency</code></dt>
 <dd><p>One of <code>"annual"</code> or <code>"quarterly"</code>. Defaults to <code>"annual"</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></code> with columns <code>date</code>, <code>period_type</code>,
   and cash flow statement line items, or <code>invisible(NULL)</code> on failure.</p>
 </div>
 
-</div><p></p><hr><a id="method-Ticker-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Ticker-clone"></a><div class="section">
+<h3 id="ticker-clone-"><code>Ticker$clone()</code><a class="anchor" aria-label="anchor" href="#ticker-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Ticker</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -279,6 +280,7 @@ Yahoo Finance API. Inherits <code>get_history()</code> from
 </div>
 
 </div>
+
 
     </div>
 
@@ -291,7 +293,7 @@ Yahoo Finance API. Inherits <code>get_history()</code> from
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0. <a href="https://www.rsquaredacademy.com/privacy-policy.html" class="external-link">Privacy</a> · <a href="#" data-rsa-analytics-optout>Turn off analytics</a></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1. <a href="https://www.rsquaredacademy.com/privacy-policy.html" class="external-link">Privacy</a> · <a href="#" data-rsa-analytics-optout>Turn off analytics</a></p>
 </div>
 
     </footer></div>

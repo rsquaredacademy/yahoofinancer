@@ -107,7 +107,7 @@ Other historical data:
 
 ### Public methods
 
-- [`Tickers$new()`](#method-Tickers-new)
+- [`Tickers$new()`](#method-Tickers-initialize)
 
 - [`Tickers$get_history()`](#method-Tickers-get_history)
 
@@ -117,7 +117,7 @@ Other historical data:
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Tickers$new()`
 
 Create a new Tickers object.
 
@@ -142,7 +142,7 @@ A new `Tickers` object.
 
 ------------------------------------------------------------------------
 
-### Method `get_history()`
+### `Tickers$get_history()`
 
 Retrieve historical market data for all symbols.
 
@@ -179,12 +179,12 @@ Retrieve historical market data for all symbols.
 
 A tidy [`tibble`](https://tibble.tidyverse.org/reference/tibble.html)
 containing historical prices and volumes. Columns: `symbol`, `date`,
-`open`, `high`, `low`, `close`, `adj_close`, `volume`. Returns an empty
-tibble if all tickers fail.
+`open`, `high`, `low`, `close`, `adj_close`, `volume`. Returns a
+zero-row tibble with these columns if all tickers fail.
 
 ------------------------------------------------------------------------
 
-### Method `aggregate_data()`
+### `Tickers$aggregate_data()`
 
 Internal helper to execute a method across all symbols and combine
 results. Not intended for direct end-user use.
@@ -207,7 +207,7 @@ empty `tibble` if all tickers fail.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Tickers$clone()`
 
 The objects of this class are cloneable with this method.
 

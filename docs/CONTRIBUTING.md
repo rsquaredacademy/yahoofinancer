@@ -1,39 +1,49 @@
 # Contributing to yahoofinancer
 
-Thank you for your interest in contributing to `yahoofinancer`!
+Thanks for helping improve yahoofinancer. This guide covers bug reports,
+fixes, and pull requests.
 
-## Hermetic Testing Policy
+## Reporting a bug
 
-All tests in `yahoofinancer` must run **completely offline and
-hermetically**. Tests must never issue network requests to live Yahoo
-Finance servers during test execution or CI.
+- Search [existing
+  issues](https://github.com/rsquaredacademy/yahoofinancer/issues)
+  before opening a new one.
+- Every issue must include a reproducible example (a “reprex”). Use the
+  bug report form and keep the example minimal. Build it with
+  [reprex](https://reprex.tidyverse.org):
+  [`library(yahoofinancer)`](https://yahoofinancer.rsquaredacademy.com/),
+  a small inline data frame or a built-in dataset, the call, and its
+  output.
+- Include the full error or warning text, your
+  [`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html) output,
+  and the package version and install source (CRAN or a GitHub commit).
+- Confirm the example fails in a fresh R session.
 
-### Mocking Mechanisms
+## How fixes are verified
 
-Two testing patterns are supported:
+Every fixing pull request adds a test built from the issue’s example.
+Before the issue is closed, the maintainer re-runs that example on the
+fix and posts the output in the closing comment, together with the
+commit or pull request.
 
-1.  **Custom Helper `with_mock_api()`**
-    (`tests/testthat/helper-mocks.R`):
-    - Injects mocked HTTP responses via
-      [`testthat::with_mocked_bindings`](https://testthat.r-lib.org/reference/local_mocked_bindings.html)
-      on `httr2` and package internals.
-    - Build responses with
-      `mock_response(status_code = 200, body_json = list(...))`.
-2.  **`httptest2` Fixtures** (`tests/testthat/setup-httptest2.R`):
-    - Recorded JSON fixtures located in `tests/testthat/api/**`.
-    - All URLs are redacted to keep file paths under CRAN’s
-      100-character tarball portability limit.
+## Proposing a change
 
-## Development Workflow
+Open an issue first for anything beyond a typo or a small documentation
+fix. Explain the problem and, for a new feature, show the proposed
+interface with an example call and the alternatives you considered.
 
-Follow this standard verification workflow for any changes:
+## Pull requests
 
-`devtools``::`[`document`](https://devtools.r-lib.org/reference/document.html)`(``)`` ``# Regenerates man/ and NAMESPACE`` ``devtools``::`[`test`](https://devtools.r-lib.org/reference/test.html)`(``)`` ``# Runs complete offline test suite`` ``devtools``::`[`check`](https://devtools.r-lib.org/reference/check.html)`(``args ``=`` ``"--as-cran"``)`` ``# Release gate (0 errors, 0 warnings, 0 notes)`
+- Branch from `master` (this package has no `develop` branch).
+- Add a bullet to `NEWS.md` describing the change.
+- Add tests with [testthat](https://testthat.r-lib.org).
+- Run
+  [`devtools::check()`](https://devtools.r-lib.org/reference/check.html);
+  it should finish with no errors or warnings.
+- Follow the [tidyverse style guide](https://style.tidyverse.org).
 
-## Code Style
+## Code of conduct
 
-- Use tidyverse styling guidelines.
-- Keep user-facing return values as snake_case tibbles.
-- Single-ticker R6 methods warn and return `invisible(NULL)` on failure.
-- Multi-ticker / batch functions warn for failed tickers and return
-  empty tibbles matching documented schema on full failure.
+This project is released with a [Contributor Code of
+Conduct](https://yahoofinancer.rsquaredacademy.com/CODE_OF_CONDUCT.md).
+By participating, you agree to abide by its terms.

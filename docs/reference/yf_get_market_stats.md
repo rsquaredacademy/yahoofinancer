@@ -21,7 +21,8 @@ A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with 7
 columns: `symbol` (character), `regular_market_price` (numeric),
 `fifty_two_week_high` (numeric), `fifty_two_week_low` (numeric),
 `regular_market_volume` (numeric), `previous_close` (numeric),
-`currency` (character). Returns an empty tibble if all tickers fail.
+`currency` (character). Returns a zero-row tibble with these columns if
+all tickers fail.
 
 ## See also
 

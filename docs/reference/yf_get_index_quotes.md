@@ -21,7 +21,7 @@ A [`tibble`](https://tibble.tidyverse.org/reference/tibble.html) with
 the same 8-column schema as
 [`yf_download_prices`](https://yahoofinancer.rsquaredacademy.com/reference/yf_download_prices.md):
 `symbol`, `date`, `open`, `high`, `low`, `close`, `adj_close`, `volume`.
-Returns an empty tibble on failure.
+Returns a zero-row tibble with these columns on failure.
 
 ## See also
 

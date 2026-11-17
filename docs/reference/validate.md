@@ -32,7 +32,9 @@ validate(symbol = NULL, index = NA, return_logical = FALSE)
 
 If `return_logical = FALSE` (the default), a character vector of valid
 symbols. If `return_logical = TRUE`, a named logical vector indicating
-validation status for each symbol.
+validation status for each symbol. Matching is case-insensitive;
+returned symbols and names retain the caller's spelling and order,
+including dots.
 
 ## Details
 

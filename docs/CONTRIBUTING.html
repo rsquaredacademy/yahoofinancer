@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">yahoofinancer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,45 +43,39 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Contributing to yahoofinancer</h1>
-      <small class="dont-index">Source: <a href="https://github.com/rsquaredacademy/yahoofinancer/blob/HEAD/CONTRIBUTING.md" class="external-link"><code>CONTRIBUTING.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rsquaredacademy/yahoofinancer/blob/HEAD/.github/CONTRIBUTING.md" class="external-link"><code>.github/CONTRIBUTING.md</code></a></small>
     </div>
 
 <div id="contributing-to-yahoofinancer" class="section level1">
 
-<p>Thank you for your interest in contributing to <code>yahoofinancer</code>!</p>
+<p>Thanks for helping improve yahoofinancer. This guide covers bug reports, fixes, and pull requests.</p>
 <div class="section level2">
-<h2 id="hermetic-testing-policy">Hermetic Testing Policy<a class="anchor" aria-label="anchor" href="#hermetic-testing-policy"></a></h2>
-<p>All tests in <code>yahoofinancer</code> must run <strong>completely offline and hermetically</strong>. Tests must never issue network requests to live Yahoo Finance servers during test execution or CI.</p>
-<div class="section level3">
-<h3 id="mocking-mechanisms">Mocking Mechanisms<a class="anchor" aria-label="anchor" href="#mocking-mechanisms"></a></h3>
-<p>Two testing patterns are supported:</p>
-<ol style="list-style-type: decimal"><li>
-<strong>Custom Helper <code>with_mock_api()</code></strong> (<code>tests/testthat/helper-mocks.R</code>):
-<ul><li>Injects mocked HTTP responses via <code><a href="https://testthat.r-lib.org/reference/local_mocked_bindings.html" class="external-link">testthat::with_mocked_bindings</a></code> on <code>httr2</code> and package internals.</li>
-<li>Build responses with <code>mock_response(status_code = 200, body_json = list(...))</code>.</li>
-</ul></li>
-<li>
-<strong><code>httptest2</code> Fixtures</strong> (<code>tests/testthat/setup-httptest2.R</code>):
-<ul><li>Recorded JSON fixtures located in <code>tests/testthat/api/**</code>.</li>
-<li>All URLs are redacted to keep file paths under CRAN’s 100-character tarball portability limit.</li>
-</ul></li>
-</ol></div>
-</div>
-<div class="section level2">
-<h2 id="development-workflow">Development Workflow<a class="anchor" aria-label="anchor" href="#development-workflow"></a></h2>
-<p>Follow this standard verification workflow for any changes:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html" class="external-link">document</a></span><span class="op">(</span><span class="op">)</span>                 <span class="co"># Regenerates man/ and NAMESPACE</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/test.html" class="external-link">test</a></span><span class="op">(</span><span class="op">)</span>                     <span class="co"># Runs complete offline test suite</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">check</a></span><span class="op">(</span>args <span class="op">=</span> <span class="st">"--as-cran"</span><span class="op">)</span>  <span class="co"># Release gate (0 errors, 0 warnings, 0 notes)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="code-style">Code Style<a class="anchor" aria-label="anchor" href="#code-style"></a></h2>
-<ul><li>Use tidyverse styling guidelines.</li>
-<li>Keep user-facing return values as snake_case tibbles.</li>
-<li>Single-ticker R6 methods warn and return <code>invisible(NULL)</code> on failure.</li>
-<li>Multi-ticker / batch functions warn for failed tickers and return empty tibbles matching documented schema on full failure.</li>
+<h2 id="reporting-a-bug">Reporting a bug<a class="anchor" aria-label="anchor" href="#reporting-a-bug"></a></h2>
+<ul><li>Search <a href="https://github.com/rsquaredacademy/yahoofinancer/issues" class="external-link">existing issues</a> before opening a new one.</li>
+<li>Every issue must include a reproducible example (a “reprex”). Use the bug report form and keep the example minimal. Build it with <a href="https://reprex.tidyverse.org" class="external-link">reprex</a>: <code><a href="https://yahoofinancer.rsquaredacademy.com/">library(yahoofinancer)</a></code>, a small inline data frame or a built-in dataset, the call, and its output.</li>
+<li>Include the full error or warning text, your <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> output, and the package version and install source (CRAN or a GitHub commit).</li>
+<li>Confirm the example fails in a fresh R session.</li>
 </ul></div>
+<div class="section level2">
+<h2 id="how-fixes-are-verified">How fixes are verified<a class="anchor" aria-label="anchor" href="#how-fixes-are-verified"></a></h2>
+<p>Every fixing pull request adds a test built from the issue’s example. Before the issue is closed, the maintainer re-runs that example on the fix and posts the output in the closing comment, together with the commit or pull request.</p>
+</div>
+<div class="section level2">
+<h2 id="proposing-a-change">Proposing a change<a class="anchor" aria-label="anchor" href="#proposing-a-change"></a></h2>
+<p>Open an issue first for anything beyond a typo or a small documentation fix. Explain the problem and, for a new feature, show the proposed interface with an example call and the alternatives you considered.</p>
+</div>
+<div class="section level2">
+<h2 id="pull-requests">Pull requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a></h2>
+<ul><li>Branch from <code>master</code> (this package has no <code>develop</code> branch).</li>
+<li>Add a bullet to <code>NEWS.md</code> describing the change.</li>
+<li>Add tests with <a href="https://testthat.r-lib.org" class="external-link">testthat</a>.</li>
+<li>Run <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code>; it should finish with no errors or warnings.</li>
+<li>Follow the <a href="https://style.tidyverse.org" class="external-link">tidyverse style guide</a>.</li>
+</ul></div>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a></h2>
+<p>This project is released with a <a href="../CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating, you agree to abide by its terms.</p>
+</div>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -93,7 +87,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0. <a href="https://www.rsquaredacademy.com/privacy-policy.html" class="external-link">Privacy</a> · <a href="#" data-rsa-analytics-optout>Turn off analytics</a></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1. <a href="https://www.rsquaredacademy.com/privacy-policy.html" class="external-link">Privacy</a> · <a href="#" data-rsa-analytics-optout>Turn off analytics</a></p>
 </div>
 
     </footer></div>
