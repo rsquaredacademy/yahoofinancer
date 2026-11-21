@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       R_CHECK_INTERNET_AVAILABILITY: "FALSE"
 
     steps:
@@ -27,15 +28,8 @@ jobs:
           extra-packages: any::covr
           needs: coverage
 
-      # Upload to Codecov only on pushes to the main branches: tokenless
-      # uploads from pull requests are refused ("Token required because
-      # branch is protected"). Pull requests still compute coverage.
-      - name: Test coverage (upload)
-        if: github.event_name == 'push'
+      # The org-level CODECOV_TOKEN (job env) authorises uploads from
+      # pushes and same-repo pull requests alike.
+      - name: Test coverage
         run: covr::codecov(quiet = FALSE)
-        shell: Rscript {0}
-
-      - name: Test coverage (pull request, no upload)
-        if: github.event_name != 'push'
-        run: print(covr::package_coverage(quiet = FALSE))
         shell: Rscript {0}
